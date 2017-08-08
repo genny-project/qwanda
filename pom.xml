@@ -75,8 +75,8 @@
 			<url>https://oss.sonatype.org/content/repositories/releases/</url>
 		</repository>
 		<repository>
-			<id>outcomelife</id>
-			<url>https://nexus.outcome-hub.com/nexus/content/repositories/outcomelife</url>
+			<id>life.genny</id>
+			<url>https://nexus.outcome-hub.com/nexus/content/repositories/life.genny</url>
 		</repository>
 	</repositories>
 
@@ -114,13 +114,13 @@
 			<version>${version.hibernate-validator}</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
+<!-- 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${version.hibernate}</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
+ -->		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<version>${version.hsqldb}</version>

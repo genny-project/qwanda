@@ -1,0 +1,29 @@
+package life.genny.qwanda.message;
+
+public class QEventMessage extends QMessage{
+	
+	private static final String MESSAGE_TYPE = "EVT_MSG";
+	private String event_type;
+	public String getEvent_type() {
+		return event_type;
+	}
+	public void setEvent_type(String event_type) {
+		this.event_type = event_type;
+	}
+	public MessageData getData() {
+		return data;
+	}
+	public void setData(MessageData data) {
+		this.data = data;
+	}
+	
+	private MessageData data;
+	
+	public QEventMessage(String eventType, String code) {
+		super(MESSAGE_TYPE);
+		this.event_type = eventType;
+		this.data = new MessageData(code);
+		// TODO Auto-generated constructor stub
+	}
+	
+}

@@ -45,6 +45,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.apache.logging.log4j.Logger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import life.genny.qwanda.Answer;
 import life.genny.qwanda.AnswerLink;
@@ -74,6 +75,7 @@ import life.genny.qwanda.exception.BadDataException;
 
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
+
 @Table(name = "baseentity")
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
@@ -95,12 +97,11 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	private static final String DEFAULT_CODE_PREFIX = "BAS_";
 	
 
-	@JsonIgnore
     @XmlTransient
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.baseEntity", cascade=CascadeType.ALL)	 
 	private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 
-	@JsonIgnore
+
     @XmlTransient
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.source", cascade=CascadeType.ALL)	 
 	private Set<EntityEntity> links = new HashSet<EntityEntity>(0);
@@ -166,6 +167,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	/**
 	 * @return the baseEntityAttributes
 	 */
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	public Set<EntityAttribute> getBaseEntityAttributes() {
 		return baseEntityAttributes;
 	}
@@ -182,6 +184,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	/**
 	 * @return the links
 	 */
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	public Set<EntityEntity> getLinks() {
 		return links;
 	}

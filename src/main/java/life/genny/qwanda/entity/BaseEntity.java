@@ -101,7 +101,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.baseEntity", cascade=CascadeType.ALL)	 
 	private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 
-
+    @JsonIgnore
     @XmlTransient
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.source", cascade=CascadeType.ALL)	 
 	private Set<EntityEntity> links = new HashSet<EntityEntity>(0);

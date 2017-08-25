@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 public abstract class QMessage implements Serializable , QMessageIntf{
 
+	@Override
+	public String toString() {
+		return "QMessage [msg_type=" + msg_type + "]";
+	}
+
 	private String msg_type;
 	
 	public String getMsg_type() {
@@ -18,6 +23,11 @@ public abstract class QMessage implements Serializable , QMessageIntf{
 	}
 	
 	public class MessageData{
+		
+		@Override
+		public String toString() {
+			return " MessageData [code=" + code +"   "+id +"]";
+		}
 		private String code;
 		public String getCode() {
 			return code;

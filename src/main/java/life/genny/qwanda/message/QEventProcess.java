@@ -60,5 +60,12 @@ public class QEventProcess {
 	public void setParams(Map<String, Object> params) {
 		this.params = params;
 	}
+
+	@Override
+	public String toString() {
+		return "QEventProcess [businessType=" + businessType + ", businessEvent=" + businessEvent + ", container="
+				+ container + ", itemId=" + itemId + ", processId=" + processId + ", processInstanceId="
+				+ processInstanceId + ", params=" + params + "]";
+	}
 	
  }

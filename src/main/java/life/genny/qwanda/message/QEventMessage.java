@@ -4,6 +4,11 @@ public class QEventMessage extends QMessage{
 	
 	private static final String MESSAGE_TYPE = "EVT_MSG";
 	private String event_type;
+
+	@Override
+	public String toString() {
+		return "QEventMessage [event_type=" + event_type + ", data=" + data + "]";
+	}
 	public String getEvent_type() {
 		return event_type;
 	}

@@ -1,9 +1,5 @@
 package life.genny.qwanda.entity;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
-
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.Column;
@@ -15,7 +11,9 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
-
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import life.genny.qwanda.attribute.Attribute;
 
 @Entity
@@ -83,6 +81,7 @@ public class EntityEntity implements java.io.Serializable {
 
 	@Version
 	private Long version = 1L;
+	
 
 	public EntityEntity() {
 	}
@@ -100,7 +99,7 @@ public class EntityEntity implements java.io.Serializable {
 	 *            the weighted importance of this attribute (relative to the
 	 *            other attributes)
 	 */
-	public EntityEntity(BaseEntity source, BaseEntity target, Attribute linkAttribute, Double weight) {
+	public EntityEntity(final BaseEntity source, final BaseEntity target, final Attribute linkAttribute, Double weight) {
 		autocreateCreated();
 		setSource(source);
 		setTarget(target);
@@ -127,7 +126,7 @@ public class EntityEntity implements java.io.Serializable {
 	 * @param Value
 	 *            the value associated with this attribute
 	 */
-	public EntityEntity(BaseEntity source, BaseEntity target, Attribute linkAttribute, Double weight, Object value) {
+	public EntityEntity(final BaseEntity source, final BaseEntity target, final Attribute linkAttribute, Double weight, final Object value) {
 		autocreateCreated();
 		setSource(source);
 		setTarget(target);
@@ -163,7 +162,7 @@ public class EntityEntity implements java.io.Serializable {
 		return pk;
 	}
 
-	public void setPk(EntityEntityId pk) {
+	public void setPk(final EntityEntityId pk) {
 		this.pk = pk;
 	}
 
@@ -172,7 +171,7 @@ public class EntityEntity implements java.io.Serializable {
 		return getPk().getSource();
 	}
 
-	public void setSource(BaseEntity source) {
+	public void setSource(final BaseEntity source) {
 		getPk().setSource(source);
 	}
 
@@ -181,7 +180,7 @@ public class EntityEntity implements java.io.Serializable {
 		return getPk().getTarget();
 	}
 
-	public void setTarget(BaseEntity target) {
+	public void setTarget(final BaseEntity target) {
 		getPk().setTarget(target);
 	}
 
@@ -190,9 +189,9 @@ public class EntityEntity implements java.io.Serializable {
 		return getPk().getLinkAttribute();
 	}
 
-	public void setLinkAttribute(Attribute linkAttribute) {
+	public void setLinkAttribute(final Attribute linkAttribute) {
 		getPk().setLinkAttribute(linkAttribute);
-	}	
+	}
 	
 	/**
 	 * @return the created
@@ -205,7 +204,7 @@ public class EntityEntity implements java.io.Serializable {
 	 * @param created
 	 *            the created to set
 	 */
-	public void setCreated(LocalDateTime created) {
+	public void setCreated(final LocalDateTime created) {
 		this.created = created;
 	}
 
@@ -220,7 +219,7 @@ public class EntityEntity implements java.io.Serializable {
 	 * @param updated
 	 *            the updated to set
 	 */
-	public void setUpdated(LocalDateTime updated) {
+	public void setUpdated(final LocalDateTime updated) {
 		this.updated = updated;
 	}
 
@@ -235,7 +234,7 @@ public class EntityEntity implements java.io.Serializable {
 	 * @param weight
 	 *            the weight to set
 	 */
-	public void setWeight(Double weight) {
+	public void setWeight(final Double weight) {
 		this.weight = weight;
 	}
 
@@ -250,7 +249,7 @@ public class EntityEntity implements java.io.Serializable {
 	 * @param version
 	 *            the version to set
 	 */
-	public void setVersion(Long version) {
+	public void setVersion(final Long version) {
 		this.version = version;
 	}
 
@@ -267,7 +266,7 @@ public class EntityEntity implements java.io.Serializable {
 	/**
 	 * @param valueDouble the valueDouble to set
 	 */
-	public void setValueDouble(Double valueDouble) {
+	public void setValueDouble(final Double valueDouble) {
 		this.valueDouble = valueDouble;
 	}
 
@@ -281,7 +280,7 @@ public class EntityEntity implements java.io.Serializable {
 	/**
 	 * @param valueInteger the valueInteger to set
 	 */
-	public void setValueInteger(Integer valueInteger) {
+	public void setValueInteger(final Integer valueInteger) {
 		this.valueInteger = valueInteger;
 	}
 
@@ -295,7 +294,7 @@ public class EntityEntity implements java.io.Serializable {
 	/**
 	 * @param valueLong the valueLong to set
 	 */
-	public void setValueLong(Long valueLong) {
+	public void setValueLong(final Long valueLong) {
 		this.valueLong = valueLong;
 	}
 
@@ -309,7 +308,7 @@ public class EntityEntity implements java.io.Serializable {
 	/**
 	 * @param valueDateTime the valueDateTime to set
 	 */
-	public void setValueDateTime(LocalDateTime valueDateTime) {
+	public void setValueDateTime(final LocalDateTime valueDateTime) {
 		this.valueDateTime = valueDateTime;
 	}
 
@@ -323,7 +322,7 @@ public class EntityEntity implements java.io.Serializable {
 	/**
 	 * @param valueString the valueString to set
 	 */
-	public void setValueString(String valueString) {
+	public void setValueString(final String valueString) {
 		this.valueString = valueString;
 	}
 
@@ -340,23 +339,24 @@ public class EntityEntity implements java.io.Serializable {
 
 	@Transient
 	public Date getCreatedDate() {
-		Date out = Date.from(created.atZone(ZoneId.systemDefault()).toInstant());
+		final Date out = Date.from(created.atZone(ZoneId.systemDefault()).toInstant());
 		return out;
 	}
 
 	@Transient
 	public Date getUpdatedDate() {
-		Date out = Date.from(updated.atZone(ZoneId.systemDefault()).toInstant());
+		final Date out = Date.from(updated.atZone(ZoneId.systemDefault()).toInstant());
 		return out;
 	}
 
-	public boolean equals(Object o) {
+	@Override
+  public boolean equals(final Object o) {
 		if (this == o)
 			return true;
 		if (o == null || getClass() != o.getClass())
 			return false;
 
-		EntityEntity that = (EntityEntity) o;
+		final EntityEntity that = (EntityEntity) o;
 
 		if (getPk() != null ? !getPk().equals(that.getPk()) : that.getPk() != null)
 			return false;
@@ -364,7 +364,8 @@ public class EntityEntity implements java.io.Serializable {
 		return true;
 	}
 
-	public int hashCode() {
+	@Override
+  public int hashCode() {
 		return (getPk() != null ? getPk().hashCode() : 0);
 	}
 

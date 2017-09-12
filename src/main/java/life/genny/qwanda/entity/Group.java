@@ -21,8 +21,7 @@
 
 package life.genny.qwanda.entity;
 
-import java.io.Serializable;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -32,20 +31,19 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
 
 /**
  * Group is the  base class for a Group
  * managed in the Qwanda library.
  * A Group object is inherited from a BaseEntity class and supports the core
- * features of an entity that has a set of default attributes. 
- * A group may be a source and a target attribute.  
+ * features of an entity that has a set of default attributes.
+ * A group may be a source and a target attribute.
  * A group requires a unique code
  * This extra
  * group information includes :
  * <ul>
- * <li>The unique group code e.g. GRP_CONTACTS 
+ * <li>The unique group code e.g. GRP_CONTACTS
  * </ul>
  * <p>
 
@@ -93,10 +91,10 @@ public class Group extends BaseEntity implements Serializable, BaseEntityIntf {
 	  * @param aCode The unique code for this Company
 	  * @param aName The human readable summary name
 	  */
-	public Group(String aCode, String aName)
+	public Group(final String aCode, final String aName)
 	{
 		super(getDefaultCodePrefix()+aCode, aName);
-	}
+ 	}
 	
 	/**
 	 * getDefaultCodePrefix This method is overrides the Base class
@@ -111,7 +109,7 @@ public class Group extends BaseEntity implements Serializable, BaseEntityIntf {
 	}
 
 	/**
-	 * getCompanyCode 
+	 * getCompanyCode
 	 * 
 	 * @return the given Company Code (without the prefix)
 	 */

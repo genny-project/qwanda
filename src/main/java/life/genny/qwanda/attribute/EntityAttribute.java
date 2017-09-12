@@ -1,9 +1,6 @@
 package life.genny.qwanda.attribute;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.Column;
@@ -17,13 +14,14 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 import life.genny.qwanda.entity.BaseEntity;
 
 @Entity
+//#@JsonFilter("EntityAttribute")
 @Table(name = "baseentity_attribute")
 @AssociationOverrides({ @AssociationOverride(name = "pk.baseEntity", joinColumns = @JoinColumn(name = "BASEENTITY_ID")),
 		@AssociationOverride(name = "pk.attribute", joinColumns = @JoinColumn(name = "ATTRIBUTE_ID")) })
@@ -35,7 +33,6 @@ public class EntityAttribute implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 @EmbeddedId
-@JsonIgnore
 	public EntityAttributeId pk = new EntityAttributeId();
 
 	/**
@@ -105,7 +102,7 @@ public class EntityAttribute implements java.io.Serializable {
 	 *            the weighted importance of this attribute (relative to the
 	 *            other attributes)
 	 */
-	public EntityAttribute(BaseEntity baseEntity, Attribute attribute, Double weight) {
+	public EntityAttribute(final BaseEntity baseEntity, final Attribute attribute, Double weight) {
 		autocreateCreated();
 		setBaseEntity(baseEntity);
 		setAttribute(attribute);
@@ -129,7 +126,7 @@ public class EntityAttribute implements java.io.Serializable {
 	 * @param Value
 	 *            the value associated with this attribute
 	 */
-	public EntityAttribute(BaseEntity baseEntity, Attribute attribute, Double weight, Object value) {
+	public EntityAttribute(final BaseEntity baseEntity, final Attribute attribute, Double weight, final Object value) {
 		autocreateCreated();
 		setBaseEntity(baseEntity);
 		setAttribute(attribute);
@@ -163,7 +160,7 @@ public class EntityAttribute implements java.io.Serializable {
 		return pk;
 	}
 
-	public void setPk(EntityAttributeId pk) {
+	public void setPk(final EntityAttributeId pk) {
 		this.pk = pk;
 	}
 
@@ -174,7 +171,7 @@ public class EntityAttribute implements java.io.Serializable {
 		return getPk().getBaseEntity();
 	}
 
-	public void setBaseEntity(BaseEntity baseEntity) {
+	public void setBaseEntity(final BaseEntity baseEntity) {
 		getPk().setBaseEntity(baseEntity);
 	}
 
@@ -183,7 +180,7 @@ public class EntityAttribute implements java.io.Serializable {
 		return getPk().getAttribute();
 	}
 
-	public void setAttribute(Attribute attribute) {
+	public void setAttribute(final Attribute attribute) {
 		getPk().setAttribute(attribute);
 	}
 
@@ -198,7 +195,7 @@ public class EntityAttribute implements java.io.Serializable {
 	 * @param created
 	 *            the created to set
 	 */
-	public void setCreated(LocalDateTime created) {
+	public void setCreated(final LocalDateTime created) {
 		this.created = created;
 	}
 
@@ -213,7 +210,7 @@ public class EntityAttribute implements java.io.Serializable {
 	 * @param updated
 	 *            the updated to set
 	 */
-	public void setUpdated(LocalDateTime updated) {
+	public void setUpdated(final LocalDateTime updated) {
 		this.updated = updated;
 	}
 
@@ -228,7 +225,7 @@ public class EntityAttribute implements java.io.Serializable {
 	 * @param weight
 	 *            the weight to set
 	 */
-	public void setWeight(Double weight) {
+	public void setWeight(final Double weight) {
 		this.weight = weight;
 	}
 
@@ -243,7 +240,7 @@ public class EntityAttribute implements java.io.Serializable {
 	 * @param version
 	 *            the version to set
 	 */
-	public void setVersion(Long version) {
+	public void setVersion(final Long version) {
 		this.version = version;
 	}
 
@@ -258,7 +255,7 @@ public class EntityAttribute implements java.io.Serializable {
 	 * @param valueDouble
 	 *            the valueDouble to set
 	 */
-	public void setValueDouble(Double valueDouble) {
+	public void setValueDouble(final Double valueDouble) {
 		this.valueDouble = valueDouble;
 	}
 
@@ -273,7 +270,7 @@ public class EntityAttribute implements java.io.Serializable {
 	 * @param valueInteger
 	 *            the valueInteger to set
 	 */
-	public void setValueInteger(Integer valueInteger) {
+	public void setValueInteger(final Integer valueInteger) {
 		this.valueInteger = valueInteger;
 	}
 
@@ -288,7 +285,7 @@ public class EntityAttribute implements java.io.Serializable {
 	 * @param valueLong
 	 *            the valueLong to set
 	 */
-	public void setValueLong(Long valueLong) {
+	public void setValueLong(final Long valueLong) {
 		this.valueLong = valueLong;
 	}
 
@@ -303,7 +300,7 @@ public class EntityAttribute implements java.io.Serializable {
 	 * @param valueDateTime
 	 *            the valueDateTime to set
 	 */
-	public void setValueDateTime(LocalDateTime valueDateTime) {
+	public void setValueDateTime(final LocalDateTime valueDateTime) {
 		this.valueDateTime = valueDateTime;
 	}
 
@@ -318,7 +315,7 @@ public class EntityAttribute implements java.io.Serializable {
 	 * @param valueString
 	 *            the valueString to set
 	 */
-	public void setValueString(String valueString) {
+	public void setValueString(final String valueString) {
 		this.valueString = valueString;
 	}
 
@@ -336,24 +333,25 @@ public class EntityAttribute implements java.io.Serializable {
 	@Transient
 	@JsonIgnore
 	public Date getCreatedDate() {
-		Date out = Date.from(created.atZone(ZoneId.systemDefault()).toInstant());
+		final Date out = Date.from(created.atZone(ZoneId.systemDefault()).toInstant());
 		return out;
 	}
 
 	@Transient
 	@JsonIgnore
 	public Date getUpdatedDate() {
-		Date out = Date.from(updated.atZone(ZoneId.systemDefault()).toInstant());
+		final Date out = Date.from(updated.atZone(ZoneId.systemDefault()).toInstant());
 		return out;
 	}
 
-	public boolean equals(Object o) {
+	@Override
+  public boolean equals(final Object o) {
 		if (this == o)
 			return true;
 		if (o == null || getClass() != o.getClass())
 			return false;
 
-		EntityAttribute that = (EntityAttribute) o;
+		final EntityAttribute that = (EntityAttribute) o;
 
 		if (getPk() != null ? !getPk().equals(that.getPk()) : that.getPk() != null)
 			return false;
@@ -361,7 +359,8 @@ public class EntityAttribute implements java.io.Serializable {
 		return true;
 	}
 
-	public int hashCode() {
+	@Override
+  public int hashCode() {
 		return (getPk() != null ? getPk().hashCode() : 0);
 	}
 

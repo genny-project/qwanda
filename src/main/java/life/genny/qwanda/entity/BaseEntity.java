@@ -20,15 +20,9 @@
 
 package life.genny.qwanda.entity;
 
-import java.lang.invoke.MethodHandles;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import org.apache.logging.log4j.Logger;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -41,12 +35,14 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
-import org.apache.logging.log4j.Logger;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-
+import java.lang.invoke.MethodHandles;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 import life.genny.qwanda.Answer;
 import life.genny.qwanda.AnswerLink;
 import life.genny.qwanda.CodedEntity;
@@ -79,6 +75,7 @@ import life.genny.qwanda.exception.BadDataException;
 @Table(name = "baseentity")
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
+
 //@Inheritance(strategy = InheritanceType.JOINED)
 public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
@@ -95,20 +92,19 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 			.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
 
 	private static final String DEFAULT_CODE_PREFIX = "BAS_";
-	
-
+	@JsonIgnore
     @XmlTransient
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.baseEntity", cascade=CascadeType.ALL)	 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.baseEntity", cascade=CascadeType.ALL)
 	private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 
     @JsonIgnore
     @XmlTransient
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.source", cascade=CascadeType.ALL)	 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.source", cascade=CascadeType.ALL)
 	private Set<EntityEntity> links = new HashSet<EntityEntity>(0);
 
 	@JsonIgnore
     @XmlTransient
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.source", cascade=CascadeType.ALL)	 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.source", cascade=CascadeType.ALL)
 	private Set<AnswerLink> answers = new HashSet<AnswerLink>(0);
 
 
@@ -129,7 +125,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	 * @param Name
 	 *            the summary name of the core entity
 	 */
-	public BaseEntity(String aName) {
+	public BaseEntity(final String aName) {
 		super(getDefaultCodePrefix() +UUID.randomUUID().toString(),aName);
 
 	}
@@ -142,10 +138,10 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	 * @param Name
 	 *            the summary name of the core entity
 	 */
-	public BaseEntity(String aCode,String aName) {
+	public BaseEntity(final String aCode,final String aName) {
 		super(aCode, aName);
 
-	}	
+	}
 	
 
 	
@@ -160,7 +156,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	/**
 	 * @param answers the answers to set
 	 */
-	public void setAnswers(Set<AnswerLink> answers) {
+	public void setAnswers(final Set<AnswerLink> answers) {
 		this.answers = answers;
 	}
 
@@ -175,7 +171,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	/**
 	 * @param baseEntityAttributes the baseEntityAttributes to set
 	 */
-	public void setBaseEntityAttributes(Set<EntityAttribute> baseEntityAttributes) {
+	public void setBaseEntityAttributes(final Set<EntityAttribute> baseEntityAttributes) {
 		this.baseEntityAttributes = baseEntityAttributes;
 	}
 
@@ -192,7 +188,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	/**
 	 * @param links the links to set
 	 */
-	public void setLinks(Set<EntityEntity> links) {
+	public void setLinks(final Set<EntityEntity> links) {
 		this.links = links;
 	}
 
@@ -208,62 +204,62 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	}
 	
 	/**
-	 * containsEntityAttribute This checks if an attribute exists in the baseEntity. 
+	 * containsEntityAttribute This checks if an attribute exists in the baseEntity.
 	 * @param attributeCode
 	 * @returns boolean
 	 */
-	public boolean containsEntityAttribute(String attributeCode)
+	public boolean containsEntityAttribute(final String attributeCode)
 	{
 		boolean ret = false;
 		
 		// Check if this code exists in the baseEntityAttributes
 		if (getBaseEntityAttributes().parallelStream().anyMatch(ti -> ti.getAttribute().getCode().equals(attributeCode))) {
 		    ret = true;
-		} 
+		}
 		return ret;
 	}
 
 	/**
-	 * containsLink This checks if an attribute link code is linked to the baseEntity. 
+	 * containsLink This checks if an attribute link code is linked to the baseEntity.
 	 * @param attributeCode
 	 * @returns boolean
 	 */
-	public boolean containsLink(String linkAttributeCode)
+	public boolean containsLink(final String linkAttributeCode)
 	{
 		boolean ret = false;
 		
 		// Check if this code exists in the baseEntityAttributes
 		if (getLinks().parallelStream().anyMatch(ti -> ti.getLinkAttribute().getCode().equals(linkAttributeCode))) {
 		    ret = true;
-		} 
+		}
 		return ret;
 	}
 	
 	/**
-	 * containsTarget This checks if another baseEntity is linked to the baseEntity. 
+	 * containsTarget This checks if another baseEntity is linked to the baseEntity.
 	 * @param targetCode
 	 * @param linkAttributeCode
 	 * @returns boolean
 	 */
-	public boolean containsTarget(String targetCode, String linkAttributeCode)
+	public boolean containsTarget(final String targetCode, final String linkAttributeCode)
 	{
 		boolean ret = false;
 		
 		// Check if this code exists in the baseEntityAttributes
 		if (getLinks().parallelStream().anyMatch(ti -> (ti.getLinkAttribute().getCode().equals(linkAttributeCode)&&(ti.getTarget().getCode().equals(targetCode))))) {
 		    ret = true;
-		} 
+		}
 		return ret;
 	}
 	
 	/**
-	 * findEntityAttribute This returns an attributeEntity if it exists in the baseEntity. 
+	 * findEntityAttribute This returns an attributeEntity if it exists in the baseEntity.
 	 * @param attributeCode
 	 * @returns Optional<EntityAttribute>
 	 */
-	public Optional<EntityAttribute> findEntityAttribute(String attributeCode)
+	public Optional<EntityAttribute> findEntityAttribute(final String attributeCode)
 	{
-		Optional<EntityAttribute> foundEntity = Optional.of(getBaseEntityAttributes().parallelStream()
+		final Optional<EntityAttribute> foundEntity = Optional.of(getBaseEntityAttributes().parallelStream()
         .filter(x -> (x.getAttribute().getCode().equals(attributeCode)))
         .findFirst()
         .get());
@@ -273,14 +269,14 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	}
 	
 	/**
-	 * findEntityAttribute This returns an attributeEntity if it exists in the baseEntity. 
+	 * findEntityAttribute This returns an attributeEntity if it exists in the baseEntity.
 	 * Could be more efficient in retrival (ACC: test)
 	 * @param attribute
 	 * @returns EntityAttribute
 	 */
-	public EntityAttribute findEntityAttribute(Attribute attribute)
+	public EntityAttribute findEntityAttribute(final Attribute attribute)
 	{
-		EntityAttribute foundEntity = getBaseEntityAttributes().parallelStream()
+		final EntityAttribute foundEntity = getBaseEntityAttributes().parallelStream()
         .filter(x -> (x.getAttribute().equals(attribute)))
         .findFirst()
         .get();
@@ -290,48 +286,48 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
 	
 	/**
-	 * addAttribute This adds an attribute with default weight of 0.0 to the baseEntity. It auto creates the 
+	 * addAttribute This adds an attribute with default weight of 0.0 to the baseEntity. It auto creates the
 	 * EntityAttribute object.
 	 * For efficiency we assume the attribute does not already exist
 	 * @param ea
 	 * @throws BadDataException
 	 */
-	public void addAttribute(EntityAttribute ea) throws BadDataException
+	public void addAttribute(final EntityAttribute ea) throws BadDataException
 	{
 		if (ea == null ) throw new BadDataException("missing Attribute");
 		
 		addAttribute(ea.getAttribute(),ea.getWeight(),ea.getValueString());
-	}	
+	}
 
 	/**
-	 * addAttribute This adds an attribute and associated weight to the baseEntity. It auto creates the 
+	 * addAttribute This adds an attribute and associated weight to the baseEntity. It auto creates the
 	 * EntityAttribute object.
 	 * For efficiency we assume the attribute does not already exist
 	 * @param attribute
 	 * @param weight
 	 * @throws BadDataException
 	 */
-	public void addAttribute(Attribute attribute) throws BadDataException
+	public void addAttribute(final Attribute attribute) throws BadDataException
 	{
 		
 		addAttribute(attribute, 1.0);
 	}
 
 	/**
-	 * addAttribute This adds an attribute and associated weight to the baseEntity. It auto creates the 
+	 * addAttribute This adds an attribute and associated weight to the baseEntity. It auto creates the
 	 * EntityAttribute object.
 	 * For efficiency we assume the attribute does not already exist
 	 * @param attribute
 	 * @param weight
 	 * @throws BadDataException
 	 */
-	public void addAttribute(Attribute attribute, Double weight) throws BadDataException 
+	public void addAttribute(final Attribute attribute, final Double weight) throws BadDataException
 	{
 		addAttribute(attribute,weight,null);
 	}
 
 	/**
-	 * addAttribute This adds an attribute and associated weight to the baseEntity. It auto creates the 
+	 * addAttribute This adds an attribute and associated weight to the baseEntity. It auto creates the
 	 * EntityAttribute object.
 	 * For efficiency we assume the attribute does not already exist
 	 * @param attribute
@@ -339,29 +335,29 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	 * @param value (of type String, LocalDateTime, Long, Integer, Boolean
 	 * @throws BadDataException
 	 */
-	public void addAttribute(Attribute attribute, Double weight, Object value) throws BadDataException
+	public void addAttribute(final Attribute attribute, final Double weight, final Object value) throws BadDataException
 	{
 		if (attribute == null ) throw new BadDataException("missing Attribute");
 		if (weight == null ) throw new BadDataException("missing weight");
 		
-		EntityAttribute entityAttribute = new EntityAttribute(this, attribute, weight, value);
+		final EntityAttribute entityAttribute = new EntityAttribute(this, attribute, weight, value);
 		getBaseEntityAttributes().add(entityAttribute);
-	}	
+	}
 	
 	/**
-	 * removeAttribute This removes an attribute and associated weight from the baseEntity. 
+	 * removeAttribute This removes an attribute and associated weight from the baseEntity.
 	 * For efficiency we assume the attribute exists
 	 * @param attributeCode
 	 * @param weight
 	 */
-	public void removeAttribute(String attributeCode)
+	public void removeAttribute(final String attributeCode)
 	{
-		Optional<EntityAttribute> optEntityAttribute = findEntityAttribute(attributeCode);
+		final Optional<EntityAttribute> optEntityAttribute = findEntityAttribute(attributeCode);
 		getBaseEntityAttributes().remove(optEntityAttribute);
 	}
 
 	/**
-	 * addTarget This links this baseEntity to a target BaseEntity and associated weight,value to the baseEntity. It auto creates the 
+	 * addTarget This links this baseEntity to a target BaseEntity and associated weight,value to the baseEntity. It auto creates the
 	 * EntityEntity object and sets itself to be the source.
 	 * For efficiency we assume the link does not already exist
 	 * @param target Entity
@@ -369,13 +365,13 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	 * @param weight
 	 * @throws BadDataException
 	 */
-	public void addTarget(BaseEntity target, Attribute linkAttribute, Double weight) throws BadDataException
+	public void addTarget(final BaseEntity target, final Attribute linkAttribute, final Double weight) throws BadDataException
 	{
 		addTarget(target, linkAttribute, weight, null);
 	}
 
 	/**
-	 * addTarget This links this baseEntity to a target BaseEntity and associated weight,value to the baseEntity. It auto creates the 
+	 * addTarget This links this baseEntity to a target BaseEntity and associated weight,value to the baseEntity. It auto creates the
 	 * EntityEntity object and sets itself to be the source.
 	 * For efficiency we assume the link does not already exist
 	 * @param target
@@ -384,43 +380,43 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	 * @param value (of type String, LocalDateTime, Long, Integer, Boolean
 	 * @throws BadDataException
 	 */
-	public void addTarget(BaseEntity target, Attribute linkAttribute, Double weight, Object value) throws BadDataException
+	public void addTarget(final BaseEntity target, final Attribute linkAttribute, final Double weight, final Object value) throws BadDataException
 	{
 		if (target == null ) throw new BadDataException("missing Target Entity");
 		if (linkAttribute == null) throw new BadDataException("missing Link Attribute");
 		if (weight == null ) throw new BadDataException("missing weight");
 		
-		EntityEntity entityEntity = new EntityEntity(this, target, linkAttribute,  weight, value);
+		final EntityEntity entityEntity = new EntityEntity(this, target, linkAttribute,  weight, value);
 		getLinks().add(entityEntity);
-	}	
+	}
 
 	/**
-	 * addAnswer This links this baseEntity to a target BaseEntity and associated Answer. It auto creates the 
+	 * addAnswer This links this baseEntity to a target BaseEntity and associated Answer. It auto creates the
 	 * AnswerLink object and sets itself to be the source and assumes itself to be the target.
 	 * For efficiency we assume the link does not already exist and weight = 0
 	 * @param answer
 	 * @throws BadDataException
 	 */
-	public AnswerLink addAnswer(Answer answer) throws BadDataException
+	public AnswerLink addAnswer(final Answer answer) throws BadDataException
 	{
 		return addAnswer(this,answer,0.0);
-	}	
+	}
 
 	/**
-	 * addAnswer This links this baseEntity to a target BaseEntity and associated Answer. It auto creates the 
+	 * addAnswer This links this baseEntity to a target BaseEntity and associated Answer. It auto creates the
 	 * AnswerLink object and sets itself to be the source and assumes itself to be the target.
 	 * For efficiency we assume the link does not already exist
 	 * @param answer
 	 * @param weight
 	 * @throws BadDataException
 	 */
-	public AnswerLink addAnswer(Answer answer, Double weight) throws BadDataException
+	public AnswerLink addAnswer(final Answer answer, final Double weight) throws BadDataException
 	{
 		return addAnswer(this,answer,weight);
-	}	
+	}
 	
 	/**
-	 * addAnswer This links this baseEntity to a target BaseEntity and associated Answer. It auto creates the 
+	 * addAnswer This links this baseEntity to a target BaseEntity and associated Answer. It auto creates the
 	 * AnswerLink object and sets itself to be the source.
 	 * For efficiency we assume the link does not already exist
 	 * @param target
@@ -428,19 +424,19 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	 * @param weight
 	 * @throws BadDataException
 	 */
-	public AnswerLink addAnswer(BaseEntity target, Answer answer, Double weight) throws BadDataException
+	public AnswerLink addAnswer(final BaseEntity target, final Answer answer, final Double weight) throws BadDataException
 	{
 		if (target == null ) throw new BadDataException("missing Target Entity");
 		if (answer == null) throw new BadDataException("missing Answer");
 		if (weight == null ) throw new BadDataException("missing weight");
 		
-		AnswerLink answerLink =new AnswerLink(this, target, answer,  weight);
+		final AnswerLink answerLink =new AnswerLink(this, target, answer,  weight);
 	//	Set<AnswerLink> answerLinkSet = new HashSet<AnswerLink>();
 	//	answerLinkSet.addAll(answer.getAsk().getAnswerList().getAnswerList());
 		getAnswers().add(answerLink);
 		return answerLink;
 		// update attributes!
-	}	
+	}
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -450,17 +446,17 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 		return this.getClass().getSimpleName()+":"+super.toString()+" [attributeList=" + baseEntityAttributes + "]" +" [links=" + links + "]";
 	}
 
-	public List<EntityAttribute> merge(BaseEntity entity) {
-		List<EntityAttribute> changes = new ArrayList<EntityAttribute>();
+	public List<EntityAttribute> merge(final BaseEntity entity) {
+		final List<EntityAttribute> changes = new ArrayList<EntityAttribute>();
 		
 		// go through the attributes in the entity and check if already existing , if so then check the value and override, else add new attribute
 		
-		for (EntityAttribute ea : entity.getBaseEntityAttributes()) {
-			Attribute attribute = ea.getAttribute();
+		for (final EntityAttribute ea : entity.getBaseEntityAttributes()) {
+			final Attribute attribute = ea.getAttribute();
 			if (this.containsEntityAttribute(attribute.getCode())) {
 				// check for update value
-				String oldValue = this.getValue(attribute);
-				String newValue = this.getValue(ea);
+				final String oldValue = this.getValue(attribute);
+				final String newValue = this.getValue(ea);
 				if (newValue != null) {
 					if (!newValue.equals(oldValue)) {
 						// override the old value  // TODO allow versioning
@@ -468,11 +464,11 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 					}
 				}
 			} else {
-				// add this new entityAttribute 
+				// add this new entityAttribute
 				try {
 					addAttribute(ea);
 					changes.add(ea);
-				} catch (BadDataException e) {
+				} catch (final BadDataException e) {
 					// TODO - log error and continue
 				}
 			}
@@ -484,29 +480,29 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	@JsonIgnore
 	@Transient
 	@XmlTransient
-	private <T> T getValue(Attribute attribute) {
+	private <T> T getValue(final Attribute attribute) {
 		// TODO Dumb find for attribute. needs a hashMap
 	
-		for (EntityAttribute ea  : this.getBaseEntityAttributes()) {
+		for (final EntityAttribute ea  : this.getBaseEntityAttributes()) {
 			if (ea.getAttribute().getCode().equalsIgnoreCase(attribute.getCode())) {
 				return getValue(ea);
 			}
 		}
-		return (T)null;
+		return null;
 	}
 
 	@JsonIgnore
 	@Transient
 	@XmlTransient
-	private <T> T getValue(EntityAttribute ea) {
-			String dataType = ea.getAttribute().getDataType().getClassName();
+	private <T> T getValue(final EntityAttribute ea) {
+			final String dataType = ea.getAttribute().getDataType().getClassName();
 			switch (dataType) {
 			case "Integer": return (T)ea.getValueInteger();
 			case "LocalDateTime": return (T)ea.getValueDateTime();
 			case "Long": return (T)ea.getValueLong();
 			case "Double": return (T)ea.getValueDouble();
 
-			case "String": 
+			case "String":
 				default:
 					return (T) ea.getValueString();
 			}
@@ -516,10 +512,10 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	@JsonIgnore
 	@Transient
 	@XmlTransient
-	private <T> void setValue(Attribute attribute, Object value, Class<T> type) {
+	private <T> void setValue(final Attribute attribute, final Object value, final Class<T> type) {
 		// TODO Dumb find for attribute. needs a hashMap
 	
-		for (EntityAttribute ea  : this.getBaseEntityAttributes()) {
+		for (final EntityAttribute ea  : this.getBaseEntityAttributes()) {
 			if (ea.getAttribute().getCode().equalsIgnoreCase(attribute.getCode())) {
 				setValue(ea, value, type);
 			}
@@ -532,14 +528,14 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	@JsonIgnore
 	@Transient
 	@XmlTransient
-	private <T> void setValue(EntityAttribute ea, Object value, Class<T> type) {
+	private <T> void setValue(final EntityAttribute ea, final Object value, final Class<T> type) {
 			switch (type.getSimpleName()) {
 			case "Integer": ea.setValueInteger((Integer)value); break;
 			case "LocalDateTime": ea.setValueDateTime((LocalDateTime)value); break;
 			case "Long": ea.setValueLong((Long)value); break;
 			case "Double": ea.setValueDouble((Double)value); break;
 
-			case "String": 
+			case "String":
 				default:
 					ea.setValueString((String)value); break;
 			}

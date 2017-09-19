@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import life.genny.qwanda.Answer;
 import life.genny.qwanda.Ask;
+import life.genny.qwanda.GPS;
 import life.genny.qwanda.Question;
 import life.genny.qwanda.attribute.Attribute;
 import life.genny.qwanda.attribute.AttributeDateTime;
@@ -18,6 +19,7 @@ import life.genny.qwanda.message.QCmdLogoutMessage;
 import life.genny.qwanda.message.QCmdMessage;
 import life.genny.qwanda.message.QCmdRedirectMessage;
 import life.genny.qwanda.message.QDataAnswerMessage;
+import life.genny.qwanda.message.QDataGPSMessage;
 import life.genny.test.qwanda.util.JsonUtils;
 
 public class JsonGenerator {
@@ -34,6 +36,10 @@ public class JsonGenerator {
   @Test
   public void generateCMDJsons() throws BadDataException
   {
+    final GPS[] gpss = new GPS[1];
+    gpss[0] = new GPS("PER_USER1","-37.86330","145.0922","0");
+    final QDataGPSMessage gpsmsg = new QDataGPSMessage(gpss);
+    JsonGenerator(gpsmsg);
     
    JsonGenerator(new QCmdLayoutMessage("LAY_TEST_WITH_DATA", "this is the layout code"));
    JsonGenerator(new QCmdMessage("CMD_LAYOUT","LAY_TEST_WITH_JUST_CODE"));

@@ -18,365 +18,395 @@ import life.genny.qwanda.attribute.Attribute;
 
 @Entity
 @Table(name = "baseentity_baseentity")
-@AssociationOverrides({ @AssociationOverride(name = "pk.source", joinColumns = @JoinColumn(name = "SOURCE_ID")),
-		@AssociationOverride(name = "pk.target", joinColumns = @JoinColumn(name = "TARGET_ID")) })
+@AssociationOverrides({
+    @AssociationOverride(name = "pk.source", joinColumns = @JoinColumn(name = "SOURCE_ID")),
+    @AssociationOverride(name = "pk.target", joinColumns = @JoinColumn(name = "TARGET_ID"))})
 public class EntityEntity implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+  @Transient
+  private String parentCode;
+  @Transient
+  private String targetCode;
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private EntityEntityId pk = new EntityEntityId();
+  @EmbeddedId
+  private EntityEntityId pk = new EntityEntityId();
 
-	/**
-	 * Stores the Created UMT DateTime that this object was created
-	 */
+ 
 
-	@Column(name = "created")
-	private LocalDateTime created;
+  /**
+   * @return the parentCode
+   */
+  public String getParentCode() {
+    return parentCode;
+  }
 
-	/**
-	 * Stores the Last Modified UMT DateTime that this object was last updated
-	 */
-	@Column(name = "updated")
-	@Version
-	private LocalDateTime updated;
+  /**
+   * @param parentCode the parentCode to set
+   */
+  public void setParentCode(String parentCode) {
+    this.parentCode = parentCode;
+  }
 
-	
-	/**
-	 * The following fields can be subclassed for better abstraction
-	 */
-	
-	/**
-	 * Store the Double value of the attribute for the baseEntity
-	 */
-	private Double valueDouble;
+  /**
+   * @return the targetCode
+   */
+  public String getTargetCode() {
+    return targetCode;
+  }
 
-	/**
-	 * Store the Integer value of the attribute for the baseEntity
-	 */
-	private Integer valueInteger;
+  /**
+   * @param targetCode the targetCode to set
+   */
+  public void setTargetCode(String targetCode) {
+    this.targetCode = targetCode;
+  }
 
-	/**
-	 * Store the Long value of the attribute for the baseEntity
-	 */
-	private Long valueLong;
+  /**
+   * Stores the Created UMT DateTime that this object was created
+   */
 
-	/**
-	 * Store the LocalDateTime value of the attribute for the baseEntity
-	 */
-	private LocalDateTime valueDateTime;
+  @Column(name = "created")
+  private LocalDateTime created;
 
-	/**
-	 * Store the String value of the attribute for the baseEntity
-	 */
-	private String valueString;
-	
-	/**
-	 * Store the relative importance of the attribute for the baseEntity
-	 */
-	private Double weight;
+  /**
+   * Stores the Last Modified UMT DateTime that this object was last updated
+   */
+  @Column(name = "updated")
+  @Version
+  private LocalDateTime updated;
 
-	@Version
-	private Long version = 1L;
-	
 
-	public EntityEntity() {
-	}
+  /**
+   * The following fields can be subclassed for better abstraction
+   */
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param source
-	 *            the source baseEntity
-	 * @param target
-	 *            the target entity that is linked to
-	 * @param linkAttribute
-	 *            the associated linkAttribute
-	 * @param Weight
-	 *            the weighted importance of this attribute (relative to the
-	 *            other attributes)
-	 */
-	public EntityEntity(final BaseEntity source, final BaseEntity target, final Attribute linkAttribute, Double weight) {
-		autocreateCreated();
-		setSource(source);
-		setTarget(target);
-		setLinkAttribute(linkAttribute);
-		if (weight == null) {
-			weight = 0.0; // This permits ease of adding attributes and hides
-							// attribute from scoring.
-		}
-		setWeight(weight);
-	}
+  /**
+   * Store the Double value of the attribute for the baseEntity
+   */
+  private Double valueDouble;
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param BaseEntity
-	 *            the entity that needs to contain attributes
-	 * @param Attribute
-	 *            the associated Attribute
-	 * @param linkAttribute
-	 *            the associated linkAttribute
-	 * @param Weight
-	 *            the weighted importance of this attribute (relative to the
-	 *            other attributes)
-	 * @param Value
-	 *            the value associated with this attribute
-	 */
-	public EntityEntity(final BaseEntity source, final BaseEntity target, final Attribute linkAttribute, Double weight, final Object value) {
-		autocreateCreated();
-		setSource(source);
-		setTarget(target);
-		setLinkAttribute(linkAttribute);
-		
-		if (weight == null) {
-			weight = 0.0; // This permits ease of adding attributes and hides
-							// attribute from scoring.
-		}
-		setWeight(weight);
-		// Assume that Attribute Validation has been performed
-		if (value != null) {
-			if (value instanceof String) {
-				setValueString((String) value);
-			}
-			else if (value instanceof Double) {
-				setValueDouble((Double) value);
-			}
-			else if (value instanceof Long) {
-				setValueLong((Long) value);
-			}
-			else if (value instanceof Integer) {
-				setValueInteger((Integer) value);
-			}
-			else if (value instanceof LocalDateTime) {
-				setValueDateTime((LocalDateTime) value);
-			}
+  /**
+   * Store the Integer value of the attribute for the baseEntity
+   */
+  private Integer valueInteger;
 
-		}
-	}
-	
-	public EntityEntityId getPk() {
-		return pk;
-	}
+  /**
+   * Store the Long value of the attribute for the baseEntity
+   */
+  private Long valueLong;
 
-	public void setPk(final EntityEntityId pk) {
-		this.pk = pk;
-	}
+  /**
+   * Store the LocalDateTime value of the attribute for the baseEntity
+   */
+  private LocalDateTime valueDateTime;
 
-	@Transient
-	public BaseEntity getSource() {
-		return getPk().getSource();
-	}
+  /**
+   * Store the String value of the attribute for the baseEntity
+   */
+  private String valueString;
 
-	public void setSource(final BaseEntity source) {
-		getPk().setSource(source);
-	}
+  /**
+   * Store the relative importance of the attribute for the baseEntity
+   */
+  private Double weight;
 
-	@Transient
-	public BaseEntity getTarget() {
-		return getPk().getTarget();
-	}
+  @Version
+  private Long version = 1L;
 
-	public void setTarget(final BaseEntity target) {
-		getPk().setTarget(target);
-	}
 
-	@Transient
-	public Attribute getLinkAttribute() {
-		return getPk().getLinkAttribute();
-	}
+  public EntityEntity() {}
 
-	public void setLinkAttribute(final Attribute linkAttribute) {
-		getPk().setLinkAttribute(linkAttribute);
-	}
-	
-	/**
-	 * @return the created
-	 */
-	public LocalDateTime getCreated() {
-		return created;
-	}
+  /**
+   * Constructor.
+   * 
+   * @param source the source baseEntity
+   * @param target the target entity that is linked to
+   * @param linkAttribute the associated linkAttribute
+   * @param Weight the weighted importance of this attribute (relative to the other attributes)
+   */
+  public EntityEntity(final BaseEntity source, final BaseEntity target,
+      final Attribute linkAttribute, Double weight) {
+    autocreateCreated();
+    setSource(source);
+    setTarget(target);
+    setLinkAttribute(linkAttribute);
+    if (weight == null) {
+      weight = 0.0; // This permits ease of adding attributes and hides
+                    // attribute from scoring.
+    }
+    setWeight(weight);
+  }
 
-	/**
-	 * @param created
-	 *            the created to set
-	 */
-	public void setCreated(final LocalDateTime created) {
-		this.created = created;
-	}
+  /**
+   * Constructor.
+   * 
+   * @param BaseEntity the entity that needs to contain attributes
+   * @param Attribute the associated Attribute
+   * @param linkAttribute the associated linkAttribute
+   * @param Weight the weighted importance of this attribute (relative to the other attributes)
+   * @param Value the value associated with this attribute
+   */
+  public EntityEntity(final BaseEntity source, final BaseEntity target,
+      final Attribute linkAttribute, Double weight, final Object value) {
+    autocreateCreated();
+    setSource(source);
+    setTarget(target);
+    setLinkAttribute(linkAttribute);
 
-	/**
-	 * @return the updated
-	 */
-	public LocalDateTime getUpdated() {
-		return updated;
-	}
+    if (weight == null) {
+      weight = 0.0; // This permits ease of adding attributes and hides
+                    // attribute from scoring.
+    }
+    setWeight(weight);
+    // Assume that Attribute Validation has been performed
+    if (value != null) {
+      if (value instanceof String) {
+        setValueString((String) value);
+      } else if (value instanceof Double) {
+        setValueDouble((Double) value);
+      } else if (value instanceof Long) {
+        setValueLong((Long) value);
+      } else if (value instanceof Integer) {
+        setValueInteger((Integer) value);
+      } else if (value instanceof LocalDateTime) {
+        setValueDateTime((LocalDateTime) value);
+      }
 
-	/**
-	 * @param updated
-	 *            the updated to set
-	 */
-	public void setUpdated(final LocalDateTime updated) {
-		this.updated = updated;
-	}
+    }
+  }
 
-	/**
-	 * @return the weight
-	 */
-	public Double getWeight() {
-		return weight;
-	}
+  public EntityEntityId getPk() {
+    return pk;
+  }
 
-	/**
-	 * @param weight
-	 *            the weight to set
-	 */
-	public void setWeight(final Double weight) {
-		this.weight = weight;
-	}
+  public void setPk(final EntityEntityId pk) {
+    this.pk = pk;
+  }
 
-	/**
-	 * @return the version
-	 */
-	public Long getVersion() {
-		return version;
-	}
+  @Transient
+  public BaseEntity getSource() {
+    return getPk().getSource();
+  }
 
-	/**
-	 * @param version
-	 *            the version to set
-	 */
-	public void setVersion(final Long version) {
-		this.version = version;
-	}
+  public void setSource(final BaseEntity source) {
+    getPk().setSource(source);
+  }
 
-	
-	
-	
-	/**
-	 * @return the valueDouble
-	 */
-	public Double getValueDouble() {
-		return valueDouble;
-	}
+  @Transient
+  public BaseEntity getTarget() {
+    return getPk().getTarget();
+  }
 
-	/**
-	 * @param valueDouble the valueDouble to set
-	 */
-	public void setValueDouble(final Double valueDouble) {
-		this.valueDouble = valueDouble;
-	}
+  public void setTarget(final BaseEntity target) {
+    getPk().setTarget(target);
+  }
 
-	/**
-	 * @return the valueInteger
-	 */
-	public Integer getValueInteger() {
-		return valueInteger;
-	}
+  @Transient
+  public Attribute getLinkAttribute() {
+    return getPk().getLinkAttribute();
+  }
 
-	/**
-	 * @param valueInteger the valueInteger to set
-	 */
-	public void setValueInteger(final Integer valueInteger) {
-		this.valueInteger = valueInteger;
-	}
+  public void setLinkAttribute(final Attribute linkAttribute) {
+    getPk().setLinkAttribute(linkAttribute);
+  }
 
-	/**
-	 * @return the valueLong
-	 */
-	public Long getValueLong() {
-		return valueLong;
-	}
+  /**
+   * @return the created
+   */
+  public LocalDateTime getCreated() {
+    return created;
+  }
 
-	/**
-	 * @param valueLong the valueLong to set
-	 */
-	public void setValueLong(final Long valueLong) {
-		this.valueLong = valueLong;
-	}
+  /**
+   * @param created the created to set
+   */
+  public void setCreated(final LocalDateTime created) {
+    this.created = created;
+  }
 
-	/**
-	 * @return the valueDateTime
-	 */
-	public LocalDateTime getValueDateTime() {
-		return valueDateTime;
-	}
+  /**
+   * @return the updated
+   */
+  public LocalDateTime getUpdated() {
+    return updated;
+  }
 
-	/**
-	 * @param valueDateTime the valueDateTime to set
-	 */
-	public void setValueDateTime(final LocalDateTime valueDateTime) {
-		this.valueDateTime = valueDateTime;
-	}
+  /**
+   * @param updated the updated to set
+   */
+  public void setUpdated(final LocalDateTime updated) {
+    this.updated = updated;
+  }
 
-	/**
-	 * @return the valueString
-	 */
-	public String getValueString() {
-		return valueString;
-	}
+  /**
+   * @return the weight
+   */
+  public Double getWeight() {
+    return weight;
+  }
 
-	/**
-	 * @param valueString the valueString to set
-	 */
-	public void setValueString(final String valueString) {
-		this.valueString = valueString;
-	}
+  /**
+   * @param weight the weight to set
+   */
+  public void setWeight(final Double weight) {
+    this.weight = weight;
+  }
 
-	@PreUpdate
-	public void autocreateUpdate() {
-		setUpdated(LocalDateTime.now(ZoneId.of("Z")));
-	}
+  /**
+   * @return the version
+   */
+  public Long getVersion() {
+    return version;
+  }
 
-	@PrePersist
-	public void autocreateCreated() {
-		if (getCreated() == null)
-			setCreated(LocalDateTime.now(ZoneId.of("Z")));
-	}
+  /**
+   * @param version the version to set
+   */
+  public void setVersion(final Long version) {
+    this.version = version;
+  }
 
-	@Transient
-	public Date getCreatedDate() {
-		final Date out = Date.from(created.atZone(ZoneId.systemDefault()).toInstant());
-		return out;
-	}
 
-	@Transient
-	public Date getUpdatedDate() {
-		final Date out = Date.from(updated.atZone(ZoneId.systemDefault()).toInstant());
-		return out;
-	}
 
-	@Override
+  /**
+   * @return the valueDouble
+   */
+  public Double getValueDouble() {
+    return valueDouble;
+  }
+
+  /**
+   * @param valueDouble the valueDouble to set
+   */
+  public void setValueDouble(final Double valueDouble) {
+    this.valueDouble = valueDouble;
+  }
+
+  /**
+   * @return the valueInteger
+   */
+  public Integer getValueInteger() {
+    return valueInteger;
+  }
+
+  /**
+   * @param valueInteger the valueInteger to set
+   */
+  public void setValueInteger(final Integer valueInteger) {
+    this.valueInteger = valueInteger;
+  }
+
+  /**
+   * @return the valueLong
+   */
+  public Long getValueLong() {
+    return valueLong;
+  }
+
+  /**
+   * @param valueLong the valueLong to set
+   */
+  public void setValueLong(final Long valueLong) {
+    this.valueLong = valueLong;
+  }
+
+  /**
+   * @return the valueDateTime
+   */
+  public LocalDateTime getValueDateTime() {
+    return valueDateTime;
+  }
+
+  /**
+   * @param valueDateTime the valueDateTime to set
+   */
+  public void setValueDateTime(final LocalDateTime valueDateTime) {
+    this.valueDateTime = valueDateTime;
+  }
+
+  /**
+   * @return the valueString
+   */
+  public String getValueString() {
+    return valueString;
+  }
+
+  /**
+   * @param valueString the valueString to set
+   */
+  public void setValueString(final String valueString) {
+    this.valueString = valueString;
+  }
+
+  @PreUpdate
+  public void autocreateUpdate() {
+    setUpdated(LocalDateTime.now(ZoneId.of("Z")));
+  }
+
+  @PrePersist
+  public void autocreateCreated() {
+    if (getCreated() == null)
+      setCreated(LocalDateTime.now(ZoneId.of("Z")));
+  }
+
+  @Transient
+  public Date getCreatedDate() {
+    final Date out = Date.from(created.atZone(ZoneId.systemDefault()).toInstant());
+    return out;
+  }
+
+  @Transient
+  public Date getUpdatedDate() {
+    final Date out = Date.from(updated.atZone(ZoneId.systemDefault()).toInstant());
+    return out;
+  }
+
+  @Override
   public boolean equals(final Object o) {
-		if (this == o)
-			return true;
-		if (o == null || getClass() != o.getClass())
-			return false;
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
 
-		final EntityEntity that = (EntityEntity) o;
+    final EntityEntity that = (EntityEntity) o;
 
-		if (getPk() != null ? !getPk().equals(that.getPk()) : that.getPk() != null)
-			return false;
+    if (getPk() != null ? !getPk().equals(that.getPk()) : that.getPk() != null)
+      return false;
 
-		return true;
-	}
+    return true;
+  }
 
-	@Override
+  @Override
   public int hashCode() {
-		return (getPk() != null ? getPk().hashCode() : 0);
-	}
+    return (getPk() != null ? getPk().hashCode() : 0);
+  }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "EE["+getTarget().getCode()+":"+created + ", linkType="+getLinkAttribute().getCode()+",weight=" + weight + ", v=" + version
-				+ "]";
-	}
-	
-	
+  /* (non-Javadoc)
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "EntityEntity [parentCode=" + parentCode + ", targetCode=" + targetCode + ", pk=" + pk
+        + ", created=" + created + ", updated=" + updated + ", valueDouble=" + valueDouble
+        + ", valueInteger=" + valueInteger + ", valueLong=" + valueLong + ", valueDateTime="
+        + valueDateTime + ", valueString=" + valueString + ", weight=" + weight + ", version="
+        + version + "]";
+  }
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#toString()
+   */
+  // @Override
+  // public String toString() {
+  // return "EE["+getTarget().getCode()+":"+created + ",
+  // linkType="+getLinkAttribute().getCode()+",weight=" + weight + ", v=" + version
+  // + "]";
+  // }
+
+
 }

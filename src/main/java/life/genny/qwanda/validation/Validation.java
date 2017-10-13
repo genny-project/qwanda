@@ -66,7 +66,15 @@ import life.genny.qwanda.CodedEntity;
 
 public class Validation extends CodedEntity implements Serializable {
 	
-	/**
+	/* (non-Javadoc)
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "Validation [regex=" + regex + "]";
+  }
+
+  /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;

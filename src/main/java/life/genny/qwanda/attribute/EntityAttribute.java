@@ -27,10 +27,39 @@ import life.genny.qwanda.entity.BaseEntity;
 		@AssociationOverride(name = "pk.attribute", joinColumns = @JoinColumn(name = "ATTRIBUTE_ID")) })
 public class EntityAttribute implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
+
+	private String baseEntityCode ;
+	
+	private String attributeCode;
+	
+/**
+   * @return the baseEntityCode
+   */
+  public String getBaseEntityCode() {
+    return baseEntityCode;
+  }
+
+  /**
+   * @param baseEntityCode the baseEntityCode to set
+   */
+  public void setBaseEntityCode(String baseEntityCode) {
+    this.baseEntityCode = baseEntityCode;
+  }
+
+  /**
+   * @return the attributeCode
+   */
+  public String getAttributeCode() {
+    return attributeCode;
+  }
+
+  /**
+   * @param attributeCode the attributeCode to set
+   */
+  public void setAttributeCode(String attributeCode) {
+    this.attributeCode = attributeCode;
+  }
 
 @EmbeddedId
 	public EntityAttributeId pk = new EntityAttributeId();
@@ -364,14 +393,17 @@ public class EntityAttribute implements java.io.Serializable {
 		return (getPk() != null ? getPk().hashCode() : 0);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "EA[" + getAttribute().getCode() + ":" + created + ", weight=" + weight + ", v=" + version + "]";
-	}
+  /* (non-Javadoc)
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "EntityAttribute [baseEntityCode=" + baseEntityCode + ", attributeCode=" + attributeCode
+        + ", pk=" + pk + ", created=" + created + ", updated=" + updated + ", valueDouble="
+        + valueDouble + ", valueInteger=" + valueInteger + ", valueLong=" + valueLong
+        + ", valueDateTime=" + valueDateTime + ", valueString=" + valueString + ", weight=" + weight
+        + ", version=" + version + "]";
+  }
+
 
 }

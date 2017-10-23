@@ -9,22 +9,22 @@ public class QDataBaseEntityMessage extends QDataMessage {
   private static final String DATATYPE_BASEENTITY = BaseEntity.class.getSimpleName();
   private String parentCode;
   private String linkCode;
-  private Integer total = -1;
-  private Integer returnCount;
+  private Long total = -1L;
+  private Long returnCount;
 
   public QDataBaseEntityMessage(final BaseEntity[] items) {
     super(DATATYPE_BASEENTITY);
     setItems(items);
-    setTotal(-1);
+    setTotal(-1L);
   }
 
   public QDataBaseEntityMessage(final BaseEntity[] items, final String parentCode,
       final String linkCode) {
-    this(items, parentCode, linkCode, -1);
+    this(items, parentCode, linkCode, -1L);
   }
 
   public QDataBaseEntityMessage(final BaseEntity[] items, final String parentCode,
-      final String linkCode, final Integer total) {
+      final String linkCode, final Long total) {
     super(DATATYPE_BASEENTITY);
     setItems(items);
     this.linkCode = linkCode;
@@ -38,7 +38,7 @@ public class QDataBaseEntityMessage extends QDataMessage {
 
   public void setItems(final BaseEntity[] items) {
     this.items = items;
-    setReturnCount(items.length);
+    setReturnCount(new Long(items.length));
   }
 
   /**
@@ -72,28 +72,28 @@ public class QDataBaseEntityMessage extends QDataMessage {
   /**
    * @return the total
    */
-  public Integer getTotal() {
+  public Long getTotal() {
     return total;
   }
 
   /**
    * @param total the total to set
    */
-  public void setTotal(final Integer total) {
+  public void setTotal(final Long total) {
     this.total = total;
   }
 
   /**
    * @return the returnCount
    */
-  public Integer getReturnCount() {
+  public Long getReturnCount() {
     return returnCount;
   }
 
   /**
    * @param returnCount the returnCount to set
    */
-  public void setReturnCount(final Integer returnCount) {
+  public void setReturnCount(final Long returnCount) {
     this.returnCount = returnCount;
   }
 

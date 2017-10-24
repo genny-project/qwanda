@@ -4,7 +4,7 @@ public class QCmdLayoutMessage extends QCmdMessage {
   private static final String CMD_TYPE = "CMD_LAYOUT";
   private String data;
   private Boolean visible;
-  private String aliasCode;
+
 
   public QCmdLayoutMessage(final String layoutCode, final String layout) {
     super(CMD_TYPE, layoutCode);
@@ -42,20 +42,6 @@ public class QCmdLayoutMessage extends QCmdMessage {
    */
   public void setVisible(final Boolean visible) {
     this.visible = visible;
-  }
-
-  /**
-   * @return the aliasCode
-   */
-  public String getAliasCode() {
-    return aliasCode;
-  }
-
-  /**
-   * @param aliasCode the aliasCode to set
-   */
-  public void setAliasCode(final String aliasCode) {
-    this.aliasCode = aliasCode;
   }
 
 

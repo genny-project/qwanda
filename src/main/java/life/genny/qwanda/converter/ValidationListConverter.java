@@ -36,7 +36,7 @@ public class ValidationListConverter implements AttributeConverter<List<Validati
   public List<Validation> convertToEntityAttribute(String joined) {
     final List<Validation> validations = new ArrayList<Validation>();
     if (joined != null) {
-      System.out.println("ValidationStr=" + joined);
+      // System.out.println("ValidationStr=" + joined);
       if (!StringUtils.isBlank(joined)) {
         joined = joined.substring(1); // remove leading quotes
         joined = StringUtils.chomp(joined, "\""); // remove last char

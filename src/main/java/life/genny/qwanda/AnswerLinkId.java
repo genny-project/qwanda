@@ -22,9 +22,9 @@ public class AnswerLinkId implements java.io.Serializable {
   @ManyToOne(optional = true, fetch = FetchType.LAZY)
   private Attribute attribute;
 
-  @JsonIgnore
-  @ManyToOne(optional = true, fetch = FetchType.LAZY)
-  private Ask ask;
+  // @JsonIgnore
+  // @ManyToOne(optional = true, fetch = FetchType.LAZY)
+  // private Ask ask;
 
   /**
    * @return the source
@@ -72,19 +72,19 @@ public class AnswerLinkId implements java.io.Serializable {
 
 
 
-  /**
-   * @return the ask
-   */
-  public Ask getAsk() {
-    return ask;
-  }
-
-  /**
-   * @param ask the ask to set
-   */
-  public void setAsk(final Ask ask) {
-    this.ask = ask;
-  }
+  // /**
+  // * @return the ask
+  // */
+  // public Ask getAsk() {
+  // return ask;
+  // }
+  //
+  // /**
+  // * @param ask the ask to set
+  // */
+  // public void setAsk(final Ask ask) {
+  // this.ask = ask;
+  // }
 
   @Override
   public boolean equals(final Object o) {

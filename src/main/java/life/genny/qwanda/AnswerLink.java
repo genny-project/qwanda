@@ -146,15 +146,15 @@ public class AnswerLink implements java.io.Serializable {
     setSource(source);
     setTarget(target);
     pk.setAttribute(answer.getAttribute());
-    setAsk(answer.getAsk());
-    if (answer.getAsk() != null) {
-      if (answer.getAsk().getQuestion() != null) {
-        setAttribute(answer.getAsk().getQuestion().getAttribute());
-      }
-    } else {
-      // create dummy
-
-    }
+    // setAsk(answer.getAsk());
+    // if (answer.getAsk() != null) {
+    // if (answer.getAsk().getQuestion() != null) {
+    // setAttribute(answer.getAsk().getQuestion().getAttribute());
+    // }
+    // } else {
+    // // create dummy
+    //
+    // }
     setAttributeCode(answer.getAttributeCode());
 
 
@@ -227,18 +227,18 @@ public class AnswerLink implements java.io.Serializable {
     setSourceCode(source.getCode());
   }
 
-  @Transient
-  @JsonIgnore
-  public Ask getAsk() {
-    return getPk().getAsk();
-  }
-
-  public void setAsk(final Ask ask) {
-    getPk().setAsk(ask);
-    if (ask != null) {
-      setAskId(ask.getId());
-    }
-  }
+  // @Transient
+  // @JsonIgnore
+  // public Ask getAsk() {
+  // return getPk().getAsk();
+  // }
+  //
+  // public void setAsk(final Ask ask) {
+  // getPk().setAsk(ask);
+  // if (ask != null) {
+  // setAskId(ask.getId());
+  // }
+  // }
 
 
   @Transient

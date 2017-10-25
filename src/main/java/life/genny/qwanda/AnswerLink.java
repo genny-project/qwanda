@@ -204,6 +204,8 @@ public class AnswerLink implements java.io.Serializable {
       final String result = answer.getValue();
       final Boolean b = Boolean.parseBoolean(result);
       setValueBoolean(b);
+    } else {
+      setValueString(answer.getValue());
     }
   }
 

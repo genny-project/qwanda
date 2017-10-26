@@ -100,6 +100,8 @@ public class Ask extends CoreEntity implements Serializable {
 
   private String sourceCode;
   private String targetCode;
+  private String questionCode;
+  private String attributeCode;
 
   @Embedded
   @Valid
@@ -128,7 +130,7 @@ public class Ask extends CoreEntity implements Serializable {
    */
   public Ask(final Question aQuestion) {
     super(aQuestion.getName());
-    this.question = aQuestion;
+    setQuestion(aQuestion);
     answerList = new AnswerList(new ArrayList<AnswerLink>());
     contextList = new ContextList(new ArrayList<Context>());
   }
@@ -142,7 +144,8 @@ public class Ask extends CoreEntity implements Serializable {
    */
   public Ask(final Question aQuestion, final BaseEntity aSource, final BaseEntity aTarget) {
     super(aQuestion.getName());
-    this.question = aQuestion;
+    setQuestion(aQuestion);
+
     this.source = aSource;
     this.target = aTarget;
     this.sourceCode = aSource.getCode();
@@ -163,6 +166,8 @@ public class Ask extends CoreEntity implements Serializable {
    */
   public void setQuestion(final Question question) {
     this.question = question;
+    this.questionCode = question.getCode();
+    this.attributeCode = question.getAttribute().getCode();
   }
 
   /**
@@ -246,6 +251,38 @@ public class Ask extends CoreEntity implements Serializable {
     return targetCode;
   }
 
+
+
+  /**
+   * @return the questionCode
+   */
+  public String getQuestionCode() {
+    return questionCode;
+  }
+
+  /**
+   * @param questionCode the questionCode to set
+   */
+  public void setQuestionCode(final String questionCode) {
+    this.questionCode = questionCode;
+  }
+
+
+
+  /**
+   * @return the attributeCode
+   */
+  public String getAttributeCode() {
+    return attributeCode;
+  }
+
+  /**
+   * @param attributeCode the attributeCode to set
+   */
+  public void setAttributeCode(final String attributeCode) {
+    this.attributeCode = attributeCode;
+  }
+
   /**
    * @param targetCode the targetCode to set
    */
@@ -264,3 +301,4 @@ public class Ask extends CoreEntity implements Serializable {
   }
 
 }
+

@@ -472,7 +472,10 @@ public class AnswerLink implements java.io.Serializable {
 
   @Transient
   public Date getUpdatedDate() {
-    final Date out = Date.from(updated.atZone(ZoneId.systemDefault()).toInstant());
+    Date out = null;
+    if (updated != null) {
+      out = Date.from(updated.atZone(ZoneId.systemDefault()).toInstant());
+    }
     return out;
   }
 

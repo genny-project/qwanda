@@ -142,6 +142,7 @@ public class Answer implements Serializable {
   // @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonIgnore
   @XmlTransient
+  @Transient
   // @OneToOne(fetch = FetchType.LAZY)
   // @JoinColumn(name = "ask_id", nullable = true)
   private Ask ask;

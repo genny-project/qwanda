@@ -5,6 +5,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import org.junit.Test;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import life.genny.qwanda.Answer;
@@ -17,6 +18,15 @@ import life.genny.qwanda.message.QDataAskMessage;
 import life.genny.test.qwanda.util.JsonUtils;
 
 public class JTest {
+  @Test
+  public void timeTest() {
+    final LocalDateTime time = LocalDateTime.now();
+
+    final String json = JsonUtils.set(time);
+
+    System.out.println(json);
+  }
+
   @Test
   public void testJ() {
     final Gson gson = new Gson();

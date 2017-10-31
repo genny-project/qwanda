@@ -83,7 +83,7 @@ public class Ask extends CoreEntity implements Serializable {
 
   @XmlTransient
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "question_id", nullable = false)
+  @JoinColumn(name = "question_id", nullable = true)
   private Question question;
 
   @JsonIgnore
@@ -103,10 +103,10 @@ public class Ask extends CoreEntity implements Serializable {
   private String questionCode;
   private String attributeCode;
 
-  @Embedded
-  @Valid
-  // @JsonInclude(Include.NON_NULL)
-  private AnswerList answerList;
+  // @Embedded
+  // @Valid
+  // // @JsonInclude(Include.NON_NULL)
+  // private AnswerList answerList;
 
   @Embedded
   @Valid
@@ -131,7 +131,7 @@ public class Ask extends CoreEntity implements Serializable {
   public Ask(final Question aQuestion) {
     super(aQuestion.getName());
     setQuestion(aQuestion);
-    answerList = new AnswerList(new ArrayList<AnswerLink>());
+    // answerList = new AnswerList(new ArrayList<AnswerLink>());
     contextList = new ContextList(new ArrayList<Context>());
   }
 
@@ -150,7 +150,7 @@ public class Ask extends CoreEntity implements Serializable {
     this.target = aTarget;
     this.sourceCode = aSource.getCode();
     this.targetCode = aTarget.getCode();
-    answerList = new AnswerList(new ArrayList<AnswerLink>());
+    // answerList = new AnswerList(new ArrayList<AnswerLink>());
     contextList = new ContextList(new ArrayList<Context>());
   }
 
@@ -170,19 +170,19 @@ public class Ask extends CoreEntity implements Serializable {
     this.attributeCode = question.getAttribute().getCode();
   }
 
-  /**
-   * @return the answerList
-   */
-  public AnswerList getAnswerList() {
-    return answerList;
-  }
-
-  /**
-   * @param answerList the answerList to set
-   */
-  public void setAnswerList(final AnswerList answerList) {
-    this.answerList = answerList;
-  }
+  // /**
+  // * @return the answerList
+  // */
+  // public AnswerList getAnswerList() {
+  // return answerList;
+  // }
+  //
+  // /**
+  // * @param answerList the answerList to set
+  // */
+  // public void setAnswerList(final AnswerList answerList) {
+  // this.answerList = answerList;
+  // }
 
 
 
@@ -291,14 +291,13 @@ public class Ask extends CoreEntity implements Serializable {
   }
 
   public void add(final Answer answer) throws BadDataException {
-    if ((answer.getSourceCode().equals(source.getCode()))
-        && (answer.getTargetCode().equals(target.getCode()))) {
-      getAnswerList().getAnswerList().add(new AnswerLink(source, target, answer));
-    } else {
-      throw new BadDataException("Source / Target ids do not match Ask");
-    }
+    // if ((answer.getSourceCode().equals(source.getCode()))
+    // && (answer.getTargetCode().equals(target.getCode()))) {
+    // getAnswerList().getAnswerList().add(new AnswerLink(source, target, answer));
+    // } else {
+    // throw new BadDataException("Source / Target ids do not match Ask");
+    // }
 
   }
 
 }
-

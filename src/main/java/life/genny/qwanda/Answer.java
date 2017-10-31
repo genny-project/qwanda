@@ -140,12 +140,12 @@ public class Answer implements Serializable {
   private Attribute attribute;
 
   // @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @JsonIgnore
-  @XmlTransient
-  @Transient
-  // @OneToOne(fetch = FetchType.LAZY)
-  // @JoinColumn(name = "ask_id", nullable = true)
-  private Ask ask;
+  // @JsonIgnore
+  // @XmlTransient
+  // @Transient
+  // // @OneToOne(fetch = FetchType.LAZY)
+  // // @JoinColumn(name = "ask_id", nullable = true)
+  // private Ask ask;
 
   /**
    * Store the askId (if present)
@@ -230,11 +230,11 @@ public class Answer implements Serializable {
    * @throws BadDataException
    */
   public Answer(final Ask aAsk, final String value) throws BadDataException {
-    this.ask = aAsk;
-    this.attributeCode = this.ask.getQuestion().getAttribute().getCode();
-    this.attribute = this.ask.getQuestion().getAttribute();
-    this.sourceCode = this.ask.getSource().getCode();
-    this.targetCode = this.ask.getTarget().getCode();
+    // this.ask = aAsk;
+    // this.attributeCode = this.ask.getQuestion().getAttribute().getCode();
+    // this.attribute = this.ask.getQuestion().getAttribute();
+    // this.sourceCode = this.ask.getSource().getCode();
+    // this.targetCode = this.ask.getTarget().getCode();
     this.setValue(value);
     autocreateCreated();
     // this.ask.add(this);
@@ -250,11 +250,11 @@ public class Answer implements Serializable {
    */
   public Answer(final Ask aAsk, final Boolean expired, final Boolean refused)
       throws BadDataException {
-    this.ask = aAsk;
-    this.attributeCode = this.ask.getQuestion().getAttribute().getCode();
-    this.attribute = this.ask.getQuestion().getAttribute();
-    this.sourceCode = this.ask.getSource().getCode();
-    this.targetCode = this.ask.getTarget().getCode();
+    // this.ask = aAsk;
+    // this.attributeCode = this.ask.getQuestion().getAttribute().getCode();
+    // this.attribute = this.ask.getQuestion().getAttribute();
+    // this.sourceCode = this.ask.getSource().getCode();
+    // this.targetCode = this.ask.getTarget().getCode();
 
     this.setRefused(refused);
     this.setExpired(expired);
@@ -390,19 +390,19 @@ public class Answer implements Serializable {
     this.weight = weight;
   }
 
-  /**
-   * @return the ask
-   */
-  public Ask getAsk() {
-    return ask;
-  }
-
-  /**
-   * @param ask the ask to set
-   */
-  public void setAsk(final Ask ask) {
-    this.ask = ask;
-  }
+  // /**
+  // * @return the ask
+  // */
+  // public Ask getAsk() {
+  // return ask;
+  // }
+  //
+  // /**
+  // * @param ask the ask to set
+  // */
+  // public void setAsk(final Ask ask) {
+  // this.ask = ask;
+  // }
 
   /**
    * @return the attributeCode

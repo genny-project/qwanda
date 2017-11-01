@@ -22,6 +22,7 @@ import life.genny.qwanda.message.QDataAnswerMessage;
 import life.genny.qwanda.message.QDataGPSMessage;
 import life.genny.test.qwanda.util.JsonUtils;
 
+
 public class JsonGenerator {
 
   Person person;
@@ -77,9 +78,9 @@ public class JsonGenerator {
 
     final Ask[] asks = new Ask[3];
 
-    asks[0] = new Ask(questionFirstname, person, person);
-    asks[1] = new Ask(questionLastname, person, person);
-    asks[2] = new Ask(questionBirthdate, person, person);
+    asks[0] = new Ask(questionFirstname, person.getCode(), person.getCode());
+    asks[1] = new Ask(questionLastname, person.getCode(), person.getCode());
+    asks[2] = new Ask(questionBirthdate, person.getCode(), person.getCode());
 
 
 

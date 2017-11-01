@@ -34,7 +34,6 @@ public class AnswerLink implements java.io.Serializable {
   private static final long serialVersionUID = 1L;
 
   @EmbeddedId
-  @JsonIgnore
   private AnswerLinkId pk = new AnswerLinkId();
 
   /**
@@ -269,7 +268,7 @@ public class AnswerLink implements java.io.Serializable {
   /**
    * @return the askId
    */
-  @Transient
+
   public Long getAskId() {
     return askId;
   }

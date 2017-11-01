@@ -17,27 +17,21 @@
 
 package life.genny.qwanda;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.ArrayList;
-import life.genny.qwanda.entity.BaseEntity;
 import life.genny.qwanda.exception.BadDataException;
 
 /**
@@ -81,22 +75,22 @@ public class Ask extends CoreEntity implements Serializable {
 
 
 
-  @XmlTransient
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "question_id", nullable = true)
-  private Question question;
+  // @XmlTransient
+  // @ManyToOne(fetch = FetchType.EAGER)
+  // @JoinColumn(name = "question_id", nullable = true)
+  // private Question question;
 
-  @JsonIgnore
-  @XmlTransient
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "source_id", nullable = false)
-  private BaseEntity source;
-
-  @JsonIgnore
-  @XmlTransient
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "target_id", nullable = false)
-  private BaseEntity target;
+  // @JsonIgnore
+  // @XmlTransient
+  // @ManyToOne(fetch = FetchType.EAGER)
+  // @JoinColumn(name = "source_id", nullable = false)
+  // private BaseEntity source;
+  //
+  // @JsonIgnore
+  // @XmlTransient
+  // @ManyToOne(fetch = FetchType.EAGER)
+  // @JoinColumn(name = "target_id", nullable = false)
+  // private BaseEntity target;
 
   private String sourceCode;
   private String targetCode;
@@ -105,7 +99,7 @@ public class Ask extends CoreEntity implements Serializable {
 
   // @Embedded
   // @Valid
-  // // @JsonInclude(Include.NON_NULL)
+  // @JsonInclude(Include.NON_NULL)
   // private AnswerList answerList;
 
   @Embedded
@@ -138,34 +132,53 @@ public class Ask extends CoreEntity implements Serializable {
   /**
    * Constructor.
    * 
-   * @param aQuestion The associated Question
-   * @param aSource The person answering the question
-   * @param aTarget The BaseEntity that the question is about
+   * @param aAttributeCode The associated Attribute
+   * @param aSourceCode The person answering the question
+   * @param aTargetCode The BaseEntity that the question is about
    */
-  public Ask(final Question aQuestion, final BaseEntity aSource, final BaseEntity aTarget) {
-    super(aQuestion.getName());
-    setQuestion(aQuestion);
+  public Ask(final String aAttributeCode, final String aSourceCode, final String aTargetCode,
+      final String name) {
+    super(name);
 
-    this.source = aSource;
-    this.target = aTarget;
-    this.sourceCode = aSource.getCode();
-    this.targetCode = aTarget.getCode();
+    // this.source = aSource;
+    // this.target = aTarget;
+    this.sourceCode = aSourceCode;
+    this.targetCode = aTargetCode;
+    this.attributeCode = aAttributeCode;
     // answerList = new AnswerList(new ArrayList<AnswerLink>());
     contextList = new ContextList(new ArrayList<Context>());
   }
 
   /**
-   * @return the question
+   * Constructor.
+   * 
+   * @param aQuestion The associated Question
+   * @param aSource The person answering the question
+   * @param aTarget The BaseEntity that the question is about
    */
-  public Question getQuestion() {
-    return question;
+  public Ask(final Question aQuestion, final String aSourceCode, final String aTargetCode) {
+    super(aQuestion.getName());
+    setQuestion(aQuestion);
+
+    this.sourceCode = aSourceCode;
+    this.targetCode = aTargetCode;
+    this.attributeCode = aQuestion.getAttribute().getCode();
+    // answerList = new AnswerList(new ArrayList<AnswerLink>());
+    contextList = new ContextList(new ArrayList<Context>());
   }
+
+  // /**
+  // * @return the question
+  // */
+  // public Question getQuestion() {
+  // return question;
+  // }
 
   /**
    * @param question the question to set
    */
   public void setQuestion(final Question question) {
-    this.question = question;
+    // this.question = question;
     this.questionCode = question.getCode();
     this.attributeCode = question.getAttribute().getCode();
   }
@@ -198,34 +211,6 @@ public class Ask extends CoreEntity implements Serializable {
    */
   public void setContextList(final ContextList contextList) {
     this.contextList = contextList;
-  }
-
-  /**
-   * @return the source
-   */
-  public BaseEntity getSource() {
-    return source;
-  }
-
-  /**
-   * @param source the source to set
-   */
-  private void setSource(final BaseEntity source) {
-    this.source = source;
-  }
-
-  /**
-   * @return the target
-   */
-  public BaseEntity getTarget() {
-    return target;
-  }
-
-  /**
-   * @param target the target to set
-   */
-  private void setTarget(final BaseEntity target) {
-    this.target = target;
   }
 
 
@@ -291,12 +276,12 @@ public class Ask extends CoreEntity implements Serializable {
   }
 
   public void add(final Answer answer) throws BadDataException {
-    // if ((answer.getSourceCode().equals(source.getCode()))
-    // && (answer.getTargetCode().equals(target.getCode()))) {
-    // getAnswerList().getAnswerList().add(new AnswerLink(source, target, answer));
-    // } else {
-    // throw new BadDataException("Source / Target ids do not match Ask");
-    // }
+    if ((answer.getSourceCode().equals(sourceCode)) && (answer.getTargetCode().equals(targetCode))
+        && (answer.getAttributeCode().equals(attributeCode))) {
+      // getAnswerList().getAnswerList().add(new AnswerLink(source, target, answer));
+    } else {
+      throw new BadDataException("Source / Target ids do not match Ask");
+    }
 
   }
 

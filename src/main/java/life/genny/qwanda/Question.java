@@ -18,7 +18,6 @@
 package life.genny.qwanda;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Embedded;
@@ -84,7 +83,7 @@ public class Question extends CodedEntity implements Serializable {
   // private Set<QuestionQuestion> childQuestions = new HashSet<QuestionQuestion>(0);
 
 
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+
   @XmlTransient
   @JsonIgnore
   @OneToOne(fetch = FetchType.EAGER)
@@ -95,6 +94,7 @@ public class Question extends CodedEntity implements Serializable {
   @Valid
   private ContextList contextList;
 
+  private String attributeCode;
 
   /**
    * Constructor.
@@ -103,7 +103,7 @@ public class Question extends CodedEntity implements Serializable {
    */
   @SuppressWarnings("unused")
   private Question() {
-    attribute = null; // dummy for hibernate
+    // dummy for hibernate
   }
 
   /**
@@ -116,6 +116,7 @@ public class Question extends CodedEntity implements Serializable {
   public Question(final String aCode, final String aName, final Attribute aAttribute) {
     super(aCode, aName);
     this.attribute = aAttribute;
+    this.attributeCode = aAttribute.getCode();
   }
 
   /**
@@ -128,7 +129,7 @@ public class Question extends CodedEntity implements Serializable {
   /**
    * @param attribute the attribute to set
    */
-  public void setAttribute(final Attribute attribute) {
+  private void setAttribute(final Attribute attribute) {
     this.attribute = attribute;
   }
 
@@ -161,6 +162,20 @@ public class Question extends CodedEntity implements Serializable {
   // public void setChildQuestions(final Set<QuestionQuestion> childQuestions) {
   // this.childQuestions = childQuestions;
   // }
+
+  /**
+   * @return the attributeCode
+   */
+  public String getAttributeCode() {
+    return attributeCode;
+  }
+
+  /**
+   * @param attributeCode the attributeCode to set
+   */
+  private void setAttributeCode(final String attributeCode) {
+    this.attributeCode = attributeCode;
+  }
 
   /**
    * getDefaultCodePrefix This method is overrides the Base class

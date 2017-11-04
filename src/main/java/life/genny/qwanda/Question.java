@@ -17,7 +17,6 @@
 
 package life.genny.qwanda;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Embedded;
@@ -85,7 +84,6 @@ public class Question extends CodedEntity implements Serializable {
 
 
   @XmlTransient
-  @JsonIgnore
   @OneToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "attribute_id", nullable = false)
   private Attribute attribute;

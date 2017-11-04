@@ -19,7 +19,6 @@ package life.genny.qwanda;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Embedded;
@@ -28,7 +27,6 @@ import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -38,11 +36,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 import life.genny.qwanda.attribute.Attribute;
-import life.genny.qwanda.exception.BadDataException;
 
 /**
  * Question is the abstract base class for all questions managed in the Qwanda library. A Question
@@ -84,10 +78,10 @@ public class Question extends CodedEntity implements Serializable {
 
   private static final String DEFAULT_CODE_PREFIX = "QUE_";
 
-  @JsonIgnore
-  @XmlTransient
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.parent", cascade = CascadeType.ALL)
-  private Set<QuestionQuestion> childQuestions = new HashSet<QuestionQuestion>(0);
+  // @JsonIgnore
+  // @XmlTransient
+  // @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.parent", cascade = CascadeType.ALL)
+  // private Set<QuestionQuestion> childQuestions = new HashSet<QuestionQuestion>(0);
 
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -109,7 +103,7 @@ public class Question extends CodedEntity implements Serializable {
    */
   @SuppressWarnings("unused")
   private Question() {
-    // dummy for hibernate
+    attribute = null; // dummy for hibernate
   }
 
   /**
@@ -154,19 +148,19 @@ public class Question extends CodedEntity implements Serializable {
 
 
 
-  /**
-   * @return the childQuestions
-   */
-  public Set<QuestionQuestion> getChildQuestions() {
-    return childQuestions;
-  }
-
-  /**
-   * @param childQuestions the childQuestions to set
-   */
-  public void setChildQuestions(final Set<QuestionQuestion> childQuestions) {
-    this.childQuestions = childQuestions;
-  }
+  // /**
+  // * @return the childQuestions
+  // */
+  // public Set<QuestionQuestion> getChildQuestions() {
+  // return childQuestions;
+  // }
+  //
+  // /**
+  // * @param childQuestions the childQuestions to set
+  // */
+  // public void setChildQuestions(final Set<QuestionQuestion> childQuestions) {
+  // this.childQuestions = childQuestions;
+  // }
 
   /**
    * getDefaultCodePrefix This method is overrides the Base class
@@ -177,110 +171,114 @@ public class Question extends CodedEntity implements Serializable {
     return DEFAULT_CODE_PREFIX;
   }
 
-  /**
-   * addChildQuestion This adds an child Question with default weight of 0.0 to the question. It
-   * auto creates the QuestionQuestion object. For efficiency we assume the child question link does
-   * not exist
-   * 
-   * @param ea
-   * @throws BadDataException
-   */
-  public void addChildQuestion(final QuestionQuestion qq) throws BadDataException {
-    if (qq == null)
-      throw new BadDataException("missing Question");
+  // /**
+  // * addChildQuestion This adds an child Question with default weight of 0.0 to the question. It
+  // * auto creates the QuestionQuestion object. For efficiency we assume the child question link
+  // does
+  // * not exist
+  // *
+  // * @param ea
+  // * @throws BadDataException
+  // */
+  // public void addChildQuestion(final QuestionQuestion qq) throws BadDataException {
+  // if (qq == null)
+  // throw new BadDataException("missing Question");
+  //
+  // addChildQuestion(qq.getChild(), qq.getWeight(), qq.getMandatory());
+  // }
+  //
+  // /**
+  // * addChildQuestion This adds an child question and associated weight to the question group. It
+  // * auto creates the QuestionQuestion object. For efficiency we assume the question link does not
+  // * already exist
+  // *
+  // * @param childQuestion
+  // * @param weight
+  // * @throws BadDataException
+  // */
+  // public void addChildQuestion(final Question childQuestion) throws BadDataException {
+  //
+  // addChildQuestion(childQuestion, 1.0);
+  // }
+  //
+  // /**
+  // * addChildQuestion This adds a child question and associated weight to the question group with
+  // no
+  // * mandatory. It auto creates the QuestionQuestion object. For efficiency we assume the question
+  // * link does not already exist
+  // *
+  // * @param childQuestion
+  // * @param weight
+  // * @throws BadDataException
+  // */
+  // public void addChildQuestion(final Question childQuestion, final Double weight)
+  // throws BadDataException {
+  // addChildQuestion(childQuestion, weight, false);
+  // }
 
-    addChildQuestion(qq.getChild(), qq.getWeight(), qq.getMandatory());
-  }
-
-  /**
-   * addChildQuestion This adds an child question and associated weight to the question group. It
-   * auto creates the QuestionQuestion object. For efficiency we assume the question link does not
-   * already exist
-   * 
-   * @param childQuestion
-   * @param weight
-   * @throws BadDataException
-   */
-  public void addChildQuestion(final Question childQuestion) throws BadDataException {
-
-    addChildQuestion(childQuestion, 1.0);
-  }
-
-  /**
-   * addChildQuestion This adds a child question and associated weight to the question group with no
-   * mandatory. It auto creates the QuestionQuestion object. For efficiency we assume the question
-   * link does not already exist
-   * 
-   * @param childQuestion
-   * @param weight
-   * @throws BadDataException
-   */
-  public void addChildQuestion(final Question childQuestion, final Double weight)
-      throws BadDataException {
-    addChildQuestion(childQuestion, weight, false);
-  }
-
-  /**
-   * addChildQuestion This adds a child question and associated weight and mandatory setting to the
-   * question group. It auto creates the QuestionQuestion object. For efficiency we assume the
-   * question link does not already exist
-   * 
-   * @param childQuestion
-   * @param weight
-   * @param mandatory setting
-   * @throws BadDataException
-   */
-  public void addChildQuestion(final Question childQuestion, final Double weight,
-      final Boolean mandatory) throws BadDataException {
-    if (childQuestion == null)
-      throw new BadDataException("missing Question");
-    if (weight == null)
-      throw new BadDataException("missing weight");
-    if (mandatory == null)
-      throw new BadDataException("missing mandatory setting");
-
-    final QuestionQuestion questionLink =
-        new QuestionQuestion(this, childQuestion, weight, mandatory);
-    getChildQuestions().add(questionLink);
-  }
-
-  /**
-   * removeChildQuestion This removes a child Question from the question group. For efficiency we
-   * assume the child question exists
-   * 
-   * @param questionCode
-   */
-  public void removeChildQuestion(final String childQuestionCode) {
-    final Optional<QuestionQuestion> optQuestionQuestion = findQuestionLink(childQuestionCode);
-    getChildQuestions().remove(optQuestionQuestion);
-  }
-
-  /**
-   * findChildQuestion This returns an QuestionLink if it exists in the question group.
-   * 
-   * @param childQuestionCode
-   * @returns Optional<QuestionQuestion>
-   */
-  public Optional<QuestionQuestion> findQuestionLink(final String childQuestionCode) {
-    final Optional<QuestionQuestion> foundEntity = Optional.of(getChildQuestions().parallelStream()
-        .filter(x -> (x.getChild().getCode().equals(childQuestionCode))).findFirst().get());
-
-
-    return foundEntity;
-  }
-
-  /**
-   * findQuestionQuestion This returns an question link if it exists in the question group. Could be
-   * more efficient in retrival (ACC: test)
-   * 
-   * @param questionLink
-   * @returns QuestionQuestion
-   */
-  public QuestionQuestion findQuestionQuestion(final Question childQuestion) {
-    final QuestionQuestion foundEntity = getChildQuestions().parallelStream()
-        .filter(x -> (x.getChild().equals(childQuestion))).findFirst().get();
-
-    return foundEntity;
-  }
+  // /**
+  // * addChildQuestion This adds a child question and associated weight and mandatory setting to
+  // the
+  // * question group. It auto creates the QuestionQuestion object. For efficiency we assume the
+  // * question link does not already exist
+  // *
+  // * @param childQuestion
+  // * @param weight
+  // * @param mandatory setting
+  // * @throws BadDataException
+  // */
+  // public void addChildQuestion(final Question childQuestion, final Double weight,
+  // final Boolean mandatory) throws BadDataException {
+  // if (childQuestion == null)
+  // throw new BadDataException("missing Question");
+  // if (weight == null)
+  // throw new BadDataException("missing weight");
+  // if (mandatory == null)
+  // throw new BadDataException("missing mandatory setting");
+  //
+  // final QuestionQuestion questionLink =
+  // new QuestionQuestion(this, childQuestion, weight, mandatory);
+  // getChildQuestions().add(questionLink);
+  // }
+  //
+  // /**
+  // * removeChildQuestion This removes a child Question from the question group. For efficiency we
+  // * assume the child question exists
+  // *
+  // * @param questionCode
+  // */
+  // public void removeChildQuestion(final String childQuestionCode) {
+  // final Optional<QuestionQuestion> optQuestionQuestion = findQuestionLink(childQuestionCode);
+  // getChildQuestions().remove(optQuestionQuestion);
+  // }
+  //
+  // /**
+  // * findChildQuestion This returns an QuestionLink if it exists in the question group.
+  // *
+  // * @param childQuestionCode
+  // * @returns Optional<QuestionQuestion>
+  // */
+  // public Optional<QuestionQuestion> findQuestionLink(final String childQuestionCode) {
+  // final Optional<QuestionQuestion> foundEntity = Optional.of(getChildQuestions().parallelStream()
+  // .filter(x -> (x.getChild().getCode().equals(childQuestionCode))).findFirst().get());
+  //
+  //
+  // return foundEntity;
+  // }
+  //
+  // /**
+  // * findQuestionQuestion This returns an question link if it exists in the question group. Could
+  // be
+  // * more efficient in retrival (ACC: test)
+  // *
+  // * @param questionLink
+  // * @returns QuestionQuestion
+  // */
+  // public QuestionQuestion findQuestionQuestion(final Question childQuestion) {
+  // final QuestionQuestion foundEntity = getChildQuestions().parallelStream()
+  // .filter(x -> (x.getChild().equals(childQuestion))).findFirst().get();
+  //
+  // return foundEntity;
+  // }
 
 }

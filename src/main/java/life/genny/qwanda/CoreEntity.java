@@ -75,6 +75,8 @@ public abstract class CoreEntity implements CreatedIntf, Serializable {
       .getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
 
   static public final String REGEX_NAME = "[a-zA-Z0-9\\ \\'\\-\\@\\(\\)]+";
+  static public final String REGEX_REALM = "[a-zA-Z0-9\\'\\-\\@\\(\\)]+";
+  static public final String DEFAULT_REALM = "genny";
 
   /**
    * Stores the Created UMT DateTime that this object was created
@@ -115,6 +117,17 @@ public abstract class CoreEntity implements CreatedIntf, Serializable {
   @Column(name = "name", updatable = true, nullable = true)
   private String name;
 
+  /**
+   * A field that stores the human readable realm of this entity.
+   * <p>
+   * Note that this field is in English.
+   */
+  @NotNull
+  @NotEmpty
+  @Size(max = 32)
+  @Pattern(regexp = REGEX_REALM, message = "Must contain valid characters for realm")
+  @Column(name = "realm", updatable = true, nullable = false)
+  private String realm = DEFAULT_REALM;
 
 
   /**
@@ -130,11 +143,25 @@ public abstract class CoreEntity implements CreatedIntf, Serializable {
   /**
    * Constructor.
    * 
+   * @param Realm the security realm of the core entity
+   * @param Name the name of the core entity
+   */
+  public CoreEntity(final String realm, final String aName) {
+    super();
+    this.realm = realm;
+    this.name = aName;
+    autocreateCreated();
+  }
+
+  /**
+   * Constructor.
+   * 
    * @param Name the summary name of the core entity
    * @param Code the unique code of the core entity
    */
   public CoreEntity(final String aName) {
     super();
+    this.realm = DEFAULT_REALM;
     this.name = aName;
     autocreateCreated();
   }
@@ -198,6 +225,22 @@ public abstract class CoreEntity implements CreatedIntf, Serializable {
    */
   public void setUpdated(final LocalDateTime updated) {
     this.updated = updated;
+  }
+
+
+
+  /**
+   * @return the realm
+   */
+  public String getRealm() {
+    return realm;
+  }
+
+  /**
+   * @param realm the realm to set
+   */
+  public void setRealm(final String realm) {
+    this.realm = realm;
   }
 
   @PreUpdate

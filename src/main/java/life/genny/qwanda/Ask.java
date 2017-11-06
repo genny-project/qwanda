@@ -101,10 +101,10 @@ public class Ask extends CoreEntity implements Serializable {
   private String questionCode;
   private String attributeCode;
 
-  @Embedded
-  @Valid
-  @JsonInclude(Include.NON_NULL)
-  private AnswerList answerList;
+  // @Embedded
+  // @Valid
+  // @JsonInclude(Include.NON_NULL)
+  // private AnswerList answerList;
 
   @Embedded
   @Valid
@@ -129,7 +129,7 @@ public class Ask extends CoreEntity implements Serializable {
   public Ask(final Question aQuestion) {
     super(aQuestion.getName());
     setQuestion(aQuestion);
-    answerList = new AnswerList(new ArrayList<AnswerLink>());
+    // answerList = new AnswerList(new ArrayList<AnswerLink>());
     contextList = new ContextList(new ArrayList<Context>());
   }
 
@@ -149,7 +149,7 @@ public class Ask extends CoreEntity implements Serializable {
     this.sourceCode = aSourceCode;
     this.targetCode = aTargetCode;
     this.attributeCode = aAttributeCode;
-    answerList = new AnswerList(new ArrayList<AnswerLink>());
+    // answerList = new AnswerList(new ArrayList<AnswerLink>());
     contextList = new ContextList(new ArrayList<Context>());
   }
 
@@ -169,7 +169,7 @@ public class Ask extends CoreEntity implements Serializable {
     this.sourceCode = aSourceCode;
     this.targetCode = aTargetCode;
     this.attributeCode = aQuestion.getAttribute().getCode();
-    answerList = new AnswerList(new ArrayList<AnswerLink>());
+    // answerList = new AnswerList(new ArrayList<AnswerLink>());
     contextList = new ContextList(new ArrayList<Context>());
   }
 
@@ -189,19 +189,19 @@ public class Ask extends CoreEntity implements Serializable {
     this.attributeCode = question.getAttribute().getCode();
   }
 
-  /**
-   * @return the answerList
-   */
-  public AnswerList getAnswerList() {
-    return answerList;
-  }
+  // /**
+  // * @return the answerList
+  // */
+  // public AnswerList getAnswerList() {
+  // return answerList;
+  // }
 
-  /**
-   * @param answerList the answerList to set
-   */
-  public void setAnswerList(final AnswerList answerList) {
-    this.answerList = answerList;
-  }
+  // /**
+  // * @param answerList the answerList to set
+  // */
+  // public void setAnswerList(final AnswerList answerList) {
+  // this.answerList = answerList;
+  // }
 
 
 

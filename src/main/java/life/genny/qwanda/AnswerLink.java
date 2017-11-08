@@ -47,7 +47,7 @@ public class AnswerLink implements java.io.Serializable {
    * Stores the Last Modified UMT DateTime that this object was last updated
    */
   @Column(name = "updated")
-  @Version
+//  @Version
   private LocalDateTime updated;
 
 
@@ -102,7 +102,7 @@ public class AnswerLink implements java.io.Serializable {
    */
   private Double weight;
 
-  @Version
+//  @Version
   private Long version = 1L;
 
   private String targetCode;

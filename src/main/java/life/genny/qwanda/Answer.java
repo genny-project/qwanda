@@ -230,11 +230,11 @@ public class Answer implements Serializable {
    * @throws BadDataException
    */
   public Answer(final Ask aAsk, final String value) throws BadDataException {
-    // this.ask = aAsk;
-    // this.attributeCode = this.ask.getQuestion().getAttribute().getCode();
-    // this.attribute = this.ask.getQuestion().getAttribute();
-    // this.sourceCode = this.ask.getSource().getCode();
-    // this.targetCode = this.ask.getTarget().getCode();
+    this.askId = aAsk.getId();
+    this.attributeCode = aAsk.getQuestion().getAttribute().getCode();
+    this.attribute = aAsk.getQuestion().getAttribute();
+    this.sourceCode = aAsk.getSourceCode();
+    this.targetCode = aAsk.getTargetCode();
     this.setValue(value);
     autocreateCreated();
     // this.ask.add(this);

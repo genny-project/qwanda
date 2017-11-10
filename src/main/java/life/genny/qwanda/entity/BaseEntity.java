@@ -502,64 +502,11 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   @Transient
   @XmlTransient
   private <T> T getValue(final EntityAttribute ea) {
-    final String dataType = ea.getAttribute().getDataType().getClassName();
-    switch (dataType) {
-      case "Integer":
-        return (T) ea.getValueInteger();
-      case "LocalDateTime":
-        return (T) ea.getValueDateTime();
-      case "Long":
-        return (T) ea.getValueLong();
-      case "Double":
-        return (T) ea.getValueDouble();
-
-      case "String":
-      default:
-        return (T) ea.getValueString();
-    }
+   return ea.getValue();
 
   }
 
-  @JsonIgnore
-  @Transient
-  @XmlTransient
-  private <T> void setValue(final Attribute attribute, final Object value, final Class<T> type) {
-    // TODO Dumb find for attribute. needs a hashMap
-
-    for (final EntityAttribute ea : this.getBaseEntityAttributes()) {
-      if (ea.getAttribute().getCode().equalsIgnoreCase(attribute.getCode())) {
-        setValue(ea, value, type);
-      }
-    }
-
-  }
-
-
-
-  @JsonIgnore
-  @Transient
-  @XmlTransient
-  private <T> void setValue(final EntityAttribute ea, final Object value, final Class<T> type) {
-    switch (type.getSimpleName()) {
-      case "Integer":
-        ea.setValueInteger((Integer) value);
-        break;
-      case "LocalDateTime":
-        ea.setValueDateTime((LocalDateTime) value);
-        break;
-      case "Long":
-        ea.setValueLong((Long) value);
-        break;
-      case "Double":
-        ea.setValueDouble((Double) value);
-        break;
-
-      case "String":
-      default:
-        ea.setValueString((String) value);
-        break;
-    }
-
-  }
+ 
+ 
 
 }

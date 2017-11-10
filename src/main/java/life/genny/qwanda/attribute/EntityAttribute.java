@@ -14,10 +14,13 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import life.genny.qwanda.datatype.LocalDateTimeAdapter;
+import life.genny.qwanda.datatype.LocalDateAdapter;
 import life.genny.qwanda.entity.BaseEntity;
 
 @Entity
@@ -90,6 +93,10 @@ public class EntityAttribute implements java.io.Serializable {
   private Double valueDouble;
 
   /**
+   * Store the Boolean value of the attribute for the baseEntity
+   */
+  private Boolean valueBoolean;
+  /**
    * Store the Integer value of the attribute for the baseEntity
    */
   private Integer valueInteger;
@@ -105,6 +112,13 @@ public class EntityAttribute implements java.io.Serializable {
   @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
   private LocalDateTime valueDateTime;
 
+  /**
+   * Store the LocalDate value of the attribute for the baseEntity
+   */
+  @XmlJavaTypeAdapter(LocalDateAdapter.class)
+  private LocalDate valueDate;
+ 
+  
   /**
    * Store the String value of the attribute for the baseEntity
    */
@@ -158,18 +172,7 @@ public class EntityAttribute implements java.io.Serializable {
     setWeight(weight);
     // Assume that Attribute Validation has been performed
     if (value != null) {
-      if (value instanceof String) {
-        setValueString((String) value);
-      } else if (value instanceof Double) {
-        setValueDouble((Double) value);
-      } else if (value instanceof Long) {
-        setValueLong((Long) value);
-      } else if (value instanceof Integer) {
-        setValueInteger((Integer) value);
-      } else if (value instanceof LocalDateTime) {
-        setValueDateTime((LocalDateTime) value);
-      }
-
+     setValue(value);
     }
   }
 
@@ -301,7 +304,17 @@ public class EntityAttribute implements java.io.Serializable {
     this.valueLong = valueLong;
   }
 
-  /**
+  
+  
+  public LocalDate getValueDate() {
+	return valueDate;
+}
+
+public void setValueDate(LocalDate valueDate) {
+	this.valueDate = valueDate;
+}
+
+/**
    * @return the valueDateTime
    */
   public LocalDateTime getValueDateTime() {
@@ -329,7 +342,17 @@ public class EntityAttribute implements java.io.Serializable {
     this.valueString = valueString;
   }
 
-  @PreUpdate
+  
+  
+  public Boolean getValueBoolean() {
+	return valueBoolean;
+}
+
+public void setValueBoolean(Boolean valueBoolean) {
+	this.valueBoolean = valueBoolean;
+}
+
+@PreUpdate
   public void autocreateUpdate() {
     setUpdated(LocalDateTime.now(ZoneId.of("Z")));
   }
@@ -388,5 +411,63 @@ public class EntityAttribute implements java.io.Serializable {
         + ", version=" + version + "]";
   }
 
+  @JsonIgnore
+  @Transient
+  @XmlTransient
+  public <T> T getValue() {
+    final String dataType = getAttribute().getDataType().getClassName();
+    switch (dataType) {
+      case "java.lang.Integer":
+        return (T) getValueInteger();
+      case "java.time.LocalDateTime":
+        return (T) getValueDateTime();
+      case "java.lang.Long":
+        return (T) getValueLong();
+      case "java.lang.Double":
+        return (T) getValueDouble();
+      case "java.lang.Boolean":
+          return (T) getValueBoolean();
+      case "java.time.LocalDate":
+          return (T) getValueDate();
 
+      case "java.lang.String":
+      default:
+        return (T) getValueString();
+    }
+
+  }
+  
+  @JsonIgnore
+  @Transient
+  @XmlTransient
+  public <T> void setValue(final Object value) {
+    switch (this.getAttribute().getDataType().getClassName()) {
+      case "java.lang.Integer":
+        setValueInteger((Integer) value);
+        break;
+      case "java.time.LocalDateTime":
+        setValueDateTime((LocalDateTime) value);
+        break;
+      case "java.time.LocalDate":
+          setValueDate((LocalDate) value);
+          break;
+         case "java.lang.Long":
+        setValueLong((Long) value);
+        break;
+      case "java.lang.Double":
+        setValueDouble((Double) value);
+        break;
+      case "java.lang.Boolean":
+          setValueBoolean((Boolean) value);
+          break;
+
+      case "java.lang.String":
+      default:
+        setValueString((String) value);
+        break;
+    }
+
+  }  
+  
+  
 }

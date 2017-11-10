@@ -6,6 +6,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assume.assumeThat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 
@@ -15,6 +16,11 @@ import org.junit.Test;
 
 import life.genny.qwanda.attribute.Attribute;
 import life.genny.qwanda.attribute.AttributeText;
+import life.genny.qwanda.attribute.AttributeDouble;
+import life.genny.qwanda.attribute.AttributeLong;
+import life.genny.qwanda.attribute.AttributeDateTime;
+import life.genny.qwanda.attribute.AttributeDate;
+import life.genny.qwanda.attribute.AttributeBoolean;
 import life.genny.qwanda.entity.Person;
 import life.genny.qwanda.entity.Product;
 import life.genny.qwanda.exception.BadDataException;
@@ -33,17 +39,30 @@ public class baseEntityTest {
 		AttributeText attributeText2 = new AttributeText(AttributeText.getDefaultCodePrefix()+"TEST2","Test 1");
 		AttributeText attributeText3 = new AttributeText(AttributeText.getDefaultCodePrefix()+"TEST3","Test 1");
 		
+		Attribute attributeDouble = new AttributeDouble(AttributeDouble.getDefaultCodePrefix()+"TEST4","Test Double 4");
+		Attribute attributeLong = new AttributeLong(AttributeLong.getDefaultCodePrefix()+"TEST5","Test Long 5");	
+		Attribute attributeBoolean = new AttributeBoolean(AttributeBoolean.getDefaultCodePrefix()+"TEST6","Test Boolean 6");	
+		Attribute attributeDateTime = new AttributeDateTime(AttributeDateTime.getDefaultCodePrefix()+"TEST7","Test DateTiume 7");	
+		Attribute attributeDate = new AttributeDate(AttributeDate.getDefaultCodePrefix()+"TEST8","Test Date 8");	
+		
+		
 		person = new Person("Barry Allen");
 		
 		person.addAttribute(attributeText1, 1.0);
 		person.addAttribute(attributeText2, 0.8);
-		person.addAttribute(attributeText3, 0.6, 3147);
+		person.addAttribute(attributeText3, 0.6, "3147");
+		person.addAttribute(attributeDouble, 0.6, 3.141);
+		person.addAttribute(attributeLong, 0.6, 3147L);
+		person.addAttribute(attributeBoolean, 0.6, true);
+		person.addAttribute(attributeDateTime, 0.6, LocalDateTime.of(2017, Month.JUNE, 20, 10, 13));
+		person.addAttribute(attributeDate, 0.6, LocalDate.of(2017, Month.JUNE, 20));
+
 		
 		product = new Product(Product.getDefaultCodePrefix()+"TEST_PRODUCT","Test Product");
 		
 		product.addAttribute(attributeText1, 1.0);
 		product.addAttribute(attributeText2, 0.8);
-		product.addAttribute(attributeText3, 0.6, 3147);
+		product.addAttribute(attributeText3, 0.6, "3147");
 	}
 
 	@After

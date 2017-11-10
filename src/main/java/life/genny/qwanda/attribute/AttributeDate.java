@@ -22,6 +22,8 @@
 package life.genny.qwanda.attribute;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -34,13 +36,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import life.genny.qwanda.datatype.DataType;
 
 /**
- * AttributeDouble class handles LocalDouble based attributes.
+ * AttributeDate class handles LocalDate based attributes.
  * This information adds:
  * <ul>
- * <li>The AnswerTypeDouble is the Type for the Attribute class
+ * <li>The AnswerTypeDate is the Type for the Attribute class
  * </ul>
  * <p>
- * AttributeDouble represent the major way of specifying the Double data type about a target
+ * AttributeDate represent the major way of specifying the Date data type about a target
  * from sources.
  * <p>
  * 
@@ -57,8 +59,8 @@ import life.genny.qwanda.datatype.DataType;
 @XmlAccessorType(value = XmlAccessType.FIELD)
 
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorValue("double")
-public class AttributeDouble extends Attribute implements Serializable {
+@DiscriminatorValue("date")
+public class AttributeDate extends Attribute implements Serializable {
 	/**
 	 * 
 	 */
@@ -71,7 +73,7 @@ public class AttributeDouble extends Attribute implements Serializable {
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private AttributeDouble()
+	private AttributeDate()
 	{
 		super();
 		// dummy for hibernate
@@ -80,12 +82,12 @@ public class AttributeDouble extends Attribute implements Serializable {
 	/**
 	  * Constructor.
 	  * 
-	  * @param aCode The unique code for this Attribute
-	  * @param aValue The double value
+	  * @param aCode The unique code for this Question
+	  * @param aName The human readable summary name
 	  */
-	public AttributeDouble(String aCode, String aName)
+	public AttributeDate(String aCode, String aName)
 	{
-		super(aCode, aName, new DataType(Double.class));
+		super(aCode, aName, new DataType(LocalDate.class));
 		
 	}
 	

@@ -69,7 +69,7 @@ public class QEventAttributeValueChangeMessage extends QEventMessage {
 	@Override
 	public String toString() {
 		return "QEventAttributeValueChangeMessage [sourceCode="+sourceBaseEntityCode+",targetCode="+targetBaseEntityCode+", oldValue=" + oldValue + ", newValue=" + newValue
-				+ ", getEvent_type()=" + getEvent_type() + ", getMsg_type()=" + getMsg_type() + "]";
+				+ ", event_type=" + getEvent_type() + ", msg_type()=" + getMsg_type() + "]";
 	}
 
 	

@@ -4,6 +4,7 @@ public class QEventMessage extends QMessage{
 	
 	private static final String MESSAGE_TYPE = "EVT_MSG";
 	private String event_type;
+	public MessageData data;
 
 	@Override
 	public String toString() {
@@ -22,7 +23,7 @@ public class QEventMessage extends QMessage{
 		this.data = data;
 	}
 	
-	private MessageData data;
+
 	
 	public QEventMessage(String eventType, String code) {
 		super(MESSAGE_TYPE);

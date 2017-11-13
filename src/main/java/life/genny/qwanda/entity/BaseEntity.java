@@ -91,17 +91,17 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   @XmlTransient
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.baseEntity", cascade = CascadeType.ALL)
-  private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
+  private List<EntityAttribute> baseEntityAttributes = new ArrayList<EntityAttribute>(0);
 
   @JsonIgnore
   @XmlTransient
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.source", cascade = CascadeType.ALL)
-  private Set<EntityEntity> links = new HashSet<EntityEntity>(0);
+  private List<EntityEntity> links = new ArrayList<EntityEntity>(0);
 
   @JsonIgnore
   @XmlTransient
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.source", cascade = CascadeType.ALL)
-  private Set<AnswerLink> answers = new HashSet<AnswerLink>(0);
+  private List<AnswerLink> answers = new ArrayList<AnswerLink>(0);
 
 
   /**
@@ -141,14 +141,14 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   /**
    * @return the answers
    */
-  public Set<AnswerLink> getAnswers() {
+  public List<AnswerLink> getAnswers() {
     return answers;
   }
 
   /**
    * @param answers the answers to set
    */
-  public void setAnswers(final Set<AnswerLink> answers) {
+  public void setAnswers(final List<AnswerLink> answers) {
     this.answers = answers;
   }
 
@@ -156,14 +156,14 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
    * @return the baseEntityAttributes
    */
   @JsonInclude(JsonInclude.Include.NON_NULL)
-  public Set<EntityAttribute> getBaseEntityAttributes() {
+  public List<EntityAttribute> getBaseEntityAttributes() {
     return baseEntityAttributes;
   }
 
   /**
    * @param baseEntityAttributes the baseEntityAttributes to set
    */
-  public void setBaseEntityAttributes(final Set<EntityAttribute> baseEntityAttributes) {
+  public void setBaseEntityAttributes(final List<EntityAttribute> baseEntityAttributes) {
     this.baseEntityAttributes = baseEntityAttributes;
   }
 
@@ -173,14 +173,14 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
    * @return the links
    */
   @JsonInclude(JsonInclude.Include.NON_NULL)
-  public Set<EntityEntity> getLinks() {
+  public List<EntityEntity> getLinks() {
     return links;
   }
 
   /**
    * @param links the links to set
    */
-  public void setLinks(final Set<EntityEntity> links) {
+  public void setLinks(final List<EntityEntity> links) {
     this.links = links;
   }
 

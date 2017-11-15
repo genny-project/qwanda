@@ -255,9 +255,11 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
    */
   public Optional<EntityAttribute> findEntityAttribute(final String attributeCode) {
     final Optional<EntityAttribute> foundEntity =
-        Optional.of(getBaseEntityAttributes().parallelStream()
-            .filter(x -> (x.getAttribute().getCode().equals(attributeCode))).findFirst().get());
+        getBaseEntityAttributes().stream()
+            .filter(x -> (x.getAttribute().getCode().equals(attributeCode))).findFirst();
 
+//    Optional.of(getBaseEntityAttributes().stream()
+//            .filter(x -> (x.getAttribute().getCode().equals(attributeCode))).findFirst().get());
 
     return foundEntity;
   }
@@ -270,7 +272,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
    * @returns EntityAttribute
    */
   public EntityAttribute findEntityAttribute(final Attribute attribute) {
-    final EntityAttribute foundEntity = getBaseEntityAttributes().parallelStream()
+    final EntityAttribute foundEntity = getBaseEntityAttributes().stream()
         .filter(x -> (x.getAttribute().equals(attribute))).findFirst().get();
 
     return foundEntity;
@@ -424,16 +426,19 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
    * @param weight
    * @throws BadDataException
    */
-  public AnswerLink addAnswer(final BaseEntity target, final Answer answer, final Double weight)
+  public AnswerLink addAnswer(final BaseEntity source, final Answer answer, final Double weight)
       throws BadDataException {
-    if (target == null)
+    if (source == null)
       throw new BadDataException("missing Target Entity");
     if (answer == null)
       throw new BadDataException("missing Answer");
     if (weight == null)
       throw new BadDataException("missing weight");
 
-    final AnswerLink answerLink = new AnswerLink(this, target, answer, weight);
+    final AnswerLink answerLink = new AnswerLink(source, this, answer, weight);
+    if (answer.getAskId()!=null) {
+    		answerLink.setAskId(answer.getAskId());
+    }
     // Set<AnswerLink> answerLinkSet = new HashSet<AnswerLink>();
     // answerLinkSet.addAll(answer.getAsk().getAnswerList().getAnswerList());
     getAnswers().add(answerLink);

@@ -15,6 +15,8 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.Type;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -85,6 +87,7 @@ public class AnswerLink implements java.io.Serializable {
 	/**
 	 * Store the String value of the attribute for the baseEntity
 	 */
+	@Type(type="text")
 	private String valueString;
 
 	/**

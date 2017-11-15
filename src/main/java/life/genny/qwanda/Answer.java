@@ -18,6 +18,8 @@
 package life.genny.qwanda;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -118,7 +120,7 @@ public class Answer implements Serializable {
    */
   @NotNull
   @NotEmpty
-  @Size(max = 4096)
+  @Type(type="text")
   @Column(name = "value", updatable = true, nullable = false)
   private String value;
 

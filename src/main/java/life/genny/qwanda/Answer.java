@@ -118,7 +118,7 @@ public class Answer implements Serializable {
    */
   @NotNull
   @NotEmpty
-  @Size(max = 2048)
+  @Size(max = 4096)
   @Column(name = "value", updatable = true, nullable = false)
   private String value;
 

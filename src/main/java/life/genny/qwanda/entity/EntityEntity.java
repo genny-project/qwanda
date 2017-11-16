@@ -37,6 +37,8 @@ public class EntityEntity implements java.io.Serializable {
   private String parentCode;
   @Transient
   private String targetCode;
+  @Transient
+  private String linkCode;
   /**
    * 
    */
@@ -75,7 +77,25 @@ public class EntityEntity implements java.io.Serializable {
     this.targetCode = targetCode;
   }
 
+  
+  
   /**
+ * @return the linkCode
+ */
+public String getLinkCode() {
+	return linkCode;
+}
+
+/**
+ * @param linkCode the linkCode to set
+ */
+public void setLinkCode(String linkCode) {
+	this.linkCode = linkCode;
+}
+
+
+
+/**
    * Stores the Created UMT DateTime that this object was created
    */
 
@@ -220,6 +240,7 @@ public class EntityEntity implements java.io.Serializable {
 
   public void setLinkAttribute(final Attribute linkAttribute) {
     getPk().setLinkAttribute(linkAttribute);
+    setLinkCode(linkAttribute.getCode());
   }
 
   /**

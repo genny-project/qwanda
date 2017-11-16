@@ -65,7 +65,7 @@ public class QEventLinkChangeMessage extends QEventMessage {
 
 	@Override
 	public String toString() {
-		return "QEventAttributeValueChangeMessage [sourceCode="+sourceBaseEntityCode+",targetCode="+targetBaseEntityCode+", linkCodee=" +linkCode 
+		return "QEventLinkChangeMessage [sourceCode="+sourceBaseEntityCode+",targetCode="+targetBaseEntityCode+", linkCodee=" +linkCode 
 				+ ", event_type=" + getEvent_type() + ", msg_type=" + getMsg_type() + "]";
 	}
 

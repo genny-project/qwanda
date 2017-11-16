@@ -124,6 +124,26 @@ public class GPS  implements Serializable {
     private String longitude;
 
     /**
+    A field that stores the timestamp.
+    <p>
+    */
+    @NotNull
+    @NotEmpty
+    @Size(max = 32)
+    @Column(name = "timestamp", updatable = false, nullable = false)
+    private String timestamp;
+
+    /**
+    A field that stores the accuracy.
+    <p>
+    */
+    @NotNull
+    @NotEmpty
+    @Size(max = 32)
+    @Column(name = "accuracy", updatable = false, nullable = true)
+    private String accuracy;
+
+    /**
     A field that stores the bearing/heading.
     <p>
     */
@@ -132,6 +152,36 @@ public class GPS  implements Serializable {
     @Size(max = 32)
     @Column(name = "bearing", updatable = false, nullable = true)
     private String bearing;
+
+    /**
+    A field that stores the altitude.
+    <p>
+    */
+    @NotNull
+    @NotEmpty
+    @Size(max = 32)
+    @Column(name = "altitude", updatable = false, nullable = true)
+    private String altitude;
+    
+    /**
+    A field that stores the altitude accuracy.
+    <p>
+    */
+    @NotNull
+    @NotEmpty
+    @Size(max = 32)
+    @Column(name = "altitude_accuracy", updatable = false, nullable = true)
+    private String altitude_accuracy;
+    
+    /**
+    A field that stores the speed.
+    <p>
+    */
+    @NotNull
+    @NotEmpty
+    @Size(max = 4)
+    @Column(name = "speed", updatable = true, nullable = true)
+    private String speed;
     
 	/**
 	A field that stores the human readable targetcode associated with this answer.
@@ -158,24 +208,23 @@ public class GPS  implements Serializable {
 		// dummy for hibernate
 	}
 
-
-	
 	/**
 	  * Constructor.
 	  * 
-	  * @param sourceCode The unique code for the source associated with this Answer
 	  * @param targetCode The unique code for the target associated with this Answer
 	  * @param aCode The unique code for the attribute associated with this Answer
 	  * @param value The associated String value
 	  */
-	public GPS(final String targetCode,final String latitude, final String longitude, final String bearing)
+	public GPS(final String targetCode,final String latitude, final String longitude)
 	{
 		this.targetCode = targetCode;
 		this.setLatitude(latitude);
 		this.setLongitude(longitude);
-		this.setBearing(bearing);
 		autocreateCreated();
 	}
+
+	
+
 
 
     /**
@@ -299,6 +348,76 @@ public class GPS  implements Serializable {
 
 
   /**
+ * @return the timestamp
+ */
+public String getTimestamp() {
+	return timestamp;
+}
+
+/**
+ * @param timestamp the timestamp to set
+ */
+public void setTimestamp(String timestamp) {
+	this.timestamp = timestamp;
+}
+
+/**
+ * @return the accuracy
+ */
+public String getAccuracy() {
+	return accuracy;
+}
+
+/**
+ * @param accuracy the accuracy to set
+ */
+public void setAccuracy(String accuracy) {
+	this.accuracy = accuracy;
+}
+
+/**
+ * @return the altitude
+ */
+public String getAltitude() {
+	return altitude;
+}
+
+/**
+ * @param altitude the altitude to set
+ */
+public void setAltitude(String altitude) {
+	this.altitude = altitude;
+}
+
+/**
+ * @return the altitude_accuracy
+ */
+public String getAltitude_accuracy() {
+	return altitude_accuracy;
+}
+
+/**
+ * @param altitude_accuracy the altitude_accuracy to set
+ */
+public void setAltitude_accuracy(String altitude_accuracy) {
+	this.altitude_accuracy = altitude_accuracy;
+}
+
+/**
+ * @return the speed
+ */
+public String getSpeed() {
+	return speed;
+}
+
+/**
+ * @param speed the speed to set
+ */
+public void setSpeed(String speed) {
+	this.speed = speed;
+}
+
+/**
    * @return the targetId
    */
   public Long getTargetId() {

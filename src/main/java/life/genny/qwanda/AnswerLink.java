@@ -27,8 +27,10 @@ import life.genny.qwanda.attribute.EntityAttribute;
 import life.genny.qwanda.entity.BaseEntity;
 
 @Entity
-@Table(name = "answerlinks", indexes = {
-		@Index(name = "IDX_MYIDX1", columnList = "targetCode,sourceCode,attributeCode") })
+@Table(name = "answerlinks")
+//@Table(name = "answerlinks", indexes = {
+//		@Index(name = "IDX_MYIDX1", columnList = "targetCode,sourceCode,attributeCode") })
+
 @AssociationOverrides({ @AssociationOverride(name = "pk.source", joinColumns = @JoinColumn(name = "SOURCE_ID")),
 		@AssociationOverride(name = "pk.target", joinColumns = @JoinColumn(name = "TARGET_ID")) })
 public class AnswerLink implements java.io.Serializable {

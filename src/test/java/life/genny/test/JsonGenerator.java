@@ -37,7 +37,7 @@ public class JsonGenerator {
   @Test
   public void generateCMDJsons() throws BadDataException {
     final GPS[] gpss = new GPS[1];
-    gpss[0] = new GPS("PER_USER1", "-37.86330", "145.0922", "0");
+    gpss[0] = new GPS("PER_USER1", "-37.86330", "145.0922");
     final QDataGPSMessage gpsmsg = new QDataGPSMessage(gpss);
     JsonGenerator(gpsmsg);
 

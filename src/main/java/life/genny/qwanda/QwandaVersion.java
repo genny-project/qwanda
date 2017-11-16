@@ -7,6 +7,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 public class QwandaVersion {
+	
+	public QwandaVersion()
+	{
+		
+	}
 
 	static public String getVersion()
 	{
@@ -27,8 +32,10 @@ public class QwandaVersion {
 	{
 		   Properties properties = new Properties();
 		    try {
-		      properties.load(Thread.currentThread().getContextClassLoader().getResource("git.properties")
-		          .openStream());
+		    	QwandaVersion qv = new QwandaVersion();
+		    	properties.load(qv.getClass().getResourceAsStream("/git.properties" ));
+		     // properties.load(Thread.currentThread().getContextClassLoader().getResource("git.properties")
+		      //    .openStream());
 		    } catch (IOException e) {
 		      // TODO Auto-generated catch block
 		      e.printStackTrace();

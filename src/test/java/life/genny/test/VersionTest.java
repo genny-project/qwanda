@@ -8,6 +8,8 @@ public class VersionTest {
 	@Test
 	public void versionTest()
 	{
+		System.out.println("------------- qwanda version ---------------------------\n");
+
 		System.out.println("Version:\t"+QwandaVersion.getVersion());
 		System.out.println("Build:  \t"+QwandaVersion.getBuildDate());
 		System.out.println("Commit: \t"+QwandaVersion.getCommitDate());

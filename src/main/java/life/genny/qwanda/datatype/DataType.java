@@ -152,5 +152,12 @@ public class DataType implements Serializable {
     return "DType(" + className + ")";
   }
 
-
+static public DataType getInstance(final String className)
+{
+	final List<Validation> validationList = new ArrayList<Validation>(0);
+	ValidationList vlist = new ValidationList(validationList);
+	DataType dataTypeInstance = new DataType(className,vlist);
+	return dataTypeInstance;
+}
+  
 }

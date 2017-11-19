@@ -91,17 +91,17 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   @XmlTransient
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.baseEntity", cascade = CascadeType.ALL)
-  private List<EntityAttribute> baseEntityAttributes = new ArrayList<EntityAttribute>(0);
+  private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 
   @JsonIgnore
   @XmlTransient
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.source", cascade = CascadeType.ALL)
-  private List<EntityEntity> links = new ArrayList<EntityEntity>(0);
+  private Set<EntityEntity> links = new HashSet<EntityEntity>(0);
 
   @JsonIgnore
   @XmlTransient
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.source", cascade = CascadeType.ALL)
-  private List<AnswerLink> answers = new ArrayList<AnswerLink>(0);
+  private Set<AnswerLink> answers = new HashSet<AnswerLink>(0);
 
 
   /**
@@ -141,14 +141,14 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   /**
    * @return the answers
    */
-  public List<AnswerLink> getAnswers() {
+  public Set<AnswerLink> getAnswers() {
     return answers;
   }
 
   /**
    * @param answers the answers to set
    */
-  public void setAnswers(final List<AnswerLink> answers) {
+  public void setAnswers(final Set<AnswerLink> answers) {
     this.answers = answers;
   }
 
@@ -156,14 +156,14 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
    * @return the baseEntityAttributes
    */
   @JsonInclude(JsonInclude.Include.NON_NULL)
-  public List<EntityAttribute> getBaseEntityAttributes() {
+  public Set<EntityAttribute> getBaseEntityAttributes() {
     return baseEntityAttributes;
   }
 
   /**
    * @param baseEntityAttributes the baseEntityAttributes to set
    */
-  public void setBaseEntityAttributes(final List<EntityAttribute> baseEntityAttributes) {
+  public void setBaseEntityAttributes(final Set<EntityAttribute> baseEntityAttributes) {
     this.baseEntityAttributes = baseEntityAttributes;
   }
 
@@ -173,14 +173,14 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
    * @return the links
    */
   @JsonInclude(JsonInclude.Include.NON_NULL)
-  public List<EntityEntity> getLinks() {
+  public Set<EntityEntity> getLinks() {
     return links;
   }
 
   /**
    * @param links the links to set
    */
-  public void setLinks(final List<EntityEntity> links) {
+  public void setLinks(final Set<EntityEntity> links) {
     this.links = links;
   }
 
@@ -336,6 +336,10 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
       throw new BadDataException("missing weight");
 
     final EntityAttribute entityAttribute = new EntityAttribute(this, attribute, weight, value);
+    Optional<EntityAttribute> existing = findEntityAttribute(attribute.getCode());
+    if (existing.isPresent()) {
+    	removeAttribute(existing.get().getAttributeCode());
+    }
     getBaseEntityAttributes().add(entityAttribute);
     return entityAttribute;
   }
@@ -349,7 +353,9 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
    */
   public void removeAttribute(final String attributeCode) {
     final Optional<EntityAttribute> optEntityAttribute = findEntityAttribute(attributeCode);
-    getBaseEntityAttributes().remove(optEntityAttribute);
+    if (optEntityAttribute.isPresent()) {
+    		getBaseEntityAttributes().remove(optEntityAttribute.get());
+    }
   }
 
   /**
@@ -469,8 +475,8 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
         + baseEntityAttributes + "]" + " [links=" + links + "]";
   }
 
-  public List<EntityAttribute> merge(final BaseEntity entity) {
-    final List<EntityAttribute> changes = new ArrayList<EntityAttribute>();
+  public Set<EntityAttribute> merge(final BaseEntity entity) {
+    final Set<EntityAttribute> changes = new HashSet<EntityAttribute>();
 
     // go through the attributes in the entity and check if already existing , if so then check the
     // value and override, else add new attribute

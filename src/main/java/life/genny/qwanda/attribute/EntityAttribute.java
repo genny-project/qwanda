@@ -29,7 +29,7 @@ import life.genny.qwanda.entity.BaseEntity;
 // #@JsonFilter("EntityAttribute")
 @Table(name = "baseentity_attribute")
 @AssociationOverrides({
-    @AssociationOverride(name = "pk.baseEntity", joinColumns = @JoinColumn(name = "BASEENTITY_ID")),
+   @AssociationOverride(name = "pk.baseEntity", joinColumns = @JoinColumn(name = "BASEENTITY_ID")),
     @AssociationOverride(name = "pk.attribute", joinColumns = @JoinColumn(name = "ATTRIBUTE_ID"))})
 public class EntityAttribute implements java.io.Serializable {
 
@@ -132,8 +132,8 @@ public class EntityAttribute implements java.io.Serializable {
    */
   private Double weight;
 
-  @Version
-  private Long version = 1L;
+//  @Version
+//  private Long version = 1L;
 
   public EntityAttribute() {}
 
@@ -208,6 +208,8 @@ public class EntityAttribute implements java.io.Serializable {
     getPk().setAttribute(attribute);
     this.attributeCode = attribute.getCode();
   }
+  
+
 
   /**
    * @return the created
@@ -251,19 +253,19 @@ public class EntityAttribute implements java.io.Serializable {
     this.weight = weight;
   }
 
-  /**
-   * @return the version
-   */
-  public Long getVersion() {
-    return version;
-  }
-
-  /**
-   * @param version the version to set
-   */
-  public void setVersion(final Long version) {
-    this.version = version;
-  }
+//  /**
+//   * @return the version
+//   */
+//  public Long getVersion() {
+//    return version;
+//  }
+//
+//  /**
+//   * @param version the version to set
+//   */
+//  public void setVersion(final Long version) {
+//    this.version = version;
+//  }
 
   /**
    * @return the valueDouble
@@ -410,8 +412,8 @@ public void setValueBoolean(Boolean valueBoolean) {
     return "EntityAttribute [baseEntityCode=" + baseEntityCode + ", attributeCode=" + attributeCode
         + ", pk=" + pk + ", created=" + created + ", updated=" + updated + ", valueDouble="
         + valueDouble + ", valueInteger=" + valueInteger + ", valueLong=" + valueLong
-        + ", valueDateTime=" + valueDateTime + ", valueString=" + valueString + ", weight=" + weight
-        + ", version=" + version + "]";
+        + ", valueDateTime=" + valueDateTime + ", valueString=" + valueString + ", weight=" + weight +"]";
+     //   + ", version=" + version + "]";
   }
 
   @JsonIgnore

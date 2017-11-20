@@ -472,8 +472,8 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
    */
   @Override
   public String toString() {
-    return this.getClass().getSimpleName() + ":" + super.toString() + " [attributeList="
-        + baseEntityAttributes + "]" + " [links=" + links + "]";
+    return "BE:" + ":" + super.toString() + " EAs:"
+        + baseEntityAttributes;
   }
 
   public Set<EntityAttribute> merge(final BaseEntity entity) {

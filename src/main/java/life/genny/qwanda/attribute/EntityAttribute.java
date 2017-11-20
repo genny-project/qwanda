@@ -17,6 +17,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.hibernate.annotations.Type;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -409,10 +411,8 @@ public void setValueBoolean(Boolean valueBoolean) {
    */
   @Override
   public String toString() {
-    return "EntityAttribute [baseEntityCode=" + baseEntityCode + ", attributeCode=" + attributeCode
-        + ", pk=" + pk + ", created=" + created + ", updated=" + updated + ", valueDouble="
-        + valueDouble + ", valueInteger=" + valueInteger + ", valueLong=" + valueLong
-        + ", valueDateTime=" + valueDateTime + ", valueString=" + valueString + ", weight=" + weight +"]";
+    return "EA:"+baseEntityCode + ":" + attributeCode
+        + ": "+getAsString()+" wt=" + weight +"]";
      //   + ", version=" + version + "]";
   }
 
@@ -474,5 +474,35 @@ public void setValueBoolean(Boolean valueBoolean) {
 
   }  
   
-  
+  @JsonIgnore
+  @Transient
+  @XmlTransient
+  public String getAsString() {
+    final String dataType = getAttribute().getDataType().getClassName();
+    switch (dataType) {
+      case "java.lang.Integer":
+        return ""+getValueInteger();
+      case "java.time.LocalDateTime":
+    	  	DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS"); 
+    	  	Date datetime = Date.from(getValueDateTime().atZone(ZoneId.systemDefault()).toInstant());
+    	  	String dout = df.format(datetime);
+    	  	return dout;
+      case "java.lang.Long":
+        return ""+getValueLong();
+      case "java.lang.Double":
+        return getValueDouble().toString();
+      case "java.lang.Boolean":
+          return getValueBoolean()?"TRUE":"FALSE";
+      case "java.time.LocalDate":
+     	  	DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd"); 
+     	  	Date date = Date.from(getValueDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+    	  	String dout2 = df2.format(date);
+    	  	return dout2;
+ 
+      case "java.lang.String":
+      default:
+        return getValueString();
+    }
+
+  }
 }

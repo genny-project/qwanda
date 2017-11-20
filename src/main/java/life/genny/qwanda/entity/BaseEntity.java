@@ -368,9 +368,9 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
    * @param weight
    * @throws BadDataException
    */
-  public void addTarget(final BaseEntity target, final Attribute linkAttribute, final Double weight)
+  public EntityEntity addTarget(final BaseEntity target, final Attribute linkAttribute, final Double weight)
       throws BadDataException {
-    addTarget(target, linkAttribute, weight, null);
+    return addTarget(target, linkAttribute, weight, null);
   }
 
   /**
@@ -384,7 +384,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
    * @param value (of type String, LocalDateTime, Long, Integer, Boolean
    * @throws BadDataException
    */
-  public void addTarget(final BaseEntity target, final Attribute linkAttribute, final Double weight,
+  public EntityEntity  addTarget(final BaseEntity target, final Attribute linkAttribute, final Double weight,
       final Object value) throws BadDataException {
     if (target == null)
       throw new BadDataException("missing Target Entity");
@@ -395,6 +395,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
     final EntityEntity entityEntity = new EntityEntity(this, target, linkAttribute, weight, value);
     getLinks().add(entityEntity);
+    return entityEntity;
   }
 
   /**

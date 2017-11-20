@@ -222,6 +222,7 @@ public void setLinkCode(String linkCode) {
 
   public void setSource(final BaseEntity source) {
     getPk().setSource(source);
+    setParentCode(source.getCode());
   }
 
   @Transient
@@ -231,6 +232,7 @@ public void setLinkCode(String linkCode) {
 
   public void setTarget(final BaseEntity target) {
     getPk().setTarget(target);
+    setTargetCode(target.getCode());
   }
 
   @Transient

@@ -106,7 +106,6 @@ public void setLinkCode(String linkCode) {
    * Stores the Last Modified UMT DateTime that this object was last updated
    */
   @Column(name = "updated")
-  @Version
   private LocalDateTime updated;
 
 
@@ -154,7 +153,6 @@ public void setLinkCode(String linkCode) {
    */
   private Double weight;
 
-  @Version
   private Long version = 1L;
 
 

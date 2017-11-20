@@ -90,7 +90,6 @@ public abstract class CoreEntity implements CreatedIntf, Serializable {
    */
   // @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
   @Column(name = "updated")
-  @Version
   private LocalDateTime updated;
 
 

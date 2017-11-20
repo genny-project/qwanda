@@ -41,7 +41,6 @@ public class QuestionQuestion implements java.io.Serializable {
 	 * Stores the Last Modified UMT DateTime that this object was last updated
 	 */
 	@Column(name = "updated")
-	@Version
 	private LocalDateTime updated;
 
 	
@@ -60,7 +59,6 @@ public class QuestionQuestion implements java.io.Serializable {
 	 */
 	private Double weight;
 
-	@Version
 	private Long version = 1L;
 
 	public QuestionQuestion() {

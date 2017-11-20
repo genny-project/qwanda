@@ -53,6 +53,9 @@ public class EntityEntity implements java.io.Serializable {
    * @return the parentCode
    */
   public String getParentCode() {
+	  if (parentCode==null) {
+		  this.parentCode = getPk().getSourceCode();
+	  }
     return parentCode;
   }
 
@@ -67,6 +70,9 @@ public class EntityEntity implements java.io.Serializable {
    * @return the targetCode
    */
   public String getTargetCode() {
+	  if (targetCode==null) {
+		  this.targetCode = getPk().getTargetCode();
+	  }
     return targetCode;
   }
 

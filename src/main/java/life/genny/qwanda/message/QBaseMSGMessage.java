@@ -1,5 +1,7 @@
 package life.genny.qwanda.message;
 
+import java.util.Arrays;
+
 public class QBaseMSGMessage {
 	
 	private String source;
@@ -7,6 +9,7 @@ public class QBaseMSGMessage {
 	private String priority;
 	private String subject;
 	private String msgMessageData;
+	private String[] attachments;
 	
 	private QBaseMSGMessageType msgMessageType;
 	
@@ -47,10 +50,19 @@ public class QBaseMSGMessage {
 	public void setMsgMessageData(String msgMessageData) {
 		this.msgMessageData = msgMessageData;
 	}
+	
+	public String[] getAttachments() {
+		return attachments;
+	}
+	public void setAttachments(String[] attachments) {
+		this.attachments = attachments;
+	}
+	
 	@Override
 	public String toString() {
 		return "QBaseMSGMessage [source=" + source + ", target=" + target + ", priority=" + priority + ", subject="
-				+ subject + ", msgMessageData=" + msgMessageData + ", msgMessageType=" + msgMessageType + "]";
+				+ subject + ", msgMessageData=" + msgMessageData + ", attachments=" + Arrays.toString(attachments)
+				+ ", msgMessageType=" + msgMessageType + "]";
 	}
 	
 	

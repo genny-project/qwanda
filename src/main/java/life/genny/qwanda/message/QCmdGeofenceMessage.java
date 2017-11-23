@@ -6,14 +6,17 @@ public class QCmdGeofenceMessage extends QCmdMessage{
 	private static final String CMD_TYPE = "CMD_GPS";
 	private static final String CODE = "GEOFENCE";
 
-	private GPS[] items;
+	//private GPS[] items;
+	private GPS gpsLocation;
+	double radius;
 	private String enterCode;
 	private String exitCode;
 
 	
-	public QCmdGeofenceMessage(GPS[] items, String enterCode, String exitCode) {
+	public QCmdGeofenceMessage(GPS gps, double radius, String enterCode, String exitCode) {
 		super(CMD_TYPE, CODE);
-		this.items = items;
+		this.gpsLocation = gps;
+		this.radius = radius;
 		this.enterCode = enterCode;
 		this.exitCode = exitCode;
 	}
@@ -24,18 +27,28 @@ public class QCmdGeofenceMessage extends QCmdMessage{
 	private static final long serialVersionUID = 1L;
 
 
+
 	/**
-	 * @return the items
+	 * @return the gpsLocation
 	 */
-	public GPS[] getItems() {
-		return items;
+	public GPS getGpsLocation() {
+		return gpsLocation;
 	}
 
 	/**
-	 * @param items the items to set
+	 * @param gpsLocation the gpsLocation to set
 	 */
-	public void setItems(GPS[] items) {
-		this.items = items;
+	public void setGpsLocation(GPS gpsLocation) {
+		this.gpsLocation = gpsLocation;
+	}
+
+	
+	public double getRadius() {
+		return radius;
+	}
+
+	public void setRadius(double radius) {
+		this.radius = radius;
 	}
 
 	/**

@@ -2,6 +2,8 @@ package life.genny.qwanda.entity;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -22,27 +24,29 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+
+import life.genny.qwanda.Link;
 import life.genny.qwanda.attribute.Attribute;
 import life.genny.qwanda.datatype.LocalDateAdapter;
 import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 
 @Entity
 @Table(name = "baseentity_baseentity")
-@AssociationOverrides({
-    @AssociationOverride(name = "pk.source", joinColumns = @JoinColumn(name = "SOURCE_ID")),
-    @AssociationOverride(name = "pk.target", joinColumns = @JoinColumn(name = "TARGET_ID"))    
-})
 //@AssociationOverrides({
-//    @AssociationOverride(name = "pk.source", joinColumns = @JoinColumn(name = "SOURCE_ID"))})
+//    @AssociationOverride(name = "pk.source", joinColumns = @JoinColumn(name = "SOURCE_ID")),
+//    @AssociationOverride(name = "pk.target", joinColumns = @JoinColumn(name = "TARGET_ID"))    
+//})
+@AssociationOverrides({
+    @AssociationOverride(name = "pk.source", joinColumns = @JoinColumn(name = "SOURCE_ID"))})
 
 public class EntityEntity implements java.io.Serializable {
 
-//  @Transient
-//  private String parentCode;
-//  @Transient
-//  private String targetCode;
-//  @Transient
-//  private String linkCode;
+
+	@AttributeOverrides({
+        @AttributeOverride(name = "sourceCode", column = @Column(name = "SOURCE_CODE", nullable = false)),
+        @AttributeOverride(name = "targetCode", column = @Column(name = "TARGET_CODE", nullable = false)),
+        @AttributeOverride(name = "attributeCode", column = @Column(name = "LINK_CODE", nullable = false))})
+	private Link link ;
   /**
    * 
    */
@@ -53,19 +57,16 @@ public class EntityEntity implements java.io.Serializable {
 
  
 
-//  /**
-//   * @return the parentCode
-//   */
-//  public String getParentCode() {
-//		return  this.parentCode = getPk().getSourceCode();
-//  }
-//
-//  /**
-//   * @param parentCode the parentCode to set
-//   */
-//  public void setParentCode(String parentCode) {
-//    this.parentCode = parentCode;
-//  }
+  /**
+   * @return the link
+   */
+  public Link getLink() {
+		return link;
+
+  }
+
+  
+ 
 //
 //  /**
 //   * @return the targetCode
@@ -174,10 +175,11 @@ public class EntityEntity implements java.io.Serializable {
       final Attribute attribute, Double weight) {
     autocreateCreated();
     getPk().setSource(source);
-    getPk().setTarget(target);
+//    getPk().setTarget(target);
     getPk().setAttribute(attribute);
 //    this.pk.setSourceCode(source.getCode());
-//    this.pk.setTargetCode(target.getCode());
+    this.pk.setTargetCode(target.getCode());
+    link = new Link(source.getCode(),target.getCode(),attribute.getCode());
     if (weight == null) {
       weight = 0.0; // This permits ease of adding attributes and hides
                     // attribute from scoring.
@@ -199,7 +201,8 @@ public class EntityEntity implements java.io.Serializable {
     autocreateCreated();
  
     this.pk.setSource(source);
-    this.pk.setTarget(target);
+ //   this.pk.setTarget(target);
+    this.pk.setTargetCode(target.getCode());
     this.pk.setAttribute(attribute);
 
     if (weight == null) {
@@ -210,6 +213,7 @@ public class EntityEntity implements java.io.Serializable {
     if (value != null) {
         setValue(value);
        }
+    link = new Link(source.getCode(),target.getCode(),attribute.getCode());
   }
 
   public EntityEntityId getPk() {
@@ -220,25 +224,7 @@ public class EntityEntity implements java.io.Serializable {
     this.pk = pk;
   }
 
-  @Transient
-  public BaseEntity getSource() {
-    return getPk().getSource();
-  }
 
-  public void setSource(final BaseEntity source) {
-    getPk().setSource(source);
-  }
-
-  @Transient
-  public BaseEntity getTarget() {
-    return getPk().getTarget();
-  }
-
-  public void setTarget(final BaseEntity target) {
-    getPk().setTarget(target);
-   }
-
- 
   /**
    * @return the created
    */
@@ -413,11 +399,11 @@ public class EntityEntity implements java.io.Serializable {
   /* (non-Javadoc)
    * @see java.lang.Object#toString()
    */
-  @Override
-  public String toString() {
-    return "EntityEntity [parentCode=" + getPk().getSource().getCode() + ", targetCode=" + getPk().getTarget().getCode() + ", pk=" + pk
-        + ", created=" + created + ", updated=" + updated + ", value="+getValue()+ ", weight=" + weight +"]";
-  }
+//  @Override
+//  public String toString() {
+//    return "EntityEntity [parentCode=" + getPk().getSource().getCode() + ", targetCode=" + getPk().getTargetCode() + ", pk=" + pk
+//        + ", created=" + created + ", updated=" + updated + ", value="+getValue()+ ", weight=" + weight +"]";
+//  }
   /*
    * (non-Javadoc)
    * 

@@ -16,6 +16,7 @@
 
 package life.genny.qwanda.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.logging.log4j.Logger;
@@ -90,12 +91,13 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
   @XmlTransient
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.baseEntity", cascade = CascadeType.ALL)
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.baseEntity", cascade = CascadeType.ALL)
   private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 
   @JsonIgnore
   @XmlTransient
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source", cascade = CascadeType.ALL)
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source", cascade = CascadeType.MERGE, orphanRemoval=true)
+  @JsonBackReference
   private Set<EntityEntity> links = new HashSet<EntityEntity>(0);
 
   @JsonIgnore
@@ -241,7 +243,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
     // Check if this code exists in the baseEntityAttributes
     if (getLinks().parallelStream()
         .anyMatch(ti -> (ti.getPk().getAttribute().getCode().equals(linkAttributeCode)
-            && (ti.getTarget().getCode().equals(targetCode))))) {
+            && (ti.getPk().getTargetCode().equals(targetCode))))) {
       ret = true;
     }
     return ret;

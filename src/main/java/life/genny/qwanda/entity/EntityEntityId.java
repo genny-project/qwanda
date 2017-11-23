@@ -2,21 +2,22 @@ package life.genny.qwanda.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import life.genny.qwanda.attribute.Attribute;
 
 @Embeddable
 public class EntityEntityId implements java.io.Serializable {
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, optional = true)
 	@JsonIgnore
 	private BaseEntity source;
 	
-	@ManyToOne
-	@JsonIgnore
-	private BaseEntity target;
+//	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+//	@JsonIgnore
+//	private BaseEntity target;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JsonIgnore
 	private Attribute linkAttribute;
 
@@ -41,20 +42,20 @@ public class EntityEntityId implements java.io.Serializable {
 		this.sourceCode = source.getCode();
 	}
 
-	/**
-	 * @return the target
-	 */
-	public BaseEntity getTarget() {
-		return target;
-	}
-
-	/**
-	 * @param target the target to set
-	 */
-	public void setTarget(final BaseEntity target) {
-		this.target = target;
-		this.targetCode = target.getCode();
-	}
+//	/**
+//	 * @return the target
+//	 */
+//	public BaseEntity getTarget() {
+//		return target;
+//	}
+//
+//	/**
+//	 * @param target the target to set
+//	 */
+//	public void setTarget(final BaseEntity target) {
+//		this.target = target;
+//		this.targetCode = target.getCode();
+//	}
 
 	
 	
@@ -125,10 +126,10 @@ public class EntityEntityId implements java.io.Serializable {
 
         final EntityEntityId that = (EntityEntityId) o;
 
-        if (source != null ? !source.equals(that.source) : that.source != null) return false;
-        if (target != null ? !target.equals(that.target) : that.target != null)
+        if (sourceCode != null ? !sourceCode.equals(that.sourceCode) : that.sourceCode != null) return false;
+        if (targetCode != null ? !targetCode.equals(that.targetCode) : that.targetCode != null)
             return false;
-        if (linkAttribute != null ? !linkAttribute.equals(that.linkAttribute) : that.linkAttribute != null)
+        if (attributeCode != null ? !this.linkAttribute.getCode().equals(that.linkAttribute.getCode()) : that.linkAttribute.getCode() != null)
             return false;
         return true;
     }
@@ -136,9 +137,9 @@ public class EntityEntityId implements java.io.Serializable {
     @Override
     public int hashCode() {
         int result;
-        result = (source != null ? source.hashCode() : 0);
-        result = 31 * result + (target != null ? target.hashCode() : 0);
-        result = 127 * result + (linkAttribute != null ? linkAttribute.hashCode() : 0);
+        result = (sourceCode != null ? sourceCode.hashCode() : 0);
+        result = 31 * result + (targetCode != null ? targetCode.hashCode() : 0);
+        result = 127 * result + (this.linkAttribute != null ? this.linkAttribute.hashCode() : 0);
         return result;
     }
 

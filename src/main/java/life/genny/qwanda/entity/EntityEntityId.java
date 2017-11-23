@@ -9,27 +9,29 @@ import life.genny.qwanda.attribute.Attribute;
 @Embeddable
 public class EntityEntityId implements java.io.Serializable {
 
-	@ManyToOne(fetch = FetchType.EAGER, optional = true)
-	@JsonIgnore
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+//	@JsonIgnore
 	private BaseEntity source;
 	
-//	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 //	@JsonIgnore
-//	private BaseEntity target;
+	private BaseEntity target;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JsonIgnore
-	private Attribute linkAttribute;
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+//	@JsonIgnore
+	private Attribute attribute;
 
-	private String sourceCode;
-	
-	private String targetCode;
-	
-	private String attributeCode;
 
+//
 	/**
 	 * @return the source
 	 */
+
 	public BaseEntity getSource() {
 		return source;
 	}
@@ -39,86 +41,88 @@ public class EntityEntityId implements java.io.Serializable {
 	 */
 	public void setSource(final BaseEntity source) {
 		this.source = source;
-		this.sourceCode = source.getCode();
+//		this.getSource().getCode() = source.getCode();
 	}
 
-//	/**
-//	 * @return the target
-//	 */
-//	public BaseEntity getTarget() {
-//		return target;
-//	}
-//
-//	/**
-//	 * @param target the target to set
-//	 */
-//	public void setTarget(final BaseEntity target) {
-//		this.target = target;
-//		this.targetCode = target.getCode();
-//	}
+	/**
+	 * @return the target
+	 */
+	public BaseEntity getTarget() {
+		return target;
+	}
+
+	/**
+	 * @param target the target to set
+	 */
+	public void setTarget(final BaseEntity target) {
+		this.target = target;
+//		this.getTarget().getCode() = target.getCode();
+	}
 
 	
 	
 	/**
 	 * @return the linkAttribute
 	 */
-	public Attribute getLinkAttribute() {
-		return linkAttribute;
+	public Attribute getAttribute() {
+		return attribute;
 	}
 
 	/**
 	 * @param linkAttribute the linkAttribute to set
 	 */
-	public void setLinkAttribute(final Attribute linkAttribute) {
-		this.linkAttribute = linkAttribute;
-		this.attributeCode = linkAttribute.getCode();
+	public void setAttribute(final Attribute attribute) {
+		this.attribute = attribute;
+//		this.getAttribute().getCode() = linkAttribute.getCode();
 	}
 
 	
 	
 	
-	/**
-   * @return the sourceCode
-   */
-  public String getSourceCode() {
-    return sourceCode;
-  }
+//	/**
+//   * @return the getSource().getCode()
+//   */
+//  public String getSourceCode() {
+//    return getSource().getCode();
+//  }
+//
+//  /**
+//   * @param getSource().getCode() the getSource().getCode() to set
+//   */
+//  public void setSourceCode(final String getSource().getCode()) {
+//    this.getSource().getCode() = getSource().getCode();
+//  }
+//
+//  /**
+//   * @return the getTarget().getCode()
+//   */
+//  public String getTargetCode() {
+//    return getTarget().getCode();
+//  }
+//
+//  /**
+//   * @param getTarget().getCode() the getTarget().getCode() to set
+//   */
+//  public void setTargetCode(final String getTarget().getCode()) {
+//    this.getTarget().getCode() = getTarget().getCode();
+//  }
+//
+//  /**
+//   * @return the getAttribute().getCode()
+//   */
+//  public String getAttributeCode() {
+//    return getAttribute().getCode();
+//  }
+//
+//  /**
+//   * @param getAttribute().getCode() the getAttribute().getCode() to set
+//   */
+//  public void setAttributeCode(final String getAttribute().getCode()) {
+//    this.getAttribute().getCode() = getAttribute().getCode();
+//  }
 
-  /**
-   * @param sourceCode the sourceCode to set
-   */
-  public void setSourceCode(final String sourceCode) {
-    this.sourceCode = sourceCode;
-  }
-
-  /**
-   * @return the targetCode
-   */
-  public String getTargetCode() {
-    return targetCode;
-  }
-
-  /**
-   * @param targetCode the targetCode to set
-   */
-  public void setTargetCode(final String targetCode) {
-    this.targetCode = targetCode;
-  }
-
-  /**
-   * @return the attributeCode
-   */
-  public String getAttributeCode() {
-    return attributeCode;
-  }
-
-  /**
-   * @param attributeCode the attributeCode to set
-   */
-  public void setAttributeCode(final String attributeCode) {
-    this.attributeCode = attributeCode;
-  }
-
+  
+  
   @Override
   public boolean equals(final Object o) {
         if (this == o) return true;
@@ -126,10 +130,10 @@ public class EntityEntityId implements java.io.Serializable {
 
         final EntityEntityId that = (EntityEntityId) o;
 
-        if (sourceCode != null ? !sourceCode.equals(that.sourceCode) : that.sourceCode != null) return false;
-        if (targetCode != null ? !targetCode.equals(that.targetCode) : that.targetCode != null)
+        if (getSource().getCode() != null ? !getSource().getCode().equals(that.getSource().getCode()) : that.getSource().getCode() != null) return false;
+        if (getTarget().getCode() != null ? !getTarget().getCode().equals(that.getTarget().getCode()) : that.getTarget().getCode() != null)
             return false;
-        if (attributeCode != null ? !this.linkAttribute.getCode().equals(that.linkAttribute.getCode()) : that.linkAttribute.getCode() != null)
+        if (getAttribute().getCode() != null ? !this.attribute.getCode().equals(that.attribute.getCode()) : that.attribute.getCode() != null)
             return false;
         return true;
     }
@@ -137,9 +141,9 @@ public class EntityEntityId implements java.io.Serializable {
     @Override
     public int hashCode() {
         int result;
-        result = (sourceCode != null ? sourceCode.hashCode() : 0);
-        result = 31 * result + (targetCode != null ? targetCode.hashCode() : 0);
-        result = 127 * result + (this.linkAttribute != null ? this.linkAttribute.hashCode() : 0);
+        result = (getSource().getCode() != null ? getSource().getCode().hashCode() : 0);
+        result = 31 * result + (getTarget().getCode() != null ? getTarget().getCode().hashCode() : 0);
+        result = 127 * result + (this.attribute != null ? this.attribute.hashCode() : 0);
         return result;
     }
 

@@ -28,20 +28,21 @@ import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 
 @Entity
 @Table(name = "baseentity_baseentity")
-//@AssociationOverrides({
-//    @AssociationOverride(name = "pk.source", joinColumns = @JoinColumn(name = "SOURCE_ID")),
-//    @AssociationOverride(name = "pk.target", joinColumns = @JoinColumn(name = "TARGET_ID"))})
 @AssociationOverrides({
-    @AssociationOverride(name = "pk.source", joinColumns = @JoinColumn(name = "SOURCE_ID"))})
+    @AssociationOverride(name = "pk.source", joinColumns = @JoinColumn(name = "SOURCE_ID")),
+    @AssociationOverride(name = "pk.target", joinColumns = @JoinColumn(name = "TARGET_ID"))    
+})
+//@AssociationOverrides({
+//    @AssociationOverride(name = "pk.source", joinColumns = @JoinColumn(name = "SOURCE_ID"))})
 
 public class EntityEntity implements java.io.Serializable {
 
-  @Transient
-  private String parentCode;
+//  @Transient
+//  private String parentCode;
 //  @Transient
 //  private String targetCode;
-  @Transient
-  private String linkCode;
+//  @Transient
+//  private String linkCode;
   /**
    * 
    */
@@ -52,58 +53,50 @@ public class EntityEntity implements java.io.Serializable {
 
  
 
-  /**
-   * @return the parentCode
-   */
-  public String getParentCode() {
-	  if (parentCode==null) {
-		  this.parentCode = getPk().getSourceCode();
-	  }
-    return parentCode;
-  }
-
-  /**
-   * @param parentCode the parentCode to set
-   */
-  public void setParentCode(String parentCode) {
-    this.parentCode = parentCode;
-  }
-
-  /**
-   * @return the targetCode
-   */
-  public String getTargetCode() {
-//	  if (targetCode==null) {
-//		  this.targetCode = getPk().getTargetCode();
-//	  }
-//    return targetCode;
-	  return getPk().getTargetCode();
-  }
-
-  /**
-   * @param targetCode the targetCode to set
-   */
-  public void setTargetCode(String targetCode) {
-   // this.targetCode = targetCode;
-	  this.getPk().setTargetCode(targetCode);
-  }
+//  /**
+//   * @return the parentCode
+//   */
+//  public String getParentCode() {
+//		return  this.parentCode = getPk().getSourceCode();
+//  }
+//
+//  /**
+//   * @param parentCode the parentCode to set
+//   */
+//  public void setParentCode(String parentCode) {
+//    this.parentCode = parentCode;
+//  }
+//
+//  /**
+//   * @return the targetCode
+//   */
+//  public String getTargetCode() {
+//		return  this.targetCode = getPk().getTargetCode();
+//  }
+//
+//  /**
+//   * @param targetCode the targetCode to set
+//   */
+//  public void setTargetCode(String targetCode) {
+// 	  this.getPk().setTargetCode(targetCode);
+//  }
 
   
-  
-  /**
- * @return the linkCode
- */
-public String getLinkCode() {
-	return linkCode;
-}
-
-/**
- * @param linkCode the linkCode to set
- */
-public void setLinkCode(String linkCode) {
-	this.linkCode = linkCode;
-}
-
+//  
+//  /**
+// * @return the linkCode
+// */
+//public String getLinkCode() {
+//	return linkCode;
+//}
+//
+///**
+// * @param linkCode the linkCode to set
+// */
+//public void setLinkCode(String linkCode) {
+//	this.linkCode = linkCode;
+//}
+//
 
 
 /**
@@ -178,13 +171,13 @@ public void setLinkCode(String linkCode) {
    * @param Weight the weighted importance of this attribute (relative to the other attributes)
    */
   public EntityEntity(final BaseEntity source, final BaseEntity target,
-      final Attribute linkAttribute, Double weight) {
+      final Attribute attribute, Double weight) {
     autocreateCreated();
-    setSource(source);
-    setTarget(target);
-    setLinkAttribute(linkAttribute);
-    this.pk.setSourceCode(source.getCode());
-    this.pk.setTargetCode(target.getCode());
+    getPk().setSource(source);
+    getPk().setTarget(target);
+    getPk().setAttribute(attribute);
+//    this.pk.setSourceCode(source.getCode());
+//    this.pk.setTargetCode(target.getCode());
     if (weight == null) {
       weight = 0.0; // This permits ease of adding attributes and hides
                     // attribute from scoring.
@@ -202,14 +195,12 @@ public void setLinkCode(String linkCode) {
    * @param Value the value associated with this attribute
    */
   public EntityEntity(final BaseEntity source, final BaseEntity target,
-      final Attribute linkAttribute, Double weight, final Object value) {
+      final Attribute attribute, Double weight, final Object value) {
     autocreateCreated();
-    setSource(source);
-    setTarget(target);
-
-    this.pk.setSourceCode(source.getCode());
-    this.pk.setTargetCode(target.getCode());
-    setLinkAttribute(linkAttribute);
+ 
+    this.pk.setSource(source);
+    this.pk.setTarget(target);
+    this.pk.setAttribute(attribute);
 
     if (weight == null) {
       weight = 0.0; // This permits ease of adding attributes and hides
@@ -236,29 +227,18 @@ public void setLinkCode(String linkCode) {
 
   public void setSource(final BaseEntity source) {
     getPk().setSource(source);
-    setParentCode(source.getCode());
-  }
-
-//  @Transient
-//  public BaseEntity getTarget() {
-//    return getPk().getTarget();
-//  }
-
-  public void setTarget(final BaseEntity target) {
-    getPk().setTargetCode(target.getCode());
-    setTargetCode(target.getCode());
   }
 
   @Transient
-  public Attribute getLinkAttribute() {
-    return getPk().getLinkAttribute();
+  public BaseEntity getTarget() {
+    return getPk().getTarget();
   }
 
-  public void setLinkAttribute(final Attribute linkAttribute) {
-    getPk().setLinkAttribute(linkAttribute);
-    setLinkCode(linkAttribute.getCode());
-  }
+  public void setTarget(final BaseEntity target) {
+    getPk().setTarget(target);
+   }
 
+ 
   /**
    * @return the created
    */
@@ -435,11 +415,8 @@ public void setLinkCode(String linkCode) {
    */
   @Override
   public String toString() {
-    return "EntityEntity [parentCode=" + parentCode + ", targetCode=" + getTargetCode() + ", pk=" + pk
-        + ", created=" + created + ", updated=" + updated + ", valueDouble=" + valueDouble
-        + ", valueInteger=" + valueInteger + ", valueLong=" + valueLong + ", valueDateTime="
-        + valueDateTime + ", valueString=" + valueString + ", weight=" + weight + ", version="
-        + version + "]";
+    return "EntityEntity [parentCode=" + getPk().getSource().getCode() + ", targetCode=" + getPk().getTarget().getCode() + ", pk=" + pk
+        + ", created=" + created + ", updated=" + updated + ", value="+getValue()+ ", weight=" + weight +"]";
   }
   /*
    * (non-Javadoc)
@@ -459,7 +436,7 @@ public void setLinkCode(String linkCode) {
   @Transient
   @XmlTransient
   public <T> T getValue() {
-    final String dataType = getLinkAttribute().getDataType().getClassName();
+    final String dataType = getPk().getAttribute().getDataType().getClassName();
     switch (dataType) {
       case "java.lang.Integer":
         return (T) getValueInteger();
@@ -513,7 +490,7 @@ public void setValueDate(LocalDate valueDate) {
   @Transient
   @XmlTransient
   public <T> void setValue(final Object value) {
-    switch (this.getLinkAttribute().getDataType().getClassName()) {
+    switch (this.getPk().getAttribute().getDataType().getClassName()) {
       case "java.lang.Integer":
         setValueInteger((Integer) value);
         break;

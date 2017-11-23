@@ -100,7 +100,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
   @JsonIgnore
   @XmlTransient
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.source", cascade = CascadeType.ALL)
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source", cascade = CascadeType.ALL)
   private Set<AnswerLink> answers = new HashSet<AnswerLink>(0);
 
 
@@ -222,7 +222,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
     // Check if this code exists in the baseEntityAttributes
     if (getLinks().parallelStream()
-        .anyMatch(ti -> ti.getLinkAttribute().getCode().equals(linkAttributeCode))) {
+        .anyMatch(ti -> ti.getPk().getAttribute().getCode().equals(linkAttributeCode))) {
       ret = true;
     }
     return ret;
@@ -240,8 +240,8 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
     // Check if this code exists in the baseEntityAttributes
     if (getLinks().parallelStream()
-        .anyMatch(ti -> (ti.getLinkAttribute().getCode().equals(linkAttributeCode)
-            && (ti.getTargetCode().equals(targetCode))))) {
+        .anyMatch(ti -> (ti.getPk().getAttribute().getCode().equals(linkAttributeCode)
+            && (ti.getTarget().getCode().equals(targetCode))))) {
       ret = true;
     }
     return ret;

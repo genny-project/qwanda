@@ -173,13 +173,27 @@ public class EntityEntity implements java.io.Serializable {
    */
   public EntityEntity(final BaseEntity source, final BaseEntity target,
       final Attribute attribute, Double weight) {
+   this(source,target,attribute, "LINK",weight);
+  }
+
+  /**
+   * Constructor.
+   * 
+   * @param source the source baseEntity
+   * @param target the target entity that is linked to
+   * @param linkAttribute the associated linkAttribute
+   * @param linkValue the associated linkValue
+   * @param Weight the weighted importance of this attribute (relative to the other attributes)
+   */
+  public EntityEntity(final BaseEntity source, final BaseEntity target,
+      final Attribute attribute, final String linkValue, Double weight) {
     autocreateCreated();
     getPk().setSource(source);
 //    getPk().setTarget(target);
     getPk().setAttribute(attribute);
 //    this.pk.setSourceCode(source.getCode());
     this.pk.setTargetCode(target.getCode());
-    link = new Link(source.getCode(),target.getCode(),attribute.getCode());
+    link = new Link(source.getCode(),target.getCode(),attribute.getCode(),linkValue);
     if (weight == null) {
       weight = 0.0; // This permits ease of adding attributes and hides
                     // attribute from scoring.

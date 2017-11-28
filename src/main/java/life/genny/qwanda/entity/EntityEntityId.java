@@ -7,6 +7,8 @@ import javax.persistence.ManyToOne;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import life.genny.qwanda.attribute.Attribute;
 
 @Embeddable
@@ -18,7 +20,7 @@ public class EntityEntityId implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-//	@JsonIgnore
+	@JsonBackReference
 	private BaseEntity source;
 	
 //	@ManyToOne(fetch = FetchType.EAGER, optional = false)

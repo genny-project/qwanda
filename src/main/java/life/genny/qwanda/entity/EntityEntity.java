@@ -372,8 +372,12 @@ public class EntityEntity implements java.io.Serializable {
 
   @Transient
   public Date getUpdatedDate() {
+	  if (updated!=null) {
     final Date out = Date.from(updated.atZone(ZoneId.systemDefault()).toInstant());
     return out;
+	  } else {
+		  return null;
+	  }
   }
 
   @Override

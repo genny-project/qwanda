@@ -5,9 +5,7 @@ import java.util.Arrays;
 public class QMSGMessage extends QMessage {
 	
 	private static final String MESSAGE_TYPE = "MSG_MESSAGE";
-	
-	private static final String event_type = "message";
-	
+		
 	private String template_code;
 	private String[] msgMessageData;
 	private QBaseMSGMessageType msgMessageType;
@@ -48,10 +46,6 @@ public class QMSGMessage extends QMessage {
 	public void setMsgMessageType(QBaseMSGMessageType msgMessageType) {
 		this.msgMessageType = msgMessageType;
 	}
-
-	public static String getEventType() {
-		return event_type;
-	}
 	
 	public String[] getAttachments() {
 		return attachments;
@@ -67,6 +61,7 @@ public class QMSGMessage extends QMessage {
 		super(MESSAGE_TYPE);
 		//this.msgMessageData = new QBaseMSGMessage();
 	}
+	
 
 
 	@Override

@@ -49,24 +49,30 @@ public class Link implements Serializable {
    */
  
   /**
-   * A field that stores the human readable attributecode associated with this answer.
+   * A field that stores the human readable attributecode associated with this link.
    * <p>
    */
   private String attributeCode;
 
  
   /**
-   * A field that stores the human readable targetcode associated with this answer.
+   * A field that stores the human readable targetcode associated with this link.
    * <p>
    */
   private String targetCode;
 
   /**
-   * A field that stores the human readable sourcecode associated with this answer.
+   * A field that stores the human readable sourcecode associated with this link.
    * <p>
    */
   private String sourceCode;
 
+
+  /**
+   * A field that stores the human readable link Value associated with this link.
+   * <p>
+   */
+  private String linkValue;
 
   /**
    * Constructor.
@@ -86,16 +92,27 @@ public class Link implements Serializable {
    * @param source The source associated with this Answer
    * @param target The target associated with this Answer
    * @param attribute The attribute associated with this Answer
-   * @param value The associated String value
-   * @param weight the associated weight of the value (think credibility) usually 1.0
    */
   public Link(final String source, final String target, final String linkCode) {
+   this(source, target, linkCode, "LINK");  
+}
+
+ 
+  /**
+   * Constructor.
+   * 
+   * @param source The source associated with this Answer
+   * @param target The target associated with this Answer
+   * @param attribute The attribute associated with this Answer
+   * @param value The associated String value
+   */
+  public Link(final String source, final String target, final String linkCode, final String linkValue) {
     this.sourceCode = source;
     this.targetCode = target;
     this.attributeCode = linkCode;
+    this.linkValue = linkValue;
   }
 
- 
 
 /**
  * @return the attributeCode
@@ -150,6 +167,22 @@ public void setSourceCode(String sourceCode) {
 }
 
 
+
+/**
+ * @return thelinkValue 
+ */
+public String getLinkValue() {
+	return linkValue;
+}
+
+
+
+/**
+ * @param sourceCode the linkValue to set
+ */
+public void setLinkValue(String linkValue) {
+	this.linkValue = linkValue;
+}
  
 
 }

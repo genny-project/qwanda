@@ -56,18 +56,20 @@ public class QMSGMessage extends QMessage {
 	}
 
 
-
-	public QMSGMessage(String msg_type) {
-		super(MESSAGE_TYPE);
-		//this.msgMessageData = new QBaseMSGMessage();
-	}
-	
-
-
 	@Override
 	public String toString() {
 		return "QMSGMessage [template_code=" + template_code + ", msgMessageData=" + Arrays.toString(msgMessageData)
 				+ ", msgMessageType=" + msgMessageType + "]";
+	}
+
+
+	public QMSGMessage(String msg_type, String template_code, String[] msgMessageData,
+			QBaseMSGMessageType msgMessageType, String[] attachments) {
+		super(msg_type);
+		this.template_code = template_code;
+		this.msgMessageData = msgMessageData;
+		this.msgMessageType = msgMessageType;
+		this.attachments = attachments;
 	}
 	
 	

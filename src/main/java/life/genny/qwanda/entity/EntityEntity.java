@@ -193,6 +193,7 @@ public class EntityEntity implements java.io.Serializable {
     getPk().setAttribute(attribute);
 //    this.pk.setSourceCode(source.getCode());
     this.pk.setTargetCode(target.getCode());
+    System.out.println("434234"+linkValue);
     link = new Link(source.getCode(),target.getCode(),attribute.getCode(),linkValue);
     if (weight == null) {
       weight = 0.0; // This permits ease of adding attributes and hides

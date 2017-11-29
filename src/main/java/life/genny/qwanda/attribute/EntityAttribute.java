@@ -132,7 +132,17 @@ public class EntityAttribute implements java.io.Serializable {
    * Store the relative importance of the attribute for the baseEntity
    */
   private Double weight;
-
+  
+  /**
+   * Store the relative importance of the attribute for the baseEntity
+   */
+  private Boolean inferred=false;
+  
+  /**
+   * Store the privacy of this attribute , i.e. Don't display 
+   */
+  private Boolean privacyFlag = false;
+  
 //  @Version
 //  private Long version = 1L;
 
@@ -358,6 +368,37 @@ public void setValueBoolean(Boolean valueBoolean) {
 	this.valueBoolean = valueBoolean;
 }
 
+
+
+
+/**
+ * @return the privacyFlag
+ */
+public Boolean getPrivacyFlag() {
+	return privacyFlag;
+}
+
+/**
+ * @param privacyFlag the privacyFlag to set
+ */
+public void setPrivacyFlag(Boolean privacyFlag) {
+	this.privacyFlag = privacyFlag;
+}
+
+/**
+ * @return the inferred
+ */
+public Boolean getInferred() {
+	return inferred;
+}
+
+/**
+ * @param inferred the inferred to set
+ */
+public void setInferred(Boolean inferred) {
+	this.inferred = inferred;
+}
+
 @PreUpdate
   public void autocreateUpdate() {
     setUpdated(LocalDateTime.now(ZoneId.of("Z")));
@@ -382,6 +423,8 @@ public void setValueBoolean(Boolean valueBoolean) {
     final Date out = Date.from(updated.atZone(ZoneId.systemDefault()).toInstant());
     return out;
   }
+  
+  
 
   @Override
   public boolean equals(final Object o) {
@@ -411,7 +454,7 @@ public void setValueBoolean(Boolean valueBoolean) {
   @Override
   public String toString() {
     return "EA:"+baseEntityCode + ":" + attributeCode
-        + ": "+getAsString()+" wt=" + weight +"]";
+        + ": "+getAsString()+" wt=" + weight + ":"+(inferred?"INFERRED":"PRI")+"]";
      //   + ", version=" + version + "]";
   }
 

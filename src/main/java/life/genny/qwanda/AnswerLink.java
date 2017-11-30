@@ -108,6 +108,11 @@ public class AnswerLink implements java.io.Serializable {
 	private Boolean refused = false;
 
 	/**
+	 * Store wther this answer is inferred
+	 */
+	private Boolean inferred = false;
+
+	/**
 	 * Store the relative importance of the attribute for the baseEntity
 	 */
 	private Double weight;
@@ -190,6 +195,7 @@ public class AnswerLink implements java.io.Serializable {
 		this.setCreated(answer.getCreated());
 		this.setExpired(answer.getExpired());
 		this.setRefused(answer.getRefused());
+		this.setInferred(answer.getInferred());
 
 		// Assume that Attribute Validation has been performed
 
@@ -356,6 +362,22 @@ public class AnswerLink implements java.io.Serializable {
 	 */
 	public void setVersion(final Long version) {
 		this.version = version;
+	}
+
+	
+	
+	/**
+	 * @return the inferred
+	 */
+	public Boolean getInferred() {
+		return inferred;
+	}
+
+	/**
+	 * @param inferred the inferred to set
+	 */
+	public void setInferred(Boolean inferred) {
+		this.inferred = inferred;
 	}
 
 	/**

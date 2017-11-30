@@ -190,6 +190,11 @@ public class Answer implements Serializable {
    * Store the relative importance of the attribute for the baseEntity
    */
   private Double weight = 0.0;
+  
+  /**
+   * Store whether this answer was inferred
+   */
+  private Boolean inferred = false;
 
 
   /**
@@ -437,6 +442,24 @@ public class Answer implements Serializable {
 
 
   /**
+ * @return the inferred
+ */
+public Boolean getInferred() {
+	return inferred;
+}
+
+
+
+/**
+ * @param inferred the inferred to set
+ */
+public void setInferred(Boolean inferred) {
+	this.inferred = inferred;
+}
+
+
+
+/**
    * @return the targetCode
    */
   public String getTargetCode() {

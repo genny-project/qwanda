@@ -463,6 +463,8 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
     } else {
     		EntityAttribute newEA = new EntityAttribute(this, answerLink.getAttribute(), weight,
     				answerLink.getValue());
+    		newEA.setInferred(answerLink.getInferred());
+    
     		this.baseEntityAttributes.add(newEA);
     }
     

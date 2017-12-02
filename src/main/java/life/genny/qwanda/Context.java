@@ -36,6 +36,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.apache.commons.lang3.builder.CompareToBuilder;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import life.genny.qwanda.entity.BaseEntity;
@@ -123,4 +125,11 @@ public class Context extends CoreEntity implements Serializable {
 		this.entity = entity;
 	}
 
+	@Override
+	 public int compareTo(Object o) {
+		 Context myClass = (Context) o;
+	     return new CompareToBuilder()
+	       .append(entity,myClass.getEntity())
+	       .toComparison();
+	   }
 }

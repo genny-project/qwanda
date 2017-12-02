@@ -39,9 +39,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.apache.commons.lang3.builder.CompareToBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import life.genny.qwanda.entity.BaseEntity;
 
 /**
  * CoreEntity represents a base level core set of class attributes.
@@ -154,26 +158,30 @@ public abstract class CodedEntity extends CoreEntity {
 	        return hcb.toHashCode();
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
+
+
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (!(obj instanceof CodedEntity)) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CodedEntity other = (CodedEntity) obj;
-		if (code == null) {
-			if (other.code != null)
-				return false;
-		} else if (!code.equals(other.code))
-			return false;
-		return true;
+		}
+		CodedEntity that = (CodedEntity) obj;
+		EqualsBuilder eb = new EqualsBuilder();
+		eb.append(code,that.getCode());
+		return eb.isEquals();
 	}
-	
-	
+
+	@Override
+	 public int compareTo(Object o) {
+		 CodedEntity myClass = (CodedEntity) o;
+	     return new CompareToBuilder()
+	       .append(code,myClass.getCode())
+//	       .append(this.weight, myClass.weight)
+	       .toComparison();
+	   }
+ 
   
 }

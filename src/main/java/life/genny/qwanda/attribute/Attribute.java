@@ -37,6 +37,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang3.builder.CompareToBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import life.genny.qwanda.CodedEntity;
@@ -150,4 +154,5 @@ public class Attribute extends CodedEntity implements Serializable {
 		return "Attribute:"+getCode()+"(" + getDataType()+") ";
 	}
 	
+
 }

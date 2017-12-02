@@ -34,6 +34,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import org.apache.commons.lang3.builder.CompareToBuilder;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import life.genny.qwanda.exception.BadDataException;
@@ -290,5 +293,15 @@ public class Ask extends CoreEntity implements Serializable {
     }
 
   }
+
+	@Override
+	 public int compareTo(Object o) {
+		 Ask myClass = (Ask) o;
+	     return new CompareToBuilder()
+	       .append(questionCode,myClass.getQuestionCode())
+	       .append(targetCode, myClass.getTargetCode())
+	       .toComparison();
+	   }
+
 
 }

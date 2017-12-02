@@ -16,6 +16,9 @@ import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.apache.commons.lang3.builder.CompareToBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,6 +29,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import life.genny.qwanda.Link;
+import life.genny.qwanda.QuestionQuestion;
 import life.genny.qwanda.attribute.Attribute;
 import life.genny.qwanda.datatype.LocalDateAdapter;
 import life.genny.qwanda.datatype.LocalDateTimeAdapter;
@@ -39,7 +43,7 @@ import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 @AssociationOverrides({
     @AssociationOverride(name = "pk.source", joinColumns = @JoinColumn(name = "SOURCE_ID"))})
 
-public class EntityEntity implements java.io.Serializable {
+public class EntityEntity implements java.io.Serializable, Comparable<Object> {
 
 
 	@AttributeOverrides({
@@ -395,25 +399,35 @@ public class EntityEntity implements java.io.Serializable {
 	  }
   }
 
-  @Override
-  public boolean equals(final Object o) {
-    if (this == o)
-      return true;
-    if (o == null || getClass() != o.getClass())
-      return false;
+	@Override
+	public int hashCode() {
 
-    final EntityEntity that = (EntityEntity) o;
+		HashCodeBuilder hcb = new HashCodeBuilder();
+		hcb.append(pk);
+		return hcb.toHashCode();
+	}
 
-    if (getPk() != null ? !getPk().equals(that.getPk()) : that.getPk() != null)
-      return false;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof EntityEntity)) {
+			return false;
+		}
+		EntityEntity that = (EntityEntity) obj;
+		EqualsBuilder eb = new EqualsBuilder();
+		eb.append(pk, that.pk);
+		return eb.isEquals();
+	}
 
-    return true;
-  }
-
-  @Override
-  public int hashCode() {
-    return (getPk() != null ? getPk().hashCode() : 0);
-  }
+	 public int compareTo(Object o) {
+		 EntityEntity myClass = (EntityEntity) o;
+	     return new CompareToBuilder()
+//	       .appendSuper(super.compareTo(o)
+	       .append(this.weight, myClass.weight)
+	       .toComparison();
+	   }
 
   /* (non-Javadoc)
    * @see java.lang.Object#toString()

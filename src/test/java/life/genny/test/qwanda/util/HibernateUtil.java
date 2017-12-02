@@ -20,6 +20,7 @@ import life.genny.qwanda.Question;
 import life.genny.qwanda.QuestionQuestion;
 import life.genny.qwanda.attribute.Attribute;
 import life.genny.qwanda.attribute.AttributeBoolean;
+import life.genny.qwanda.attribute.AttributeDate;
 import life.genny.qwanda.attribute.AttributeDateTime;
 import life.genny.qwanda.attribute.AttributeDouble;
 import life.genny.qwanda.attribute.AttributeInteger;
@@ -63,6 +64,7 @@ public class HibernateUtil {
             		.addAnnotatedClass(Attribute.class)
             		.addAnnotatedClass(AttributeText.class)
             		.addAnnotatedClass(AttributeInteger.class)
+            		.addAnnotatedClass(AttributeDate.class)
             		.addAnnotatedClass(AttributeDateTime.class)
             		.addAnnotatedClass(AttributeDouble.class)
             		.addAnnotatedClass(AttributeBoolean.class)

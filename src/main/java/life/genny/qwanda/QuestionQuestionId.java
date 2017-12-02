@@ -1,64 +1,86 @@
 package life.genny.qwanda;
 
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import life.genny.qwanda.entity.EntityEntityId;
 
 @Embeddable
 public class QuestionQuestionId implements java.io.Serializable {
 
-	@ManyToOne
-	private Question parent;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JsonBackReference
+	private Question source;
 	
-	@ManyToOne
-	private Question child;
+	
+	private String targetCode;
+	
+
+	
 
 
-
-	/**
-	 * @return the parent
+/**
+	 * @return the targetCode
 	 */
-	public Question getParent() {
-		return parent;
+	public String getTargetCode() {
+		return targetCode;
 	}
 
 	/**
-	 * @param parent the parent to set
+	 * @param targetCode the targetCode to set
 	 */
-	public void setParent(Question parent) {
-		this.parent = parent;
+	public void setTargetCode(String targetCode) {
+		this.targetCode = targetCode;
+	}
+
+	//
+	/**
+	 * @return the source
+	 */
+
+	public Question getSource() {
+		return source;
 	}
 
 	/**
-	 * @return the child
+	 * @param source the source to set
 	 */
-	public Question getChild() {
-		return child;
+	public void setSource(final Question source) {
+		this.source = source;
 	}
 
-	/**
-	 * @param child the child to set
-	 */
-	public void setChild(Question child) {
-		this.child = child;
-	}
 
-	public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        QuestionQuestionId that = (QuestionQuestionId) o;
 
-        if (parent != null ? !parent.equals(that.parent) : that.parent != null) return false;
-        if (child != null ? !child.equals(that.child) : that.child != null)
-            return false;
-        return true;
-    }
 
+	@Override
     public int hashCode() {
-        int result;
-        result = (parent != null ? parent.hashCode() : 0);
-        result = 31 * result + (child != null ? child.hashCode() : 0);
-        return result;
-    }
+//        int result;
+        HashCodeBuilder hcb = new HashCodeBuilder();
+        hcb.append(source.getCode());
+        hcb.append(targetCode);
+        return hcb.toHashCode();
+    }      
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (!(obj instanceof EntityEntityId)) {
+                return false;
+            }
+            QuestionQuestionId that = (QuestionQuestionId) obj;
+            EqualsBuilder eb = new EqualsBuilder();
+            eb.append(source.getCode(), that.source.getCode());
+            eb.append(targetCode, that.targetCode);
+            return eb.isEquals();
+        }
+        
 
 }

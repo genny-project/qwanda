@@ -15,6 +15,9 @@ import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.apache.commons.lang3.builder.CompareToBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.Type;
 
 import java.text.DateFormat;
@@ -24,6 +27,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import life.genny.qwanda.datatype.LocalDateTimeAdapter;
+import life.genny.qwanda.QuestionQuestion;
 import life.genny.qwanda.datatype.LocalDateAdapter;
 import life.genny.qwanda.entity.BaseEntity;
 
@@ -33,7 +37,7 @@ import life.genny.qwanda.entity.BaseEntity;
 @AssociationOverrides({
    @AssociationOverride(name = "pk.baseEntity", joinColumns = @JoinColumn(name = "BASEENTITY_ID")),
     @AssociationOverride(name = "pk.attribute", joinColumns = @JoinColumn(name = "ATTRIBUTE_ID"))})
-public class EntityAttribute implements java.io.Serializable {
+public class EntityAttribute implements java.io.Serializable, Comparable<Object> {
 
   private static final long serialVersionUID = 1L;
 
@@ -426,25 +430,6 @@ public void setInferred(Boolean inferred) {
   
   
 
-  @Override
-  public boolean equals(final Object o) {
-    if (this == o)
-      return true;
-    if (o == null || getClass() != o.getClass())
-      return false;
-
-    final EntityAttribute that = (EntityAttribute) o;
-
-    if (getPk() != null ? !getPk().equals(that.getPk()) : that.getPk() != null)
-      return false;
-
-    return true;
-  }
-
-  @Override
-  public int hashCode() {
-    return (getPk() != null ? getPk().hashCode() : 0);
-  }
 
   /*
    * (non-Javadoc)
@@ -547,4 +532,51 @@ public void setInferred(Boolean inferred) {
     }
 
   }
+  
+	@Override
+	public int hashCode() {
+
+		HashCodeBuilder hcb = new HashCodeBuilder();
+		hcb.append(pk);
+		return hcb.toHashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof EntityAttribute)) {
+			return false;
+		}
+		EntityAttribute that = (EntityAttribute) obj;
+		EqualsBuilder eb = new EqualsBuilder();
+		eb.append(pk, that.pk);
+		return eb.isEquals();
+	}
+
+	 public int compareTo(Object o) {
+		 EntityAttribute myClass = (EntityAttribute) o;
+		   final String dataType = getAttribute().getDataType().getClassName();
+		    switch (dataType) {
+		      case "java.lang.Integer":
+		        return new CompareToBuilder().append(this.getValueInteger(), myClass.getValueInteger()) .toComparison();
+		      case "java.time.LocalDateTime":
+			        return new CompareToBuilder().append(this.getValueDateTime(), myClass.getValueDateTime()) .toComparison();
+		      case "java.lang.Long":
+			        return new CompareToBuilder().append(this.getValueLong(), myClass.getValueLong()) .toComparison();
+		      case "java.lang.Double":
+			        return new CompareToBuilder().append(this.getValueDouble(), myClass.getValueDouble()) .toComparison();
+		      case "java.lang.Boolean":
+			        return new CompareToBuilder().append(this.getValueBoolean(), myClass.getValueBoolean()) .toComparison();
+		      case "java.time.LocalDate":
+			        return new CompareToBuilder().append(this.getValueDate(), myClass.getValueDate()) .toComparison();
+
+		      case "java.lang.String":
+		      default:
+			        return new CompareToBuilder().append(this.getValueString(), myClass.getValueString()) .toComparison();
+
+		    }
+
+	   }
 }

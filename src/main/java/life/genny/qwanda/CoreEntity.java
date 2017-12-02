@@ -61,7 +61,7 @@ import life.genny.qwanda.datatype.LocalDateTimeAdapter;
  */
 
 @MappedSuperclass
-public abstract class CoreEntity implements CreatedIntf, Serializable {
+public abstract class CoreEntity implements CreatedIntf, Serializable, Comparable<Object> {
 
   /**
    * 
@@ -74,7 +74,7 @@ public abstract class CoreEntity implements CreatedIntf, Serializable {
   protected static final Logger log = org.apache.logging.log4j.LogManager
       .getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
 
-  static public final String REGEX_NAME = "[a-zA-Z0-9\\ \\'\\-\\@\\(\\)]+";
+  static public final String REGEX_NAME = "[a-zA-Z0-9\\:\\ \\'\\-\\@\\(\\)]+";
   static public final String REGEX_REALM = "[a-zA-Z0-9\\'\\-\\@\\(\\)]+";
   static public final String DEFAULT_REALM = "genny";
 

@@ -14,13 +14,17 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.Version;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.CompareToBuilder;
+
+
 
 @Entity
 @Table(name = "question_question")
-@AssociationOverrides({ @AssociationOverride(name = "pk.parent", joinColumns = @JoinColumn(name = "PARENT_ID")),
-		@AssociationOverride(name = "pk.child", joinColumns = @JoinColumn(name = "CHILD_ID")) })
-public class QuestionQuestion implements java.io.Serializable {
+@AssociationOverrides({ @AssociationOverride(name = "pk.source", joinColumns = @JoinColumn(name = "SOURCE_ID")) })
+public class QuestionQuestion implements java.io.Serializable, Comparable<Object> {
 
 	/**
 	 * 
@@ -29,10 +33,6 @@ public class QuestionQuestion implements java.io.Serializable {
 
 	@EmbeddedId
 	private QuestionQuestionId pk = new QuestionQuestionId();
-
-	/**
-	 * Stores the Created UMT DateTime that this object was created
-	 */
 
 	@Column(name = "created")
 	private LocalDateTime created;
@@ -43,23 +43,14 @@ public class QuestionQuestion implements java.io.Serializable {
 	@Column(name = "updated")
 	private LocalDateTime updated;
 
-	
 	/**
-	 * The following fields can be subclassed for better abstraction
-	 */
-	
-	/**
-	 * Store the mandatory value for this question link
-	 */
-	private Boolean mandatory;
-
-	
-	/**
-	 * Store the relative importance of the attribute for the baseEntity
+	 * Store the relative importance of this question link
 	 */
 	private Double weight;
 
 	private Long version = 1L;
+
+	Boolean mandatory = false;
 
 	public QuestionQuestion() {
 	}
@@ -67,47 +58,22 @@ public class QuestionQuestion implements java.io.Serializable {
 	/**
 	 * Constructor.
 	 * 
-	 * @param parent
-	 *            the parent question
-	 * @param child
-	 *            the child question that is linked to
-	 */
-	public QuestionQuestion(Question parent, Question child) {
-		this(parent,child,0.0);
-	}
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param parent
-	 *            the parent question
-	 * @param child
-	 *            the child question that is linked to
+	 * @param source
+	 *            the source baseEntity
+	 * @param target
+	 *            the target entity that is linked to
+	 * @param linkAttribute
+	 *            the associated linkAttribute
+	 * @param linkValue
+	 *            the associated linkValue
 	 * @param Weight
-	 *            the weighted importance of this question (relative to the
-	 *            other questions)
+	 *            the weighted importance of this attribute (relative to the other
+	 *            attributes)
 	 */
-	public QuestionQuestion(Question parent, Question child, Double weight) {
-		this(parent,child,weight,false);
-	}
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param parent
-	 *            the parent question
-	 * @param child
-	 *            the child question that is linked to
-	 * @param mandatory
-	 *            is the child question mandatory?
-	 * @param Weight
-	 *            the weighted importance of this question (relative to the
-	 *            other questions)
-	 */
-	public QuestionQuestion(Question parent, Question child, Double weight, Boolean mandatory) {
+	public QuestionQuestion(final Question source, final String targetCode, Double weight, boolean mandatory) {
 		autocreateCreated();
-		setParent(parent);
-		setChild(child);
+		getPk().setSource(source);
+		this.pk.setTargetCode(targetCode);
 		setMandatory(mandatory);
 		if (weight == null) {
 			weight = 0.0; // This permits ease of adding attributes and hides
@@ -116,36 +82,44 @@ public class QuestionQuestion implements java.io.Serializable {
 		setWeight(weight);
 	}
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param Question
+	 *            the entity that needs to contain attributes
+	 * @param Attribute
+	 *            the associated Attribute
+	 * @param linkAttribute
+	 *            the associated linkAttribute
+	 * @param Weight
+	 *            the weighted importance of this attribute (relative to the other
+	 *            attributes)
+	 * @param Value
+	 *            the value associated with this attribute
+	 */
+	public QuestionQuestion(final Question source, final Question target, Double weight) {
+		autocreateCreated();
 
-	
+		this.pk.setSource(source);
+
+		this.pk.setTargetCode(target.getCode());
+
+		if (weight == null) {
+			weight = 0.0; // This permits ease of adding attributes and hides
+							// attribute from scoring.
+		}
+		setWeight(weight);
+
+	}
+
 	public QuestionQuestionId getPk() {
 		return pk;
 	}
 
-	public void setPk(QuestionQuestionId pk) {
+	public void setPk(final QuestionQuestionId pk) {
 		this.pk = pk;
 	}
 
-	@Transient
-	public Question getParent() {
-		return getPk().getParent();
-	}
-
-	public void setParent(Question source) {
-		getPk().setParent(source);
-	}
-
-	@Transient
-	public Question getChild() {
-		return getPk().getChild();
-	}
-
-	public void setChild(Question target) {
-		getPk().setChild(target);
-	}
-
-
-	
 	/**
 	 * @return the created
 	 */
@@ -157,7 +131,7 @@ public class QuestionQuestion implements java.io.Serializable {
 	 * @param created
 	 *            the created to set
 	 */
-	public void setCreated(LocalDateTime created) {
+	public void setCreated(final LocalDateTime created) {
 		this.created = created;
 	}
 
@@ -172,7 +146,7 @@ public class QuestionQuestion implements java.io.Serializable {
 	 * @param updated
 	 *            the updated to set
 	 */
-	public void setUpdated(LocalDateTime updated) {
+	public void setUpdated(final LocalDateTime updated) {
 		this.updated = updated;
 	}
 
@@ -187,7 +161,7 @@ public class QuestionQuestion implements java.io.Serializable {
 	 * @param weight
 	 *            the weight to set
 	 */
-	public void setWeight(Double weight) {
+	public void setWeight(final Double weight) {
 		this.weight = weight;
 	}
 
@@ -202,13 +176,9 @@ public class QuestionQuestion implements java.io.Serializable {
 	 * @param version
 	 *            the version to set
 	 */
-	public void setVersion(Long version) {
+	public void setVersion(final Long version) {
 		this.version = version;
 	}
-
-	
-	
-
 
 	/**
 	 * @return the mandatory
@@ -218,7 +188,8 @@ public class QuestionQuestion implements java.io.Serializable {
 	}
 
 	/**
-	 * @param mandatory the mandatory to set
+	 * @param mandatory
+	 *            the mandatory to set
 	 */
 	public void setMandatory(Boolean mandatory) {
 		this.mandatory = mandatory;
@@ -237,42 +208,49 @@ public class QuestionQuestion implements java.io.Serializable {
 
 	@Transient
 	public Date getCreatedDate() {
-		Date out = Date.from(created.atZone(ZoneId.systemDefault()).toInstant());
+		final Date out = Date.from(created.atZone(ZoneId.systemDefault()).toInstant());
 		return out;
 	}
 
 	@Transient
 	public Date getUpdatedDate() {
-		Date out = Date.from(updated.atZone(ZoneId.systemDefault()).toInstant());
-		return out;
+		if (updated != null) {
+			final Date out = Date.from(updated.atZone(ZoneId.systemDefault()).toInstant());
+			return out;
+		} else {
+			return null;
+		}
 	}
 
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null || getClass() != o.getClass())
-			return false;
-
-		QuestionQuestion that = (QuestionQuestion) o;
-
-		if (getPk() != null ? !getPk().equals(that.getPk()) : that.getPk() != null)
-			return false;
-
-		return true;
-	}
-
-	public int hashCode() {
-		return (getPk() != null ? getPk().hashCode() : 0);
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
-	public String toString() {
-		return "QQ["+getChild().getCode()+":"+created + ", mandatory="+(getMandatory()?"YES":"NO")+",weight=" + weight + ", v=" + version
-				+ "]";
+	public int hashCode() {
+
+		HashCodeBuilder hcb = new HashCodeBuilder();
+		hcb.append(pk);
+		return hcb.toHashCode();
 	}
-	
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof QuestionQuestion)) {
+			return false;
+		}
+		QuestionQuestion that = (QuestionQuestion) obj;
+		EqualsBuilder eb = new EqualsBuilder();
+		eb.append(pk, that.pk);
+		return eb.isEquals();
+	}
+
+	 public int compareTo(Object o) {
+		 QuestionQuestion myClass = (QuestionQuestion) o;
+	     return new CompareToBuilder()
+//	       .appendSuper(super.compareTo(o)
+	       .append(this.weight, myClass.weight)
+	       .toComparison();
+	   }
+
+
 }

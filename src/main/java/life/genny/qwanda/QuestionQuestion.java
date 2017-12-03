@@ -252,5 +252,13 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 	       .toComparison();
 	   }
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "QQ:"+getPk().getSource().getCode()+":"+getPk().getTargetCode()+":"+getWeight()+":"+(getMandatory()?"M":"O");
+	}
+
 
 }

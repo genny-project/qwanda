@@ -93,7 +93,7 @@ public class Question extends CodedEntity implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private static final String DEFAULT_CODE_PREFIX = "QUE_";
-  public static final String QUESTION_GROUP_ATTRIBUTE_CODE = "GRP_QUESTIONS";
+  public static final String QUESTION_GROUP_ATTRIBUTE_CODE = "QQQ_QUESTION_GROUP";
 
 
   @JsonIgnore
@@ -360,6 +360,7 @@ public void setChildQuestions(Set<QuestionQuestion> childQuestions) {
    if (mandatory == null)
    throw new BadDataException("missing mandatory setting");
   
+   System.out.println("Adding childQuestion..."+childQuestionCode+" to "+this.getCode());
    final QuestionQuestion questionLink =
    new QuestionQuestion(this, childQuestionCode, weight, mandatory);
    getChildQuestions().add(questionLink);

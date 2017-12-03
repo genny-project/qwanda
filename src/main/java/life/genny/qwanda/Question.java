@@ -351,7 +351,7 @@ public void setChildQuestions(Set<QuestionQuestion> childQuestions) {
    * @param mandatory setting
    * @throws BadDataException
    */
-   public void addChildQuestion(final String childQuestionCode, final Double weight,
+   public QuestionQuestion addChildQuestion(final String childQuestionCode, final Double weight,
    final Boolean mandatory) throws BadDataException {
    if (childQuestionCode == null)
    throw new BadDataException("missing Question");
@@ -364,7 +364,7 @@ public void setChildQuestions(Set<QuestionQuestion> childQuestions) {
    final QuestionQuestion questionLink =
    new QuestionQuestion(this, childQuestionCode, weight, mandatory);
    getChildQuestions().add(questionLink);
-
+   return questionLink;
    }
   
    /**

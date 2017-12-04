@@ -96,8 +96,8 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   private static final String DEFAULT_CODE_PREFIX = "BAS_";
 
   @XmlTransient
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.baseEntity", cascade = CascadeType.ALL)
+//  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.baseEntity", cascade = CascadeType.MERGE, orphanRemoval=true)
   @JsonManagedReference
   private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 

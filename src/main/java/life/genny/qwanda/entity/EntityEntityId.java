@@ -23,9 +23,6 @@ public class EntityEntityId implements java.io.Serializable {
 	@JsonBackReference
 	private BaseEntity source;
 	
-//	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-//	@JsonIgnore
-//	private BaseEntity target;
 	
 	private String targetCode;
 

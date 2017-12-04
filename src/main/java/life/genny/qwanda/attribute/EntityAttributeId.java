@@ -3,6 +3,7 @@ package life.genny.qwanda.attribute;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import life.genny.qwanda.entity.BaseEntity;
@@ -17,7 +18,7 @@ public class EntityAttributeId implements java.io.Serializable {
 
 
 	@ManyToOne
-	@JsonIgnore
+	@JsonBackReference
 	public BaseEntity baseEntity;
 
 	@ManyToOne

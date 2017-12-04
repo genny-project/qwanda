@@ -103,6 +103,12 @@ public class Ask extends CoreEntity implements Serializable {
   private String targetCode;
   private String questionCode;
   private String attributeCode;
+  
+  private Boolean mandatory=false;
+  
+  private Double weight=0.0;
+  
+  private Long parentId=0L;
 
   // @Embedded
   // @Valid
@@ -166,6 +172,31 @@ public class Ask extends CoreEntity implements Serializable {
    * @param aTarget The BaseEntity that the question is about
    */
   public Ask(final Question aQuestion, final String aSourceCode, final String aTargetCode) {
+   this(aQuestion, aSourceCode, aTargetCode,false);
+  }
+  
+  /**
+   * Constructor.
+   * 
+   * @param aQuestion The associated Question
+   * @param aSource The person answering the question
+   * @param aTarget The BaseEntity that the question is about
+   * @param aMandatory Is this ask mandatory?
+   */
+  public Ask(final Question aQuestion, final String aSourceCode, final String aTargetCode, final Boolean aMandatory) {
+	  this(aQuestion, aSourceCode, aTargetCode,false,0.0);
+  }
+  
+  /**
+   * Constructor.
+   * 
+   * @param aQuestion The associated Question
+   * @param aSource The person answering the question
+   * @param aTarget The BaseEntity that the question is about
+   * @param aMandatory Is this ask mandatory?
+   * @param aWeight 
+   */
+  public Ask(final Question aQuestion, final String aSourceCode, final String aTargetCode, final Boolean aMandatory, final Double weight) {
     super(aQuestion.getName());
     setQuestion(aQuestion);
 
@@ -174,6 +205,8 @@ public class Ask extends CoreEntity implements Serializable {
     this.attributeCode = aQuestion.getAttribute().getCode();
     // answerList = new AnswerList(new ArrayList<AnswerLink>());
     contextList = new ContextList(new ArrayList<Context>());
+    this.mandatory = aMandatory;
+    this.weight = weight;
   }
 
   /**
@@ -225,6 +258,34 @@ public class Ask extends CoreEntity implements Serializable {
 
 
   /**
+ * @return the mandatory
+ */
+public Boolean getMandatory() {
+	return mandatory;
+}
+
+/**
+ * @param mandatory the mandatory to set
+ */
+public void setMandatory(Boolean mandatory) {
+	this.mandatory = mandatory;
+}
+
+/**
+ * @return the weight
+ */
+public Double getWeight() {
+	return weight;
+}
+
+/**
+ * @param weight the weight to set
+ */
+public void setWeight(Double weight) {
+	this.weight = weight;
+}
+
+/**
    * @return the sourceCode
    */
   public String getSourceCode() {
@@ -264,6 +325,20 @@ public class Ask extends CoreEntity implements Serializable {
 
 
   /**
+ * @return the parentId
+ */
+public Long getParentId() {
+	return parentId;
+}
+
+/**
+ * @param parentId the parentId to set
+ */
+public void setParentId(Long parentId) {
+	this.parentId = parentId;
+}
+
+/**
    * @return the attributeCode
    */
   public String getAttributeCode() {

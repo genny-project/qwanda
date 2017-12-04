@@ -113,6 +113,8 @@ public class Question extends CodedEntity implements Serializable {
   private ContextList contextList;
 
   private String attributeCode;
+  
+  private Boolean mandatory=false;
 
   /**
    * Constructor.
@@ -132,12 +134,25 @@ public class Question extends CodedEntity implements Serializable {
    * @param attribute The associated attribute
    */
   public Question(final String aCode, final String aName, final Attribute aAttribute) {
+   this(aCode, aName, aAttribute,false);
+  }
+  
+  /**
+   * Constructor.
+   * 
+   * @param aCode The unique code for this Question
+   * @param aName The human readable summary name
+   * @param attribute The associated attribute
+   * @param mandatory 
+   */
+  public Question(final String aCode, final String aName, final Attribute aAttribute, final Boolean mandatory) {
     super(aCode, aName);
     if (aAttribute==null) {
     		throw new InvalidParameterException("Attribute must not be null");
     }
     this.attribute = aAttribute;
     this.attributeCode = aAttribute.getCode();
+    this.mandatory = mandatory;
   }
 
   /**
@@ -282,6 +297,20 @@ public class Question extends CodedEntity implements Serializable {
 
   
   /**
+ * @return the mandatory
+ */
+public Boolean getMandatory() {
+	return mandatory;
+}
+
+/**
+ * @param mandatory the mandatory to set
+ */
+public void setMandatory(Boolean mandatory) {
+	this.mandatory = mandatory;
+}
+
+/**
  * @return the childQuestions
  */
 public Set<QuestionQuestion> getChildQuestions() {

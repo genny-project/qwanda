@@ -29,6 +29,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -109,6 +110,9 @@ public class Ask extends CoreEntity implements Serializable {
   private Double weight=0.0;
   
   private Long parentId=0L;
+  
+  @Transient
+  private Ask[] childAsks;
 
   // @Embedded
   // @Valid
@@ -377,6 +381,21 @@ public void setParentId(Long parentId) {
 	       .append(targetCode, myClass.getTargetCode())
 	       .toComparison();
 	   }
+
+	/**
+	 * @return the childAsks
+	 */
+	@Transient
+	public Ask[] getChildAsks() {
+		return childAsks;
+	}
+
+	/**
+	 * @param childAsks the childAsks to set
+	 */
+	public void setChildAsks(Ask[] childAsks) {
+		this.childAsks = childAsks;
+	}
 
 
 }

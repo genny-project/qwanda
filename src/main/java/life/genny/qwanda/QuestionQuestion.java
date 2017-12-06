@@ -73,7 +73,7 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 	public QuestionQuestion(final Question source, final String targetCode, Double weight, boolean mandatory) {
 		autocreateCreated();
 		getPk().setSource(source);
-		this.pk.setTargetCode(targetCode);
+		getPk().setTargetCode(targetCode);
 		setMandatory(mandatory);
 		if (weight == null) {
 			weight = 0.0; // This permits ease of adding attributes and hides

@@ -481,11 +481,11 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
    * 
    * @see java.lang.Object#toString()
    */
-  @Override
-  public String toString() {
-    return "BE:" + ":" + super.toString() + " EAs:"
-        + baseEntityAttributes;
-  }
+//  @Override
+//  public String toString() {
+//    return "BE:" + ":" + super.toString() + " EAs:"
+//        + baseEntityAttributes;
+//  }
 
   public Set<EntityAttribute> merge(final BaseEntity entity) {
     final Set<EntityAttribute> changes = new HashSet<EntityAttribute>();

@@ -436,12 +436,12 @@ public void setInferred(Boolean inferred) {
    * 
    * @see java.lang.Object#toString()
    */
-  @Override
-  public String toString() {
-    return "EA:"+baseEntityCode + ":" + attributeCode
-        + ": "+getAsString()+" wt=" + weight + ":"+(inferred?"INFERRED":"PRI")+"]";
-     //   + ", version=" + version + "]";
-  }
+//  @Override
+//  public String toString() {
+//    return "EA:"+baseEntityCode + ":" + attributeCode
+//        + ": "+getAsString()+" wt=" + weight + ":"+(inferred?"INFERRED":"PRI")+"]";
+//     //   + ", version=" + version + "]";
+//  }
 
   @JsonIgnore
   @Transient
@@ -533,27 +533,27 @@ public void setInferred(Boolean inferred) {
 
   }
   
-	@Override
-	public int hashCode() {
+//	@Override
+//	public int hashCode() {
+//
+//		HashCodeBuilder hcb = new HashCodeBuilder();
+////		hcb.append(pk);
+//		return hcb.toHashCode();
+//	}
 
-		HashCodeBuilder hcb = new HashCodeBuilder();
-		hcb.append(pk);
-		return hcb.toHashCode();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof EntityAttribute)) {
-			return false;
-		}
-		EntityAttribute that = (EntityAttribute) obj;
-		EqualsBuilder eb = new EqualsBuilder();
-		eb.append(pk, that.pk);
-		return eb.isEquals();
-	}
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj) {
+//			return true;
+//		}
+//		if (!(obj instanceof EntityAttribute)) {
+//			return false;
+//		}
+//		EntityAttribute that = (EntityAttribute) obj;
+//		EqualsBuilder eb = new EqualsBuilder();
+//		eb.append(pk, that.pk);
+//		return eb.isEquals();
+//	}
 
 	 public int compareTo(Object o) {
 		 EntityAttribute myClass = (EntityAttribute) o;
@@ -579,4 +579,119 @@ public void setInferred(Boolean inferred) {
 		    }
 
 	   }
+
+  /* (non-Javadoc)
+   * @see java.lang.Object#hashCode()
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((attributeCode == null) ? 0 : attributeCode.hashCode());
+    result = prime * result + ((baseEntityCode == null) ? 0 : baseEntityCode.hashCode());
+    result = prime * result + ((created == null) ? 0 : created.hashCode());
+    result = prime * result + ((inferred == null) ? 0 : inferred.hashCode());
+    result = prime * result + ((pk == null) ? 0 : pk.hashCode());
+    result = prime * result + ((privacyFlag == null) ? 0 : privacyFlag.hashCode());
+    result = prime * result + ((updated == null) ? 0 : updated.hashCode());
+    result = prime * result + ((valueBoolean == null) ? 0 : valueBoolean.hashCode());
+    result = prime * result + ((valueDate == null) ? 0 : valueDate.hashCode());
+    result = prime * result + ((valueDateTime == null) ? 0 : valueDateTime.hashCode());
+    result = prime * result + ((valueDouble == null) ? 0 : valueDouble.hashCode());
+    result = prime * result + ((valueInteger == null) ? 0 : valueInteger.hashCode());
+    result = prime * result + ((valueLong == null) ? 0 : valueLong.hashCode());
+    result = prime * result + ((valueString == null) ? 0 : valueString.hashCode());
+    result = prime * result + ((weight == null) ? 0 : weight.hashCode());
+    return result;
+  }
+
+  /* (non-Javadoc)
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    EntityAttribute other = (EntityAttribute) obj;
+    if (attributeCode == null) {
+      if (other.attributeCode != null)
+        return false;
+    } else if (!attributeCode.equals(other.attributeCode))
+      return false;
+    if (baseEntityCode == null) {
+      if (other.baseEntityCode != null)
+        return false;
+    } else if (!baseEntityCode.equals(other.baseEntityCode))
+      return false;
+    if (created == null) {
+      if (other.created != null)
+        return false;
+    } else if (!created.equals(other.created))
+      return false;
+    if (inferred == null) {
+      if (other.inferred != null)
+        return false;
+    } else if (!inferred.equals(other.inferred))
+      return false;
+    if (pk == null) {
+      if (other.pk != null)
+        return false;
+    } else if (!pk.equals(other.pk))
+      return false;
+    if (privacyFlag == null) {
+      if (other.privacyFlag != null)
+        return false;
+    } else if (!privacyFlag.equals(other.privacyFlag))
+      return false;
+    if (updated == null) {
+      if (other.updated != null)
+        return false;
+    } else if (!updated.equals(other.updated))
+      return false;
+    if (valueBoolean == null) {
+      if (other.valueBoolean != null)
+        return false;
+    } else if (!valueBoolean.equals(other.valueBoolean))
+      return false;
+    if (valueDate == null) {
+      if (other.valueDate != null)
+        return false;
+    } else if (!valueDate.equals(other.valueDate))
+      return false;
+    if (valueDateTime == null) {
+      if (other.valueDateTime != null)
+        return false;
+    } else if (!valueDateTime.equals(other.valueDateTime))
+      return false;
+    if (valueDouble == null) {
+      if (other.valueDouble != null)
+        return false;
+    } else if (!valueDouble.equals(other.valueDouble))
+      return false;
+    if (valueInteger == null) {
+      if (other.valueInteger != null)
+        return false;
+    } else if (!valueInteger.equals(other.valueInteger))
+      return false;
+    if (valueLong == null) {
+      if (other.valueLong != null)
+        return false;
+    } else if (!valueLong.equals(other.valueLong))
+      return false;
+    if (valueString == null) {
+      if (other.valueString != null)
+        return false;
+    } else if (!valueString.equals(other.valueString))
+      return false;
+    if (weight == null) {
+      if (other.weight != null)
+        return false;
+    } else if (!weight.equals(other.weight))
+      return false;
+    return true;
+  }
 }

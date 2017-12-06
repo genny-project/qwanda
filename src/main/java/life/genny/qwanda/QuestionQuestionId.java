@@ -8,14 +8,22 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import life.genny.qwanda.entity.EntityEntityId;
 
 @Embeddable
 public class QuestionQuestionId implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JsonBackReference
+//	@JsonIgnore
 	private Question source;
 	
 	

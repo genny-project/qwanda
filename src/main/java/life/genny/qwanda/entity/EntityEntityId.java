@@ -19,7 +19,7 @@ public class EntityEntityId implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JsonBackReference
 	private BaseEntity source;
 	

@@ -137,7 +137,7 @@ public class Answer implements Serializable {
   @JsonIgnore
   @NotNull
   @XmlTransient
-  @OneToOne(fetch = FetchType.LAZY)
+  @OneToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "attribute_id", nullable = false)
   private Attribute attribute;
 

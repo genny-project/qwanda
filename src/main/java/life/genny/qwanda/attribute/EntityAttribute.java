@@ -1,6 +1,12 @@
 package life.genny.qwanda.attribute;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.Column;
@@ -11,24 +17,17 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
-import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.Type;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
-import life.genny.qwanda.datatype.LocalDateTimeAdapter;
-import life.genny.qwanda.QuestionQuestion;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import life.genny.qwanda.datatype.LocalDateAdapter;
+import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 import life.genny.qwanda.entity.BaseEntity;
 
 @Entity
@@ -436,12 +435,13 @@ public void setInferred(Boolean inferred) {
    * 
    * @see java.lang.Object#toString()
    */
-//  @Override
-//  public String toString() {
-//    return "EA:"+baseEntityCode + ":" + attributeCode
-//        + ": "+getAsString()+" wt=" + weight + ":"+(inferred?"INFERRED":"PRI")+"]";
-//     //   + ", version=" + version + "]";
-//  }
+  @Override
+  @JsonIgnore
+  public String toString() {
+    return "EA:"+baseEntityCode + ":" + attributeCode
+        + ": "+getAsString()+" wt=" + weight + ":"+(inferred?"INFERRED":"PRI")+"]";
+     //   + ", version=" + version + "]";
+  }
 
   @JsonIgnore
   @Transient
@@ -533,27 +533,28 @@ public void setInferred(Boolean inferred) {
 
   }
   
-//	@Override
-//	public int hashCode() {
-//
-//		HashCodeBuilder hcb = new HashCodeBuilder();
-////		hcb.append(pk);
-//		return hcb.toHashCode();
-//	}
+	/*@Override
+	public int hashCode() {
 
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj) {
-//			return true;
-//		}
-//		if (!(obj instanceof EntityAttribute)) {
-//			return false;
-//		}
-//		EntityAttribute that = (EntityAttribute) obj;
-//		EqualsBuilder eb = new EqualsBuilder();
-//		eb.append(pk, that.pk);
-//		return eb.isEquals();
-//	}
+		HashCodeBuilder hcb = new HashCodeBuilder();
+		//hcb.append(baseEntityCode);
+		hcb.append(attributeCode);
+		return hcb.toHashCode();
+	}*/
+
+	/*@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof EntityAttribute)) {
+			return false;
+		}
+		EntityAttribute that = (EntityAttribute) obj;
+		EqualsBuilder eb = new EqualsBuilder();
+		eb.append(pk, that.pk);
+		return eb.isEquals();
+	}*/
 
 	 public int compareTo(Object o) {
 		 EntityAttribute myClass = (EntityAttribute) o;
@@ -589,19 +590,6 @@ public void setInferred(Boolean inferred) {
     int result = 1;
     result = prime * result + ((attributeCode == null) ? 0 : attributeCode.hashCode());
     result = prime * result + ((baseEntityCode == null) ? 0 : baseEntityCode.hashCode());
-    result = prime * result + ((created == null) ? 0 : created.hashCode());
-    result = prime * result + ((inferred == null) ? 0 : inferred.hashCode());
-    result = prime * result + ((pk == null) ? 0 : pk.hashCode());
-    result = prime * result + ((privacyFlag == null) ? 0 : privacyFlag.hashCode());
-    result = prime * result + ((updated == null) ? 0 : updated.hashCode());
-    result = prime * result + ((valueBoolean == null) ? 0 : valueBoolean.hashCode());
-    result = prime * result + ((valueDate == null) ? 0 : valueDate.hashCode());
-    result = prime * result + ((valueDateTime == null) ? 0 : valueDateTime.hashCode());
-    result = prime * result + ((valueDouble == null) ? 0 : valueDouble.hashCode());
-    result = prime * result + ((valueInteger == null) ? 0 : valueInteger.hashCode());
-    result = prime * result + ((valueLong == null) ? 0 : valueLong.hashCode());
-    result = prime * result + ((valueString == null) ? 0 : valueString.hashCode());
-    result = prime * result + ((weight == null) ? 0 : weight.hashCode());
     return result;
   }
 

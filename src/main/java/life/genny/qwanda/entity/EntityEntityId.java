@@ -94,6 +94,43 @@ public class EntityEntityId implements java.io.Serializable {
 //		this.getAttribute().getCode() = linkAttribute.getCode();
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((attribute == null) ? 0 : attribute.hashCode());
+		result = prime * result + ((source == null) ? 0 : source.hashCode());
+		result = prime * result + ((targetCode == null) ? 0 : targetCode.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EntityEntityId other = (EntityEntityId) obj;
+		if (attribute == null) {
+			if (other.attribute != null)
+				return false;
+		} else if (!attribute.equals(other.attribute))
+			return false;
+		if (source == null) {
+			if (other.source != null)
+				return false;
+		} else if (!source.equals(other.source))
+			return false;
+		if (targetCode == null) {
+			if (other.targetCode != null)
+				return false;
+		} else if (!targetCode.equals(other.targetCode))
+			return false;
+		return true;
+	}
+
 	
 	
 	
@@ -161,16 +198,15 @@ public class EntityEntityId implements java.io.Serializable {
 	// return true;
 	// }
 
-    @Override
+   /* @Override
     public int hashCode() {
-//        int result;
         HashCodeBuilder hcb = new HashCodeBuilder();
         hcb.append(attribute);
         hcb.append(source.getCode());
         hcb.append(targetCode);
         return hcb.toHashCode();
-    }      
-        @Override
+    }  */    
+       /* @Override
         public boolean equals(Object obj) {
             if (this == obj) {
                 return true;
@@ -184,7 +220,7 @@ public class EntityEntityId implements java.io.Serializable {
             eb.append(source.getCode(), that.source.getCode());
             eb.append(targetCode, that.targetCode);
             return eb.isEquals();
-        }
+        }*/
         
 //        result = (getSource().getCode() != null ? getSource().getCode().hashCode() : 0);
 //        result = 31 * result + (getTargetCode() != null ? getTargetCode().hashCode() : 0);
@@ -217,4 +253,5 @@ public class EntityEntityId implements java.io.Serializable {
 //          return result;
 //      }
 //    
+        
 }

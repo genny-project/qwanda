@@ -23,7 +23,7 @@ public class EntityAttributeId implements java.io.Serializable {
 	public BaseEntity baseEntity;
 
 	@ManyToOne
-	@JsonIgnore
+//	@JsonIgnore
 	public Attribute attribute;
 
 	@JsonIgnore

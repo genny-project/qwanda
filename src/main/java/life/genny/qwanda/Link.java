@@ -73,6 +73,8 @@ public class Link implements Serializable {
    * <p>
    */
   private String linkValue;
+  
+  private Double weight;
 
   /**
    * Constructor.
@@ -107,13 +109,24 @@ public class Link implements Serializable {
    * @param value The associated String value
    */
   public Link(final String source, final String target, final String linkCode, final String linkValue) {
+   this(source,target,linkCode,linkValue,0.0);
+  }
+
+  /**
+   * Constructor.
+   * 
+   * @param source The source associated with this Answer
+   * @param target The target associated with this Answer
+   * @param attribute The attribute associated with this Answer
+   * @param value The associated String value
+   */
+  public Link(final String source, final String target, final String linkCode, final String linkValue, final Double weight) {
     this.sourceCode = source;
     this.targetCode = target;
     this.attributeCode = linkCode;
     this.linkValue = linkValue;
+    this.weight = weight;
   }
-
-
 /**
  * @return the attributeCode
  */
@@ -182,6 +195,24 @@ public String getLinkValue() {
  */
 public void setLinkValue(String linkValue) {
 	this.linkValue = linkValue;
+}
+
+
+
+/**
+ * @return the weight
+ */
+public Double getWeight() {
+	return weight;
+}
+
+
+
+/**
+ * @param weight the weight to set
+ */
+public void setWeight(Double weight) {
+	this.weight = weight;
 }
  
 

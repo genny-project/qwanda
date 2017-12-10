@@ -94,42 +94,42 @@ public class EntityEntityId implements java.io.Serializable {
 //		this.getAttribute().getCode() = linkAttribute.getCode();
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((attribute == null) ? 0 : attribute.hashCode());
-		result = prime * result + ((source == null) ? 0 : source.hashCode());
-		result = prime * result + ((targetCode == null) ? 0 : targetCode.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		EntityEntityId other = (EntityEntityId) obj;
-		if (attribute == null) {
-			if (other.attribute != null)
-				return false;
-		} else if (!attribute.equals(other.attribute))
-			return false;
-		if (source == null) {
-			if (other.source != null)
-				return false;
-		} else if (!source.equals(other.source))
-			return false;
-		if (targetCode == null) {
-			if (other.targetCode != null)
-				return false;
-		} else if (!targetCode.equals(other.targetCode))
-			return false;
-		return true;
-	}
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + ((attribute == null) ? 0 : attribute.hashCode());
+//		result = prime * result + ((source == null) ? 0 : source.hashCode());
+//		result = prime * result + ((targetCode == null) ? 0 : targetCode.hashCode());
+//		return result;
+//	}
+//
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		EntityEntityId other = (EntityEntityId) obj;
+//		if (attribute == null) {
+//			if (other.attribute != null)
+//				return false;
+//		} else if (!attribute.equals(other.attribute))
+//			return false;
+//		if (source.getCode() == null) {
+//			if (other.source.getCode() != null)
+//				return false;
+//		} else if (!source.equals(other.source))
+//			return false;
+//		if (targetCode == null) {
+//			if (other.targetCode != null)
+//				return false;
+//		} else if (!targetCode.equals(other.targetCode))
+//			return false;
+//		return true;
+//	}
 
 	
 	

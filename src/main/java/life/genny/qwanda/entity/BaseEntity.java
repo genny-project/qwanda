@@ -101,7 +101,6 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   @JsonManagedReference
   private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 
-  @JsonIgnore
   @XmlTransient
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source", cascade = CascadeType.MERGE, orphanRemoval=true)
   @JsonManagedReference

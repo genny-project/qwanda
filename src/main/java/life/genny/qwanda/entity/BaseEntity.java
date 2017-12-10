@@ -78,7 +78,7 @@ import life.genny.qwanda.exception.BadDataException;
 @Table(name = "baseentity")
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
-@JsonIgnoreProperties("links")
+//@JsonIgnoreProperties("links")
 // @Inheritance(strategy = InheritanceType.JOINED)
 public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
@@ -107,7 +107,8 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source", cascade = CascadeType.MERGE, orphanRemoval=true)
 //@JsonManagedReference
 //  @JsonIgnore
-  @JsonManagedReference
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonBackReference
   private Set<EntityEntity> links = new HashSet<EntityEntity>(0);
 
   @JsonIgnore

@@ -22,8 +22,8 @@ public class EntityEntityId implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-//	@JsonIgnore
-	//@JsonManagedReference(value="entityEntityId")
+	@JsonIgnore
+	@JsonManagedReference(value="entityEntityId")
 //	@JsonBackReference
 	private BaseEntity source;
 	

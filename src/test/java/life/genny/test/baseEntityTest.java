@@ -77,6 +77,8 @@ public class baseEntityTest {
 		// SHow the person details
 		System.out.println(person);
 		
+		String json = JsonUtils.set(person);
+		System.out.println(json);
 		// CHeck some attributes exist
 		assertFalse(person.containsEntityAttribute(AttributeText.getDefaultCodePrefix()+"TEST0"));
 		assertFalse(product.containsEntityAttribute(AttributeText.getDefaultCodePrefix()+"TEST0"));

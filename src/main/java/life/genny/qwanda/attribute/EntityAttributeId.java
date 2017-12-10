@@ -5,6 +5,7 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import life.genny.qwanda.entity.BaseEntity;
 
@@ -18,13 +19,14 @@ public class EntityAttributeId implements java.io.Serializable {
 
 
 	@ManyToOne
-	@JsonBackReference
+	@JsonManagedReference(value="entityAttributeId")
 	public BaseEntity baseEntity;
 
 	@ManyToOne
 	@JsonIgnore
 	public Attribute attribute;
 
+	@JsonIgnore
 	public BaseEntity getBaseEntity() {
 		return baseEntity;
 	}

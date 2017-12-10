@@ -18,6 +18,7 @@ package life.genny.qwanda.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -77,7 +78,7 @@ import life.genny.qwanda.exception.BadDataException;
 @Table(name = "baseentity")
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 // @Inheritance(strategy = InheritanceType.JOINED)
 public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
@@ -96,19 +97,20 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   private static final String DEFAULT_CODE_PREFIX = "BAS_";
 
   @XmlTransient
-//  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.baseEntity", cascade = CascadeType.MERGE, orphanRemoval=true)
-  @JsonManagedReference
+  @JsonBackReference
   private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 
   @XmlTransient
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source", cascade = CascadeType.MERGE, orphanRemoval=true)
-  @JsonManagedReference
+  @JsonBackReference
   private Set<EntityEntity> links = new HashSet<EntityEntity>(0);
 
   @JsonIgnore
   @XmlTransient
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source", cascade = CascadeType.ALL)
+  @JsonBackReference
   private Set<AnswerLink> answers = new HashSet<AnswerLink>(0);
 
 

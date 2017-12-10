@@ -8,6 +8,8 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import life.genny.qwanda.attribute.Attribute;
 
@@ -20,7 +22,7 @@ public class EntityEntityId implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-	@JsonBackReference
+	@JsonManagedReference(value="entityEntityId")
 	private BaseEntity source;
 	
 	
@@ -49,7 +51,7 @@ public class EntityEntityId implements java.io.Serializable {
 	/**
 	 * @return the source
 	 */
-
+	@JsonIgnore
 	public BaseEntity getSource() {
 		return source;
 	}

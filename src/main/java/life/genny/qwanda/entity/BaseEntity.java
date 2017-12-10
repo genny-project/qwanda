@@ -78,7 +78,7 @@ import life.genny.qwanda.exception.BadDataException;
 @Table(name = "baseentity")
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
-//@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties("links")
 // @Inheritance(strategy = InheritanceType.JOINED)
 public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
@@ -97,14 +97,17 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   private static final String DEFAULT_CODE_PREFIX = "BAS_";
 
   @XmlTransient
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonIgnore
+//  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.baseEntity", cascade = CascadeType.MERGE, orphanRemoval=true)
-  @JsonBackReference
+//  @JsonBackReference
   private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 
   @XmlTransient
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source", cascade = CascadeType.MERGE, orphanRemoval=true)
-  @JsonBackReference
+//@JsonManagedReference
+//  @JsonIgnore
+  @JsonManagedReference
   private Set<EntityEntity> links = new HashSet<EntityEntity>(0);
 
   @JsonIgnore

@@ -78,7 +78,7 @@ import life.genny.qwanda.exception.BadDataException;
 @Table(name = "baseentity")
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
-@JsonIgnoreProperties(ignoreUnknown = true)
+//@JsonIgnoreProperties(ignoreUnknown = true)
 // @Inheritance(strategy = InheritanceType.JOINED)
 public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 

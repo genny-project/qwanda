@@ -50,7 +50,8 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
         @AttributeOverride(name = "sourceCode", column = @Column(name = "SOURCE_CODE", nullable = false)),
         @AttributeOverride(name = "targetCode", column = @Column(name = "TARGET_CODE", nullable = false)),
         @AttributeOverride(name = "attributeCode", column = @Column(name = "LINK_CODE", nullable = false)),
-        @AttributeOverride(name = "weight", column = @Column(name = "LINK_WEIGHT", nullable = false))})
+        @AttributeOverride(name = "weight", column = @Column(name = "LINK_WEIGHT", nullable = false))
+	})
 	private Link link ;
   /**
    * 
@@ -199,13 +200,12 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
 //    this.pk.setSourceCode(source.getCode());
     this.pk.setTargetCode(target.getCode());
     System.out.println("434234"+linkValue);
+    link = new Link(source.getCode(),target.getCode(),attribute.getCode(),linkValue);
     if (weight == null) {
       weight = 0.0; // This permits ease of adding attributes and hides
                     // attribute from scoring.
     }
     setWeight(weight);
-    link = new Link(source.getCode(),target.getCode(),attribute.getCode(),linkValue,weight);
-
   }
 
   /**
@@ -401,31 +401,27 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
 	  }
   }
 
-//	@Override
-//	public int hashCode() {
-//
-//		HashCodeBuilder hcb = new HashCodeBuilder();
-//		hcb.append(pk.getSource().getCode());
-//		hcb.append(pk.getTargetCode());
-//		hcb.append(pk.getAttribute().getCode());
-//		return hcb.toHashCode();
-//	}
-//
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj) {
-//			return true;
-//		}
-//		if (!(obj instanceof EntityEntity)) {
-//			return false;
-//		}
-//		EntityEntity that = (EntityEntity) obj;
-//		EqualsBuilder eb = new EqualsBuilder();
-//		eb.append(pk.getSource().getCode(), that.pk.getSource().getCode());
-//		eb.append(pk.getTargetCode(), that.pk.getTargetCode());
-//		eb.append(pk.getAttribute().getCode(), that.pk.getAttribute().getCode());		
-//		return eb.isEquals();
-//	}
+	@Override
+	public int hashCode() {
+
+		HashCodeBuilder hcb = new HashCodeBuilder();
+		hcb.append(pk);
+		return hcb.toHashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof EntityEntity)) {
+			return false;
+		}
+		EntityEntity that = (EntityEntity) obj;
+		EqualsBuilder eb = new EqualsBuilder();
+		eb.append(pk, that.pk);
+		return eb.isEquals();
+	}
 
 	 public int compareTo(Object o) {
 		 EntityEntity myClass = (EntityEntity) o;

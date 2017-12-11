@@ -8,8 +8,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import life.genny.qwanda.attribute.Attribute;
 
@@ -22,9 +20,7 @@ public class EntityEntityId implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-	@JsonIgnore
-	@JsonManagedReference(value="entityEntityId")
-//	@JsonBackReference
+	@JsonBackReference
 	private BaseEntity source;
 	
 	
@@ -53,7 +49,7 @@ public class EntityEntityId implements java.io.Serializable {
 	/**
 	 * @return the source
 	 */
-	@JsonIgnore
+
 	public BaseEntity getSource() {
 		return source;
 	}
@@ -122,8 +118,8 @@ public class EntityEntityId implements java.io.Serializable {
 //				return false;
 //		} else if (!attribute.equals(other.attribute))
 //			return false;
-//		if (source.getCode() == null) {
-//			if (other.source.getCode() != null)
+//		if (source == null) {
+//			if (other.source != null)
 //				return false;
 //		} else if (!source.equals(other.source))
 //			return false;
@@ -134,8 +130,8 @@ public class EntityEntityId implements java.io.Serializable {
 //			return false;
 //		return true;
 //	}
-
-	
+//
+//	
 	
 	
 //	/**
@@ -202,15 +198,15 @@ public class EntityEntityId implements java.io.Serializable {
 	// return true;
 	// }
 
-   /* @Override
+    @Override
     public int hashCode() {
         HashCodeBuilder hcb = new HashCodeBuilder();
         hcb.append(attribute);
         hcb.append(source.getCode());
         hcb.append(targetCode);
         return hcb.toHashCode();
-    }  */    
-       /* @Override
+    }      
+       @Override
         public boolean equals(Object obj) {
             if (this == obj) {
                 return true;
@@ -224,7 +220,7 @@ public class EntityEntityId implements java.io.Serializable {
             eb.append(source.getCode(), that.source.getCode());
             eb.append(targetCode, that.targetCode);
             return eb.isEquals();
-        }*/
+        }
         
 //        result = (getSource().getCode() != null ? getSource().getCode().hashCode() : 0);
 //        result = 31 * result + (getTargetCode() != null ? getTargetCode().hashCode() : 0);

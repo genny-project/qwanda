@@ -106,6 +106,8 @@ public class Ask extends CoreEntity implements Serializable {
   private String attributeCode;
   
   private Boolean mandatory=false;
+  private Boolean disabled=false;
+  private Boolean hidden = false;
   
   private Double weight=0.0;
   
@@ -144,6 +146,8 @@ public class Ask extends CoreEntity implements Serializable {
     setQuestion(aQuestion);
     // answerList = new AnswerList(new ArrayList<AnswerLink>());
     contextList = new ContextList(new ArrayList<Context>());
+    this.disabled = false;
+    this.hidden = false;
   }
 
   /**
@@ -164,6 +168,8 @@ public class Ask extends CoreEntity implements Serializable {
     this.attributeCode = aAttributeCode;
     // answerList = new AnswerList(new ArrayList<AnswerLink>());
     contextList = new ContextList(new ArrayList<Context>());
+    this.disabled = false;
+    this.hidden = false;
   }
 
 
@@ -201,6 +207,19 @@ public class Ask extends CoreEntity implements Serializable {
    * @param aWeight 
    */
   public Ask(final Question aQuestion, final String aSourceCode, final String aTargetCode, final Boolean aMandatory, final Double weight) {
+   this(aQuestion, aSourceCode, aTargetCode, aMandatory, weight,false, false);
+  }
+  
+  /**
+   * Constructor.
+   * 
+   * @param aQuestion The associated Question
+   * @param aSource The person answering the question
+   * @param aTarget The BaseEntity that the question is about
+   * @param aMandatory Is this ask mandatory?
+   * @param aWeight 
+   */
+  public Ask(final Question aQuestion, final String aSourceCode, final String aTargetCode, final Boolean aMandatory, final Double weight, final Boolean disabled, final Boolean hidden) {
     super(aQuestion.getName());
     setQuestion(aQuestion);
 
@@ -211,6 +230,8 @@ public class Ask extends CoreEntity implements Serializable {
     contextList = new ContextList(new ArrayList<Context>());
     this.mandatory = aMandatory;
     this.weight = weight;
+    this.disabled = disabled;
+    this.hidden = hidden;
   }
 
   /**
@@ -329,6 +350,34 @@ public void setWeight(Double weight) {
 
 
   /**
+ * @return the disabled
+ */
+public Boolean getDisabled() {
+	return disabled;
+}
+
+/**
+ * @param disabled the disabled to set
+ */
+public void setDisabled(Boolean disabled) {
+	this.disabled = disabled;
+}
+
+/**
+ * @return the hidden
+ */
+public Boolean getHidden() {
+	return hidden;
+}
+
+/**
+ * @param hidden the hidden to set
+ */
+public void setHidden(Boolean hidden) {
+	this.hidden = hidden;
+}
+
+/**
  * @return the parentId
  */
 public Long getParentId() {

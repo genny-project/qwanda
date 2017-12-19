@@ -401,15 +401,17 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
 	  }
   }
 
-	@Override
+	/*@Override
 	public int hashCode() {
 
 		HashCodeBuilder hcb = new HashCodeBuilder();
 		hcb.append(pk);
 		return hcb.toHashCode();
-	}
+	}*/ 
+  
+  
 
-	@Override
+	/*@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -421,7 +423,9 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
 		EqualsBuilder eb = new EqualsBuilder();
 		eb.append(pk, that.pk);
 		return eb.isEquals();
-	}
+	}*/
+  
+  
 
 	 public int compareTo(Object o) {
 		 EntityEntity myClass = (EntityEntity) o;
@@ -453,7 +457,44 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
 
   
   
-  @JsonIgnore
+  @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((created == null) ? 0 : created.hashCode());
+		result = prime * result + ((link == null) ? 0 : link.hashCode());
+		result = prime * result + ((valueString == null) ? 0 : valueString.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EntityEntity other = (EntityEntity) obj;
+		if (created == null) {
+			if (other.created != null)
+				return false;
+		} else if (!created.equals(other.created))
+			return false;
+		if (link == null) {
+			if (other.link != null)
+				return false;
+		} else if (!link.equals(other.link))
+			return false;
+		if (valueString == null) {
+			if (other.valueString != null)
+				return false;
+		} else if (!valueString.equals(other.valueString))
+			return false;
+		return true;
+	}
+
+@JsonIgnore
   @Transient
   @XmlTransient
   public <T> T getValue() {

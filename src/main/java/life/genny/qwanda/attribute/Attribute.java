@@ -145,14 +145,22 @@ public class Attribute extends CodedEntity implements Serializable {
 	public void setBaseEntityAttributes(Set<EntityAttribute> baseEntityAttributes) {
 		this.baseEntityAttributes = baseEntityAttributes;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Attribute [baseEntityAttributes=" + baseEntityAttributes + ", dataType=" + dataType + "]";
+	}
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
-	@Override
+	/*@Override
 	public String toString() {
 		return "Attribute:"+getCode()+"(" + getDataType()+") ";
-	}
+	}*/
+	
+	
 	
 
 }

@@ -435,13 +435,13 @@ public void setInferred(Boolean inferred) {
    * 
    * @see java.lang.Object#toString()
    */
-  @Override
+  /*@Override
   @JsonIgnore
   public String toString() {
     return "EA:"+baseEntityCode + ":" + attributeCode
         + ": "+getAsString()+" wt=" + weight + ":"+(inferred?"INFERRED":"PRI")+"]";
      //   + ", version=" + version + "]";
-  }
+  }*/
 
   @JsonIgnore
   @Transient
@@ -682,4 +682,12 @@ public void setInferred(Boolean inferred) {
       return false;
     return true;
   }
+
+@Override
+public String toString() {
+	return "EntityAttribute [baseEntityCode=" + baseEntityCode + ", attributeCode=" + attributeCode + ", valueString="
+			+ valueString + ", weight=" + weight + ", inferred=" + inferred + "]";
+}
+  
+  
 }

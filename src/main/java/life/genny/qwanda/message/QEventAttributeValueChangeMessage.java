@@ -1,5 +1,7 @@
 package life.genny.qwanda.message;
 
+import life.genny.qwanda.Answer;
+
 public class QEventAttributeValueChangeMessage extends QEventMessage {
 	  /**
 	 * 
@@ -7,18 +9,21 @@ public class QEventAttributeValueChangeMessage extends QEventMessage {
 	private static final long serialVersionUID = 1L;
 	
 	private static final String EVENT_TYPE_EVT_ATTRIBUTE_VALUE_CHANGE = "EVT_ATTRIBUTE_VALUE_CHANGE";
-	  private String sourceBaseEntityCode;
-	  private String targetBaseEntityCode;
+	private Answer answer;
 	  private String oldValue;
-	  private String newValue;
 	  private String token;
 
+		public QEventAttributeValueChangeMessage(final Answer answer, String oldValue, String token) {
+			super(EVENT_TYPE_EVT_ATTRIBUTE_VALUE_CHANGE, answer.getAttributeCode());
+			this.answer  = answer;
+			this.oldValue = oldValue;
+			this.token = token;
+		}
+		
 	public QEventAttributeValueChangeMessage(String sourceBaseEntityCode,String targetBaseEntityCode, String code, String oldValue, String newValue, String token) {
 		super(EVENT_TYPE_EVT_ATTRIBUTE_VALUE_CHANGE, code);
-		this.sourceBaseEntityCode = sourceBaseEntityCode;
-		this.targetBaseEntityCode = targetBaseEntityCode;
+		answer  = new Answer(sourceBaseEntityCode,targetBaseEntityCode, code,newValue);
 		this.oldValue = oldValue;
-		this.newValue = newValue;
 		this.token = token;
 	}
 
@@ -30,33 +35,6 @@ public class QEventAttributeValueChangeMessage extends QEventMessage {
 		this.oldValue = oldValue;
 	}
 
-	public String getNewValue() {
-		return newValue;
-	}
-
-	public void setNewValue(String newValue) {
-		this.newValue = newValue;
-	}
-	
-	
-
-	public String getTargetBaseEntityCode() {
-		return targetBaseEntityCode;
-	}
-
-	public void setTargetBaseEntityCode(String targetBaseEntityCode) {
-		this.targetBaseEntityCode = targetBaseEntityCode;
-	}
-
-	
-	
-	public String getSourceBaseEntityCode() {
-		return sourceBaseEntityCode;
-	}
-
-	public void setSourceBaseEntityCode(String sourceBaseEntityCode) {
-		this.sourceBaseEntityCode = sourceBaseEntityCode;
-	}
 
 	public String getToken() {
 		return token;
@@ -68,8 +46,22 @@ public class QEventAttributeValueChangeMessage extends QEventMessage {
 
 	@Override
 	public String toString() {
-		return "QEventAttributeValueChangeMessage [sourceCode="+sourceBaseEntityCode+",targetCode="+targetBaseEntityCode+", oldValue=" + oldValue + ", newValue=" + newValue
+		return "QEventAttributeValueChangeMessage ["+answer+", oldValue=" + oldValue 
 				+ ", event_type=" + getEvent_type() + ", msg_type=" + getMsg_type() + "]";
+	}
+
+	/**
+	 * @return the answer
+	 */
+	public Answer getAnswer() {
+		return answer;
+	}
+
+	/**
+	 * @param answer the answer to set
+	 */
+	public void setAnswer(Answer answer) {
+		this.answer = answer;
 	}
 
 	

@@ -222,27 +222,27 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 		}
 	}
 
-	@Override
-	public int hashCode() {
-
-		HashCodeBuilder hcb = new HashCodeBuilder();
-		hcb.append(pk);
-		return hcb.toHashCode();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof QuestionQuestion)) {
-			return false;
-		}
-		QuestionQuestion that = (QuestionQuestion) obj;
-		EqualsBuilder eb = new EqualsBuilder();
-		eb.append(pk, that.pk);
-		return eb.isEquals();
-	}
+//	@Override
+//	public int hashCode() {
+//
+//		HashCodeBuilder hcb = new HashCodeBuilder();
+//		hcb.append(pk);
+//		return hcb.toHashCode();
+//	}
+//
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj) {
+//			return true;
+//		}
+//		if (!(obj instanceof QuestionQuestion)) {
+//			return false;
+//		}
+//		QuestionQuestion that = (QuestionQuestion) obj;
+//		EqualsBuilder eb = new EqualsBuilder();
+//		eb.append(pk, that.pk);
+//		return eb.isEquals();
+//	}
 
 	 public int compareTo(Object o) {
 		 QuestionQuestion myClass = (QuestionQuestion) o;

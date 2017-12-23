@@ -1,0 +1,67 @@
+package life.genny.qwanda.message;
+
+public class QEventCacheMessage extends QEventMessage {
+	  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private static final String EVENT_TYPE_CACHE_MISS = "EVT_CACHE_MISS";
+	  private String targetBaseEntityCode;
+	  private String token;
+	  private String linkCode;
+
+	public QEventCacheMessage(String sourceBaseEntityCode,String targetBaseEntityCode, String code, String linkCode, String token) {
+		super(EVENT_TYPE_CACHE_MISS, code);
+		this.targetBaseEntityCode = targetBaseEntityCode;
+		this.token = token;
+		this.linkCode = linkCode;
+	}
+
+
+
+	public String getTargetBaseEntityCode() {
+		return targetBaseEntityCode;
+	}
+
+	public void setTargetBaseEntityCode(String targetBaseEntityCode) {
+		this.targetBaseEntityCode = targetBaseEntityCode;
+	}
+
+
+
+	/**
+	 * @return the linkCode
+	 */
+	public String getLinkCode() {
+		return linkCode;
+	}
+
+
+
+	/**
+	 * @param linkCode the linkCode to set
+	 */
+	public void setLinkCode(String linkCode) {
+		this.linkCode = linkCode;
+	}
+
+
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	@Override
+	public String toString() {
+		return "QEventCacheMessage [targetCode="+targetBaseEntityCode
+				+ ", event_type=" + getEvent_type() + ", msg_type=" + getMsg_type() + "]";
+	}
+
+	
+	
+}

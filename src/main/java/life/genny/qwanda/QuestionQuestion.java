@@ -17,6 +17,11 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import com.google.gson.annotations.Expose;
+
+import life.genny.qwanda.entity.EntityEntity;
+
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
 
@@ -35,21 +40,24 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 	private QuestionQuestionId pk = new QuestionQuestionId();
 
 	@Column(name = "created")
+	@Expose
 	private LocalDateTime created;
 
 	/**
 	 * Stores the Last Modified UMT DateTime that this object was last updated
 	 */
 	@Column(name = "updated")
+	  @Expose
 	private LocalDateTime updated;
 
 	/**
 	 * Store the relative importance of this question link
 	 */
+	  @Expose
 	private Double weight;
 
 	private Long version = 1L;
-
+	  @Expose
 	Boolean mandatory = false;
 
 	public QuestionQuestion() {
@@ -244,6 +252,42 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 //		return eb.isEquals();
 //	}
 
+	  @Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((created == null) ? 0 : created.hashCode());
+			result = prime * result + ((pk == null) ? 0 : pk.hashCode());
+			return result;
+		}
+	  
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			QuestionQuestion other = (QuestionQuestion) obj;
+			if (created == null) {
+				if (other.created != null)
+					return false;
+			} else if (!created.equals(other.created))
+				return false;
+			if (pk == null) {
+				if (other.pk != null)
+					return false;
+			} else if (!pk.equals(other.pk))
+				return false;
+			if (weight == null) {
+				if (other.weight != null)
+					return false;
+			} else if (!weight.equals(other.weight))
+				return false;
+			return true;
+		}
+
 	 public int compareTo(Object o) {
 		 QuestionQuestion myClass = (QuestionQuestion) o;
 	     return new CompareToBuilder()
@@ -255,10 +299,10 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
-	@Override
-	public String toString() {
-		return "QQ:"+getPk().getSource().getCode()+":"+getPk().getTargetCode()+":"+getWeight()+":"+(getMandatory()?"M":"O");
-	}
-
+//	@Override
+//	public String toString() {
+//		return "QQ:"+getPk().getSource().getCode()+":"+getPk().getTargetCode()+":"+getWeight()+":"+(getMandatory()?"M":"O");
+//	}
+//
 
 }

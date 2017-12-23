@@ -17,6 +17,8 @@
 package life.genny.qwanda.datatype;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
+
 import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -66,6 +68,7 @@ public class DataType implements Serializable {
   @NotNull
   @NotEmpty
   @Size(max = 120)
+  @Expose
   private String className; // e.g. java.util.String
 
 
@@ -77,6 +80,7 @@ public class DataType implements Serializable {
 
   @Column(name = "validation_list", length = 512)
   @Convert(converter = ValidationListConverter.class)
+  @Expose
   private List<Validation> validationList = new ArrayList<Validation>(0);
 
 

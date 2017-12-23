@@ -42,6 +42,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.CodedEntity;
 import life.genny.qwanda.datatype.DataType;
@@ -93,6 +94,7 @@ public class Attribute extends CodedEntity implements Serializable {
 
 	@Embedded
 	@NotNull
+	@Expose
 	public DataType dataType;
 
 	

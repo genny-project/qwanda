@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
 import java.security.InvalidParameterException;
@@ -106,6 +107,7 @@ public class Question extends CodedEntity implements Serializable {
   @XmlTransient
   @OneToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "attribute_id", nullable = true)
+  @Expose
   private Attribute attribute;
 
   @Embedded
@@ -178,7 +180,6 @@ public class Question extends CodedEntity implements Serializable {
    * 
    * @param aCode The unique code for this empty Question Group
    * @param aName The human readable summary name
-
    */
   public Question(final String aCode, final String aName) {
     super(aCode, aName);
@@ -462,3 +463,5 @@ public String toString() {
   }
    
 }
+
+

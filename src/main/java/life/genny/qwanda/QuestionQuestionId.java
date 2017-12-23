@@ -9,6 +9,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.entity.EntityEntityId;
 
@@ -21,11 +22,9 @@ public class QuestionQuestionId implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JsonBackReference
-//	@JsonIgnore
 	private Question source;
-	
 	
 	private String targetCode;
 	
@@ -80,7 +79,7 @@ public class QuestionQuestionId implements java.io.Serializable {
             if (this == obj) {
                 return true;
             }
-            if (!(obj instanceof EntityEntityId)) {
+            if (!(obj instanceof QuestionQuestionId)) {
                 return false;
             }
             QuestionQuestionId that = (QuestionQuestionId) obj;

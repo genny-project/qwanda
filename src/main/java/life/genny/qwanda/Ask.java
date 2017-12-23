@@ -19,6 +19,8 @@ package life.genny.qwanda;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Embedded;
@@ -86,6 +88,7 @@ public class Ask extends CoreEntity implements Serializable {
   @XmlTransient
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "question_id", nullable = true)
+  @Expose
   private Question question;
 
   // @JsonIgnore
@@ -100,20 +103,30 @@ public class Ask extends CoreEntity implements Serializable {
   // @JoinColumn(name = "target_id", nullable = false)
   // private BaseEntity target;
 
+  @Expose
   private String sourceCode;
+  @Expose
   private String targetCode;
+  @Expose
   private String questionCode;
+  @Expose
   private String attributeCode;
   
+  @Expose
   private Boolean mandatory=false;
+  @Expose
   private Boolean disabled=false;
+  @Expose
   private Boolean hidden = false;
   
+  @Expose
   private Double weight=0.0;
   
+  @Expose
   private Long parentId=0L;
   
   @Transient
+  @Expose
   private Ask[] childAsks;
 
   // @Embedded
@@ -124,6 +137,7 @@ public class Ask extends CoreEntity implements Serializable {
   @Embedded
   @Valid
   @JsonInclude(Include.NON_NULL)
+  @Expose
   private ContextList contextList;
 
   /**
@@ -448,3 +462,6 @@ public void setParentId(Long parentId) {
 
 
 }
+
+
+

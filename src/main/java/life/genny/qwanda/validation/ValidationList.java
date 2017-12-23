@@ -17,6 +17,8 @@
 package life.genny.qwanda.validation;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
@@ -68,6 +70,7 @@ public class ValidationList implements Serializable {
   @XmlTransient
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "dtype_id", referencedColumnName = "id")
+  @Expose
   private List<Validation> validationList = new ArrayList<Validation>(0);
 
   public ValidationList() {

@@ -37,6 +37,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.google.gson.annotations.Expose;
+
 import life.genny.qwanda.CodedEntity;
 
 /**
@@ -90,6 +92,7 @@ public class Validation extends CodedEntity implements Serializable {
 	@NotEmpty
 	@Size(max = 128)
 	@Column(name = "regex", updatable = true, nullable = false)	
+	  @Expose
 	private String regex;
  
 	

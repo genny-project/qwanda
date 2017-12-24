@@ -21,9 +21,12 @@
 package life.genny.qwanda.validation;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
@@ -40,6 +43,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.CodedEntity;
+import life.genny.qwanda.converter.StringListConverter;
 
 /**
  * Validation represents a distinct abstract Validation Representation in the Qwanda library.
@@ -82,6 +86,8 @@ public class Validation extends CodedEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static final String DEFAULT_CODE_PREFIX = "VLD_";
+	
+	private static final String DEFAULT_REGEX = ".*";
 
 	/**
 	A field that stores the validation regex.
@@ -94,7 +100,18 @@ public class Validation extends CodedEntity implements Serializable {
 	@Column(name = "regex", updatable = true, nullable = false)	
 	  @Expose
 	private String regex;
- 
+	
+	
+	@Column(name = "selection_grp",  length = 512,updatable = true, nullable = true)	
+	@Expose
+	  @Convert(converter = StringListConverter.class)	
+	private List<String> selectionBaseEntityGroupList;
+	
+	@Expose
+	private Boolean recursiveGroup = false;
+	
+	@Expose
+	private Boolean multiAllowed = false;
 	
 	/**
 	  * Constructor.
@@ -112,6 +129,24 @@ public class Validation extends CodedEntity implements Serializable {
 	{
 		super(aCode, aName);
 		setRegex(aRegex);
+	}
+	
+	public Validation(String aCode, String aName, String aSelectionBaseEntityGroup, Boolean recursive, Boolean multiAllowed) throws PatternSyntaxException
+	{
+		super(aCode, aName);
+		setRegex(DEFAULT_REGEX);
+		ArrayList<String> aSelectionBaseEntityGroupList = new ArrayList<String>();
+		aSelectionBaseEntityGroupList.add(aSelectionBaseEntityGroup);
+		setSelectionBaseEntityGroupList(aSelectionBaseEntityGroupList);
+		setMultiAllowed(multiAllowed);
+	}
+	
+	public Validation(String aCode, String aName, List<String> aSelectionBaseEntityGroupList, Boolean recursive, Boolean multiAllowed) throws PatternSyntaxException
+	{
+		super(aCode, aName);
+		setRegex(DEFAULT_REGEX);
+		setSelectionBaseEntityGroupList(aSelectionBaseEntityGroupList);
+		setMultiAllowed(multiAllowed);
 	}
 
 	/**
@@ -131,6 +166,50 @@ public class Validation extends CodedEntity implements Serializable {
 	}
 
 	
+	
+	/**
+	 * @return the selectionBaseEntityGroup
+	 */
+	public List<String> getSelectionBaseEntityGroupList() {
+		return selectionBaseEntityGroupList;
+	}
+
+	/**
+	 * @param selectionBaseEntityGroup the selectionBaseEntityGroup to set
+	 */
+	public void setSelectionBaseEntityGroupList(List<String> selectionBaseEntityGroup) {
+		this.selectionBaseEntityGroupList = selectionBaseEntityGroupList;
+	}
+
+	/**
+	 * @return the recursiveGroup
+	 */
+	public Boolean getRecursiveGroup() {
+		return recursiveGroup;
+	}
+
+	/**
+	 * @param recursiveGroup the recursiveGroup to set
+	 */
+	public void setRecursiveGroup(Boolean recursiveGroup) {
+		this.recursiveGroup = recursiveGroup;
+	}
+
+	
+	/**
+	 * @return the multiAllowed
+	 */
+	public Boolean getMultiAllowed() {
+		return multiAllowed;
+	}
+
+	/**
+	 * @param multiAllowed the multiAllowed to set
+	 */
+	public void setMultiAllowed(Boolean multiAllowed) {
+		this.multiAllowed = multiAllowed;
+	}
+
 	/**
 	 * @param regex
 	 */

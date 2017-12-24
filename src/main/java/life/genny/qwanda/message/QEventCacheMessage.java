@@ -7,25 +7,13 @@ public class QEventCacheMessage extends QEventMessage {
 	private static final long serialVersionUID = 1L;
 	
 	private static final String EVENT_TYPE_CACHE_MISS = "EVT_CACHE_MISS";
-	  private String targetBaseEntityCode;
 	  private String token;
 	  private String linkCode;
 
 	public QEventCacheMessage(String sourceBaseEntityCode,String targetBaseEntityCode, String code, String linkCode, String token) {
 		super(EVENT_TYPE_CACHE_MISS, code);
-		this.targetBaseEntityCode = targetBaseEntityCode;
 		this.token = token;
 		this.linkCode = linkCode;
-	}
-
-
-
-	public String getTargetBaseEntityCode() {
-		return targetBaseEntityCode;
-	}
-
-	public void setTargetBaseEntityCode(String targetBaseEntityCode) {
-		this.targetBaseEntityCode = targetBaseEntityCode;
 	}
 
 
@@ -58,7 +46,7 @@ public class QEventCacheMessage extends QEventMessage {
 
 	@Override
 	public String toString() {
-		return "QEventCacheMessage [targetCode="+targetBaseEntityCode
+		return "QEventCacheMessage [targetCode="+this.getData().getCode()
 				+ ", event_type=" + getEvent_type() + ", msg_type=" + getMsg_type() + "]";
 	}
 

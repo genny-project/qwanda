@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Index;
@@ -22,8 +23,13 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
 import life.genny.qwanda.attribute.Attribute;
 import life.genny.qwanda.attribute.EntityAttribute;
+import life.genny.qwanda.converter.StringListConverter;
+import life.genny.qwanda.converter.ValidationListConverter;
 import life.genny.qwanda.entity.BaseEntity;
 
 @Entity
@@ -96,6 +102,13 @@ public class AnswerLink implements java.io.Serializable {
 	 * Store the Boolean value of the attribute for the baseEntity
 	 */
 	private Boolean valueBoolean;
+	
+	/**
+	 * Store the BaseEntity Code value of the attribute for the baseEntity
+	 */
+	  @Column(name = "be_list", length = 512)
+	  @Convert(converter = StringListConverter.class)
+	private List<String> ValueBaseEntityCodeList;	
 
 	/**
 	 * Store the Expired boolean value of the attribute for the baseEntity
@@ -478,6 +491,22 @@ public class AnswerLink implements java.io.Serializable {
 		this.valueBoolean = valueBoolean;
 	}
 
+	
+	
+	/**
+	 * @return the valueBaseEntityCode
+	 */
+	public List<String> getValueBaseEntityCodeList() {
+		return ValueBaseEntityCodeList;
+	}
+
+	/**
+	 * @param valueBaseEntityCode the valueBaseEntityCode to set
+	 */
+	public void setValueBaseEntityCodeList(List<String> valueBaseEntityCode) {
+		this.ValueBaseEntityCodeList = valueBaseEntityCode;
+	}
+
 	/**
 	 * @return the expired
 	 */
@@ -595,6 +624,8 @@ public class AnswerLink implements java.io.Serializable {
 	public <T> T getValue() {
 		final String dataType = getAttribute().getDataType().getClassName();
 		switch (dataType) {
+		case "life.genny.qwanda.entity":
+			return (T) getValueBaseEntityCodeList();
 		case "java.lang.Integer":
 			return (T) getValueInteger();
 		case "java.time.LocalDateTime":
@@ -619,6 +650,9 @@ public class AnswerLink implements java.io.Serializable {
 	@XmlTransient
 	public <T> void setValue(final Object value) {
 		switch (this.pk.getAttribute().getDataType().getClassName()) {
+		case "life.genny.qwanda.entity":
+			setValueBaseEntityCodeList((List<String>) value);
+			break;
 		case "java.lang.Integer":
 			setValueInteger((Integer) value);
 			break;

@@ -66,7 +66,7 @@ public class AttributeLink extends Attribute implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static final String DEFAULT_LNKCODE_PREFIX = "LNK_";
-	
+		
 	/**
 	  * Constructor.
 	  * 
@@ -100,6 +100,7 @@ public class AttributeLink extends Attribute implements Serializable {
 	static public String getDefaultCodePrefix() { // TODO: this won't work
 		return DEFAULT_LNKCODE_PREFIX;
 	}
+
 
 	
 }

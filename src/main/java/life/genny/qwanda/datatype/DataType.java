@@ -64,6 +64,8 @@ public class DataType implements Serializable {
    * 
    */
   private static final long serialVersionUID = 1L;
+  
+  public static final String DTT_LINK = "LNK_ATTRIBUTE"; // This datatype classname indicates the datatype belongs to the BaseEntity set with parent
 
   @NotNull
   @NotEmpty

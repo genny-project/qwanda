@@ -13,8 +13,10 @@ public class StringListConverter implements AttributeConverter<List<String>, Str
   @Override
   public String convertToDatabaseColumn(final List<String> list) {
     String ret = "";
+    if (list!=null) {
     for (final String str : list) {
       ret += str + ",";
+    }
     }
     return ret;
 

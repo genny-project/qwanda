@@ -27,6 +27,7 @@ public class QuestionQuestionId implements java.io.Serializable {
 	private Question source;
 	
 	private String targetCode;
+	private String sourceCode;
 	
 
 	
@@ -60,17 +61,32 @@ public class QuestionQuestionId implements java.io.Serializable {
 	 */
 	public void setSource(final Question source) {
 		this.source = source;
+		this.sourceCode = source.getCode();
 	}
 
 
 
 
 
+	/**
+	 * @return the sourceCode
+	 */
+	public String getSourceCode() {
+		return sourceCode;
+	}
+
+	/**
+	 * @param sourceCode the sourceCode to set
+	 */
+	public void setSourceCode(String sourceCode) {
+		this.sourceCode = sourceCode;
+	}
+
 	@Override
     public int hashCode() {
 //        int result;
         HashCodeBuilder hcb = new HashCodeBuilder();
-        hcb.append(source.getCode());
+        hcb.append(sourceCode);
         hcb.append(targetCode);
         return hcb.toHashCode();
     }      
@@ -84,7 +100,7 @@ public class QuestionQuestionId implements java.io.Serializable {
             }
             QuestionQuestionId that = (QuestionQuestionId) obj;
             EqualsBuilder eb = new EqualsBuilder();
-            eb.append(source.getCode(), that.source.getCode());
+            eb.append(sourceCode, that.sourceCode);
             eb.append(targetCode, that.targetCode);
             return eb.isEquals();
         }

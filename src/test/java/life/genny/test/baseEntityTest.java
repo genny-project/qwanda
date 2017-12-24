@@ -24,6 +24,7 @@ import life.genny.qwanda.attribute.AttributeBoolean;
 import life.genny.qwanda.entity.Person;
 import life.genny.qwanda.entity.Product;
 import life.genny.qwanda.exception.BadDataException;
+import life.genny.qwanda.validation.Validation;
 import life.genny.test.qwanda.util.JsonUtils;
 
 
@@ -179,5 +180,13 @@ public class baseEntityTest {
 	 
 	 String jsonString = JsonUtils.set(now);
 	 System.out.println("Json LocalDateTime = "+jsonString);
+ }
+ 
+ @Test
+ public void validationJsonTest()
+ {
+	 Validation validation = new Validation("VLD_TEST","Test Validatoin","GRP_SELECTION_TEST",false,true);
+	 String jsonString = JsonUtils.set(validation);
+	 System.out.println("Json Validation  = "+jsonString);
  }
 }

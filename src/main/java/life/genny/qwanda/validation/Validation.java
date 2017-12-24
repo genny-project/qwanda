@@ -178,7 +178,7 @@ public class Validation extends CodedEntity implements Serializable {
 	 * @param selectionBaseEntityGroup the selectionBaseEntityGroup to set
 	 */
 	public void setSelectionBaseEntityGroupList(List<String> selectionBaseEntityGroup) {
-		this.selectionBaseEntityGroupList = selectionBaseEntityGroupList;
+		this.selectionBaseEntityGroupList = selectionBaseEntityGroup;
 	}
 
 	/**

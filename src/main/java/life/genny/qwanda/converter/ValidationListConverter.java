@@ -21,6 +21,7 @@ public class ValidationListConverter implements AttributeConverter<List<Validati
 		String ret = "";
 		for (final Validation validation : list) {
 			String validationGroupStr = "";
+			if (validation != null) {
 			if (validation.getSelectionBaseEntityGroupList() != null) {
 				validationGroupStr += "\"" + convertToString(validation.getSelectionBaseEntityGroupList()) + "\"";
 				validationGroupStr += ",\"" + (validation.getMultiAllowed() ? "TRUE" : "FALSE") + "\"";
@@ -30,6 +31,7 @@ public class ValidationListConverter implements AttributeConverter<List<Validati
 			} else {
 				ret += "\"" + validation.getCode() + "\",\"" + validation.getName() + "\",\"" + validation.getRegex()+"\",";
 
+			}
 			}
 		
 		}

@@ -9,6 +9,7 @@ public class QMSGMessage extends QMessage {
 	private String template_code;
 	private String[] msgMessageData;
 	private QBaseMSGMessageType msgMessageType;
+	private String code;
 	private String[] attachments;
 	
 	//private List<QBaseMSGMessage> msgMessageData;
@@ -54,6 +55,16 @@ public class QMSGMessage extends QMessage {
 	public void setAttachments(String[] attachments) {
 		this.attachments = attachments;
 	}
+	
+
+	public String getCode() {
+		return code;
+	}
+
+
+	public void setCode(String code) {
+		this.code = code;
+	}
 
 
 	@Override
@@ -69,6 +80,15 @@ public class QMSGMessage extends QMessage {
 		this.template_code = template_code;
 		this.msgMessageData = msgMessageData;
 		this.msgMessageType = msgMessageType;
+		this.attachments = attachments;
+	}
+
+	//For Test Message
+	public QMSGMessage(String msg_type, QBaseMSGMessageType msgMessageType, String code,
+			String[] attachments) {
+		super(msg_type);
+		this.msgMessageType = msgMessageType;
+		this.code = code;
 		this.attachments = attachments;
 	}
 	

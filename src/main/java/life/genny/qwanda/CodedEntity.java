@@ -45,6 +45,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.google.gson.annotations.Expose;
+
 import life.genny.qwanda.entity.BaseEntity;
 
 /**
@@ -91,7 +93,8 @@ public abstract class CodedEntity extends CoreEntity {
 	@NotEmpty
 	@Size(max = 64)
 	@Pattern(regexp = REGEX_CODE, message = "Must be valid Code!")
-	@Column(name = "code", updatable = false, nullable = false)	
+	@Column(name = "code", updatable = false, nullable = false)
+	@Expose
 	private String code;
  
 	/**

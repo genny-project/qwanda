@@ -17,6 +17,8 @@
 package life.genny.qwanda;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
+
 import org.apache.logging.log4j.Logger;
 import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.Basic;
@@ -101,6 +103,7 @@ public abstract class CoreEntity implements CreatedIntf, Serializable, Comparabl
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Basic(optional = false)
   @Column(name = "id", updatable = false, nullable = false)
+  @Expose
   private Long id;
 
 
@@ -114,6 +117,7 @@ public abstract class CoreEntity implements CreatedIntf, Serializable, Comparabl
   @Size(max = 50)
   @Pattern(regexp = REGEX_NAME, message = "Must contain valid characters for name")
   @Column(name = "name", updatable = true, nullable = true)
+  @Expose
   private String name;
 
   /**
@@ -126,6 +130,7 @@ public abstract class CoreEntity implements CreatedIntf, Serializable, Comparabl
   @Size(max = 32)
   @Pattern(regexp = REGEX_REALM, message = "Must contain valid characters for realm")
   @Column(name = "realm", updatable = true, nullable = false)
+  @Expose
   private String realm = DEFAULT_REALM;
 
 

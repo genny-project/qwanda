@@ -41,7 +41,9 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.CodedEntity;
@@ -90,6 +92,8 @@ public class Attribute extends CodedEntity implements Serializable {
 	private static final String DEFAULT_CODE_PREFIX = "PRI_";
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.attribute")
+	 @JsonManagedReference
+	 @JsonIgnore
 	private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 
 	@Embedded
@@ -151,7 +155,7 @@ public class Attribute extends CodedEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Attribute [baseEntityAttributes=" + baseEntityAttributes + ", dataType=" + dataType + "]";
+		return getCode()+ ",dataType=" + dataType;
 	}
 	
 	/* (non-Javadoc)

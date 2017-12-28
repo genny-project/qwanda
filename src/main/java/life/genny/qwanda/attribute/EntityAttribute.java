@@ -21,7 +21,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -201,12 +200,12 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
     this.pk = pk;
   }
 
-  @Transient
-  @JsonIgnore
-  @XmlTransient
-  public BaseEntity getBaseEntity() {
-    return getPk().getBaseEntity();
-  }
+//  @Transient
+//  @JsonIgnore
+//  @XmlTransient
+//  public BaseEntity getBaseEntity() {
+//    return getPk().getBaseEntity();
+//  }
 
   public void setBaseEntity(final BaseEntity baseEntity) {
     getPk().setBaseEntity(baseEntity);
@@ -447,7 +446,7 @@ public void setInferred(Boolean inferred) {
   @Transient
   @XmlTransient
   public <T> T getValue() {
-    final String dataType = getAttribute().getDataType().getClassName();
+    final String dataType = getPk().getAttribute().getDataType().getClassName();
     switch (dataType) {
       case "java.lang.Integer":
         return (T) getValueInteger();
@@ -473,7 +472,7 @@ public void setInferred(Boolean inferred) {
   @Transient
   @XmlTransient
   public <T> void setValue(final Object value) {
-    switch (this.getAttribute().getDataType().getClassName()) {
+    switch (this.getPk().getAttribute().getDataType().getClassName()) {
       case "java.lang.Integer":
         setValueInteger((Integer) value);
         break;
@@ -505,7 +504,7 @@ public void setInferred(Boolean inferred) {
   @Transient
   @XmlTransient
   public String getAsString() {
-    final String dataType = getAttribute().getDataType().getClassName();
+    final String dataType = getPk().getAttribute().getDataType().getClassName();
     switch (dataType) {
       case "java.lang.Integer":
         return ""+getValueInteger();
@@ -558,7 +557,7 @@ public void setInferred(Boolean inferred) {
 
 	 public int compareTo(Object o) {
 		 EntityAttribute myClass = (EntityAttribute) o;
-		   final String dataType = getAttribute().getDataType().getClassName();
+		   final String dataType = getPk().getAttribute().getDataType().getClassName();
 		    switch (dataType) {
 		      case "java.lang.Integer":
 		        return new CompareToBuilder().append(this.getValueInteger(), myClass.getValueInteger()) .toComparison();
@@ -625,12 +624,12 @@ public void setInferred(Boolean inferred) {
         return false;
     } else if (!inferred.equals(other.inferred))
       return false;
-    if (pk == null) {
-      if (other.pk != null)
-        return false;
-    } else if (!pk.equals(other.pk))
-      return false;
-    if (privacyFlag == null) {
+//    if (pk == null) {
+//      if (other.pk != null)
+//        return false;
+//    } else if (!pk.equals(other.pk))
+//      return false;
+    else  if (privacyFlag == null) {
       if (other.privacyFlag != null)
         return false;
     } else if (!privacyFlag.equals(other.privacyFlag))

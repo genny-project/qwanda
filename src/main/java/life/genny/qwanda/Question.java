@@ -100,7 +100,7 @@ public class Question extends CodedEntity implements Serializable {
   @JsonIgnore
   @XmlTransient
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source", cascade = CascadeType.MERGE, orphanRemoval=true)
-  @JsonManagedReference
+ // @JsonManagedReference
   private Set<QuestionQuestion> childQuestions = new HashSet<QuestionQuestion>(0);
 
 

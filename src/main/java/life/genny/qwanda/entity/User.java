@@ -6,6 +6,7 @@ public class User {
 	private String fullName;
 	private String realm;
 	private String roles;
+	private String uCode;
     private Boolean isAvailable;
     private Boolean isProfileCompleted;
     
@@ -46,6 +47,14 @@ public class User {
 
 	public void setRoles(String roles) {
 		this.roles = roles;
+	}
+
+	public String getuCode() {
+		return uCode;
+	}
+
+	public void setuCode(String uCode) {
+		this.uCode = uCode;
 	}
 
 	public Boolean getIsAvailable() {

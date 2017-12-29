@@ -17,11 +17,11 @@ public class EntityAttributeId implements java.io.Serializable {
 
 
 	@ManyToOne
-	@JsonBackReference
+	@JsonBackReference(value="entityAttribute")
 	public BaseEntity baseEntity;
 
 	@ManyToOne
-	@JsonBackReference
+	@JsonBackReference(value="attribute")
 //	@JsonIgnore
 	public Attribute attribute;
 

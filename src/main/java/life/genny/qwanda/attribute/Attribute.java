@@ -92,8 +92,8 @@ public class Attribute extends CodedEntity implements Serializable {
 	private static final String DEFAULT_CODE_PREFIX = "PRI_";
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.attribute")
-	 @JsonManagedReference
-	 @JsonIgnore
+	@JsonManagedReference(value="attribute")
+//	 @JsonIgnore
 	private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 
 	@Embedded

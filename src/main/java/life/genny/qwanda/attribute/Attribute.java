@@ -93,7 +93,7 @@ public class Attribute extends CodedEntity implements Serializable {
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.attribute")
 	@JsonManagedReference(value="attribute")
-//	 @JsonIgnore
+	 @JsonIgnore
 	private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 
 	@Embedded

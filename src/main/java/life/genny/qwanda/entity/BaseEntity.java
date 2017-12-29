@@ -94,6 +94,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 //  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.baseEntity", cascade = CascadeType.MERGE, orphanRemoval=true)
   @JsonManagedReference(value="entityAttribute")
+  @JsonIgnore
   private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 
   @JsonIgnore

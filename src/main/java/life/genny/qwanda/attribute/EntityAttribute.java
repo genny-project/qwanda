@@ -192,6 +192,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
     }
   }
 
+  @JsonIgnore
   public EntityAttributeId getPk() {
     return pk;
   }
@@ -213,6 +214,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
   }
 
   @Transient
+  @JsonIgnore
   public Attribute getAttribute() {
     return getPk().getAttribute();
   }

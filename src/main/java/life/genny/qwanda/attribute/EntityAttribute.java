@@ -687,6 +687,86 @@ public String toString() {
 	return "EntityAttribute [baseEntityCode=" + baseEntityCode + ", attributeCode=" + attributeCode + ", valueString="
 			+ valueString + ", weight=" + weight + ", inferred=" + inferred + "]";
 }
+
+	@JsonIgnore
+	@Transient
+	@XmlTransient
+	public <T> T getObject() {
+
+		if (getValueInteger() != null) {
+			return (T) getValueInteger();
+		}
+
+		if (getValueDateTime() != null) {
+			return (T) getValueDateTime();
+		}
+
+		if (getValueLong() != null) {
+			return (T) getValueLong();
+		}
+
+		if (getValueDouble() != null) {
+			return (T) getValueDouble();
+		}
+
+		if (getValueBoolean() != null) {
+			return (T) getValueBoolean();
+		}
+
+		if (getValueDate() != null) {
+			return (T) getValueDate();
+		}
+
+		if (getValueString() != null) {
+			return (T) getValueString();
+		}
+
+		return (T) getValueString();
+
+	}
+
+	@JsonIgnore
+	  @Transient
+	  @XmlTransient
+	public String getObjectAsString() {
+
+		if (getValueInteger() != null) {
+			return "" + getValueInteger();
+		}
+
+		if (getValueDateTime() != null) {
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS");
+			Date datetime = Date.from(getValueDateTime().atZone(ZoneId.systemDefault()).toInstant());
+			String dout = df.format(datetime);
+			return dout;
+		}
+
+		if (getValueLong() != null) {
+			return "" + getValueLong();
+		}
+
+		if (getValueDouble() != null) {
+			return getValueDouble().toString();
+		}
+
+		if (getValueBoolean() != null) {
+			return getValueBoolean() ? "TRUE" : "FALSE";
+		}
+
+		if (getValueDate() != null) {
+			DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = Date.from(getValueDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+			String dout2 = df2.format(date);
+			return dout2;
+		}
+
+		if (getValueString() != null) {
+			return getValueString();
+		}
+
+		return getValueString();
+
+	}
   
   
 }

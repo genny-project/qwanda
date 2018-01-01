@@ -1,5 +1,7 @@
 package life.genny.qwanda.message;
 
+import org.apache.commons.lang3.StringUtils;
+
 import life.genny.qwanda.Answer;
 
 public class QEventAttributeValueChangeMessage extends QEventMessage {
@@ -46,8 +48,9 @@ public class QEventAttributeValueChangeMessage extends QEventMessage {
 
 	@Override
 	public String toString() {
-		return "QEventAttributeValueChangeMessage ["+answer+", oldValue=" + oldValue 
-				+ ", event_type=" + getEvent_type() + ", msg_type=" + getMsg_type() + "]";
+		return getAnswer().getSourceCode()+":"+getAnswer().getTargetCode() + ":"+ getAnswer().getAttributeCode()+": old->"+oldValue+": new->"
+				+ getAnswer().getValue() + " token=" + StringUtils.abbreviateMiddle(getToken(), "...", 30);
+
 	}
 
 	/**

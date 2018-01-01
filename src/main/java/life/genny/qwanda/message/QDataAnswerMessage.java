@@ -8,6 +8,10 @@ public class QDataAnswerMessage extends QDataMessage {
 	private Answer[] items;
 	private static final String DATATYPE_ANSWER = Answer.class.getSimpleName();
 
+	private QDataAnswerMessage() {
+		super(DATATYPE_ANSWER);
+	}
+	
 	public QDataAnswerMessage(Answer[] items) {
 		super(DATATYPE_ANSWER);
 		setItems(items);

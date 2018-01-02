@@ -24,7 +24,7 @@ public class EntityAttributeId implements java.io.Serializable {
 
 	@ManyToOne
 	@JsonBackReference(value="attribute")
-	@JsonIgnore
+//	@JsonIgnore
 	public Attribute attribute;
 
 	public BaseEntity getBaseEntity() {

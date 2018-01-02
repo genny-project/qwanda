@@ -79,6 +79,7 @@ public class DataType implements Serializable {
 //  @JsonIgnore
   private String typeName; // e.g. TEXT
 
+  private String inputmask;
 
   /**
    * A fieldlist that stores the validations for this object.
@@ -107,10 +108,14 @@ public class DataType implements Serializable {
     this(clazz, new ValidationList());
   }
 
-  public DataType(final String className, final ValidationList aValidationList, final String name) {
+  public DataType(final String className, final ValidationList aValidationList, final String name,final String inputmask) {
 	    setClassName(className);
 	    setValidationList(aValidationList.getValidationList());
 	    setTypeName(name);
+	    setInputmask(inputmask);
+	  }
+  public DataType(final String className, final ValidationList aValidationList, final String name) {
+	  this(className, aValidationList,name,"");
 	  }
   public DataType(final String className, final ValidationList aValidationList) {
 	  this(className, aValidationList,"UNSET");
@@ -162,6 +167,21 @@ public String getTypeName() {
  */
 public void setTypeName(String name) {
 	this.typeName = name;
+}
+
+
+/**
+ * @return the inputmask
+ */
+public String getInputmask() {
+	return inputmask;
+}
+
+/**
+ * @param inputmask the inputmask to set
+ */
+public void setInputmask(String inputmask) {
+	this.inputmask = inputmask;
 }
 
 @JsonIgnore

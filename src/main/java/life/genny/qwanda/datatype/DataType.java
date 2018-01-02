@@ -77,7 +77,7 @@ public class DataType implements Serializable {
   @NotEmpty
   @Size(max = 120)
 //  @JsonIgnore
-  private String name; // e.g. TEXT
+  private String typeName; // e.g. TEXT
 
 
   /**
@@ -110,7 +110,7 @@ public class DataType implements Serializable {
   public DataType(final String className, final ValidationList aValidationList, final String name) {
 	    setClassName(className);
 	    setValidationList(aValidationList.getValidationList());
-	    setName(name);
+	    setTypeName(name);
 	  }
   public DataType(final String className, final ValidationList aValidationList) {
 	  this(className, aValidationList,"UNSET");
@@ -153,15 +153,15 @@ public class DataType implements Serializable {
   /**
  * @return the name
  */
-public String getName() {
-	return name;
+public String getTypeName() {
+	return typeName;
 }
 
 /**
  * @param name the name to set
  */
-public void setName(String name) {
-	this.name = name;
+public void setTypeName(String name) {
+	this.typeName = name;
 }
 
 @JsonIgnore

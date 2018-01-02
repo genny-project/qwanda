@@ -73,6 +73,12 @@ public class DataType implements Serializable {
   @Expose
   private String className; // e.g. java.util.String
 
+  @NotNull
+  @NotEmpty
+  @Size(max = 120)
+  @JsonIgnore
+  private String name; // e.g. TEXT
+
 
   /**
    * A fieldlist that stores the validations for this object.
@@ -101,9 +107,13 @@ public class DataType implements Serializable {
     this(clazz, new ValidationList());
   }
 
+  public DataType(final String className, final ValidationList aValidationList, final String name) {
+	    setClassName(className);
+	    setValidationList(aValidationList.getValidationList());
+	    setName(name);
+	  }
   public DataType(final String className, final ValidationList aValidationList) {
-    setClassName(className);
-    setValidationList(aValidationList.getValidationList());
+	  this(className, aValidationList,"UNSET");
   }
 
   public DataType(final Class clazz, final ValidationList aValidationList) {
@@ -138,7 +148,23 @@ public class DataType implements Serializable {
     this.className = className;
   }
 
-  @JsonIgnore
+  
+  
+  /**
+ * @return the name
+ */
+public String getName() {
+	return name;
+}
+
+/**
+ * @param name the name to set
+ */
+public void setName(String name) {
+	this.name = name;
+}
+
+@JsonIgnore
   @Transient
   @XmlTransient
   public void setClass(final Class clazz) {

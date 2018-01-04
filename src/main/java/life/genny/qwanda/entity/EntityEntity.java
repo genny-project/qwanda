@@ -572,7 +572,10 @@ public void setValueDate(LocalDate valueDate) {
       case "java.lang.Boolean":
           setValueBoolean((Boolean) value);
           break;
-
+      case "life.genny.qwanda.entity.BaseEntity":
+  	    String val = getObjectAsString(value);
+  	    setValueString(val);
+  	    break;
       case "java.lang.String":
       default:
         setValueString((String) value);
@@ -605,11 +608,49 @@ public String getAsString() {
    	  	Date date = Date.from(getValueDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
   	  	String dout2 = df2.format(date);
   	  	return dout2;
-
-    case "java.lang.String":
+    case "life.genny.qwanda.entity.BaseEntity":
+    		return getValueString();
+     case "java.lang.String":
     default:
       return getValueString();
   }
+
+}
+
+@JsonIgnore
+@Transient
+@XmlTransient
+public String getObjectAsString(Object value) {
+    if (value instanceof Integer)
+      return ""+value;
+    if (value instanceof LocalDateTime) {
+    		LocalDateTime val = (LocalDateTime)value;
+  	  	DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS"); 
+  	  	Date datetime = Date.from(val.atZone(ZoneId.systemDefault()).toInstant());
+  	  	String dout = df.format(datetime);
+  	  	return dout;
+    }
+    if (value instanceof Long)
+      return ""+value;
+    if (value instanceof Double) {
+    	 Double val = (Double) value;
+      return val.toString();
+    }
+    if (value instanceof Boolean) {
+    	Boolean val = (Boolean)value;
+        return val?"TRUE":"FALSE";
+    }
+    if (value instanceof LocalDate) {
+    		LocalDate val = (LocalDate)value;
+   	  	DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd"); 
+   	  	Date date = Date.from(val.atStartOfDay(ZoneId.systemDefault()).toInstant());
+  	  	String dout2 = df2.format(date);
+  	  	return dout2;
+    }
+
+    	String val = (String)value;
+      return val;
+
 
 }
 }

@@ -398,7 +398,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
     if (weight == null)
       throw new BadDataException("missing weight");
 
-    final EntityEntity entityEntity = new EntityEntity(this, target, linkAttribute, (String)value, weight);
+    final EntityEntity entityEntity = new EntityEntity(this, target, linkAttribute, value, weight);
     getLinks().add(entityEntity);
     return entityEntity;
   }

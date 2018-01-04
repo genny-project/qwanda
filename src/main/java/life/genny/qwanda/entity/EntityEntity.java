@@ -1,5 +1,7 @@
 package life.genny.qwanda.entity;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -188,13 +190,17 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
    * @param Weight the weighted importance of this attribute (relative to the other attributes)
    */
   public EntityEntity(final BaseEntity source, final BaseEntity target,
-      final Attribute attribute, final String linkValue, Double weight) {
+      final Attribute attribute, final Object value, Double weight) {
     autocreateCreated();
     getPk().setSource(source);
 //    getPk().setTarget(target);
     getPk().setAttribute(attribute);
 //    this.pk.setSourceCode(source.getCode());
     this.pk.setTargetCode(target.getCode());
+    if (value != null) {
+        setValue(value);
+       }
+    String linkValue = this.getAsString();
     link = new Link(source.getCode(),target.getCode(),attribute.getCode(),linkValue);
     if (weight == null) {
       weight = 0.0; // This permits ease of adding attributes and hides
@@ -573,5 +579,37 @@ public void setValueDate(LocalDate valueDate) {
         break;
     }
 
-  }  
+  } 
+
+@JsonIgnore
+@Transient
+@XmlTransient
+public String getAsString() {
+  final String dataType = getPk().getAttribute().getDataType().getClassName();
+  switch (dataType) {
+    case "java.lang.Integer":
+      return ""+getValueInteger();
+    case "java.time.LocalDateTime":
+  	  	DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS"); 
+  	  	Date datetime = Date.from(getValueDateTime().atZone(ZoneId.systemDefault()).toInstant());
+  	  	String dout = df.format(datetime);
+  	  	return dout;
+    case "java.lang.Long":
+      return ""+getValueLong();
+    case "java.lang.Double":
+      return getValueDouble().toString();
+    case "java.lang.Boolean":
+        return getValueBoolean()?"TRUE":"FALSE";
+    case "java.time.LocalDate":
+   	  	DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd"); 
+   	  	Date date = Date.from(getValueDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+  	  	String dout2 = df2.format(date);
+  	  	return dout2;
+
+    case "java.lang.String":
+    default:
+      return getValueString();
+  }
+
+}
 }

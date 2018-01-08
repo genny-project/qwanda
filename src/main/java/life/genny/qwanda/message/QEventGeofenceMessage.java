@@ -1,5 +1,7 @@
 package life.genny.qwanda.message;
 
+import com.google.gson.annotations.Expose;
+
 import life.genny.qwanda.GPS;
 
 public class QEventGeofenceMessage extends QEventMessage {
@@ -9,7 +11,9 @@ public class QEventGeofenceMessage extends QEventMessage {
 	private static final long serialVersionUID = 1L;
 	
 	private static final String EVENT_TYPE_EVT_GEOFENCE = "EVT_GEOFENCE";
+	@Expose
 	  private GPS gps;
+	@Expose
 	  private String token;
 
 	public QEventGeofenceMessage(String geofenceCode,GPS gps, String token) {

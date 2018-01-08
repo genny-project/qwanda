@@ -2,14 +2,21 @@ package life.genny.qwanda.message;
 
 import java.util.Arrays;
 
+import com.google.gson.annotations.Expose;
+
 public class QMSGMessage extends QMessage {
 	
 	private static final String MESSAGE_TYPE = "MSG_MESSAGE";
 		
+	@Expose
 	private String template_code;
+	@Expose
 	private String[] msgMessageData;
+	@Expose
 	private QBaseMSGMessageType msgMessageType;
+	@Expose
 	private String code;
+	@Expose
 	private String[] attachments;
 	
 	//private List<QBaseMSGMessage> msgMessageData;

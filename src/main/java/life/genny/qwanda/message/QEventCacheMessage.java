@@ -1,5 +1,7 @@
 package life.genny.qwanda.message;
 
+import com.google.gson.annotations.Expose;
+
 public class QEventCacheMessage extends QEventMessage {
 	  /**
 	 * 
@@ -7,7 +9,9 @@ public class QEventCacheMessage extends QEventMessage {
 	private static final long serialVersionUID = 1L;
 	
 	private static final String EVENT_TYPE_CACHE_MISS = "EVT_CACHE_MISS";
+	@Expose
 	  private String token;
+	@Expose
 	  private String linkCode;
 
 	public QEventCacheMessage(String sourceBaseEntityCode,String targetBaseEntityCode, String code, String linkCode, String token) {

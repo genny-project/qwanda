@@ -1,12 +1,16 @@
 package life.genny.qwanda.message;
 
 
+import com.google.gson.annotations.Expose;
+
 import life.genny.qwanda.entity.EntityEntity;
 
 public class QDataEntityEntityMessage extends QDataMessage {
   private static final long serialVersionUID = 1L;
+  @Expose
   private EntityEntity[] items;
   private static final String DATATYPE_ENTITYENTITY = EntityEntity.class.getSimpleName();
+  @Expose
   private boolean clearLinks = true;
 
   public QDataEntityEntityMessage(final EntityEntity[] items, boolean clearLinks) {

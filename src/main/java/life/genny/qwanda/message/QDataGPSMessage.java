@@ -1,10 +1,13 @@
 package life.genny.qwanda.message;
 
+import com.google.gson.annotations.Expose;
+
 import life.genny.qwanda.GPS;
 
 public class QDataGPSMessage extends QDataMessage {
 
 	private static final long serialVersionUID = 1L;
+	@Expose
 	private GPS[] items;
 	private static final String DATATYPE_GPS = GPS.class.getSimpleName();
 

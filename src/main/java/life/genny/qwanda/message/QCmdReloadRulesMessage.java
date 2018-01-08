@@ -1,9 +1,11 @@
 package life.genny.qwanda.message;
 
+import com.google.gson.annotations.Expose;
+
 public class QCmdReloadRulesMessage extends QCmdMessage{
 	private static final String CMD_TYPE = "CMD_RELOAD_RULES";
 	private static final String CODE = "RELOAD_RULES_FROM_FILES";
-
+	@Expose
 	private String rulesDir;
 	
 	public QCmdReloadRulesMessage() {

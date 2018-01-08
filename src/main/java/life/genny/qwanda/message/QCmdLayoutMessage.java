@@ -1,8 +1,12 @@
 package life.genny.qwanda.message;
 
+import com.google.gson.annotations.Expose;
+
 public class QCmdLayoutMessage extends QCmdMessage {
   private static final String CMD_TYPE = "CMD_LAYOUT";
+  @Expose
   private String data;
+  @Expose
   private Boolean visible;
 
 

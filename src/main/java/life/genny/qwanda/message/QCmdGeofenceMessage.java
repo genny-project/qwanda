@@ -1,5 +1,7 @@
 package life.genny.qwanda.message;
 
+import com.google.gson.annotations.Expose;
+
 import life.genny.qwanda.GPS;
 
 public class QCmdGeofenceMessage extends QCmdMessage{
@@ -7,9 +9,13 @@ public class QCmdGeofenceMessage extends QCmdMessage{
 	private static final String CODE = "GEOFENCE";
 
 	//private GPS[] items;
+	@Expose
 	private GPS gpsLocation;
+	@Expose
 	double radius;
+	@Expose
 	private String enterCode;
+	@Expose
 	private String exitCode;
 
 	

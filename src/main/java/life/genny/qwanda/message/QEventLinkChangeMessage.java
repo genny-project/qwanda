@@ -1,5 +1,7 @@
 package life.genny.qwanda.message;
 
+import com.google.gson.annotations.Expose;
+
 public class QEventLinkChangeMessage extends QEventMessage {
 	  /**
 	 * 
@@ -7,9 +9,13 @@ public class QEventLinkChangeMessage extends QEventMessage {
 	private static final long serialVersionUID = 1L;
 	
 	private static final String EVENT_TYPE_LINK_CHANGE = "EVT_LINK_CHANGE";
+	@Expose
 	  private String sourceBaseEntityCode;
+	@Expose
 	  private String targetBaseEntityCode;
+	@Expose
 	  private String linkCode;
+	@Expose
 	  private String token;
 
 	public QEventLinkChangeMessage(String sourceBaseEntityCode,String targetBaseEntityCode, String code, String linkCode, String token) {

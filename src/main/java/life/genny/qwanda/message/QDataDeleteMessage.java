@@ -1,5 +1,7 @@
 package life.genny.qwanda.message;
 
+import com.google.gson.annotations.Expose;
+
 public class QDataDeleteMessage extends QDataMessage{
 
 	/**
@@ -7,7 +9,7 @@ public class QDataDeleteMessage extends QDataMessage{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
+	@Expose
 	private Long[] ids;
 	
 	public Long[] getIds() {

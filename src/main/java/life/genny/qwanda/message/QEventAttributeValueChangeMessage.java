@@ -2,6 +2,8 @@ package life.genny.qwanda.message;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.google.gson.annotations.Expose;
+
 import life.genny.qwanda.Answer;
 
 public class QEventAttributeValueChangeMessage extends QEventMessage {
@@ -11,8 +13,11 @@ public class QEventAttributeValueChangeMessage extends QEventMessage {
 	private static final long serialVersionUID = 1L;
 	
 	private static final String EVENT_TYPE_EVT_ATTRIBUTE_VALUE_CHANGE = "EVT_ATTRIBUTE_VALUE_CHANGE";
+	@Expose
 	private Answer answer;
+	@Expose
 	  private String oldValue;
+	@Expose
 	  private String token;
 
 		public QEventAttributeValueChangeMessage(final Answer answer, String oldValue, String token) {

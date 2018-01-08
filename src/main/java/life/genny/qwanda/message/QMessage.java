@@ -2,6 +2,8 @@ package life.genny.qwanda.message;
 
 import java.io.Serializable;
 
+import com.google.gson.annotations.Expose;
+
 public abstract class QMessage implements Serializable , QMessageIntf{
 
 	@Override
@@ -9,6 +11,7 @@ public abstract class QMessage implements Serializable , QMessageIntf{
 		return "QMessage [msg_type=" + msg_type + "]";
 	}
 
+	@Expose
 	private String msg_type;
 	
 	public String getMsg_type() {

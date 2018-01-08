@@ -1,9 +1,13 @@
 package life.genny.qwanda.message;
 
+import com.google.gson.annotations.Expose;
+
 public class QEventMessage extends QMessage{
 	
 	private static final String MESSAGE_TYPE = "EVT_MSG";
+	@Expose
 	private String event_type;
+	@Expose
 	public MessageData data;
 
 	@Override

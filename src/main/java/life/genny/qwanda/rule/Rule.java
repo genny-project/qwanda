@@ -26,6 +26,9 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 import life.genny.qwanda.CodedEntity;
 
@@ -70,6 +73,7 @@ public class Rule extends CodedEntity implements Serializable {
 
   @NotNull
   @Size(min = 0, max = 10000)
+  @Expose
   public String rule;
 
 

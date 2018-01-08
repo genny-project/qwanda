@@ -1,9 +1,12 @@
 package life.genny.qwanda.message;
 
+import com.google.gson.annotations.Expose;
+
 public class QCmdRedirectMessage extends QCmdMessage{
 	private static final String CMD_TYPE = "CMD_REDIRECT";
 	private static final String CODE = "REDIRECT";
 
+	@Expose
 	private String redirect_url = "";
 	
 	public QCmdRedirectMessage(String redirectUrl) {

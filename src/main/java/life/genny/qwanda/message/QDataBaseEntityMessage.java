@@ -1,16 +1,24 @@
 package life.genny.qwanda.message;
 
 
+import com.google.gson.annotations.Expose;
+
 import life.genny.qwanda.entity.BaseEntity;
 
 public class QDataBaseEntityMessage extends QDataMessage {
   private static final long serialVersionUID = 1L;
+  @Expose
   private BaseEntity[] items;
   private static final String DATATYPE_BASEENTITY = BaseEntity.class.getSimpleName();
+  @Expose
   private String parentCode;
+  @Expose
   private String linkCode;
+  @Expose
   private Long total = -1L;
+  @Expose
   private Long returnCount;
+  @Expose
   private String alias;
 
   public QDataBaseEntityMessage(final BaseEntity[] items) {

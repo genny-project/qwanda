@@ -23,6 +23,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.google.gson.annotations.Expose;
+
 import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 
 @SuppressWarnings("deprecation")
@@ -43,6 +45,7 @@ public class QBaseMSGMessageTemplate implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "id", updatable = false, nullable = false)
+	@Expose
 	private Long id;
 	
 	
@@ -50,6 +53,7 @@ public class QBaseMSGMessageTemplate implements Serializable{
 	 * Stores the Created UMT DateTime that this object was created
 	 */
     @Column(name = "created")
+    @Expose
     private LocalDateTime created;
     
     
@@ -61,6 +65,7 @@ public class QBaseMSGMessageTemplate implements Serializable{
 	@NotEmpty
 	@Size(max = 32)
 	@Column(name = "code", updatable = false, nullable = false)
+	@Expose
 	private String code;
 	
 	
@@ -71,6 +76,7 @@ public class QBaseMSGMessageTemplate implements Serializable{
 	@NotNull
 	@NotEmpty
 	@Column(name = "description", updatable = false, nullable = false)
+	@Expose
 	private String description;
 	
 	
@@ -91,6 +97,7 @@ public class QBaseMSGMessageTemplate implements Serializable{
 	@NotNull
 	@NotEmpty
 	@Column(name = "email", updatable = false, nullable = false)
+	@Expose
 	private String email_templateId;
 	
 	
@@ -101,6 +108,7 @@ public class QBaseMSGMessageTemplate implements Serializable{
 	@NotNull
 	@NotEmpty
 	@Column(name = "sms", updatable = false, nullable = false)
+	@Expose
 	private String sms_template;
 
 

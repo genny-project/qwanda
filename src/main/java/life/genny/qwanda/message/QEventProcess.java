@@ -2,14 +2,22 @@ package life.genny.qwanda.message;
 
 import java.util.Map;
 
+import com.google.gson.annotations.Expose;
+
 public class QEventProcess {
-	
+	@Expose
 	private String businessType;
+	@Expose
 	private String businessEvent;
+	@Expose
 	private String container;
+	@Expose
 	private Long itemId;
+	@Expose
 	private String processId;
+	@Expose
 	private Long processInstanceId;
+	@Expose
 	private Map<String, Object> params;
 	
 	private QEventProcess() {}

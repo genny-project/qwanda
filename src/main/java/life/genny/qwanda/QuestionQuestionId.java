@@ -21,13 +21,14 @@ public class QuestionQuestionId implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-	@JsonBackReference
 	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JsonBackReference(value="questionQuestion")
 	private Question source;
 	
+	@Expose
 	private String targetCode;
+	@Expose
 	private String sourceCode;
 	
 
@@ -83,28 +84,28 @@ public class QuestionQuestionId implements java.io.Serializable {
 		this.sourceCode = sourceCode;
 	}
 
-	@Override
-    public int hashCode() {
-//        int result;
-        HashCodeBuilder hcb = new HashCodeBuilder();
-        hcb.append(sourceCode);
-        hcb.append(targetCode);
-        return hcb.toHashCode();
-    }      
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (!(obj instanceof QuestionQuestionId)) {
-                return false;
-            }
-            QuestionQuestionId that = (QuestionQuestionId) obj;
-            EqualsBuilder eb = new EqualsBuilder();
-            eb.append(sourceCode, that.sourceCode);
-            eb.append(targetCode, that.targetCode);
-            return eb.isEquals();
-        }
-        
+//	@Override
+//    public int hashCode() {
+////        int result;
+//        HashCodeBuilder hcb = new HashCodeBuilder();
+//        hcb.append(sourceCode);
+//        hcb.append(targetCode);
+//        return hcb.toHashCode();
+//    }      
+//        @Override
+//        public boolean equals(Object obj) {
+//            if (this == obj) {
+//                return true;
+//            }
+//            if (!(obj instanceof QuestionQuestionId)) {
+//                return false;
+//            }
+//            QuestionQuestionId that = (QuestionQuestionId) obj;
+//            EqualsBuilder eb = new EqualsBuilder();
+//            eb.append(sourceCode, that.sourceCode);
+//            eb.append(targetCode, that.targetCode);
+//            return eb.isEquals();
+//        }
+//        
 
 }

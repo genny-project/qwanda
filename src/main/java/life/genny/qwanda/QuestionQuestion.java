@@ -230,63 +230,30 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 		}
 	}
 
-//	@Override
-//	public int hashCode() {
-//
-//		HashCodeBuilder hcb = new HashCodeBuilder();
-//		hcb.append(pk);
-//		return hcb.toHashCode();
-//	}
-//
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj) {
-//			return true;
-//		}
-//		if (!(obj instanceof QuestionQuestion)) {
-//			return false;
-//		}
-//		QuestionQuestion that = (QuestionQuestion) obj;
-//		EqualsBuilder eb = new EqualsBuilder();
-//		eb.append(pk, that.pk);
-//		return eb.isEquals();
-//	}
+	@Override
+	public int hashCode() {
 
-	  @Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((created == null) ? 0 : created.hashCode());
-			result = prime * result + ((pk == null) ? 0 : pk.hashCode());
-			return result;
-		}
-	  
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			QuestionQuestion other = (QuestionQuestion) obj;
-			if (created == null) {
-				if (other.created != null)
-					return false;
-			} else if (!created.equals(other.created))
-				return false;
-			if (pk == null) {
-				if (other.pk != null)
-					return false;
-			} else if (!pk.equals(other.pk))
-				return false;
-			if (weight == null) {
-				if (other.weight != null)
-					return false;
-			} else if (!weight.equals(other.weight))
-				return false;
+		HashCodeBuilder hcb = new HashCodeBuilder();
+		hcb.append(pk.getSourceCode());
+		hcb.append(pk.getTargetCode());
+		return hcb.toHashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
+		if (!(obj instanceof QuestionQuestion)) {
+			return false;
+		}
+		QuestionQuestion that = (QuestionQuestion) obj;
+		EqualsBuilder eb = new EqualsBuilder();
+		eb.append(pk.getSourceCode(), that.pk.getSourceCode());
+		eb.append(pk.getTargetCode(), that.pk.getTargetCode());
+		return eb.isEquals();
+	}
+
 
 	 public int compareTo(Object o) {
 		 QuestionQuestion myClass = (QuestionQuestion) o;
@@ -296,13 +263,6 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 	       .toComparison();
 	   }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-//	@Override
-//	public String toString() {
-//		return "QQ:"+getPk().getSource().getCode()+":"+getPk().getTargetCode()+":"+getWeight()+":"+(getMandatory()?"M":"O");
-//	}
-//
+
 
 }

@@ -239,7 +239,7 @@ public class Ask extends CoreEntity implements Serializable {
 
     this.sourceCode = aSourceCode;
     this.targetCode = aTargetCode;
-    this.attributeCode = aQuestion.getAttribute().getCode();
+    this.attributeCode = aQuestion.getAttributeCode();
     // answerList = new AnswerList(new ArrayList<AnswerLink>());
     contextList = new ContextList(new ArrayList<Context>());
     this.mandatory = aMandatory;
@@ -261,7 +261,7 @@ public class Ask extends CoreEntity implements Serializable {
   public void setQuestion(final Question question) {
     this.question = question;
     this.questionCode = question.getCode();
-    this.attributeCode = question.getAttribute().getCode();
+    this.attributeCode = question.getAttributeCode(); //.getAttribute().getCode();
   }
 
   // /**

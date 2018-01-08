@@ -26,6 +26,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -99,13 +100,14 @@ public class Question extends CodedEntity implements Serializable {
 
   @JsonIgnore
   @XmlTransient
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source", cascade = CascadeType.MERGE, orphanRemoval=true)
-  //@JsonManagedReference
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.source", cascade = CascadeType.MERGE, orphanRemoval=true)
+  @JsonManagedReference(value="questionQuestion")
   private Set<QuestionQuestion> childQuestions = new HashSet<QuestionQuestion>(0);
 
 
   @XmlTransient
-  @OneToOne(fetch = FetchType.EAGER)
+//  @Transient
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "attribute_id", nullable = true)
   @Expose
   private Attribute attribute;
@@ -114,8 +116,10 @@ public class Question extends CodedEntity implements Serializable {
   @Valid
   private ContextList contextList;
 
+  @Expose
   private String attributeCode;
   
+  @Expose
   private Boolean mandatory=false;
 
   /**

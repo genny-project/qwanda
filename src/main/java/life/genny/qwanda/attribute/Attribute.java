@@ -91,10 +91,10 @@ public class Attribute extends CodedEntity implements Serializable {
 
 	private static final String DEFAULT_CODE_PREFIX = "PRI_";
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.attribute")
-	@JsonManagedReference(value="attribute")
-	 @JsonIgnore
-	private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
+//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.attribute")
+//	@JsonManagedReference(value="attribute")
+//	 @JsonIgnore
+//	private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 
 	@Embedded
 	@NotNull
@@ -143,14 +143,14 @@ public class Attribute extends CodedEntity implements Serializable {
 	static public String getDefaultCodePrefix() {
 		return DEFAULT_CODE_PREFIX;
 	}
-	@JsonIgnore
-	public Set<EntityAttribute> getBaseEntityAttributes() {
-		return this.baseEntityAttributes;
-	}
-
-	public void setBaseEntityAttributes(Set<EntityAttribute> baseEntityAttributes) {
-		this.baseEntityAttributes = baseEntityAttributes;
-	}
+//	@JsonIgnore
+//	public Set<EntityAttribute> getBaseEntityAttributes() {
+//		return this.baseEntityAttributes;
+//	}
+//
+//	public void setBaseEntityAttributes(Set<EntityAttribute> baseEntityAttributes) {
+//		this.baseEntityAttributes = baseEntityAttributes;
+//	}
 
 
 	@Override

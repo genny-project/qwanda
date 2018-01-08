@@ -24,6 +24,7 @@ public class QuestionQuestionId implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JsonBackReference
+	@JsonIgnore
 	private Question source;
 	
 	private String targetCode;

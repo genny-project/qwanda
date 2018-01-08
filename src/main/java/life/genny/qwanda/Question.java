@@ -98,10 +98,10 @@ public class Question extends CodedEntity implements Serializable {
   public static final String QUESTION_GROUP_ATTRIBUTE_CODE = "QQQ_QUESTION_GROUP";
 
 
-  @JsonIgnore
   @XmlTransient
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.source", cascade = CascadeType.MERGE, orphanRemoval=true)
   @JsonManagedReference(value="questionQuestion")
+  @JsonIgnore
   private Set<QuestionQuestion> childQuestions = new HashSet<QuestionQuestion>(0);
 
 

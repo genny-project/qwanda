@@ -18,6 +18,7 @@ import javax.persistence.Transient;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.entity.EntityEntity;
@@ -37,6 +38,7 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
+	@JsonIgnore
 	private QuestionQuestionId pk = new QuestionQuestionId();
 
 	@Column(name = "created")

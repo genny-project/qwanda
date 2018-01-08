@@ -21,9 +21,10 @@ public class QuestionQuestionId implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@JsonIgnore
+
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JsonBackReference(value="questionQuestion")
+	@JsonIgnore
 	private Question source;
 	
 	@Expose
@@ -53,7 +54,7 @@ public class QuestionQuestionId implements java.io.Serializable {
 	/**
 	 * @return the source
 	 */
-
+	@JsonIgnore
 	public Question getSource() {
 		return source;
 	}

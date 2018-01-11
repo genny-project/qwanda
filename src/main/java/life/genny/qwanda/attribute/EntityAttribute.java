@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.persistence.AssociationOverride;
@@ -477,6 +478,37 @@ public void setInferred(Boolean inferred) {
   @Transient
   @XmlTransient
   public <T> void setValue(final Object value) {
+	  
+	  if (value instanceof String) {
+		  String result = (String)value;
+		if (getAttribute().getDataType().getClassName().equalsIgnoreCase(String.class.getCanonicalName())) {
+			setValueString(result);
+		} else if (getAttribute().getDataType().getClassName()
+				.equalsIgnoreCase(LocalDateTime.class.getCanonicalName())) {
+			final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+			final LocalDateTime dateTime = LocalDateTime.parse(result, formatter);
+			setValueDateTime(dateTime);
+		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(LocalDate.class.getCanonicalName())) {
+			final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			final LocalDate date = LocalDate.parse(result, formatter);
+			setValueDate(date);
+		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Integer.class.getCanonicalName())) {
+			final Integer integer = Integer.parseInt(result);
+			setValueInteger(integer);
+		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Double.class.getCanonicalName())) {
+			final Double d = Double.parseDouble(result);
+			setValueDouble(d);
+		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Long.class.getCanonicalName())) {
+			final Long l = Long.parseLong(result);
+			setValueLong(l);
+		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Boolean.class.getCanonicalName())) {
+			final Boolean b = Boolean.parseBoolean(result);
+			setValueBoolean(b);
+		} else {
+			setValueString(result);
+		}
+	  } else {
+	  
     switch (this.getPk().getAttribute().getDataType().getClassName()) {
       case "java.lang.Integer":
         setValueInteger((Integer) value);
@@ -502,6 +534,7 @@ public void setInferred(Boolean inferred) {
         setValueString((String) value);
         break;
     }
+	  }
 
   }  
   

@@ -1,5 +1,6 @@
 package life.genny.qwanda.attribute;
 
+import java.lang.invoke.MethodHandles;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -24,6 +25,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -40,6 +42,12 @@ import life.genny.qwanda.entity.BaseEntity;
    @AssociationOverride(name = "pk.baseEntity", joinColumns = @JoinColumn(name = "BASEENTITY_ID")),
     @AssociationOverride(name = "pk.attribute", joinColumns = @JoinColumn(name = "ATTRIBUTE_ID"))})
 public class EntityAttribute implements java.io.Serializable, Comparable<Object> {
+	
+	  /**
+	   * Stores logger object.
+	   */
+	  protected static final Logger log = org.apache.logging.log4j.LogManager
+	      .getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
 
   private static final long serialVersionUID = 1L;
  @Expose
@@ -481,31 +489,35 @@ public void setInferred(Boolean inferred) {
 	  
 	  if (value instanceof String) {
 		  String result = (String)value;
-		if (getAttribute().getDataType().getClassName().equalsIgnoreCase(String.class.getCanonicalName())) {
-			setValueString(result);
-		} else if (getAttribute().getDataType().getClassName()
-				.equalsIgnoreCase(LocalDateTime.class.getCanonicalName())) {
-			final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-			final LocalDateTime dateTime = LocalDateTime.parse(result, formatter);
-			setValueDateTime(dateTime);
-		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(LocalDate.class.getCanonicalName())) {
-			final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			final LocalDate date = LocalDate.parse(result, formatter);
-			setValueDate(date);
-		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Integer.class.getCanonicalName())) {
-			final Integer integer = Integer.parseInt(result);
-			setValueInteger(integer);
-		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Double.class.getCanonicalName())) {
-			final Double d = Double.parseDouble(result);
-			setValueDouble(d);
-		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Long.class.getCanonicalName())) {
-			final Long l = Long.parseLong(result);
-			setValueLong(l);
-		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Boolean.class.getCanonicalName())) {
-			final Boolean b = Boolean.parseBoolean(result);
-			setValueBoolean(b);
-		} else {
-			setValueString(result);
+		try {
+			if (getAttribute().getDataType().getClassName().equalsIgnoreCase(String.class.getCanonicalName())) {
+				setValueString(result);
+			} else if (getAttribute().getDataType().getClassName()
+					.equalsIgnoreCase(LocalDateTime.class.getCanonicalName())) {
+				final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+				final LocalDateTime dateTime = LocalDateTime.parse(result, formatter);
+				setValueDateTime(dateTime);
+			} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(LocalDate.class.getCanonicalName())) {
+				final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+				final LocalDate date = LocalDate.parse(result, formatter);
+				setValueDate(date);
+			} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Integer.class.getCanonicalName())) {
+				final Integer integer = Integer.parseInt(result);
+				setValueInteger(integer);
+			} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Double.class.getCanonicalName())) {
+				final Double d = Double.parseDouble(result);
+				setValueDouble(d);
+			} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Long.class.getCanonicalName())) {
+				final Long l = Long.parseLong(result);
+				setValueLong(l);
+			} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Boolean.class.getCanonicalName())) {
+				final Boolean b = Boolean.parseBoolean(result);
+				setValueBoolean(b);
+			} else {
+				setValueString(result);
+			}
+		} catch (NumberFormatException e) {
+			log.error("Conversion Error :"+value);
 		}
 	  } else {
 	  

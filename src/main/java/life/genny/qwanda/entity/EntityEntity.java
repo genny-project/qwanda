@@ -48,7 +48,11 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
         @AttributeOverride(name = "sourceCode", column = @Column(name = "SOURCE_CODE", nullable = false)),
         @AttributeOverride(name = "targetCode", column = @Column(name = "TARGET_CODE", nullable = false)),
         @AttributeOverride(name = "attributeCode", column = @Column(name = "LINK_CODE", nullable = false)),
-        @AttributeOverride(name = "weight", column = @Column(name = "LINK_WEIGHT", nullable = false))
+        @AttributeOverride(name = "weight", column = @Column(name = "LINK_WEIGHT", nullable = false)),
+        @AttributeOverride(name = "parentColour", column = @Column(name = "PARENT_COL", nullable = true)),
+        @AttributeOverride(name = "childColour", column = @Column(name = "CHILD_COL", nullable = true)),
+        @AttributeOverride(name = "rule", column = @Column(name = "RULE", nullable = rule))
+        
 	})
 	private Link link ;
   /**

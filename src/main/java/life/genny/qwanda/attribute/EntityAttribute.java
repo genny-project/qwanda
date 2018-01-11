@@ -516,8 +516,8 @@ public void setInferred(Boolean inferred) {
 			} else {
 				setValueString(result);
 			}
-		} catch (NumberFormatException e) {
-			log.error("Conversion Error :"+value);
+		} catch (Exception e) {
+			log.error("Conversion Error :"+value+" for attribute "+getAttribute());
 		}
 	  } else {
 	  

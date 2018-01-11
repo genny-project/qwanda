@@ -53,6 +53,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Embeddable
 public class Link implements Serializable {
+	
+	static public String RULE_PARENT_OVERRIDE = "PO";
+	static public String RULE_CHILD_OVERRIDE = "CO";	
+	static public String RULE_NO_OVERRIDE = null;
+	
   /**
    * 
    */
@@ -84,6 +89,10 @@ public class Link implements Serializable {
   private String linkValue;
   
   private Double weight;
+  
+  private String childColour;
+  private String parentColour;
+  private String rule;
 
   /**
    * Constructor.
@@ -135,6 +144,7 @@ public class Link implements Serializable {
     this.attributeCode = linkCode;
     this.linkValue = linkValue;
     this.weight = weight;
+    this.rule = Link.RULE_NO_OVERRIDE;
   }
 /**
  * @return the attributeCode
@@ -222,6 +232,60 @@ public Double getWeight() {
  */
 public void setWeight(Double weight) {
 	this.weight = weight;
+}
+
+
+
+/**
+ * @return the childColour
+ */
+public String getChildColour() {
+	return childColour;
+}
+
+
+
+/**
+ * @param childColour the childColour to set
+ */
+public void setChildColour(String childColour) {
+	this.childColour = childColour;
+}
+
+
+
+/**
+ * @return the parentColour
+ */
+public String getParentColour() {
+	return parentColour;
+}
+
+
+
+/**
+ * @param parentColour the parentColour to set
+ */
+public void setParentColour(String parentColour) {
+	this.parentColour = parentColour;
+}
+
+
+
+/**
+ * @return the rule
+ */
+public String getRule() {
+	return rule;
+}
+
+
+
+/**
+ * @param rule the rule to set
+ */
+public void setRule(String rule) {
+	this.rule = rule;
 }
  
 

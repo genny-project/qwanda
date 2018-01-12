@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 
@@ -26,11 +27,13 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.Link;
 import life.genny.qwanda.attribute.Attribute;
 import life.genny.qwanda.datatype.LocalDateAdapter;
 import life.genny.qwanda.datatype.LocalDateTimeAdapter;
+import life.genny.qwanda.datatype.LocalTimeAdapter;
 
 @Entity
 @Table(name = "baseentity_baseentity")
@@ -51,9 +54,10 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
         @AttributeOverride(name = "weight", column = @Column(name = "LINK_WEIGHT", nullable = false)),
         @AttributeOverride(name = "parentColour", column = @Column(name = "PARENT_COL", nullable = true)),
         @AttributeOverride(name = "childColour", column = @Column(name = "CHILD_COL", nullable = true)),
-        @AttributeOverride(name = "rule", column = @Column(name = "RULE", nullable = rule))
+        @AttributeOverride(name = "rule", column = @Column(name = "RULE", nullable = true))
         
 	})
+	@Expose
 	private Link link ;
   /**
    * 
@@ -74,38 +78,6 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
   }
 
   
- 
-//
-//  /**
-//   * @return the targetCode
-//   */
-//  public String getTargetCode() {
-//		return  this.targetCode = getPk().getTargetCode();
-//  }
-//
-//  /**
-//   * @param targetCode the targetCode to set
-//   */
-//  public void setTargetCode(String targetCode) {
-// 	  this.getPk().setTargetCode(targetCode);
-//  }
-
-  
-//  
-//  /**
-// * @return the linkCode
-// */
-//public String getLinkCode() {
-//	return linkCode;
-//}
-//
-///**
-// * @param linkCode the linkCode to set
-// */
-//public void setLinkCode(String linkCode) {
-//	this.linkCode = linkCode;
-//}
-//
 
 
 /**
@@ -113,57 +85,74 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
    */
 
   @Column(name = "created")
+  @Expose
   private LocalDateTime created;
 
   /**
    * Stores the Last Modified UMT DateTime that this object was last updated
    */
   @Column(name = "updated")
+  @Expose
   private LocalDateTime updated;
 
 
   /**
    * Store the Double value of the attribute for the baseEntity
    */
+  @Expose
   private Double valueDouble;
 
   /**
    * Store the Boolean value of the attribute for the baseEntity
    */
+  @Expose
   private Boolean valueBoolean;
   /**
    * Store the Integer value of the attribute for the baseEntity
    */
+  @Expose
   private Integer valueInteger;
 
   /**
    * Store the Long value of the attribute for the baseEntity
    */
+  @Expose
   private Long valueLong;
 
   /**
    * Store the LocalDateTime value of the attribute for the baseEntity
    */
   @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+  @Expose
   private LocalDateTime valueDateTime;
 
   /**
    * Store the LocalDate value of the attribute for the baseEntity
    */
   @XmlJavaTypeAdapter(LocalDateAdapter.class)
+  @Expose
   private LocalDate valueDate;
+ 
+  /**
+   * Store the LocalTime value of the attribute for the baseEntity
+   */
+  @XmlJavaTypeAdapter(LocalTimeAdapter.class)
+  @Expose
+  private LocalTime valueTime;
  
   
   /**
    * Store the String value of the attribute for the baseEntity
    */
   @Type(type="text")
+  @Expose
   private String valueString;
 
 
   /**
    * Store the relative importance of the attribute for the baseEntity
    */
+  @Expose
   private Double weight;
 
   private Long version = 1L;
@@ -379,7 +368,30 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
     this.valueString = valueString;
   }
 
-  @PreUpdate
+  
+  
+  /**
+ * @return the valueTime
+ */
+public LocalTime getValueTime() {
+	return valueTime;
+}
+
+/**
+ * @param valueTime the valueTime to set
+ */
+public void setValueTime(LocalTime valueTime) {
+	this.valueTime = valueTime;
+}
+
+/**
+ * @param link the link to set
+ */
+public void setLink(Link link) {
+	this.link = link;
+}
+
+@PreUpdate
   public void autocreateUpdate() {
     setUpdated(LocalDateTime.now(ZoneId.of("Z")));
   }
@@ -509,6 +521,8 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
         return (T) getValueInteger();
       case "java.time.LocalDateTime":
         return (T) getValueDateTime();
+      case "java.time.LocalTime":
+          return (T) getValueTime();
       case "java.lang.Long":
         return (T) getValueLong();
       case "java.lang.Double":
@@ -564,6 +578,9 @@ public void setValueDate(LocalDate valueDate) {
       case "java.time.LocalDateTime":
         setValueDateTime((LocalDateTime) value);
         break;
+      case "java.time.LocalTime":
+          setValueTime((LocalTime) value);
+          break;
       case "java.time.LocalDate":
           setValueDate((LocalDate) value);
           break;
@@ -596,10 +613,13 @@ public String getAsString() {
   switch (dataType) {
     case "java.lang.Integer":
       return ""+getValueInteger();
+    case "java.time.LocalTime":
+   	  	String dout = getValueTime().toString();
+  	  	return dout;
     case "java.time.LocalDateTime":
   	  	DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS"); 
   	  	Date datetime = Date.from(getValueDateTime().atZone(ZoneId.systemDefault()).toInstant());
-  	  	String dout = df.format(datetime);
+  	  	dout = df.format(datetime);
   	  	return dout;
     case "java.lang.Long":
       return ""+getValueLong();
@@ -652,6 +672,11 @@ public String getObjectAsString(Object value) {
   	  	return dout2;
     }
 
+    if (value instanceof LocalTime) {
+		LocalTime val = (LocalTime)value;
+	  	String dout2 = val.toString();
+	  	return dout2;
+}
     	String val = (String)value;
       return val;
 

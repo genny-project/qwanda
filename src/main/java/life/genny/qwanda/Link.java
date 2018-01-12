@@ -90,8 +90,8 @@ public class Link implements Serializable {
   
   private Double weight;
   
-  private String childColour;
-  private String parentColour;
+  private String childColor;
+  private String parentColor;
   private String rule;
 
   /**
@@ -237,37 +237,37 @@ public void setWeight(Double weight) {
 
 
 /**
- * @return the childColour
+ * @return the childColor
  */
-public String getChildColour() {
-	return childColour;
+public String getChildColor() {
+	return childColor;
 }
 
 
 
 /**
- * @param childColour the childColour to set
+ * @param childColor the childColor to set
  */
-public void setChildColour(String childColour) {
-	this.childColour = childColour;
+public void setChildColor(String childColor) {
+	this.childColor = childColor;
 }
 
 
 
 /**
- * @return the parentColour
+ * @return the parentColor
  */
-public String getParentColour() {
-	return parentColour;
+public String getParentColor() {
+	return parentColor;
 }
 
 
 
 /**
- * @param parentColour the parentColour to set
+ * @param parentColor the parentColor to set
  */
-public void setParentColour(String parentColour) {
-	this.parentColour = parentColour;
+public void setParentColor(String parentColor) {
+	this.parentColor = parentColor;
 }
 
 

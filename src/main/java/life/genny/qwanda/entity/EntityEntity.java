@@ -187,11 +187,11 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
     getPk().setAttribute(attribute);
 //    this.pk.setSourceCode(source.getCode());
     this.pk.setTargetCode(target.getCode());
+    link = new Link(source.getCode(),target.getCode(),attribute.getCode(),null);
+
     if (value != null) {
         setValue(value);
        }
-    String linkValue = this.getAsString();
-    link = new Link(source.getCode(),target.getCode(),attribute.getCode(),linkValue);
     if (weight == null) {
       weight = 0.0; // This permits ease of adding attributes and hides
                     // attribute from scoring.

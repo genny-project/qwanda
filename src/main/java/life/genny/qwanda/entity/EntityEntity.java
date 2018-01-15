@@ -37,10 +37,7 @@ import life.genny.qwanda.datatype.LocalTimeAdapter;
 
 @Entity
 @Table(name = "baseentity_baseentity")
-//@AssociationOverrides({
-//    @AssociationOverride(name = "pk.source", joinColumns = @JoinColumn(name = "SOURCE_ID")),
-//    @AssociationOverride(name = "pk.target", joinColumns = @JoinColumn(name = "TARGET_ID"))    
-//})
+
 @AssociationOverrides({
     @AssociationOverride(name = "pk.source", joinColumns = @JoinColumn(name = "SOURCE_ID"))})
 
@@ -220,6 +217,8 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
     this.pk.setTargetCode(target.getCode());
     this.pk.setAttribute(attribute);
 
+    link = new Link(source.getCode(),target.getCode(),attribute.getCode());
+
     if (weight == null) {
       weight = 0.0; // This permits ease of adding attributes and hides
                     // attribute from scoring.
@@ -228,7 +227,6 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
     if (value != null) {
         setValue(value);
        }
-    link = new Link(source.getCode(),target.getCode(),attribute.getCode());
   }
 
   public EntityEntityId getPk() {
@@ -280,6 +278,7 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
    */
   public void setWeight(final Double weight) {
     this.weight = weight;
+    this.link.setWeight(weight);
   }
 
   /**
@@ -418,31 +417,7 @@ public void setLink(Link link) {
 	  }
   }
 
-	/*@Override
-	public int hashCode() {
 
-		HashCodeBuilder hcb = new HashCodeBuilder();
-		hcb.append(pk);
-		return hcb.toHashCode();
-	}*/ 
-  
-  
-
-	/*@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof EntityEntity)) {
-			return false;
-		}
-		EntityEntity that = (EntityEntity) obj;
-		EqualsBuilder eb = new EqualsBuilder();
-		eb.append(pk, that.pk);
-		return eb.isEquals();
-	}*/
-  
-  
 
 	 public int compareTo(Object o) {
 		 EntityEntity myClass = (EntityEntity) o;
@@ -452,26 +427,7 @@ public void setLink(Link link) {
 	       .toComparison();
 	   }
 
-  /* (non-Javadoc)
-   * @see java.lang.Object#toString()
-   */
-//  @Override
-//  public String toString() {
-//    return "EntityEntity [parentCode=" + getPk().getSource().getCode() + ", targetCode=" + getPk().getTargetCode() + ", pk=" + pk
-//        + ", created=" + created + ", updated=" + updated + ", value="+getValue()+ ", weight=" + weight +"]";
-//  }
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#toString()
-   */
-  // @Override
-  // public String toString() {
-  // return "EE["+getTarget().getCode()+":"+created + ",
-  // linkType="+getLinkAttribute().getCode()+",weight=" + weight + ", v=" + version
-  // + "]";
-  // }
-
+ 
   
   
   @Override
@@ -603,6 +559,7 @@ public void setValueDate(LocalDate valueDate) {
         break;
     }
 
+    this.getLink().setLinkValue(getObjectAsString(getValue()));
   } 
 
 @JsonIgnore

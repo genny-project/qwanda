@@ -3,3 +3,6 @@ src/main/resources/rebel.xml
 .project
 src/main/resources/git.properties
 **/src/main/resources/git.properties
+.settings
+.classpath
+

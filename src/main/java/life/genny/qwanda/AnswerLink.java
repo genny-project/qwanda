@@ -256,8 +256,8 @@ public class AnswerLink implements java.io.Serializable {
 			try {
 				olddate =  DateUtils.parseDate(result,"M/y", "yyyy-MM-dd","yyyy/MM/dd","yyyy-MM-dd'T'HH:mm:ss","yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 			} catch (java.text.ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				olddate =  DateTimeUtils.parseDateTime(result,"yyyy-MM-dd","yyyy-MM-dd'T'HH:mm:ss","yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+
 			}
 				   final LocalDate date = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				setValueDate(date);

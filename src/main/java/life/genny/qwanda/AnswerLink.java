@@ -18,10 +18,12 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.Type;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -217,8 +219,25 @@ public class AnswerLink implements java.io.Serializable {
 		} else if (getAttribute().getDataType().getClassName()
 				.equalsIgnoreCase(LocalDateTime.class.getCanonicalName())) {
 			final String result = answer.getValue();
-			final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-			final LocalDateTime dateTime = LocalDateTime.parse(result, formatter);
+			   DateTimeFormatterBuilder dateTimeFormatterBuilder = new DateTimeFormatterBuilder()
+			            .append(DateTimeFormatter.ofPattern("" + "[yyyy-MM-dd'T'HH:mm:ss.SSSZ]" + "[yyyy-MM-dd]" + "[yyyy-MM-dd'T'HH:mm:ss.SSS]" + "[yyyy-MM-dd'T'HH:mm:ss]" + "[yyyy-MM-dd'T'HH:mm:ssZ]" + "[yyyy-MM-dd'T'HH:mm]" + "[yyyy-MM-dd]"));
+
+			//    DateTimeFormatter dateTimeFormatter = dateTimeFormatterBuilder .parseCaseInsensitive().toFormatter();
+			    DateTimeFormatter dateTimeFormatter = new DateTimeFormatterBuilder()
+		                .parseCaseInsensitive()
+		                .append(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+		                .optionalStart()
+		                .appendPattern(".SSS")
+		                .optionalEnd()
+		                .optionalStart()
+		                .appendZoneOrOffsetId()
+		                .optionalEnd()
+		                .optionalStart()
+		                .appendOffset("+HHMM", "0000")
+		                .optionalEnd()
+		                .toFormatter();
+			    
+			final LocalDateTime dateTime = LocalDateTime.parse(result, dateTimeFormatter);
 			setValueDateTime(dateTime);
 		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(LocalDate.class.getCanonicalName())) {
 			final String result = answer.getValue();

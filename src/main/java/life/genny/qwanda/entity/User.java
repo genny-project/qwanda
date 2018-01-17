@@ -9,6 +9,7 @@ public class User {
 	private String uCode;
     private Boolean isAvailable;
     private Boolean isProfileCompleted;
+    private Boolean isAssemblyUserProfileExists;
     
 	public User(String uname, String fullName, String realm, String roles) {
 		this.uname = uname;
@@ -73,9 +74,18 @@ public class User {
 		this.isProfileCompleted = isProfileCompleted;
 	}
 
+	public Boolean getIsAssemblyUserProfileExists() {
+		return isAssemblyUserProfileExists;
+	}
+
+	public void setIsAssemblyUserProfileExists(Boolean isAssemblyUserProfileExists) {
+		this.isAssemblyUserProfileExists = isAssemblyUserProfileExists;
+	}
+
 	@Override
 	public String toString() {
-		return "User [uname=" + uname + ", fullName=" + fullName + ", realm=" + realm + ", roles=" + roles
-				+ ", isAvailable=" + isAvailable + ", isProfileCompleted=" + isProfileCompleted + "]";
+		return "User [uname=" + uname + ", fullName=" + fullName + ", realm=" + realm + ", roles=" + roles + ", uCode="
+				+ uCode + ", isAvailable=" + isAvailable + ", isProfileCompleted=" + isProfileCompleted
+				+ ", isAssemblyUserProfileExists=" + isAssemblyUserProfileExists + "]";
 	}
 }

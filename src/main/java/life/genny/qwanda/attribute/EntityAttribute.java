@@ -2,13 +2,16 @@ package life.genny.qwanda.attribute;
 
 import java.lang.invoke.MethodHandles;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
@@ -531,21 +534,38 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 					setValueString(result);
 				} else if (getAttribute().getDataType().getClassName()
 						.equalsIgnoreCase(LocalDateTime.class.getCanonicalName())) {
-					Date olddate = null;		
-					olddate =  DateTimeUtils.parseDateTime(result, "yyyy-MM-dd","yyyy-MM-dd'T'HH:mm:ss","yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-						   final LocalDateTime dateTime = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-					setValueDateTime(dateTime);
-					} else if (getAttribute().getDataType().getClassName()
+					List<String> formatStrings = Arrays.asList("yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss",
+							"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+					for (String formatString : formatStrings) {
+						try {
+							Date olddate = new SimpleDateFormat(formatString).parse(result);
+							final LocalDateTime dateTime = olddate.toInstant().atZone(ZoneId.systemDefault())
+									.toLocalDateTime();
+							setValueDateTime(dateTime);
+							break;
+						} catch (ParseException e) {
+						}
+
+					}
+					// Date olddate = null;
+					// olddate = DateTimeUtils.parseDateTime(result,
+					// "yyyy-MM-dd","yyyy-MM-dd'T'HH:mm:ss","yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+					// final LocalDateTime dateTime =
+					// olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+					// setValueDateTime(dateTime);
+				} else if (getAttribute().getDataType().getClassName()
 						.equalsIgnoreCase(LocalDate.class.getCanonicalName())) {
 					Date olddate = null;
 					try {
-						olddate =  DateUtils.parseDate(result,"M/y", "yyyy-MM-dd","yyyy/MM/dd","yyyy-MM-dd'T'HH:mm:ss","yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+						olddate = DateUtils.parseDate(result, "M/y", "yyyy-MM-dd", "yyyy/MM/dd",
+								"yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 					} catch (java.text.ParseException e) {
-						olddate =  DateTimeUtils.parseDateTime(result,"yyyy-MM-dd","yyyy-MM-dd'T'HH:mm:ss","yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+						olddate = DateTimeUtils.parseDateTime(result, "yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss",
+								"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 					}
-						   final LocalDate date = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-						setValueDate(date);
-					} else if (getAttribute().getDataType().getClassName()
+					final LocalDate date = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+					setValueDate(date);
+				} else if (getAttribute().getDataType().getClassName()
 						.equalsIgnoreCase(LocalTime.class.getCanonicalName())) {
 					final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 					final LocalTime date = LocalTime.parse(result, formatter);
@@ -570,7 +590,8 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 					setValueString(result);
 				}
 			} catch (Exception e) {
-				log.error("Conversion Error :" + value + " for attribute " + getAttribute() + " and SourceCode:"+this.baseEntityCode);
+				log.error("Conversion Error :" + value + " for attribute " + getAttribute() + " and SourceCode:"
+						+ this.baseEntityCode);
 			}
 		} else {
 
@@ -624,7 +645,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			return "" + getValueLong();
 		case "java.time.LocalTime":
 			return getValueTime().toString();
-			
+
 		case "java.lang.Double":
 			return getValueDouble().toString();
 		case "java.lang.Boolean":
@@ -880,7 +901,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			return dout2;
 		}
 		if (getValueTime() != null) {
-			
+
 			String dout2 = getValueTime().toString();
 			return dout2;
 		}

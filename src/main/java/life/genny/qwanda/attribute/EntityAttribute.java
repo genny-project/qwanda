@@ -559,7 +559,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 					setValueString(result);
 				}
 			} catch (Exception e) {
-				log.error("Conversion Error :" + value + " for attribute " + getAttribute());
+				log.error("Conversion Error :" + value + " for attribute " + getAttribute() + " and SourceCode:"+this.baseEntityCode);
 			}
 		} else {
 

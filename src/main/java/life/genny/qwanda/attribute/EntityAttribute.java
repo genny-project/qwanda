@@ -523,6 +523,9 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 
 		if (value instanceof String) {
 			String result = (String) value;
+			if (getAttribute().getCode().equals("PRI_DROPOFF_DATETIME")) {
+				log.info("dummy");
+			}
 			try {
 				if (getAttribute().getDataType().getClassName().equalsIgnoreCase(String.class.getCanonicalName())) {
 					setValueString(result);

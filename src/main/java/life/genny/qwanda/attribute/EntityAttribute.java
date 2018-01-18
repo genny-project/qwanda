@@ -26,7 +26,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.logging.log4j.Logger;
+import org.h2.util.DateTimeUtils;
 import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -526,15 +528,21 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 					setValueString(result);
 				} else if (getAttribute().getDataType().getClassName()
 						.equalsIgnoreCase(LocalDateTime.class.getCanonicalName())) {
-					final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-					final LocalDateTime dateTime = LocalDateTime.parse(result, formatter);
+					Date olddate = null;		
+					olddate =  DateTimeUtils.parseDateTime(result, "yyyy-MM-dd","yyyy-MM-dd'T'HH:mm:ss","yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+						   final LocalDateTime dateTime = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 					setValueDateTime(dateTime);
-				} else if (getAttribute().getDataType().getClassName()
+					} else if (getAttribute().getDataType().getClassName()
 						.equalsIgnoreCase(LocalDate.class.getCanonicalName())) {
-					final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-					final LocalDate date = LocalDate.parse(result, formatter);
-					setValueDate(date);
-				} else if (getAttribute().getDataType().getClassName()
+					Date olddate = null;
+					try {
+						olddate =  DateUtils.parseDate(result,"M/y", "yyyy-MM-dd","yyyy/MM/dd","yyyy-MM-dd'T'HH:mm:ss","yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+					} catch (java.text.ParseException e) {
+						olddate =  DateTimeUtils.parseDateTime(result,"yyyy-MM-dd","yyyy-MM-dd'T'HH:mm:ss","yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+					}
+						   final LocalDate date = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+						setValueDate(date);
+					} else if (getAttribute().getDataType().getClassName()
 						.equalsIgnoreCase(LocalTime.class.getCanonicalName())) {
 					final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 					final LocalTime date = LocalTime.parse(result, formatter);

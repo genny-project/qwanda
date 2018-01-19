@@ -93,7 +93,7 @@ public abstract class CodedEntity extends CoreEntity {
 	@NotEmpty
 	@Size(max = 64)
 	@Pattern(regexp = REGEX_CODE, message = "Must be valid Code!")
-	@Column(name = "code", updatable = false, nullable = false)
+	@Column(name = "code", updatable = false, nullable = false, unique = true)
 	@Expose
 	private String code;
  

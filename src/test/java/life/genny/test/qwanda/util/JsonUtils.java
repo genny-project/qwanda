@@ -40,8 +40,6 @@ public class JsonUtils {
 	                        //item = (T) CoreUtils.deserializeBytes(bytes);
 	                        ObjectMapper mapper = new ObjectMapper();
 	                        mapper.registerModule(new JavaTimeModule());
-
-
 	                        item = (T) mapper.readValue(json.getBytes(), testClass);
 
 	                } catch (Exception e) {

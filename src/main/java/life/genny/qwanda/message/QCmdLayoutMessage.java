@@ -1,5 +1,6 @@
 package life.genny.qwanda.message;
 
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 
 public class QCmdLayoutMessage extends QCmdMessage {
@@ -8,6 +9,7 @@ public class QCmdLayoutMessage extends QCmdMessage {
   private String data;
   @Expose
   private Boolean visible;
+
 
 
   public QCmdLayoutMessage(final String layoutCode, final String layout) {

@@ -19,6 +19,13 @@ public class QDataAnswerMessage extends QDataMessage {
 		super(DATATYPE_ANSWER);
 		setItems(items);
 	}
+	
+	public QDataAnswerMessage(Answer item) {
+		super(DATATYPE_ANSWER);
+		items = new Answer[1];
+		items[0] = item;
+		setItems(items);
+	}
 
 	public Answer[] getItems() {
 		return items;

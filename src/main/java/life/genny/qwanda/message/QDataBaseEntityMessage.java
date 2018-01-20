@@ -19,8 +19,21 @@ public class QDataBaseEntityMessage extends QDataMessage {
   @Expose
   private Long returnCount;
   @Expose
-  private String alias;
+  private String aliasCode;
 
+  public QDataBaseEntityMessage(final BaseEntity item, final String alias) {
+	    super(DATATYPE_BASEENTITY);
+	    items = new BaseEntity[1];
+	    items[0] = item;
+	    setItems(items);
+	    setAliasCode(alias);
+	    setTotal(1L);
+	  }
+
+  public QDataBaseEntityMessage(final BaseEntity item) {
+	   this(item,null);
+	  }
+  
   public QDataBaseEntityMessage(final BaseEntity[] items) {
     super(DATATYPE_BASEENTITY);
     setItems(items);
@@ -109,15 +122,15 @@ public class QDataBaseEntityMessage extends QDataMessage {
   /**
    * @return the alias
    */
-  public String getAlias() {
-    return alias;
+  public String getAliasCode() {
+    return aliasCode;
   }
 
   /**
    * @param alias the alias to set
    */
-  public void setAlias(final String alias) {
-    this.alias = alias;
+  public void setAliasCode(final String aliasCode) {
+    this.aliasCode = aliasCode;
   }
 
 

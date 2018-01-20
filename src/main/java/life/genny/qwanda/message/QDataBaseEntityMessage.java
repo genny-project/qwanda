@@ -18,8 +18,6 @@ public class QDataBaseEntityMessage extends QDataMessage {
   private Long total = -1L;
   @Expose
   private Long returnCount;
-  @Expose
-  private String aliasCode;
 
   public QDataBaseEntityMessage(final BaseEntity item, final String alias) {
 	    super(DATATYPE_BASEENTITY);
@@ -117,20 +115,6 @@ public class QDataBaseEntityMessage extends QDataMessage {
    */
   public void setReturnCount(final Long returnCount) {
     this.returnCount = returnCount;
-  }
-
-  /**
-   * @return the alias
-   */
-  public String getAliasCode() {
-    return aliasCode;
-  }
-
-  /**
-   * @param alias the alias to set
-   */
-  public void setAliasCode(final String aliasCode) {
-    this.aliasCode = aliasCode;
   }
 
 

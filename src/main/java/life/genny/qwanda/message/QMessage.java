@@ -34,6 +34,7 @@ public abstract class QMessage implements Serializable , QMessageIntf{
 		public String toString() {
 			return " MessageData [code=" + code +"   "+id +"]";
 		}
+		@Expose
 		private String code;
 		public String getCode() {
 			return code;
@@ -53,7 +54,9 @@ public abstract class QMessage implements Serializable , QMessageIntf{
 		public void setValue(String value) {
 			this.value = value;
 		}
+		@Expose
 		private Long id;
+		@Expose
 		private String value;
 		
 		public MessageData(String code){

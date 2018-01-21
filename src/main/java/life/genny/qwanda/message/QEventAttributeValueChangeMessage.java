@@ -17,23 +17,20 @@ public class QEventAttributeValueChangeMessage extends QEventMessage {
 	private Answer answer;
 	@Expose
 	  private String oldValue;
-	@Expose
-	  private String token;
 
 		public QEventAttributeValueChangeMessage(final Answer answer, String oldValue, String token) {
 			super(EVENT_TYPE_EVT_ATTRIBUTE_VALUE_CHANGE, answer.getAttributeCode());
 			this.answer  = answer;
 			this.oldValue = oldValue;
-			this.token = token;
+			setToken(token);
 		}
 		
 	public QEventAttributeValueChangeMessage(String sourceBaseEntityCode,String targetBaseEntityCode, String code, String oldValue, String newValue, String token) {
 		super(EVENT_TYPE_EVT_ATTRIBUTE_VALUE_CHANGE, code);
 		answer  = new Answer(sourceBaseEntityCode,targetBaseEntityCode, code,newValue);
 		this.oldValue = oldValue;
-		this.token = token;
+		setToken(token);
 	}
-
 	public String getOldValue() {
 		return oldValue;
 	}
@@ -42,14 +39,6 @@ public class QEventAttributeValueChangeMessage extends QEventMessage {
 		this.oldValue = oldValue;
 	}
 
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
 
 	@Override
 	public String toString() {

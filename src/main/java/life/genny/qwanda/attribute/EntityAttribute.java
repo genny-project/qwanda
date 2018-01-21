@@ -99,6 +99,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	 */
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	@Column(name = "created")
+	@Expose
 	private LocalDateTime created;
 
 	/**
@@ -106,6 +107,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	 */
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	@Column(name = "updated")
+	@Expose
 	private LocalDateTime updated;
 
 	/**
@@ -115,59 +117,70 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	/**
 	 * Store the Double value of the attribute for the baseEntity
 	 */
+	@Expose
 	private Double valueDouble;
 
 	/**
 	 * Store the Boolean value of the attribute for the baseEntity
 	 */
+	@Expose
 	private Boolean valueBoolean;
 	/**
 	 * Store the Integer value of the attribute for the baseEntity
 	 */
+	@Expose
 	private Integer valueInteger;
 
 	/**
 	 * Store the Long value of the attribute for the baseEntity
 	 */
+	@Expose
 	private Long valueLong;
 
 	/**
 	 * Store the LocalDateTime value of the attribute for the baseEntity
 	 */
 	@XmlJavaTypeAdapter(LocalTimeAdapter.class)
+	@Expose
 	private LocalTime valueTime;
 
 	/**
 	 * Store the LocalDateTime value of the attribute for the baseEntity
 	 */
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	@Expose
 	private LocalDateTime valueDateTime;
 
 	/**
 	 * Store the LocalDate value of the attribute for the baseEntity
 	 */
 	@XmlJavaTypeAdapter(LocalDateAdapter.class)
+	@Expose
 	private LocalDate valueDate;
 
 	/**
 	 * Store the String value of the attribute for the baseEntity
 	 */
 	@Type(type = "text")
+	@Expose
 	private String valueString;
 
 	/**
 	 * Store the relative importance of the attribute for the baseEntity
 	 */
+	@Expose
 	private Double weight;
 
 	/**
 	 * Store the relative importance of the attribute for the baseEntity
 	 */
+	@Expose
 	private Boolean inferred = false;
 
 	/**
 	 * Store the privacy of this attribute , i.e. Don't display
 	 */
+	@Expose
 	private Boolean privacyFlag = false;
 
 	// @Version

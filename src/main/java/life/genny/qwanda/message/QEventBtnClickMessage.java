@@ -12,6 +12,7 @@ public class QEventBtnClickMessage extends QEventMessage {
 	
 	private String itemCode;
 	private String hint;
+	private String hello;
 	
 	private static final long serialVersionUID = 1L;
 

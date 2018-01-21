@@ -259,9 +259,14 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
    * @returns Optional<EntityAttribute>
    */
   public Optional<EntityAttribute> findEntityAttribute(final String attributeCode) {
-    final Optional<EntityAttribute> foundEntity =
-        getBaseEntityAttributes().stream()
-            .filter(x -> (x.getAttribute().getCode().equals(attributeCode))).findFirst();
+    Optional<EntityAttribute> foundEntity = null;
+    
+      try {
+		foundEntity =  getBaseEntityAttributes().stream()
+		        .filter(x -> (x.getAttribute().getCode().equals(attributeCode))).findFirst();
+	} catch (Exception e) {
+		log.error("Error in fetching attribute value");
+	}
 
 //    Optional.of(getBaseEntityAttributes().stream()
 //            .filter(x -> (x.getAttribute().getCode().equals(attributeCode))).findFirst().get());

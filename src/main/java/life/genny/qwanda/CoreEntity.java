@@ -114,7 +114,7 @@ public abstract class CoreEntity implements CreatedIntf, Serializable, Comparabl
    */
   @NotNull
   @NotEmpty
-  @Size(max = 50)
+  @Size(max = 128)
   @Pattern(regexp = REGEX_NAME, message = "Must contain valid characters for name")
   @Column(name = "name", updatable = true, nullable = true)
   @Expose
@@ -127,7 +127,7 @@ public abstract class CoreEntity implements CreatedIntf, Serializable, Comparabl
    */
   @NotNull
   @NotEmpty
-  @Size(max = 32)
+  @Size(max = 48)
   @Pattern(regexp = REGEX_REALM, message = "Must contain valid characters for realm")
   @Column(name = "realm", updatable = true, nullable = false)
   @Expose

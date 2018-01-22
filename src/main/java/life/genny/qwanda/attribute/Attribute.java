@@ -100,6 +100,10 @@ public class Attribute extends CodedEntity implements Serializable {
 	@NotNull
 	@Expose
 	public DataType dataType;
+	
+	@Expose
+	private Boolean defaultPrivacyFlag = false;
+
 
 	
 	/**
@@ -143,19 +147,27 @@ public class Attribute extends CodedEntity implements Serializable {
 	static public String getDefaultCodePrefix() {
 		return DEFAULT_CODE_PREFIX;
 	}
-//	@JsonIgnore
-//	public Set<EntityAttribute> getBaseEntityAttributes() {
-//		return this.baseEntityAttributes;
-//	}
-//
-//	public void setBaseEntityAttributes(Set<EntityAttribute> baseEntityAttributes) {
-//		this.baseEntityAttributes = baseEntityAttributes;
-//	}
 
 
 	@Override
 	public String toString() {
 		return getCode()+ ",dataType=" + dataType;
+	}
+
+
+	/**
+	 * @return the defaultPrivacyFlag
+	 */
+	public Boolean getDefaultPrivacyFlag() {
+		return defaultPrivacyFlag;
+	}
+
+
+	/**
+	 * @param defaultPrivacyFlag the defaultPrivacyFlag to set
+	 */
+	public void setDefaultPrivacyFlag(Boolean defaultPrivacyFlag) {
+		this.defaultPrivacyFlag = defaultPrivacyFlag;
 	}
 	
 	/* (non-Javadoc)

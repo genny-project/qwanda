@@ -245,8 +245,8 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
     // Check if this code exists in the baseEntityAttributes
     if (getLinks().parallelStream()
-        .anyMatch(ti -> (ti.getPk().getAttribute().getCode().equals(linkAttributeCode)
-            && (ti.getPk().getTargetCode().equals(targetCode))))) {
+        .anyMatch(ti -> (ti.getLink().getAttributeCode().equals(linkAttributeCode)
+            && (ti.getLink().getTargetCode().equals(targetCode))))) {
       ret = true;
     }
     return ret;
@@ -264,7 +264,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
     
       try {
 		foundEntity = getBaseEntityAttributes().stream()
-		        .filter(x -> (x.getAttribute().getCode().equals(attributeCode))).findFirst();
+		        .filter(x -> (x.getAttributeCode().equals(attributeCode))).findFirst();
 	} catch (Exception e) {
 		log.error("Error in fetching attribute value");
 	}
@@ -284,7 +284,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
    */
   public EntityAttribute findEntityAttribute(final Attribute attribute) {
     final EntityAttribute foundEntity = getBaseEntityAttributes().stream()
-        .filter(x -> (x.getAttribute().equals(attribute))).findFirst().get();
+        .filter(x -> (x.getAttributeCode().equals(attribute.getCode()))).findFirst().get();
 
     return foundEntity;
   }
@@ -543,6 +543,35 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
   }
 
+@JsonIgnore
+@Transient
+@XmlTransient
+public <T> Optional<T> getValue(final String attributeCode) {
+	Optional<EntityAttribute> ea = this.findEntityAttribute(attributeCode);
+	
+	Optional<T> result = Optional.empty();
+	if (ea.isPresent()) {
+		result = Optional.of(ea.get().getValue());
+	} 
+	return result;
 
+}
+
+@JsonIgnore
+@Transient
+@XmlTransient
+public Boolean is(final String attributeCode) {
+	Optional<EntityAttribute> ea = this.findEntityAttribute(attributeCode);
+	Boolean result = false;
+
+	if (ea.isPresent()) {
+		result = ea.get().getValueBoolean();
+		if (result == null) {
+			return false;
+		}
+	} 
+	return result;
+
+}
 
 }

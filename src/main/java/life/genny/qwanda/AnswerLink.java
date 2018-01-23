@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -100,6 +101,10 @@ public class AnswerLink implements java.io.Serializable {
 	 */
 	private LocalDate valueDate;
 
+	/**
+	 * Store the LocalTime value of the attribute for the baseEntity
+	 */
+	private LocalTime valueTime;
 	/**
 	 * Store the String value of the attribute for the baseEntity
 	 */
@@ -225,43 +230,57 @@ public class AnswerLink implements java.io.Serializable {
 		} else if (getAttribute().getDataType().getClassName()
 				.equalsIgnoreCase(LocalDateTime.class.getCanonicalName())) {
 			final String result = answer.getValue();
-//			   DateTimeFormatterBuilder dateTimeFormatterBuilder = new DateTimeFormatterBuilder()
-//			            .append(DateTimeFormatter.ofPattern("" + "[yyyy-MM-dTHH:mm:ss.SSSZ]" + "[yyyy-MM-dd]" + "[yyyy-MM-dd'T'HH:mm:ss.SSS]" + "[yyyy-MM-dd'T'HH:mm:ss]" + "[yyyy-MM-dd'T'HH:mm:ssZ]" + "[yyyy-MM-dd'T'HH:mm]" + "[yyyy-MM-dd]"));
-//
-//			    DateTimeFormatter dateTimeFormatter = dateTimeFormatterBuilder .parseCaseInsensitive().toFormatter();
-//			    DateTimeFormatter dateTimeFormatter = new DateTimeFormatterBuilder()
-//		                .parseCaseInsensitive()
-//		                .append(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-//		                .append(DateTimeFormatter.ISO_LOCAL_DATE)
-//		                .optionalStart()
-//		                .appendPattern(".SSS")
-//		                .optionalEnd()
-//		                .optionalStart()
-//		                .appendZoneOrOffsetId()
-//		                .optionalEnd()
-//		                .optionalStart()
-//		                .appendOffset("+HHMM", "0000")
-//		                .optionalEnd()
-//		                .toFormatter();
-//			   
-			Date olddate = null;		
-			olddate =  DateTimeUtils.parseDateTime(result, "yyyy-MM-dd","yyyy-MM-dd'T'HH:mm:ss","yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-				   final LocalDateTime dateTime = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-
-			setValueDateTime(dateTime);
-		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(LocalDate.class.getCanonicalName())) {
-			final String result = answer.getValue();
-			Date olddate = null;
-		
-			try {
-				olddate =  DateUtils.parseDate(result,"M/y", "yyyy-MM-dd","yyyy/MM/dd","yyyy-MM-dd'T'HH:mm:ss","yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-			} catch (java.text.ParseException e) {
-				olddate =  DateTimeUtils.parseDateTime(result,"yyyy-MM-dd","yyyy-MM-dd'T'HH:mm:ss","yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+			List<String> formatStrings = Arrays.asList("yyyy-MM-dd'T'HH:mm:ss","yyyy-MM-dd", 
+					"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+			for (String formatString : formatStrings) {
+				try {
+					Date olddate = new SimpleDateFormat(formatString).parse(result);
+					final LocalDateTime dateTime = olddate.toInstant().atZone(ZoneId.systemDefault())
+							.toLocalDateTime();
+					setValueDateTime(dateTime);
+					break;
+				} catch (java.text.ParseException e) {
+					continue;
+				}
 
 			}
-				   final LocalDate date = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-				setValueDate(date);
-		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Integer.class.getCanonicalName())) {
+		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(LocalDate.class.getCanonicalName())) {
+			final String result = answer.getValue();
+			List<String> formatStrings = Arrays.asList("yyyy-MM-dd","M/y","yyyy/MM/dd","yyyy-MM-dd'T'HH:mm:ss","yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+			for (String formatString : formatStrings) {
+				Date olddate;
+				try {
+					olddate = new SimpleDateFormat(formatString).parse(result);
+					final LocalDate dateTime = olddate.toInstant().atZone(ZoneId.systemDefault())
+							.toLocalDate();
+					setValueDate(dateTime);
+				} catch (java.text.ParseException e) {
+					continue;
+				}
+
+				break;
+
+			}
+
+			}else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(LocalTime.class.getCanonicalName())) {
+				final String result = answer.getValue();
+				List<String> formatStrings = Arrays.asList("HH:mm", "HH:mm:ss","HH:mm:ss.SSSZ");
+				for (String formatString : formatStrings) {
+					Date olddate;
+					try {
+						olddate = new SimpleDateFormat(formatString).parse(result);
+						final LocalTime dateTime = olddate.toInstant().atZone(ZoneId.systemDefault())
+								.toLocalTime();
+						setValueTime(dateTime);
+					} catch (java.text.ParseException e) {
+						continue;
+					}
+
+					break;
+
+				}
+
+				} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Integer.class.getCanonicalName())) {
 			final String result = answer.getValue();
 			final Integer integer = Integer.parseInt(result);
 			setValueInteger(integer);
@@ -482,6 +501,21 @@ public class AnswerLink implements java.io.Serializable {
 		this.valueDate = valueDate;
 	}
 
+	
+	/**
+	 * @return the valueTime
+	 */
+	public LocalTime getValueTime() {
+		return valueTime;
+	}
+
+	/**
+	 * @param valueTime the valueTime to set
+	 */
+	public void setValueTime(LocalTime valueTime) {
+		this.valueTime = valueTime;
+	}
+
 	/**
 	 * @return the valueDateTime
 	 */
@@ -668,6 +702,8 @@ public class AnswerLink implements java.io.Serializable {
 			return (T) getValueDateTime();
 		case "java.time.LocalDate":
 			return (T) getValueDate();
+		case "java.time.LocalTime":
+			return (T) getValueTime();
 		case "java.lang.Long":
 			return (T) getValueLong();
 		case "java.lang.Double":
@@ -695,6 +731,10 @@ public class AnswerLink implements java.io.Serializable {
 		case "java.time.LocalDateTime":
 			setValueDateTime((LocalDateTime) value);
 			break;
+		case "java.time.LocalTime":
+			setValueTime((LocalTime) value);
+			break;
+
 		case "java.time.LocalDate":
 			setValueDate((LocalDate) value);
 			break;

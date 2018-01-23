@@ -2,6 +2,8 @@ package life.genny.qwanda.message;
 
 import com.google.gson.annotations.Expose;
 
+import life.genny.qwanda.Link;
+
 public class QEventLinkChangeMessage extends QEventMessage {
 	  
 	/**
@@ -11,49 +13,54 @@ public class QEventLinkChangeMessage extends QEventMessage {
 	
 	private static final String EVENT_TYPE_LINK_CHANGE = "EVT_LINK_CHANGE";
 	@Expose
-	  private String sourceBaseEntityCode;
+	  private Link link;
 	@Expose
-	  private String targetBaseEntityCode;
-	@Expose
-	  private String linkCode;
+	  private Link oldLink;
 	
-	public QEventLinkChangeMessage(String sourceBaseEntityCode,String targetBaseEntityCode, String code, String linkCode, String token) {
-		super(EVENT_TYPE_LINK_CHANGE, code);
-		this.sourceBaseEntityCode = sourceBaseEntityCode;
-		this.targetBaseEntityCode = targetBaseEntityCode;
-		this.linkCode = linkCode;
+	public QEventLinkChangeMessage(final Link link, final Link oldLink, String token) {
+		super(EVENT_TYPE_LINK_CHANGE, "EVT_LINK_CHANGE");
+		this.link = link;
+		this.oldLink = oldLink;
+		setToken(token);
 	}
 
-
-	public String getLinkCode() {
-		return linkCode;
+	/**
+	 * @return the link
+	 */
+	public Link getLink() {
+		return link;
 	}
 
-	public void setLinkCode(String linkCode) {
-		this.linkCode = linkCode;
+	/**
+	 * @param link the link to set
+	 */
+	public void setLink(Link link) {
+		this.link = link;
 	}
 
-	public String getTargetBaseEntityCode() {
-		return targetBaseEntityCode;
+	/**
+	 * @return the oldLink
+	 */
+	public Link getOldLink() {
+		return oldLink;
 	}
 
-	public void setTargetBaseEntityCode(String targetBaseEntityCode) {
-		this.targetBaseEntityCode = targetBaseEntityCode;
+	/**
+	 * @param oldLink the oldLink to set
+	 */
+	public void setOldLink(Link oldLink) {
+		this.oldLink = oldLink;
 	}
 
-	
-	public String getSourceBaseEntityCode() {
-		return sourceBaseEntityCode;
-	}
-
-	public void setSourceBaseEntityCode(String sourceBaseEntityCode) {
-		this.sourceBaseEntityCode = sourceBaseEntityCode;
-	}
-
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return "QEventLinkChangeMessage [sourceCode="+sourceBaseEntityCode+",targetCode="+targetBaseEntityCode+", linkCodee=" +linkCode 
-				+ ", event_type=" + getEvent_type() + ", msg_type=" + getMsg_type() + "]";
+		return "QEventLinkChangeMessage [link=" + link + ", oldLink=" + oldLink + "]";
 	}
+
+
+	
 	
 }

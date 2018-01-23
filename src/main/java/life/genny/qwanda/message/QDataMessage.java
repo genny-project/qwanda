@@ -27,6 +27,8 @@ abstract class QDataMessage extends QMessage implements QDataMessageIntf {
   private Boolean delete = false;
   @Expose
   private String aliasCode;
+  @Expose
+  private String[] recipientCodeArray;
 
 
 
@@ -74,6 +76,24 @@ abstract class QDataMessage extends QMessage implements QDataMessageIntf {
   public void setAliasCode(final String aliasCode) {
     this.aliasCode = aliasCode;
   }
+
+
+
+/**
+ * @return the recipientCodeArray
+ */
+public String[] getRecipientCodeArray() {
+	return recipientCodeArray;
+}
+
+
+
+/**
+ * @param recipientCodeArray the recipientCodeArray to set
+ */
+public void setRecipientCodeArray(String[] recipientCodeArray) {
+	this.recipientCodeArray = recipientCodeArray;
+}
 
 
 

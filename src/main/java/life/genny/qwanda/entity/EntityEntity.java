@@ -119,21 +119,21 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
   /**
    * Store the LocalDateTime value of the attribute for the baseEntity
    */
-  @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+//  @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
   @Expose
   private LocalDateTime valueDateTime;
 
   /**
    * Store the LocalDate value of the attribute for the baseEntity
    */
-  @XmlJavaTypeAdapter(LocalDateAdapter.class)
+//  @XmlJavaTypeAdapter(LocalDateAdapter.class)
   @Expose
   private LocalDate valueDate;
  
   /**
    * Store the LocalTime value of the attribute for the baseEntity
    */
-  @XmlJavaTypeAdapter(LocalTimeAdapter.class)
+//  @XmlJavaTypeAdapter(LocalTimeAdapter.class)
   @Expose
   private LocalTime valueTime;
  

@@ -2,7 +2,7 @@ package life.genny.qwanda.message;
 
 import com.google.gson.annotations.Expose;
 
-abstract class QDataMessage extends QMessage implements QDataMessageIntf {
+public abstract class QDataMessage extends QMessage implements QDataMessageIntf {
 
   @Override
   public String getData_type() {

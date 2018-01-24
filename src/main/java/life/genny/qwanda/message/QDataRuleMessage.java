@@ -10,8 +10,7 @@ public class QDataRuleMessage extends QDataMessage {
   @Expose
   private Rule[] items;
   private static final String DATATYPE_RULE = Rule.class.getSimpleName();
-  @Expose
-  private String token;
+
 
   public QDataRuleMessage(final Rule[] items) {
     super(DATATYPE_RULE);
@@ -26,19 +25,6 @@ public class QDataRuleMessage extends QDataMessage {
     this.items = items;
   }
 
-/**
- * @return the token
- */
-public String getToken() {
-	return token;
-}
 
-/**
- * @param token the token to set
- */
-public void setToken(String token) {
-	this.token = token;
-}
-  
   
 }

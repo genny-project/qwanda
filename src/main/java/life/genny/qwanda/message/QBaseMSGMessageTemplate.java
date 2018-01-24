@@ -64,7 +64,7 @@ public class QBaseMSGMessageTemplate implements Serializable{
 	@NotNull
 	@NotEmpty
 	@Size(max = 32)
-	@Column(name = "code", updatable = false, nullable = false)
+	@Column(name = "code", updatable = true, nullable = false)
 	@Expose
 	private String code;
 	
@@ -75,7 +75,7 @@ public class QBaseMSGMessageTemplate implements Serializable{
 	*/
 	@NotNull
 	@NotEmpty
-	@Column(name = "description", updatable = false, nullable = false)
+	@Column(name = "description", updatable = true, nullable = false)
 	@Expose
 	private String description;
 	
@@ -86,7 +86,7 @@ public class QBaseMSGMessageTemplate implements Serializable{
 	*/
 	@NotNull
 	@NotEmpty
-	@Column(name = "subject", updatable = false, nullable = false)
+	@Column(name = "subject", updatable = true, nullable = false)
 	private String subject;
 	
 	
@@ -96,7 +96,7 @@ public class QBaseMSGMessageTemplate implements Serializable{
 	*/
 	@NotNull
 	@NotEmpty
-	@Column(name = "email", updatable = false, nullable = false)
+	@Column(name = "email", updatable = true, nullable = false)
 	@Expose
 	private String email_templateId;
 	
@@ -107,7 +107,7 @@ public class QBaseMSGMessageTemplate implements Serializable{
 	*/
 	@NotNull
 	@NotEmpty
-	@Column(name = "sms", updatable = false, nullable = false)
+	@Column(name = "sms", updatable = true, nullable = false)
 	@Expose
 	private String sms_template;
 

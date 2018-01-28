@@ -96,7 +96,7 @@ public class Validation extends CodedEntity implements Serializable {
 	*/
 	@NotNull
 	@NotEmpty
-	@Size(max = 128)
+	@Size(max = 256)
 	@Column(name = "regex", updatable = true, nullable = false)	
 	  @Expose
 	private String regex;

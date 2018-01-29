@@ -1,5 +1,6 @@
 package life.genny.qwanda.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -19,7 +20,7 @@ public class EntityEntityId implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.DETACH)
 	@JsonBackReference(value="entityEntity")
 	private BaseEntity source;
 	

@@ -92,7 +92,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
   @XmlTransient
 //  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.baseEntity", cascade = CascadeType.MERGE, orphanRemoval=true)
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.baseEntity",cascade = CascadeType.MERGE, orphanRemoval=true)
   @JsonManagedReference(value="entityAttribute")
   @JsonIgnore
   private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
@@ -105,7 +105,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
   @JsonIgnore
   @XmlTransient
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source", cascade = CascadeType.ALL)
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source", cascade = CascadeType.MERGE)
   private Set<AnswerLink> answers = new HashSet<AnswerLink>(0);
 
 

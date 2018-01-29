@@ -1,5 +1,6 @@
 package life.genny.qwanda.attribute;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 
@@ -17,7 +18,7 @@ public class EntityAttributeId implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 
-	@ManyToOne
+	@ManyToOne ( cascade = CascadeType.DETACH)
 	@JsonBackReference(value="entityAttribute")
 	@JsonIgnore
 	public BaseEntity baseEntity;

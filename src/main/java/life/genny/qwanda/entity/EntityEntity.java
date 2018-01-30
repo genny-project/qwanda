@@ -682,6 +682,7 @@ public <T> void setValue(final Object value) {
 		}
 	}
 
+	this.link.setLinkValue(getObjectAsString(getValue()));
 }
 
 @JsonIgnore

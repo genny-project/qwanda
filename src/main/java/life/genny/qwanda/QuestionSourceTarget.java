@@ -2,6 +2,8 @@ package life.genny.qwanda;
 
 import java.io.Serializable;
 
+import life.genny.qwanda.entity.BaseEntity;
+
 public class QuestionSourceTarget implements Serializable {
 	/**
 	 * 
@@ -11,6 +13,20 @@ public class QuestionSourceTarget implements Serializable {
 	private String questionCode;
 	private String sourceCode;
 	private String targetCode;
+	
+	private Question question;
+	private BaseEntity source;
+	private BaseEntity target;
+	
+	public QuestionSourceTarget(final Question question, final BaseEntity source, final BaseEntity target) {
+		super();
+		this.questionCode = question.getCode();
+		this.sourceCode = source.getCode();
+		this.targetCode = target.getCode();
+		this.question = question;
+		this.source = source;
+		this.target = target;
+	}
 	
 	public QuestionSourceTarget(String questionCode, String sourceCode, String targetCode) {
 		super();
@@ -59,6 +75,48 @@ public class QuestionSourceTarget implements Serializable {
 	 */
 	public void setTargetCode(String targetCode) {
 		this.targetCode = targetCode;
+	}
+
+	/**
+	 * @return the question
+	 */
+	public Question getQuestion() {
+		return question;
+	}
+
+	/**
+	 * @param question the question to set
+	 */
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
+	/**
+	 * @return the source
+	 */
+	public BaseEntity getSource() {
+		return source;
+	}
+
+	/**
+	 * @param source the source to set
+	 */
+	public void setSource(BaseEntity source) {
+		this.source = source;
+	}
+
+	/**
+	 * @return the target
+	 */
+	public BaseEntity getTarget() {
+		return target;
+	}
+
+	/**
+	 * @param target the target to set
+	 */
+	public void setTarget(BaseEntity target) {
+		this.target = target;
 	}
 	
 	

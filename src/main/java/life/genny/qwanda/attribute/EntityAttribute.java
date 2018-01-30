@@ -16,6 +16,7 @@ import java.util.List;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -33,11 +34,16 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.apache.logging.log4j.Logger;
 import org.h2.util.DateTimeUtils;
 import org.hibernate.annotations.Type;
+import org.javamoney.moneta.Money;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.datatype.LocalTimeAdapter;
+import life.genny.qwanda.MoneyDeserializer;
+import life.genny.qwanda.converter.MoneyConverter;
 import life.genny.qwanda.datatype.LocalDateAdapter;
 import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 import life.genny.qwanda.entity.BaseEntity;
@@ -165,6 +171,11 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@Expose
 	private String valueString;
 
+	@Column(name = "money", length = 128)
+	@Convert(converter = MoneyConverter.class)
+	@Expose
+	Money valueMoney;
+	
 	/**
 	 * Store the relative importance of the attribute for the baseEntity
 	 */
@@ -436,6 +447,22 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 		this.valueBoolean = valueBoolean;
 	}
 
+	
+	
+	/**
+	 * @return the valueMoney
+	 */
+	public Money getValueMoney() {
+		return valueMoney;
+	}
+
+	/**
+	 * @param valueMoney the valueMoney to set
+	 */
+	public void setValueMoney(Money valueMoney) {
+		this.valueMoney = valueMoney;
+	}
+
 	/**
 	 * @return the privacyFlag
 	 */
@@ -524,7 +551,8 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			return (T) getValueBoolean();
 		case "java.time.LocalDate":
 			return (T) getValueDate();
-
+		case "org.javamoney.moneta.Money":
+			return (T) getValueMoney();
 		case "java.lang.String":
 		default:
 			return (T) getValueString();
@@ -539,9 +567,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 
 		if (value instanceof String) {
 			String result = (String) value;
-			if (getAttribute().getCode().equals("PRI_DROPOFF_DATETIME")) {
-				log.info("dummy");
-			}
 			try {
 				if (getAttribute().getDataType().getClassName().equalsIgnoreCase(String.class.getCanonicalName())) {
 					setValueString(result);
@@ -584,6 +609,12 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 					final LocalTime date = LocalTime.parse(result, formatter);
 					setValueTime(date);
 				} else if (getAttribute().getDataType().getClassName()
+						.equalsIgnoreCase(Money.class.getCanonicalName())) {
+					GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Money.class, new MoneyDeserializer());
+					Gson gson = gsonBuilder.create();
+					Money money = gson.fromJson(result, Money.class);
+					setValueMoney(money);
+				} else if (getAttribute().getDataType().getClassName()
 						.equalsIgnoreCase(Integer.class.getCanonicalName())) {
 					final Integer integer = Integer.parseInt(result);
 					setValueInteger(integer);
@@ -624,7 +655,9 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			case "java.time.LocalTime":
 				setValueTime((LocalTime) value);
 				break;
-
+			case "org.javamoney.moneta.Money":
+				setValueMoney((Money) value);
+				break;
 			case "java.lang.Double":
 				setValueDouble((Double) value);
 				break;
@@ -658,6 +691,8 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			return "" + getValueLong();
 		case "java.time.LocalTime":
 			return getValueTime().toString();
+		case "org.javamoney.moneta.Money":
+			return getValueMoney().toString();
 
 		case "java.lang.Double":
 			return getValueDouble().toString();
@@ -718,6 +753,8 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			return new CompareToBuilder().append(this.getValueBoolean(), myClass.getValueBoolean()).toComparison();
 		case "java.time.LocalDate":
 			return new CompareToBuilder().append(this.getValueDate(), myClass.getValueDate()).toComparison();
+		case "org.javamoney.moneta.Money":
+			return new CompareToBuilder().append(this.getValueMoney(), myClass.getValueMoney()).toComparison();
 
 		case "java.lang.String":
 		default:
@@ -875,6 +912,9 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			return (T) getValueString();
 		}
 
+		if (getValueMoney() != null) {
+			return (T) getValueMoney();
+		}
 		return (T) getValueString();
 
 	}
@@ -895,6 +935,10 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			return dout;
 		}
 
+		if (getValueMoney() != null) {
+			return getValueMoney().toString();
+		}
+		
 		if (getValueLong() != null) {
 			return "" + getValueLong();
 		}

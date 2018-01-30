@@ -2,16 +2,20 @@ package life.genny.qwanda;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.Type;
+import org.javamoney.moneta.Money;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
 
+import life.genny.qwanda.converter.MoneyConverter;
 import life.genny.qwanda.datatype.DataType;
 
 @Embeddable
@@ -72,6 +76,11 @@ public Value(Object value, DataType dataType)
 	 * Store the Boolean value of value
 	 */
 	private Boolean valueBoolean;
+
+	@Column(name = "money", length = 128)
+	@Convert(converter = MoneyConverter.class)
+	@Expose
+	Money valueMoney;
 
 	/**
 	 * Store the Expired boolean value if the value entry was expired
@@ -200,6 +209,22 @@ public Value(Object value, DataType dataType)
 		this.valueBoolean = valueBoolean;
 	}
 
+	
+	
+	/**
+	 * @return the valueMoney
+	 */
+	public Money getValueMoney() {
+		return valueMoney;
+	}
+
+	/**
+	 * @param valueMoney the valueMoney to set
+	 */
+	public void setValueMoney(Money valueMoney) {
+		this.valueMoney = valueMoney;
+	}
+
 	/**
 	 * @return the expired
 	 */
@@ -260,6 +285,8 @@ public Value(Object value, DataType dataType)
 			return (T) getValueDouble();
 		case "java.lang.Boolean":
 			return (T) getValueBoolean();
+		case "org.javamoney.moneta.Money":
+			 return (T) getValueMoney();
 		case "java.lang.String":
 		default:
 			return (T) getValueString();
@@ -283,6 +310,9 @@ public Value(Object value, DataType dataType)
 			break;
 		case "java.lang.Long":
 			setValueLong((Long) value);
+			break;
+		case "org.javamoney.moneta.Money":
+			setValueMoney((Money) value);
 			break;
 		case "java.lang.Double":
 			setValueDouble((Double) value);

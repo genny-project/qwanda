@@ -1,18 +1,24 @@
 package life.genny.qwanda.entity;
 
+import java.lang.invoke.MethodHandles;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -24,13 +30,21 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
+import org.apache.commons.lang3.time.DateUtils;
+import org.apache.logging.log4j.Logger;
+import org.h2.util.DateTimeUtils;
 import org.hibernate.annotations.Type;
+import org.javamoney.moneta.Money;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.Link;
+import life.genny.qwanda.MoneyDeserializer;
 import life.genny.qwanda.attribute.Attribute;
+import life.genny.qwanda.converter.MoneyConverter;
 import life.genny.qwanda.datatype.LocalDateAdapter;
 import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 import life.genny.qwanda.datatype.LocalTimeAdapter;
@@ -43,6 +57,11 @@ import life.genny.qwanda.datatype.LocalTimeAdapter;
 
 public class EntityEntity implements java.io.Serializable, Comparable<Object> {
 
+	/**
+	 * Stores logger object.
+	 */
+	protected static final Logger log = org.apache.logging.log4j.LogManager
+			.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
 
 	@AttributeOverrides({
         @AttributeOverride(name = "sourceCode", column = @Column(name = "SOURCE_CODE", nullable = false)),
@@ -137,7 +156,11 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
   @Expose
   private LocalTime valueTime;
  
-  
+	@Column(name = "money", length = 128)
+	@Convert(converter = MoneyConverter.class)
+	@Expose
+	Money valueMoney;
+
   /**
    * Store the String value of the attribute for the baseEntity
    */
@@ -383,6 +406,22 @@ public void setValueTime(LocalTime valueTime) {
 	this.valueTime = valueTime;
 }
 
+
+
+/**
+ * @return the valueMoney
+ */
+public Money getValueMoney() {
+	return valueMoney;
+}
+
+/**
+ * @param valueMoney the valueMoney to set
+ */
+public void setValueMoney(Money valueMoney) {
+	this.valueMoney = valueMoney;
+}
+
 /**
  * @param link the link to set
  */
@@ -524,79 +563,156 @@ public void setValueDate(LocalDate valueDate) {
 }
 
 @JsonIgnore
-  @Transient
-  @XmlTransient
-  public <T> void setValue(final Object value) {
-    switch (this.getPk().getAttribute().getDataType().getClassName()) {
-      case "java.lang.Integer":
-        setValueInteger((Integer) value);
-        break;
-      case "java.time.LocalDateTime":
-        setValueDateTime((LocalDateTime) value);
-        break;
-      case "java.time.LocalTime":
-          setValueTime((LocalTime) value);
-          break;
-      case "java.time.LocalDate":
-          setValueDate((LocalDate) value);
-          break;
-         case "java.lang.Long":
-        setValueLong((Long) value);
-        break;
-      case "java.lang.Double":
-        setValueDouble((Double) value);
-        break;
-      case "java.lang.Boolean":
-          setValueBoolean((Boolean) value);
-          break;
-      case "life.genny.qwanda.entity.BaseEntity":
-  	    String val = getObjectAsString(value);
-  	    setValueString(val);
-  	    break;
-      case "java.lang.String":
-      default:
-        setValueString((String) value);
-        break;
-    }
+@Transient
+@XmlTransient
+public <T> void setValue(final Object value) {
 
-    this.getLink().setLinkValue(getObjectAsString(getValue()));
-  } 
+	if (value instanceof String) {
+		String result = (String) value;
+		try {
+			if (getPk().getAttribute().getDataType().getClassName().equalsIgnoreCase(String.class.getCanonicalName())) {
+				setValueString(result);
+			} else if (getPk().getAttribute().getDataType().getClassName()
+					.equalsIgnoreCase(LocalDateTime.class.getCanonicalName())) {
+				List<String> formatStrings = Arrays.asList("yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss",
+						"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+				for (String formatString : formatStrings) {
+					try {
+						Date olddate = new SimpleDateFormat(formatString).parse(result);
+						final LocalDateTime dateTime = olddate.toInstant().atZone(ZoneId.systemDefault())
+								.toLocalDateTime();
+						setValueDateTime(dateTime);
+						break;
+					} catch (ParseException e) {
+					}
+
+				}
+				// Date olddate = null;
+				// olddate = DateTimeUtils.parseDateTime(result,
+				// "yyyy-MM-dd","yyyy-MM-dd'T'HH:mm:ss","yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+				// final LocalDateTime dateTime =
+				// olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+				// setValueDateTime(dateTime);
+			} else if (getPk().getAttribute().getDataType().getClassName()
+					.equalsIgnoreCase(LocalDate.class.getCanonicalName())) {
+				Date olddate = null;
+				try {
+					olddate = DateUtils.parseDate(result, "M/y", "yyyy-MM-dd", "yyyy/MM/dd",
+							"yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+				} catch (java.text.ParseException e) {
+					olddate = DateTimeUtils.parseDateTime(result, "yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss",
+							"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+				}
+				final LocalDate date = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+				setValueDate(date);
+			} else if (getPk().getAttribute().getDataType().getClassName()
+					.equalsIgnoreCase(LocalTime.class.getCanonicalName())) {
+				final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+				final LocalTime date = LocalTime.parse(result, formatter);
+				setValueTime(date);
+			} else if (getPk().getAttribute().getDataType().getClassName()
+					.equalsIgnoreCase(Money.class.getCanonicalName())) {
+				GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Money.class, new MoneyDeserializer());
+				Gson gson = gsonBuilder.create();
+				Money money = gson.fromJson(result, Money.class);
+				setValueMoney(money);
+			} else if (getPk().getAttribute().getDataType().getClassName()
+					.equalsIgnoreCase(Integer.class.getCanonicalName())) {
+				final Integer integer = Integer.parseInt(result);
+				setValueInteger(integer);
+			} else if (getPk().getAttribute().getDataType().getClassName()
+					.equalsIgnoreCase(Double.class.getCanonicalName())) {
+				final Double d = Double.parseDouble(result);
+				setValueDouble(d);
+			} else if (getPk().getAttribute().getDataType().getClassName()
+					.equalsIgnoreCase(Long.class.getCanonicalName())) {
+				final Long l = Long.parseLong(result);
+				setValueLong(l);
+			} else if (getPk().getAttribute().getDataType().getClassName()
+					.equalsIgnoreCase(Boolean.class.getCanonicalName())) {
+				final Boolean b = Boolean.parseBoolean(result);
+				setValueBoolean(b);
+			} else {
+				setValueString(result);
+			}
+		} catch (Exception e) {
+			log.error("Conversion Error :" + value + " for attribute " + getPk().getAttribute() + " and SourceCode:"
+					+ this.getPk().getSource().getCode());
+		}
+	} else {
+
+		switch (this.getPk().getAttribute().getDataType().getClassName()) {
+		case "java.lang.Integer":
+			setValueInteger((Integer) value);
+			break;
+		case "java.time.LocalDateTime":
+			setValueDateTime((LocalDateTime) value);
+			break;
+		case "java.time.LocalDate":
+			setValueDate((LocalDate) value);
+			break;
+		case "java.lang.Long":
+			setValueLong((Long) value);
+			break;
+		case "java.time.LocalTime":
+			setValueTime((LocalTime) value);
+			break;
+		case "org.javamoney.moneta.Money":
+			setValueMoney((Money) value);
+			break;
+		case "java.lang.Double":
+			setValueDouble((Double) value);
+			break;
+		case "java.lang.Boolean":
+			setValueBoolean((Boolean) value);
+			break;
+
+		case "java.lang.String":
+		default:
+			setValueString((String) value);
+			break;
+		}
+	}
+
+}
 
 @JsonIgnore
 @Transient
 @XmlTransient
 public String getAsString() {
-  final String dataType = getPk().getAttribute().getDataType().getClassName();
-  switch (dataType) {
-    case "java.lang.Integer":
-      return ""+getValueInteger();
-    case "java.time.LocalTime":
-   	  	String dout = getValueTime().toString();
-  	  	return dout;
-    case "java.time.LocalDateTime":
-  	  	DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS"); 
-  	  	Date datetime = Date.from(getValueDateTime().atZone(ZoneId.systemDefault()).toInstant());
-  	  	dout = df.format(datetime);
-  	  	return dout;
-    case "java.lang.Long":
-      return ""+getValueLong();
-    case "java.lang.Double":
-      return getValueDouble().toString();
-    case "java.lang.Boolean":
-        return getValueBoolean()?"TRUE":"FALSE";
-    case "java.time.LocalDate":
-   	  	DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd"); 
-   	  	Date date = Date.from(getValueDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
-  	  	String dout2 = df2.format(date);
-  	  	return dout2;
-    case "life.genny.qwanda.entity.BaseEntity":
-    		return getValueString();
-     case "java.lang.String":
-    default:
-      return getValueString();
-  }
+	final String dataType = getPk().getAttribute().getDataType().getClassName();
+	switch (dataType) {
+	case "java.lang.Integer":
+		return "" + getValueInteger();
+	case "java.time.LocalDateTime":
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS");
+		Date datetime = Date.from(getValueDateTime().atZone(ZoneId.systemDefault()).toInstant());
+		String dout = df.format(datetime);
+		return dout;
+	case "java.lang.Long":
+		return "" + getValueLong();
+	case "java.time.LocalTime":
+		return getValueTime().toString();
+	case "org.javamoney.moneta.Money":
+		return getValueMoney().toString();
+
+	case "java.lang.Double":
+		return getValueDouble().toString();
+	case "java.lang.Boolean":
+		return getValueBoolean() ? "TRUE" : "FALSE";
+	case "java.time.LocalDate":
+		DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = Date.from(getValueDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		String dout2 = df2.format(date);
+		return dout2;
+
+	case "java.lang.String":
+	default:
+		return getValueString();
+	}
 
 }
+
 
 @JsonIgnore
 @Transient
@@ -629,6 +745,11 @@ public String getObjectAsString(Object value) {
   	  	return dout2;
     }
 
+    if (value instanceof Money) {
+		Money val = (Money)value;
+	  	String dout2 = val.toString();
+	  	return dout2;
+}
     if (value instanceof LocalTime) {
 		LocalTime val = (LocalTime)value;
 	  	String dout2 = val.toString();

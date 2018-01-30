@@ -1,7 +1,13 @@
 package life.genny.qwanda;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vividsolutions.jts.io.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
@@ -9,42 +15,30 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.apache.commons.lang3.time.DateUtils;
-import org.h2.util.DateTimeUtils;
 import org.hibernate.annotations.Type;
+import org.javamoney.moneta.Money;
 
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import life.genny.qwanda.attribute.Attribute;
-import life.genny.qwanda.attribute.EntityAttribute;
+import life.genny.qwanda.converter.MoneyConverter;
 import life.genny.qwanda.converter.StringListConverter;
-import life.genny.qwanda.converter.ValidationListConverter;
 import life.genny.qwanda.entity.BaseEntity;
 
 @Entity
 @Table(name = "answerlinks")
-//@Table(name = "answerlinks", indexes = {
-//		@Index(name = "IDX_MYIDX1", columnList = "targetCode,sourceCode,attributeCode") })
+// @Table(name = "answerlinks", indexes = {
+// @Index(name = "IDX_MYIDX1", columnList =
+// "targetCode,sourceCode,attributeCode") })
 
 @AssociationOverrides({ @AssociationOverride(name = "pk.source", joinColumns = @JoinColumn(name = "SOURCE_ID")),
 		@AssociationOverride(name = "pk.target", joinColumns = @JoinColumn(name = "TARGET_ID")) })
@@ -108,20 +102,28 @@ public class AnswerLink implements java.io.Serializable {
 	/**
 	 * Store the String value of the attribute for the baseEntity
 	 */
-	@Type(type="text")
+	@Type(type = "text")
 	private String valueString;
 
 	/**
 	 * Store the Boolean value of the attribute for the baseEntity
 	 */
 	private Boolean valueBoolean;
-	
+
+	/**
+	 * Stores the sale value in local currency.
+	 */
+
+	@Column(name = "money", length = 128)
+	@Convert(converter = MoneyConverter.class)
+	Money valueMoney;
+
 	/**
 	 * Store the BaseEntity Code value of the attribute for the baseEntity
 	 */
-	  @Column(name = "be_list", length = 512)
-	  @Convert(converter = StringListConverter.class)
-	private List<String> ValueBaseEntityCodeList;	
+	@Column(name = "be_list", length = 512)
+	@Convert(converter = StringListConverter.class)
+	private List<String> ValueBaseEntityCodeList;
 
 	/**
 	 * Store the Expired boolean value of the attribute for the baseEntity
@@ -230,13 +232,12 @@ public class AnswerLink implements java.io.Serializable {
 		} else if (getAttribute().getDataType().getClassName()
 				.equalsIgnoreCase(LocalDateTime.class.getCanonicalName())) {
 			final String result = answer.getValue();
-			List<String> formatStrings = Arrays.asList("yyyy-MM-dd'T'HH:mm:ss","yyyy-MM-dd", 
+			List<String> formatStrings = Arrays.asList("yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd",
 					"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 			for (String formatString : formatStrings) {
 				try {
 					Date olddate = new SimpleDateFormat(formatString).parse(result);
-					final LocalDateTime dateTime = olddate.toInstant().atZone(ZoneId.systemDefault())
-							.toLocalDateTime();
+					final LocalDateTime dateTime = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 					setValueDateTime(dateTime);
 					break;
 				} catch (java.text.ParseException e) {
@@ -246,13 +247,13 @@ public class AnswerLink implements java.io.Serializable {
 			}
 		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(LocalDate.class.getCanonicalName())) {
 			final String result = answer.getValue();
-			List<String> formatStrings = Arrays.asList("yyyy-MM-dd","M/y","yyyy/MM/dd","yyyy-MM-dd'T'HH:mm:ss","yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+			List<String> formatStrings = Arrays.asList("yyyy-MM-dd", "M/y", "yyyy/MM/dd", "yyyy-MM-dd'T'HH:mm:ss",
+					"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 			for (String formatString : formatStrings) {
 				Date olddate;
 				try {
 					olddate = new SimpleDateFormat(formatString).parse(result);
-					final LocalDate dateTime = olddate.toInstant().atZone(ZoneId.systemDefault())
-							.toLocalDate();
+					final LocalDate dateTime = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 					setValueDate(dateTime);
 				} catch (java.text.ParseException e) {
 					continue;
@@ -262,25 +263,30 @@ public class AnswerLink implements java.io.Serializable {
 
 			}
 
-			}else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(LocalTime.class.getCanonicalName())) {
-				final String result = answer.getValue();
-				List<String> formatStrings = Arrays.asList("HH:mm", "HH:mm:ss","HH:mm:ss.SSSZ");
-				for (String formatString : formatStrings) {
-					Date olddate;
-					try {
-						olddate = new SimpleDateFormat(formatString).parse(result);
-						final LocalTime dateTime = olddate.toInstant().atZone(ZoneId.systemDefault())
-								.toLocalTime();
-						setValueTime(dateTime);
-					} catch (java.text.ParseException e) {
-						continue;
-					}
-
-					break;
-
+		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(LocalTime.class.getCanonicalName())) {
+			final String result = answer.getValue();
+			List<String> formatStrings = Arrays.asList("HH:mm", "HH:mm:ss", "HH:mm:ss.SSSZ");
+			for (String formatString : formatStrings) {
+				Date olddate;
+				try {
+					olddate = new SimpleDateFormat(formatString).parse(result);
+					final LocalTime dateTime = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
+					setValueTime(dateTime);
+				} catch (java.text.ParseException e) {
+					continue;
 				}
 
-				} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Integer.class.getCanonicalName())) {
+				break;
+
+			}
+		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Money.class.getCanonicalName())) {
+			final String result = answer.getValue();
+			GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Money.class, new MoneyDeserializer());
+			Gson gson = gsonBuilder.create();
+			Money money = gson.fromJson(result, Money.class);
+			setValueMoney(money);
+
+		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Integer.class.getCanonicalName())) {
 			final String result = answer.getValue();
 			final Integer integer = Integer.parseInt(result);
 			setValueInteger(integer);
@@ -432,8 +438,6 @@ public class AnswerLink implements java.io.Serializable {
 		this.version = version;
 	}
 
-	
-	
 	/**
 	 * @return the inferred
 	 */
@@ -442,7 +446,8 @@ public class AnswerLink implements java.io.Serializable {
 	}
 
 	/**
-	 * @param inferred the inferred to set
+	 * @param inferred
+	 *            the inferred to set
 	 */
 	public void setInferred(Boolean inferred) {
 		this.inferred = inferred;
@@ -501,7 +506,6 @@ public class AnswerLink implements java.io.Serializable {
 		this.valueDate = valueDate;
 	}
 
-	
 	/**
 	 * @return the valueTime
 	 */
@@ -510,7 +514,8 @@ public class AnswerLink implements java.io.Serializable {
 	}
 
 	/**
-	 * @param valueTime the valueTime to set
+	 * @param valueTime
+	 *            the valueTime to set
 	 */
 	public void setValueTime(LocalTime valueTime) {
 		this.valueTime = valueTime;
@@ -561,8 +566,21 @@ public class AnswerLink implements java.io.Serializable {
 		this.valueBoolean = valueBoolean;
 	}
 
-	
-	
+	/**
+	 * @return the valueMoney
+	 */
+	public Money getValueMoney() {
+		return valueMoney;
+	}
+
+	/**
+	 * @param valueMoney
+	 *            the valueMoney to set
+	 */
+	public void setValueMoney(Money valueMoney) {
+		this.valueMoney = valueMoney;
+	}
+
 	/**
 	 * @return the valueBaseEntityCode
 	 */
@@ -571,7 +589,8 @@ public class AnswerLink implements java.io.Serializable {
 	}
 
 	/**
-	 * @param valueBaseEntityCode the valueBaseEntityCode to set
+	 * @param valueBaseEntityCode
+	 *            the valueBaseEntityCode to set
 	 */
 	public void setValueBaseEntityCodeList(List<String> valueBaseEntityCode) {
 		this.ValueBaseEntityCodeList = valueBaseEntityCode;
@@ -710,6 +729,8 @@ public class AnswerLink implements java.io.Serializable {
 			return (T) getValueDouble();
 		case "java.lang.Boolean":
 			return (T) getValueBoolean();
+		case "org.javamoney.moneta.Money":
+			return (T) getValueMoney();
 		case "java.lang.String":
 		default:
 			return (T) getValueString();
@@ -747,7 +768,9 @@ public class AnswerLink implements java.io.Serializable {
 		case "java.lang.Boolean":
 			setValueBoolean((Boolean) value);
 			break;
-
+		case "org.javamoney.moneta.Money":
+			setValueMoney((Money) value);
+			break;
 		case "java.lang.String":
 		default:
 			setValueString((String) value);

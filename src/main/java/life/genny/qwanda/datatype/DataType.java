@@ -77,6 +77,7 @@ public class DataType implements Serializable {
   @NotEmpty
   @Size(max = 120)
 //  @JsonIgnore
+  @Expose
   private String typeName; // e.g. TEXT
 
   private String inputmask;

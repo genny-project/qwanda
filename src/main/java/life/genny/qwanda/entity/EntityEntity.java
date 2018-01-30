@@ -643,27 +643,35 @@ public <T> void setValue(final Object value) {
 
 		switch (this.getPk().getAttribute().getDataType().getClassName()) {
 		case "java.lang.Integer":
+		case "Integer":
 			setValueInteger((Integer) value);
 			break;
 		case "java.time.LocalDateTime":
+		case "LocalDateTime":
 			setValueDateTime((LocalDateTime) value);
 			break;
 		case "java.time.LocalDate":
+		case "LocalDate":
 			setValueDate((LocalDate) value);
 			break;
 		case "java.lang.Long":
+		case "Long":
 			setValueLong((Long) value);
 			break;
 		case "java.time.LocalTime":
+		case "LocalTime":
 			setValueTime((LocalTime) value);
 			break;
 		case "org.javamoney.moneta.Money":
+		case "Money":
 			setValueMoney((Money) value);
 			break;
 		case "java.lang.Double":
+		case "Double":
 			setValueDouble((Double) value);
 			break;
 		case "java.lang.Boolean":
+		case "Boolean":
 			setValueBoolean((Boolean) value);
 			break;
 

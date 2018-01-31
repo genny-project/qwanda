@@ -18,8 +18,9 @@ import life.genny.test.qwanda.util.JsonUtils;
 
 public class MoneyTest {
 	
-	public static final String DEFAULT_CURRENCY_AUD = "AUD";
 	
+private static final CurrencyUnit DEFAULT_CURRENCY_AUD = Monetary.getCurrency("AUD");
+
 @Test
 public void moneyTest()
 {

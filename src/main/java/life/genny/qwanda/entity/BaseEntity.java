@@ -40,6 +40,7 @@ import org.apache.logging.log4j.Logger;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.Answer;
 import life.genny.qwanda.AnswerLink;
@@ -95,6 +96,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.baseEntity",cascade = CascadeType.MERGE, orphanRemoval=true)
   @JsonManagedReference(value="entityAttribute")
   @JsonIgnore
+  @Expose
   private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 
   @JsonIgnore

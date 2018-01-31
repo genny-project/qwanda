@@ -209,7 +209,9 @@ public class baseEntityTest {
 	    Gson gson = gsonBuilder
 	    		.registerTypeAdapter(Money.class, new MoneyDeserializer())
 	    		.registerTypeAdapter(LocalDateTime.class, new DateTimeDeserializer()).setPrettyPrinting()
-	    	    .registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+	    	    .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+	    	    .excludeFieldsWithoutExposeAnnotation()
+	    	    .create();
 
 	    
 	    QDataBaseEntityMessage item = (QDataBaseEntityMessage)gson.fromJson(incoming, QDataBaseEntityMessage.class);

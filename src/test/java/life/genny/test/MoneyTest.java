@@ -41,6 +41,7 @@ public void moneyTest()
 	String test = "{\"amount\":12.34,\"currency\":\"AUD\"}";
 	
 	Money testMoney = gson.fromJson(test, Money.class);
+	assertEquals(testMoney,Money.of(12.34, "AUD"));
 	
 	System.out.println("Money = "+testMoney);
 }

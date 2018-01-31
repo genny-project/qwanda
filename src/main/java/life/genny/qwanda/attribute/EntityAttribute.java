@@ -66,6 +66,9 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	private String baseEntityCode;
 	@Expose
 	private String attributeCode;
+	@Expose 
+	@Transient
+	private String attributeName;
 
 	/**
 	 * @return the baseEntityCode
@@ -969,6 +972,20 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 
 		return getValueString();
 
+	}
+
+	/**
+	 * @return the attributeName
+	 */
+	public String getAttributeName() {
+		return attributeName;
+	}
+
+	/**
+	 * @param attributeName the attributeName to set
+	 */
+	public void setAttributeName(String attributeName) {
+		this.attributeName = attributeName;
 	}
 
 }

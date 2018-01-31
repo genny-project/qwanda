@@ -2,6 +2,8 @@ package life.genny.qwanda;
 
 import java.io.Serializable;
 
+import com.google.gson.annotations.Expose;
+
 import life.genny.qwanda.entity.BaseEntity;
 
 public class QuestionSourceTarget implements Serializable {
@@ -10,8 +12,13 @@ public class QuestionSourceTarget implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@Expose
 	private String questionCode;
+	
+	@Expose
 	private String sourceCode;
+	
+	@Expose
 	private String targetCode;
 	
 	private Question question;

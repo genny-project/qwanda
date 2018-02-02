@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 import life.genny.qwanda.MoneyDeserializer;
 import life.genny.test.qwanda.util.JsonUtils;
@@ -44,7 +45,7 @@ public void moneyTest()
 	Money testMoney = gson.fromJson(test, Money.class);
 	assertEquals(testMoney,Money.of(12.34, "AUD"));
 	
-	System.out.println("Money = "+testMoney);
+	System.out.println("Money = "+testMoney); 
 }
 
 

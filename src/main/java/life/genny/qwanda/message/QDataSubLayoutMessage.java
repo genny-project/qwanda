@@ -3,7 +3,6 @@ package life.genny.qwanda.message;
 import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.Layout;
-import life.genny.qwanda.QuestionSourceTarget;
 
 public class QDataSubLayoutMessage extends QDataMessage {
 

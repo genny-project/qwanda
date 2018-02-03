@@ -79,7 +79,9 @@ public class Layout  implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Expose
 	private String code;
+	@Expose
 	private String data;
 	/**
 	 * @param code

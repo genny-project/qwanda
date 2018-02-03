@@ -15,7 +15,7 @@ public class QDataSubLayoutMessage extends QDataMessage {
 	@Expose
 	private String[] items;
 	
-	private MessageData data;
+	private MessageData data ;
 	;
 	private static final String DATATYPE_LAYOUT = "SUB_LAYOUT";
 
@@ -25,16 +25,11 @@ public class QDataSubLayoutMessage extends QDataMessage {
 	}
 
 	public QDataSubLayoutMessage(final String code, final String layoutItem, final String token) {
-		super(DATATYPE_LAYOUT);
-		this.data.setCode(code);
-		String[] layoutItems = new String[1];
-		layoutItems[0] = layoutItem;
-		this.items = layoutItems;
-		setToken(token);
+		this(code, new String[] {layoutItem},token);
 	}
 	public QDataSubLayoutMessage(final String code, final String[] layoutItems, final String token) {
 		super(DATATYPE_LAYOUT);
-		this.data.setCode(code);
+		this.data = new QMessage.MessageData(code);
 		this.items = layoutItems;
 		setToken(token);
 	}

@@ -87,6 +87,7 @@ public class QBaseMSGMessageTemplate implements Serializable{
 	@NotNull
 	@NotEmpty
 	@Column(name = "subject", updatable = true, nullable = false)
+	@Expose
 	private String subject;
 	
 	

@@ -681,6 +681,9 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@Transient
 	@XmlTransient
 	public String getAsString() {
+		if(getValue() == null) {
+			return null;
+		}
 		final String dataType = getPk().getAttribute().getDataType().getClassName();
 		switch (dataType) {
 		case "java.lang.Integer":
@@ -693,18 +696,19 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 		case "java.lang.Long":
 			return "" + getValueLong();
 		case "java.time.LocalTime":
-			return getValueTime().toString();
+			DateFormat df2 = new SimpleDateFormat("HH:mm");			
+			String dout2 = df2.format(getValueTime());
+			return dout2;
 		case "org.javamoney.moneta.Money":
-			return getValueMoney().toString();
-
+				return "{\"amount\":"+getValueMoney().getNumber()+",\"currency\":\""+getValueMoney().getCurrency().getCurrencyCode()+"\"}";
 		case "java.lang.Double":
 			return getValueDouble().toString();
 		case "java.lang.Boolean":
 			return getValueBoolean() ? "TRUE" : "FALSE";
 		case "java.time.LocalDate":
-			DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
+			df2 = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = Date.from(getValueDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
-			String dout2 = df2.format(date);
+		    dout2 = df2.format(date);
 			return dout2;
 
 		case "java.lang.String":
@@ -714,6 +718,51 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 
 	}
 
+	@JsonIgnore
+	@Transient
+	@XmlTransient
+	public String getAsLoopString() {
+		String ret = "";
+		if( getValueString() != null) {
+			return getValueString();
+		}
+		if(getValueMoney() != null) {
+			return "{\"amount\":"+getValueMoney().getNumber()+",\"currency\":\""+getValueMoney().getCurrency().getCurrencyCode()+"\"}";
+		}
+		if(getValueInteger() != null) {
+			return getValueInteger().toString();
+		}
+		if(getValueDateTime() != null) {
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS");
+			Date datetime = Date.from(getValueDateTime().atZone(ZoneId.systemDefault()).toInstant());
+			String dout = df.format(datetime);
+			return dout;
+		}
+		if(getValueDate() != null) {
+			DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = Date.from(getValueDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+			String dout2 = df2.format(date);
+			return dout2;
+		}
+		if(getValueTime() != null) {
+			DateFormat df2 = new SimpleDateFormat("HH:mm");			
+			String dout2 = df2.format(getValueTime());
+			return dout2;
+		}
+		if(getValueLong() != null) {
+		    return getValueLong().toString();
+		}
+		if(getValueDouble() != null) {
+		    return getValueDouble().toString();
+		}
+		if(getValueBoolean() != null) {
+			return getValueBoolean() ? "TRUE" : "FALSE";
+		}
+		
+		
+		return ret;
+		
+	}
 	@Override
 	public int hashCode() {
 

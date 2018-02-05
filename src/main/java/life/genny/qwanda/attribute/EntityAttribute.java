@@ -988,7 +988,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 		}
 
 		if (getValueMoney() != null) {
-			return getValueMoney().toString();
+			return "{\"amount\":"+getValueMoney().getNumber()+",\"currency\":\""+getValueMoney().getCurrency().getCurrencyCode()+"\"}";
 		}
 		
 		if (getValueLong() != null) {

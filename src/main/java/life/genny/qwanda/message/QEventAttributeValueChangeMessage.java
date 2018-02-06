@@ -1,10 +1,13 @@
 package life.genny.qwanda.message;
 
+import javax.persistence.Transient;
+
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.Answer;
+import life.genny.qwanda.attribute.EntityAttribute;
 
 public class QEventAttributeValueChangeMessage extends QEventMessage {
 	  /**
@@ -15,6 +18,11 @@ public class QEventAttributeValueChangeMessage extends QEventMessage {
 	private static final String EVENT_TYPE_EVT_ATTRIBUTE_VALUE_CHANGE = "EVT_ATTRIBUTE_VALUE_CHANGE";
 	@Expose
 	private Answer answer;
+	
+	@Expose
+	@Transient
+	private EntityAttribute ea;
+	
 	@Expose
 	  private String oldValue;
 
@@ -59,6 +67,20 @@ public class QEventAttributeValueChangeMessage extends QEventMessage {
 	 */
 	public void setAnswer(Answer answer) {
 		this.answer = answer;
+	}
+
+	/**
+	 * @return the ea
+	 */
+	public EntityAttribute getEa() {
+		return ea;
+	}
+
+	/**
+	 * @param ea the ea to set
+	 */
+	public void setEa(EntityAttribute ea) {
+		this.ea = ea;
 	}
 
 	

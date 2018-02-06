@@ -680,6 +680,35 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@JsonIgnore
 	@Transient
 	@XmlTransient
+	public <T> void setLoopValue(final Object value) {
+
+
+			if (value instanceof Integer)
+				setValueInteger((Integer) value);
+			
+			else if (value instanceof LocalDateTime)
+				setValueDateTime((LocalDateTime) value);
+				
+			else if (value instanceof LocalDate)
+				setValueDate((LocalDate) value);
+			else if (value instanceof Long)
+				setValueLong((Long) value);
+			else if (value instanceof LocalTime)
+				setValueTime((LocalTime) value);
+			else if (value instanceof Money)
+				setValueMoney((Money) value);
+			else if (value instanceof Double)
+				setValueDouble((Double) value);
+			else if (value instanceof Boolean)
+				setValueBoolean((Boolean) value);
+			else
+				setValueString((String) value);
+
+
+	}
+	@JsonIgnore
+	@Transient
+	@XmlTransient
 	public String getAsString() {
 		if(getValue() == null) {
 			return null;
@@ -761,6 +790,41 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 		
 		
 		return ret;
+		
+	}
+	
+	@JsonIgnore
+	@Transient
+	@XmlTransient
+	public  <T> T getLoopValue() {
+		if( getValueString() != null) {
+			return  (T) getValueString();
+		}
+		if(getValueMoney() != null) {
+			return  (T) ("{\"amount\":"+getValueMoney().getNumber()+",\"currency\":\""+getValueMoney().getCurrency().getCurrencyCode()+"\"}");
+		}
+		if(getValueInteger() != null) {
+			return (T)  getValueInteger();
+		}
+		if(getValueDateTime() != null) {
+			return  (T) getValueDateTime();
+		}
+		if(getValueDate() != null) {
+			return  (T) getValueDate();
+		}
+		if(getValueTime() != null) {
+			return  (T) getValueTime();
+		}
+		if(getValueLong() != null) {
+		    return  (T) getValueLong();
+		}
+		if(getValueDouble() != null) {
+		    return  (T) getValueDouble();
+		}
+		if(getValueBoolean() != null) {
+			return  (T) getValueBoolean();
+		}
+		return  (T) getValueString();
 		
 	}
 	@Override

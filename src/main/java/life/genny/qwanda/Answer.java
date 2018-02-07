@@ -17,10 +17,11 @@
 
 package life.genny.qwanda;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
-import org.hibernate.annotations.Type;
-import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -45,10 +46,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
+
+import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
+
 import life.genny.qwanda.attribute.Attribute;
 import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 import life.genny.qwanda.entity.BaseEntity;
@@ -104,6 +108,7 @@ public class Answer implements Serializable {
    */
   // @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
   @Column(name = "created")
+  @Expose
   private LocalDateTime created;
 
   /**
@@ -122,6 +127,7 @@ public class Answer implements Serializable {
   @NotEmpty
   @Type(type="text")
   @Column(name = "value", updatable = true, nullable = false)
+  @Expose
   private String value;
 
   /**
@@ -132,6 +138,7 @@ public class Answer implements Serializable {
   @NotEmpty
   @Size(max = 250)
   @Column(name = "attributecode", updatable = true, nullable = false)
+  @Expose
   private String attributeCode;
 
   @JsonIgnore
@@ -152,6 +159,7 @@ public class Answer implements Serializable {
   /**
    * Store the askId (if present)
    */
+  @Expose
   private Long askId;
 
   /**
@@ -162,6 +170,7 @@ public class Answer implements Serializable {
   @NotEmpty
   @Size(max = 64)
   @Column(name = "targetcode", updatable = true, nullable = true)
+  @Expose
   private String targetCode;
 
   /**
@@ -172,28 +181,33 @@ public class Answer implements Serializable {
   @NotEmpty
   @Size(max = 64)
   @Column(name = "sourcecode", updatable = true, nullable = true)
+  @Expose
   private String sourceCode;
 
 
   /**
    * Store the Expired boolean value of the attribute for the baseEntity
    */
+  @Expose
   private Boolean expired = false;
 
   /**
    * Store the Refused boolean value of the attribute for the baseEntity
    */
+  @Expose
   private Boolean refused = false;
 
 
   /**
    * Store the relative importance of the attribute for the baseEntity
    */
+  @Expose
   private Double weight = 0.0;
   
   /**
    * Store whether this answer was inferred
    */
+  @Expose
   private Boolean inferred = false;
 
 

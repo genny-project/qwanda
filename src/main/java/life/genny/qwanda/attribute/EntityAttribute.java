@@ -66,6 +66,9 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	private String baseEntityCode;
 	@Expose
 	private String attributeCode;
+	@Expose 
+	@Transient
+	private String attributeName;
 
 	/**
 	 * @return the baseEntityCode
@@ -677,7 +680,39 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@JsonIgnore
 	@Transient
 	@XmlTransient
+	public <T> void setLoopValue(final Object value) {
+
+
+			if (value instanceof Integer)
+				setValueInteger((Integer) value);
+			
+			else if (value instanceof LocalDateTime)
+				setValueDateTime((LocalDateTime) value);
+				
+			else if (value instanceof LocalDate)
+				setValueDate((LocalDate) value);
+			else if (value instanceof Long)
+				setValueLong((Long) value);
+			else if (value instanceof LocalTime)
+				setValueTime((LocalTime) value);
+			else if (value instanceof Money)
+				setValueMoney((Money) value);
+			else if (value instanceof Double)
+				setValueDouble((Double) value);
+			else if (value instanceof Boolean)
+				setValueBoolean((Boolean) value);
+			else
+				setValueString((String) value);
+
+
+	}
+	@JsonIgnore
+	@Transient
+	@XmlTransient
 	public String getAsString() {
+		if(getValue() == null) {
+			return null;
+		}
 		final String dataType = getPk().getAttribute().getDataType().getClassName();
 		switch (dataType) {
 		case "java.lang.Integer":
@@ -690,18 +725,19 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 		case "java.lang.Long":
 			return "" + getValueLong();
 		case "java.time.LocalTime":
-			return getValueTime().toString();
+			DateFormat df2 = new SimpleDateFormat("HH:mm");			
+			String dout2 = df2.format(getValueTime());
+			return dout2;
 		case "org.javamoney.moneta.Money":
-			return getValueMoney().toString();
-
+				return "{\"amount\":"+getValueMoney().getNumber()+",\"currency\":\""+getValueMoney().getCurrency().getCurrencyCode()+"\"}";
 		case "java.lang.Double":
 			return getValueDouble().toString();
 		case "java.lang.Boolean":
 			return getValueBoolean() ? "TRUE" : "FALSE";
 		case "java.time.LocalDate":
-			DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
+			df2 = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = Date.from(getValueDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
-			String dout2 = df2.format(date);
+		    dout2 = df2.format(date);
 			return dout2;
 
 		case "java.lang.String":
@@ -711,6 +747,86 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 
 	}
 
+	@JsonIgnore
+	@Transient
+	@XmlTransient
+	public String getAsLoopString() {
+		String ret = "";
+		if( getValueString() != null) {
+			return getValueString();
+		}
+		if(getValueMoney() != null) {
+			return "{\"amount\":"+getValueMoney().getNumber()+",\"currency\":\""+getValueMoney().getCurrency().getCurrencyCode()+"\"}";
+		}
+		if(getValueInteger() != null) {
+			return getValueInteger().toString();
+		}
+		if(getValueDateTime() != null) {
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS");
+			Date datetime = Date.from(getValueDateTime().atZone(ZoneId.systemDefault()).toInstant());
+			String dout = df.format(datetime);
+			return dout;
+		}
+		if(getValueDate() != null) {
+			DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = Date.from(getValueDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+			String dout2 = df2.format(date);
+			return dout2;
+		}
+		if(getValueTime() != null) {
+			DateFormat df2 = new SimpleDateFormat("HH:mm");			
+			String dout2 = df2.format(getValueTime());
+			return dout2;
+		}
+		if(getValueLong() != null) {
+		    return getValueLong().toString();
+		}
+		if(getValueDouble() != null) {
+		    return getValueDouble().toString();
+		}
+		if(getValueBoolean() != null) {
+			return getValueBoolean() ? "TRUE" : "FALSE";
+		}
+		
+		
+		return ret;
+		
+	}
+	
+	@JsonIgnore
+	@Transient
+	@XmlTransient
+	public  <T> T getLoopValue() {
+		if( getValueString() != null) {
+			return  (T) getValueString();
+		}
+		if(getValueMoney() != null) {
+			return  (T) ("{\"amount\":"+getValueMoney().getNumber()+",\"currency\":\""+getValueMoney().getCurrency().getCurrencyCode()+"\"}");
+		}
+		if(getValueInteger() != null) {
+			return (T)  getValueInteger();
+		}
+		if(getValueDateTime() != null) {
+			return  (T) getValueDateTime();
+		}
+		if(getValueDate() != null) {
+			return  (T) getValueDate();
+		}
+		if(getValueTime() != null) {
+			return  (T) getValueTime();
+		}
+		if(getValueLong() != null) {
+		    return  (T) getValueLong();
+		}
+		if(getValueDouble() != null) {
+		    return  (T) getValueDouble();
+		}
+		if(getValueBoolean() != null) {
+			return  (T) getValueBoolean();
+		}
+		return  (T) getValueString();
+		
+	}
 	@Override
 	public int hashCode() {
 
@@ -936,7 +1052,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 		}
 
 		if (getValueMoney() != null) {
-			return getValueMoney().toString();
+			return "{\"amount\":"+getValueMoney().getNumber()+",\"currency\":\""+getValueMoney().getCurrency().getCurrencyCode()+"\"}";
 		}
 		
 		if (getValueLong() != null) {
@@ -969,6 +1085,20 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 
 		return getValueString();
 
+	}
+
+	/**
+	 * @return the attributeName
+	 */
+	public String getAttributeName() {
+		return attributeName;
+	}
+
+	/**
+	 * @param attributeName the attributeName to set
+	 */
+	public void setAttributeName(String attributeName) {
+		this.attributeName = attributeName;
 	}
 
 }

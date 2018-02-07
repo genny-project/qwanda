@@ -84,6 +84,7 @@ public abstract class CoreEntity implements CreatedIntf, Serializable, Comparabl
    * Stores the Created UMT DateTime that this object was created
    */
   // @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+  @Expose
   @Column(name = "created")
   private LocalDateTime created;
 
@@ -92,6 +93,7 @@ public abstract class CoreEntity implements CreatedIntf, Serializable, Comparabl
    */
   // @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
   @Column(name = "updated")
+  @Expose
   private LocalDateTime updated;
 
 

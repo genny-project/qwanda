@@ -22,6 +22,8 @@
 package life.genny.qwanda;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
+
 import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -100,6 +102,7 @@ public class GPS  implements Serializable {
 	 */
 //	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
     @Column(name = "created")
+    @Expose
     private LocalDateTime created;
 
 	
@@ -111,6 +114,7 @@ public class GPS  implements Serializable {
 	@NotEmpty
 	@Size(max = 32)
 	@Column(name = "latitude", updatable = false, nullable = false)
+	@Expose
 	private String latitude;
 
     /**
@@ -121,6 +125,7 @@ public class GPS  implements Serializable {
     @NotEmpty
     @Size(max = 32)
     @Column(name = "longitude", updatable = false, nullable = false)
+    @Expose
     private String longitude;
 
     /**
@@ -131,6 +136,7 @@ public class GPS  implements Serializable {
     @NotEmpty
     @Size(max = 32)
     @Column(name = "timestamp", updatable = false, nullable = false)
+    @Expose
     private String timestamp;
 
     /**
@@ -141,6 +147,7 @@ public class GPS  implements Serializable {
     @NotEmpty
     @Size(max = 32)
     @Column(name = "accuracy", updatable = false, nullable = true)
+    @Expose
     private String accuracy;
 
     /**
@@ -151,6 +158,7 @@ public class GPS  implements Serializable {
     @NotEmpty
     @Size(max = 32)
     @Column(name = "bearing", updatable = false, nullable = true)
+    @Expose
     private String bearing;
 
     /**
@@ -161,6 +169,7 @@ public class GPS  implements Serializable {
     @NotEmpty
     @Size(max = 32)
     @Column(name = "altitude", updatable = false, nullable = true)
+    @Expose
     private String altitude;
     
     /**
@@ -171,6 +180,7 @@ public class GPS  implements Serializable {
     @NotEmpty
     @Size(max = 32)
     @Column(name = "altitude_accuracy", updatable = false, nullable = true)
+    @Expose
     private String altitude_accuracy;
     
     /**
@@ -181,6 +191,7 @@ public class GPS  implements Serializable {
     @NotEmpty
     @Size(max = 4)
     @Column(name = "speed", updatable = true, nullable = true)
+    @Expose
     private String speed;
     
 	/**
@@ -191,9 +202,11 @@ public class GPS  implements Serializable {
 	@NotEmpty
 	@Size(max = 64)
 	@Column(name = "targetcode", updatable = true, nullable = true)
+	@Expose
 	private String targetCode;
 
     @Column(name = "targetid", updatable = true, nullable = true)
+    @Expose
 	private Long targetId;
 
 	

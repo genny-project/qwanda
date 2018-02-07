@@ -6,16 +6,31 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assume.assumeThat;
 
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 
+import org.javamoney.moneta.Money;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+
+import life.genny.qwanda.DateTimeDeserializer;
+import life.genny.qwanda.MoneyDeserializer;
 import life.genny.qwanda.attribute.Attribute;
 import life.genny.qwanda.attribute.AttributeText;
+import life.genny.qwanda.datatype.LocalDateAdapter;
 import life.genny.qwanda.attribute.AttributeDouble;
 import life.genny.qwanda.attribute.AttributeLong;
 import life.genny.qwanda.attribute.AttributeDateTime;
@@ -24,7 +39,9 @@ import life.genny.qwanda.attribute.AttributeBoolean;
 import life.genny.qwanda.entity.Person;
 import life.genny.qwanda.entity.Product;
 import life.genny.qwanda.exception.BadDataException;
+import life.genny.qwanda.message.QDataBaseEntityMessage;
 import life.genny.qwanda.validation.Validation;
+
 import life.genny.test.qwanda.util.JsonUtils;
 
 
@@ -189,4 +206,9 @@ public class baseEntityTest {
 	 String jsonString = JsonUtils.set(validation);
 	 System.out.println("Json Validation  = "+jsonString);
  }
+ 
+ 
+
+ 
+ 
 }

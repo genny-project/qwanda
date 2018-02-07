@@ -80,6 +80,7 @@ public class DataType implements Serializable {
   @Expose
   private String typeName; // e.g. TEXT
 
+  @Expose
   private String inputmask;
 
   /**

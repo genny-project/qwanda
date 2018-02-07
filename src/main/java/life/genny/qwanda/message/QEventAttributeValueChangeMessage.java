@@ -8,6 +8,7 @@ import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.Answer;
 import life.genny.qwanda.attribute.EntityAttribute;
+import life.genny.qwanda.entity.BaseEntity;
 
 public class QEventAttributeValueChangeMessage extends QEventMessage {
 	  /**
@@ -22,6 +23,10 @@ public class QEventAttributeValueChangeMessage extends QEventMessage {
 	@Expose
 	@Transient
 	private EntityAttribute ea;
+	
+	@Expose
+	@Transient
+	private BaseEntity be;
 	
 	@Expose
 	  private String oldValue;
@@ -81,6 +86,20 @@ public class QEventAttributeValueChangeMessage extends QEventMessage {
 	 */
 	public void setEa(EntityAttribute ea) {
 		this.ea = ea;
+	}
+
+	/**
+	 * @return the be
+	 */
+	public BaseEntity getBe() {
+		return be;
+	}
+
+	/**
+	 * @param be the be to set
+	 */
+	public void setBe(BaseEntity be) {
+		this.be = be;
 	}
 
 	

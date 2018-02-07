@@ -18,7 +18,7 @@ public class EntityAttributeId implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 
-	@ManyToOne ( cascade = CascadeType.DETACH)
+	@ManyToOne ( )
 	@JsonBackReference(value="entityAttribute")
 	@JsonIgnore
 	public BaseEntity baseEntity;

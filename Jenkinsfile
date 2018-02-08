@@ -9,5 +9,11 @@ pipeline {
 				sh 'mvn clean install -U'
 			}
 		}
+		stage('Deploy') {
+      when { 'master' }
+			steps {
+				sh 'echo Deploying...'
+			}
+		}
 	}
 }

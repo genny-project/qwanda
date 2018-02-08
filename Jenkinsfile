@@ -6,9 +6,7 @@ pipeline {
 	stages {
 		stage('Build') {
 			steps {
-				maven {
-					goals('clean install -U')
-				}
+				sh 'mvn clean install -U'
 			}
 		}
 	}

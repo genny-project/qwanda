@@ -20,7 +20,7 @@ public class EntityEntityId implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.DETACH)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JsonBackReference(value="entityEntity")
 	private BaseEntity source;
 	

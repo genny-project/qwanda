@@ -107,10 +107,18 @@ public class QBaseMSGMessageTemplate implements Serializable{
 	<p>
 	*/
 	@NotNull
-	@NotEmpty
 	@Column(name = "sms", updatable = true, nullable = false)
 	@Expose
 	private String sms_template;
+	
+	
+	/**
+	 * A field that stores the toast template doc id.
+	 */
+	@NotNull
+	@Column(name = "toast", updatable = true, nullable = false)
+	@Expose
+	private String toast_template;
 
 
 	public Long getId() {
@@ -181,13 +189,32 @@ public class QBaseMSGMessageTemplate implements Serializable{
 	public void setSms_template(String sms_template) {
 		this.sms_template = sms_template;
 	}
+	
+
+	/**
+	 * @return the toast_template
+	 */
+	public String getToast_template() {
+		return toast_template;
+	}
 
 
+	/**
+	 * @param toast_template the toast_template to set
+	 */
+	public void setToast_template(String toast_template) {
+		this.toast_template = toast_template;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "QBaseMSGMessageTemplate [id=" + id + ", created=" + created + ", code=" + code + ", description="
 				+ description + ", subject=" + subject + ", email_templateId=" + email_templateId + ", sms_template="
-				+ sms_template + "]";
+				+ sms_template + ", toast_template=" + toast_template + "]";
 	}
 
 

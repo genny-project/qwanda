@@ -19,6 +19,8 @@ public class QBaseMSGMessage {
 	@Expose
 	private String[] attachments;
 	
+	private String token;
+	
 	private QBaseMSGMessageType msgMessageType;
 	
 	public String getSource() {
@@ -66,6 +68,18 @@ public class QBaseMSGMessage {
 		this.attachments = attachments;
 	}
 	
+	/**
+	 * @return the token
+	 */
+	public String getToken() {
+		return token;
+	}
+	/**
+	 * @param token the token to set
+	 */
+	public void setToken(String token) {
+		this.token = token;
+	}
 	@Override
 	public String toString() {
 		return "QBaseMSGMessage [source=" + source + ", target=" + target + ", priority=" + priority + ", subject="

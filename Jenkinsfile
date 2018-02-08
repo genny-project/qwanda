@@ -3,10 +3,9 @@ pipeline {
   tools {
       maven 'Maven 3.5.2'
   }
-		stage('Build') {
-			steps {
-				mvn 'clean install -U'
-			}
+	stage('Build') {
+		steps {
+			mvn 'clean install -U'
 		}
 	}
 }

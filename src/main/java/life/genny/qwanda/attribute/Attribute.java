@@ -104,7 +104,17 @@ public class Attribute extends CodedEntity implements Serializable {
 	@Expose
 	private Boolean defaultPrivacyFlag = false;
 
-
+	@Expose
+	private String description;
+	
+	@Expose
+	private String help;
+	
+	@Expose
+	private String placeholder;
+	
+	@Expose
+	private String defaultValue;
 	
 	/**
 	  * Constructor.
@@ -168,6 +178,70 @@ public class Attribute extends CodedEntity implements Serializable {
 	 */
 	public void setDefaultPrivacyFlag(Boolean defaultPrivacyFlag) {
 		this.defaultPrivacyFlag = defaultPrivacyFlag;
+	}
+
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+	/**
+	 * @return the help
+	 */
+	public String getHelp() {
+		return help;
+	}
+
+
+	/**
+	 * @param help the help to set
+	 */
+	public void setHelp(String help) {
+		this.help = help;
+	}
+
+
+	/**
+	 * @return the placeholder
+	 */
+	public String getPlaceholder() {
+		return placeholder;
+	}
+
+
+	/**
+	 * @param placeholder the placeholder to set
+	 */
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
+	}
+
+
+	/**
+	 * @return the defaultValue
+	 */
+	public String getDefaultValue() {
+		return defaultValue;
+	}
+
+
+	/**
+	 * @param defaultValue the defaultValue to set
+	 */
+	public void setDefaultValue(String defaultValue) {
+		this.defaultValue = defaultValue;
 	}
 	
 	/* (non-Javadoc)

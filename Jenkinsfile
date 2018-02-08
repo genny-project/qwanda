@@ -1,11 +1,13 @@
 pipeline {
 	agent any
   tools {
-      maven 'Maven 3.5.2'
+      maven 'mvn 3.5'
   }
-	stage('Build') {
-		steps {
-			mvn 'clean install -U'
+	stages {
+		stage('Build') {
+			steps {
+				mvn 'clean install -U'
+			}
 		}
 	}
 }

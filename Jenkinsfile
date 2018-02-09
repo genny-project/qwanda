@@ -10,10 +10,7 @@ pipeline {
 			}
 		}
 		stage('Deploy') {
-      when {
-        beforeAgent true
-				branch 'master'
-			}
+      when { 'master'}
 			steps {
 				sh 'echo Deploying...'
 			}

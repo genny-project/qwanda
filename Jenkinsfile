@@ -6,12 +6,14 @@ pipeline {
 	stages {
 		stage('Build') {
 			steps {
-				sh 'echo ${branch}'
 				sh 'mvn clean install -U'
 			}
 		}
 		stage('Deploy') {
-      when { branch 'master' }
+      when {
+        beforeAgent true
+				branch 'master'
+			}
 			steps {
 				sh 'echo Deploying...'
 			}

@@ -15,6 +15,11 @@ pipeline {
 				sh 'echo Deploying...'
 			}
 		}
+		stage('Done') {
+			steps {
+				sh 'echo Slacking'
+			}
+		}
 	}
 	post {
 		always {

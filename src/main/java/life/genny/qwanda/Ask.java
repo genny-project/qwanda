@@ -208,7 +208,7 @@ public class Ask extends CoreEntity implements Serializable {
    * @param aMandatory Is this ask mandatory?
    */
   public Ask(final Question aQuestion, final String aSourceCode, final String aTargetCode, final Boolean aMandatory) {
-	  this(aQuestion, aSourceCode, aTargetCode,false,0.0);
+	  this(aQuestion, aSourceCode, aTargetCode,aMandatory,0.0);
   }
   
   /**

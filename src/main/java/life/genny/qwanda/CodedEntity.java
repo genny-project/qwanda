@@ -75,6 +75,11 @@ import life.genny.qwanda.entity.BaseEntity;
 public abstract class CodedEntity extends CoreEntity {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Stores logger object.
 	 */
 	protected static final Logger log =org.apache.logging.log4j.LogManager.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
@@ -90,7 +95,6 @@ public abstract class CodedEntity extends CoreEntity {
 	e.g. FBK_BIRTHDATE indicates that the attribute represents the facebook value
 	*/
 	@NotNull
-	@NotEmpty
 	@Size(max = 64)
 	@Pattern(regexp = REGEX_CODE, message = "Must be valid Code!")
 	@Column(name = "code", updatable = false, nullable = false, unique = true)
@@ -102,7 +106,6 @@ public abstract class CodedEntity extends CoreEntity {
 	  * 
 	  * @param none
 	  */
-	@SuppressWarnings("unused")	
 	protected CodedEntity()
 	{
 		// dummy

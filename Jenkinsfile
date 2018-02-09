@@ -6,6 +6,7 @@ pipeline {
 	stages {
 		stage('Build') {
 			steps {
+				sh 'echo ${branch}'
 				sh 'mvn clean install -U'
 			}
 		}
@@ -19,6 +20,6 @@ pipeline {
 	post {
 		always {
 	    deleteDir()
-	  }		
+	  }
 	}
 }

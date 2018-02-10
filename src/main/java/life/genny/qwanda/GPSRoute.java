@@ -24,6 +24,7 @@ package life.genny.qwanda;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -165,9 +166,21 @@ public class GPSRoute  implements Serializable {
 	  * @param aCode The unique code for the attribute associated with this Answer
 	  * @param value The associated String value
 	  */
-	public GPSRoute(final GPSLocation start, final GPSLocation end, final Double distance_m, final Double duration_s,final List<GPSLeg> legList)
+	public GPSRoute(final GPSLocation start, final GPSLocation end)
 	{
-		this.legList = legList;
+		this.start = start;
+		this.end = end;
+		autocreateCreated();
+	}
+	/**
+	  * Constructor.
+	  * 
+	  * @param targetCode The unique code for the target associated with this Answer
+	  * @param aCode The unique code for the attribute associated with this Answer
+	  * @param value The associated String value
+	  */
+	public GPSRoute(final GPSLocation start, final GPSLocation end, final Double distance_m, final Double duration_s)
+	{
 		this.start = start;
 		this.end = end;
 		this.duration_s = duration_s;
@@ -176,7 +189,13 @@ public class GPSRoute  implements Serializable {
 	}
 	
 
-
+	public void add(final GPSLeg gpsLeg) {
+		if (legList == null) {
+			legList = new ArrayList<GPSLeg>();
+		}
+		
+		legList.add(gpsLeg);
+	}
 
     /**
 	 * @return the created

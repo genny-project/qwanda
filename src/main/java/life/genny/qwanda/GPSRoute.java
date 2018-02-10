@@ -193,7 +193,7 @@ public class GPSRoute  implements Serializable {
 		if (legList == null) {
 			legList = new ArrayList<GPSLeg>();
 		}
-		
+		gpsLeg.setGpsRoute(this);
 		legList.add(gpsLeg);
 	}
 

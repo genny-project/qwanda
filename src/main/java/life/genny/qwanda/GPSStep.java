@@ -119,6 +119,9 @@ public class GPSStep  implements Serializable {
 	@Expose
 	Double duration_s;
 	
+	@Expose
+	String htmlInstruction;
+	
 	/**
 	  * Constructor.
 	  * 
@@ -137,9 +140,9 @@ public class GPSStep  implements Serializable {
 	  * @param aCode The unique code for the attribute associated with this Answer
 	  * @param value The associated String value
 	  */
-	public GPSStep(final GPSLeg gpsLeg,final GPSLocation start, final GPSLocation end, final Double distance, final Double duration)
+	public GPSStep(final GPSLocation start, final GPSLocation end, final Double distance, final Double duration)
 	{
-		this.gpsLeg = gpsLeg;
+
 		this.start = start;
 		this.end = end;
 		this.distance_m = distance;
@@ -185,6 +188,27 @@ public class GPSStep  implements Serializable {
 	 */
 	public GPSLeg getGpsLeg() {
 		return gpsLeg;
+	}
+
+	/**
+	 * @param gpsLeg the gpsLeg to set
+	 */
+	public void setGpsLeg(GPSLeg gpsLeg) {
+		this.gpsLeg = gpsLeg;
+	}
+
+	/**
+	 * @return the htmlInstruction
+	 */
+	public String getHtmlInstruction() {
+		return htmlInstruction;
+	}
+
+	/**
+	 * @param htmlInstruction the htmlInstruction to set
+	 */
+	public void setHtmlInstruction(String htmlInstruction) {
+		this.htmlInstruction = htmlInstruction;
 	}
 
 

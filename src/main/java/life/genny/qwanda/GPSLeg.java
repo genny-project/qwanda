@@ -22,6 +22,7 @@
 package life.genny.qwanda;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.AttributeOverride;
@@ -151,10 +152,8 @@ public class GPSLeg  implements Serializable {
 	  * @param aCode The unique code for the attribute associated with this Answer
 	  * @param value The associated String value
 	  */
-	public GPSLeg(final GPSRoute gpsRoute, final GPSLocation start, final GPSLocation end, final Double distance_m, final Double duration_s,final List<GPSStep> stepList)
+	public GPSLeg(final GPSLocation start, final GPSLocation end, final Double distance_m, final Double duration_s)
 	{
-		this.gpsRoute = gpsRoute;
-		this.stepList = stepList;
 		this.start = start;
 		this.end = end;
 		this.duration_s = duration_s;
@@ -210,8 +209,21 @@ public class GPSLeg  implements Serializable {
 		return gpsRoute;
 	}
 
-	
+	/**
+	 * @param gpsRoute the gpsRoute to set
+	 */
+	public void setGpsRoute(GPSRoute gpsRoute) {
+		this.gpsRoute = gpsRoute;
+	}
 
+	
+	public void add(final GPSStep gpsStep) {
+		if (stepList == null) {
+			stepList = new ArrayList<GPSStep>();
+		}
+		gpsStep.setGpsLeg(this);
+		stepList.add(gpsStep);
+	}
 
 	
 }

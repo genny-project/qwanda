@@ -187,6 +187,15 @@ public class GPSRouteStatus  implements Serializable {
 		this.percentage = percentage;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "GPSRouteStatus [current=" + current + ", distance_m=" + distance_m + ", duration_s=" + duration_s
+				+ ", percentage=" + percentage + "]";
+	}
+
 	
 
 	

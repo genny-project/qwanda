@@ -194,7 +194,7 @@ public class GPSRouteStatus  implements Serializable {
 	@Override
 	public String toString() {
 		return "GPSRouteStatus [current=" + current + ", distance_m=" + distance_m + ", duration_s=" + duration_s
-				+ ", percentage=%" + df2.format((100.0*percentage)) + "]";
+				+ ", percentage= " + df2.format((100.0*percentage)) + "%]";
 	}
 
 	

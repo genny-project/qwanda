@@ -168,9 +168,7 @@ public class GPSRoute  implements Serializable {
 	  */
 	public GPSRoute(final GPSLocation start, final GPSLocation end)
 	{
-		this.start = start;
-		this.end = end;
-		autocreateCreated();
+		this(start,end,0.0,0.0);
 	}
 	/**
 	  * Constructor.
@@ -195,6 +193,8 @@ public class GPSRoute  implements Serializable {
 		}
 		gpsLeg.setGpsRoute(this);
 		legList.add(gpsLeg);
+		this.distance_m += gpsLeg.getDistance_m();
+		this.duration_s += gpsLeg.getDuration_s();
 	}
 
     /**
@@ -250,6 +250,48 @@ public class GPSRoute  implements Serializable {
 	 */
 	public List<GPSLeg> getLegList() {
 		return legList;
+	}
+
+	/**
+	 * @return the distance_m
+	 */
+	public Double getDistance_m() {
+		return distance_m;
+	}
+
+	/**
+	 * @param distance_m the distance_m to set
+	 */
+	public void setDistance_m(Double distance_m) {
+		this.distance_m = distance_m;
+	}
+
+	/**
+	 * @return the duration_s
+	 */
+	public Double getDuration_s() {
+		return duration_s;
+	}
+
+	/**
+	 * @param duration_s the duration_s to set
+	 */
+	public void setDuration_s(Double duration_s) {
+		this.duration_s = duration_s;
+	}
+
+	/**
+	 * @return the start
+	 */
+	public GPSLocation getStart() {
+		return start;
+	}
+
+	/**
+	 * @return the end
+	 */
+	public GPSLocation getEnd() {
+		return end;
 	}
 
 

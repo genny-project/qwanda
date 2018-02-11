@@ -211,6 +211,15 @@ public class GPSStep  implements Serializable {
 		this.htmlInstruction = htmlInstruction;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "GPSStep [start=" + start + ", end=" + end + ", distance_m=" + distance_m + ", duration_s=" + duration_s
+				+ ", htmlInstruction=" + htmlInstruction + "]";
+	}
+
 
 
 	

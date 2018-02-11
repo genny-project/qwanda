@@ -225,5 +225,14 @@ public class GPSLeg  implements Serializable {
 		stepList.add(gpsStep);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "GPSLeg [start=" + start + ", end=" + end + ", distance_m=" + distance_m + ", duration_s=" + duration_s
+				+ "]";
+	}
+
 	
 }

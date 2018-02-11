@@ -294,6 +294,15 @@ public class GPSRoute  implements Serializable {
 		return end;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "GPSRoute [start=" + start + ", end=" + end + ", distance_m=" + distance_m + ", duration_s=" + duration_s
+				+ "]";
+	}
+
 
 	
 }

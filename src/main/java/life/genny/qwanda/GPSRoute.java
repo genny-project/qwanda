@@ -245,6 +245,13 @@ public class GPSRoute  implements Serializable {
 		this.id = id;
 	}
 
+	/**
+	 * @return the legList
+	 */
+	public List<GPSLeg> getLegList() {
+		return legList;
+	}
+
 
 	
 }

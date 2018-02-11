@@ -22,6 +22,7 @@
 package life.genny.qwanda;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -88,7 +89,7 @@ public class GPSRouteStatus  implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
+	private static DecimalFormat df2 = new DecimalFormat(".##");
 
 	@Embedded
 	@Expose
@@ -193,7 +194,7 @@ public class GPSRouteStatus  implements Serializable {
 	@Override
 	public String toString() {
 		return "GPSRouteStatus [current=" + current + ", distance_m=" + distance_m + ", duration_s=" + duration_s
-				+ ", percentage=" + percentage + "]";
+				+ ", percentage=%" + df2.format((100.0*percentage)) + "]";
 	}
 
 	

@@ -25,6 +25,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.google.gson.annotations.Expose;
 
+import life.genny.qwanda.CodedEntity;
 import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 
 @SuppressWarnings("deprecation")
@@ -34,40 +35,9 @@ import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class QBaseMSGMessageTemplate implements Serializable{
+public class QBaseMSGMessageTemplate  extends CodedEntity implements Serializable{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Basic(optional = false)
-	@Column(name = "id", updatable = false, nullable = false)
-	@Expose
-	private Long id;
-	
-	
-	/**
-	 * Stores the Created UMT DateTime that this object was created
-	 */
-    @Column(name = "created")
-    @Expose
-    private LocalDateTime created;
-    
-    
-    /**
-	A field that stores the code.
-	<p>
-	*/
-	@NotNull
-	@NotEmpty
-	@Size(max = 32)
-	@Column(name = "code", updatable = true, nullable = false)
-	@Expose
-	private String code;
-	
+
 	
 	/**
 	A field that stores the description.
@@ -121,34 +91,6 @@ public class QBaseMSGMessageTemplate implements Serializable{
 	private String toast_template;
 
 
-	public Long getId() {
-		return id;
-	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
-	public LocalDateTime getCreated() {
-		return created;
-	}
-
-
-	public void setCreated(LocalDateTime created) {
-		this.created = created;
-	}
-
-
-	public String getCode() {
-		return code;
-	}
-
-
-	public void setCode(String code) {
-		this.code = code;
-	}
 
 
 	public String getDescription() {
@@ -212,42 +154,25 @@ public class QBaseMSGMessageTemplate implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "QBaseMSGMessageTemplate [id=" + id + ", created=" + created + ", code=" + code + ", description="
-				+ description + ", subject=" + subject + ", email_templateId=" + email_templateId + ", sms_template="
-				+ sms_template + ", toast_template=" + toast_template + "]";
+		return "QBaseMSGMessageTemplate [" + (description != null ? "description=" + description + ", " : "")
+				+ (subject != null ? "subject=" + subject + ", " : "")
+				+ (email_templateId != null ? "email_templateId=" + email_templateId + ", " : "")
+				+ (sms_template != null ? "sms_template=" + sms_template + ", " : "")
+				+ (toast_template != null ? "toast_template=" + toast_template + ", " : "")
+				+ (getCode() != null ? "getCode()=" + getCode() + ", " : "")
+				+ (super.toString() != null ? "toString()=" + super.toString() + ", " : "") + "hashCode()=" + hashCode()
+				+ ", " + (getId() != null ? "getId()=" + getId() + ", " : "")
+				+ (getName() != null ? "getName()=" + getName() + ", " : "")
+				+ (getCreated() != null ? "getCreated()=" + getCreated() + ", " : "")
+				+ (getUpdated() != null ? "getUpdated()=" + getUpdated() + ", " : "")
+				+ (getRealm() != null ? "getRealm()=" + getRealm() + ", " : "")
+				+ (getCreatedDate() != null ? "getCreatedDate()=" + getCreatedDate() + ", " : "")
+				+ (getUpdatedDate() != null ? "getUpdatedDate()=" + getUpdatedDate() + ", " : "")
+				+ (getClass() != null ? "getClass()=" + getClass() : "") + "]";
 	}
 
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((code == null) ? 0 : code.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
 
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		QBaseMSGMessageTemplate other = (QBaseMSGMessageTemplate) obj;
-		if (code == null) {
-			if (other.code != null)
-				return false;
-		} else if (!code.equals(other.code))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
 
 }

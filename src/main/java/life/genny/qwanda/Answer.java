@@ -536,18 +536,23 @@ public void setInferred(Boolean inferred) {
 
 
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return "Answer [id=" + id + ", created=" + created + ", value=" + value + ", attributeCode="
-        + attributeCode + ", askId=" + askId + ", expired=" + expired + ", refused=" + refused
-        + ", weight=" + weight + "]";
-  }
+/* (non-Javadoc)
+ * @see java.lang.Object#toString()
+ */
+@Override
+public String toString() {
+	return "Answer [" + (created != null ? "created=" + created + ", " : "")
+			+ (sourceCode != null ? "sourceCode=" + sourceCode + ", " : "")
+			+ (targetCode != null ? "targetCode=" + targetCode + ", " : "")
+			+ (attributeCode != null ? "attributeCode=" + attributeCode + ", " : "")
+			+ (value != null ? "value=" + value + ", " : "") + (askId != null ? "askId=" + askId + ", " : "")
+			+ (expired != null ? "expired=" + expired + ", " : "")
+			+ (refused != null ? "refused=" + refused + ", " : "") + (weight != null ? "weight=" + weight + ", " : "")
+			+ (inferred != null ? "inferred=" + inferred : "") + "]";
+}
 
 
+
+ 
 
 }

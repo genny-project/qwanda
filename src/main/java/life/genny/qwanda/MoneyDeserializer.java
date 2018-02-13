@@ -8,6 +8,7 @@ import java.text.DecimalFormat;
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 
+import org.apache.commons.lang3.StringUtils;
 import org.javamoney.moneta.Money;
 
 import com.google.gson.JsonDeserializationContext;
@@ -38,9 +39,12 @@ public class MoneyDeserializer implements JsonSerializer<Money>, JsonDeserialize
     {
     	final CurrencyUnit currency = Monetary.getCurrency(json.getAsJsonObject().get("currency").getAsString());
 
-
+if (StringUtils.isBlank(json.getAsJsonObject().get("amount").getAsString()) )
+		return  null;  //TODO, can we use Optional<Money> ?
+else {
     	Money money = Money.of(new BigDecimal(json.getAsJsonObject().get("amount").getAsString()), currency);
 
       return money;
+}
     }
 }

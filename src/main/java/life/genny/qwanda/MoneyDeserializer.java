@@ -3,6 +3,7 @@ package life.genny.qwanda;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
@@ -24,7 +25,10 @@ public class MoneyDeserializer implements JsonSerializer<Money>, JsonDeserialize
     public JsonElement serialize(Money src, Type typeOfSrc, JsonSerializationContext context)
     {
     	JsonParser parser = new JsonParser();
-    	JsonElement o = parser.parse("{\"amount\":"+src.getNumber()+",\"currency\":\""+src.getCurrency().getCurrencyCode()+"\"}");
+    DecimalFormat decimalFormat = new DecimalFormat("###0.00");
+        
+    	String amount = decimalFormat.format(src.getNumber().doubleValue());
+    	JsonElement o = parser.parse("{\"amount\":"+amount+",\"currency\":\""+src.getCurrency().getCurrencyCode()+"\"}");
       return o;
     }
     

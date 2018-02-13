@@ -1,5 +1,7 @@
 package life.genny.qwanda.message;
 
+import java.util.Arrays;
+
 import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.Answer;
@@ -34,4 +36,14 @@ public class QDataAnswerMessage extends QDataMessage {
 	public void setItems(Answer[] items) {
 		this.items = items;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "QDataAnswerMessage [" + (items != null ? "items=" + Arrays.toString(items) : "") + "]";
+	}
+	
+	
 }

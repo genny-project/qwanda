@@ -43,9 +43,9 @@ import java.util.Date;
 import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 
 /**
- * CoreEntity represents a base level core set of class attributes. It is the base parent for many
- * Qwanda classes and serves to establish Hibernate compatibility and datetime stamping. This
- * attribute information includes:
+ * CoreEntity represents a base level core set of class attributes. It is the
+ * base parent for many Qwanda classes and serves to establish Hibernate
+ * compatibility and datetime stamping. This attribute information includes:
  * <ul>
  * <li>The Human Readable name for this class (used for summary lists)
  * <li>The unique code for the class object
@@ -65,225 +65,227 @@ import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 @MappedSuperclass
 public abstract class CoreEntity implements CreatedIntf, Serializable, Comparable<Object> {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * Stores logger object.
-   */
-  protected static final Logger log = org.apache.logging.log4j.LogManager
-      .getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
+	/**
+	 * Stores logger object.
+	 */
+	protected static final Logger log = org.apache.logging.log4j.LogManager
+			.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
 
-  static public final String REGEX_NAME = "[a-zA-Z0-9/\\:\\ \\'\\-\\@\\(\\)]+.?";
-  static public final String REGEX_REALM = "[a-zA-Z0-9\\'\\-\\@\\(\\)]+";
-  static public final String DEFAULT_REALM = "genny";
+	static public final String REGEX_NAME = "[a-zA-Z0-9/\\:\\ \\'\\-\\@\\(\\)]+.?";
+	static public final String REGEX_REALM = "[a-zA-Z0-9\\'\\-\\@\\(\\)]+";
+	static public final String DEFAULT_REALM = "genny";
 
-  /**
-   * Stores the Created UMT DateTime that this object was created
-   */
-  // @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
-  @Expose
-  @Column(name = "created")
-  private LocalDateTime created;
+	/**
+	 * Stores the Created UMT DateTime that this object was created
+	 */
+	// @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	@Expose
+	@Column(name = "created")
+	private LocalDateTime created;
 
-  /**
-   * Stores the Last Modified UMT DateTime that this object was last updated
-   */
-  // @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
-  @Column(name = "updated")
-  @Expose
-  private LocalDateTime updated;
+	/**
+	 * Stores the Last Modified UMT DateTime that this object was last updated
+	 */
+	// @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	@Column(name = "updated")
+	@Expose
+	private LocalDateTime updated;
 
+	/**
+	 * Stores the hibernate generated Id value for this object
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "id", updatable = false, nullable = false)
+	@Expose
+	private Long id;
 
+	/**
+	 * A field that stores the human readable summary name of the attribute.
+	 * <p>
+	 * Note that this field is in English.
+	 */
+	@NotNull
+	@NotEmpty
+	@Size(max = 128)
+	@Pattern(regexp = REGEX_NAME, message = "Must contain valid characters for name")
+	@Column(name = "name", updatable = true, nullable = true)
+	@Expose
+	private String name;
 
-  /**
-   * Stores the hibernate generated Id value for this object
-   */
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Basic(optional = false)
-  @Column(name = "id", updatable = false, nullable = false)
-  @Expose
-  private Long id;
+	/**
+	 * A field that stores the human readable realm of this entity.
+	 * <p>
+	 * Note that this field is in English.
+	 */
+	@NotNull
+	@NotEmpty
+	@Size(max = 48)
+	@Pattern(regexp = REGEX_REALM, message = "Must contain valid characters for realm")
+	@Column(name = "realm", updatable = true, nullable = false)
+	@Expose
+	private String realm = DEFAULT_REALM;
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param none
+	 */
+	@SuppressWarnings("unused")
+	protected CoreEntity() {
+		// dummy
+	}
 
-  /**
-   * A field that stores the human readable summary name of the attribute.
-   * <p>
-   * Note that this field is in English.
-   */
-  @NotNull
-  @NotEmpty
-  @Size(max = 128)
-  @Pattern(regexp = REGEX_NAME, message = "Must contain valid characters for name")
-  @Column(name = "name", updatable = true, nullable = true)
-  @Expose
-  private String name;
+	/**
+	 * Constructor.
+	 * 
+	 * @param Realm
+	 *            the security realm of the core entity
+	 * @param Name
+	 *            the name of the core entity
+	 */
+	public CoreEntity(final String realm, final String aName) {
+		super();
+		this.realm = realm;
+		this.name = aName;
+		autocreateCreated();
+	}
 
-  /**
-   * A field that stores the human readable realm of this entity.
-   * <p>
-   * Note that this field is in English.
-   */
-  @NotNull
-  @NotEmpty
-  @Size(max = 48)
-  @Pattern(regexp = REGEX_REALM, message = "Must contain valid characters for realm")
-  @Column(name = "realm", updatable = true, nullable = false)
-  @Expose
-  private String realm = DEFAULT_REALM;
+	/**
+	 * Constructor.
+	 * 
+	 * @param Name
+	 *            the summary name of the core entity
+	 * @param Code
+	 *            the unique code of the core entity
+	 */
+	public CoreEntity(final String aName) {
+		super();
+		this.realm = DEFAULT_REALM;
+		this.name = aName;
+		autocreateCreated();
+	}
 
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
 
-  /**
-   * Constructor.
-   * 
-   * @param none
-   */
-  @SuppressWarnings("unused")
-  protected CoreEntity() {
-    // dummy
-  }
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(final Long id) {
+		this.id = id;
+	}
 
-  /**
-   * Constructor.
-   * 
-   * @param Realm the security realm of the core entity
-   * @param Name the name of the core entity
-   */
-  public CoreEntity(final String realm, final String aName) {
-    super();
-    this.realm = realm;
-    this.name = aName;
-    autocreateCreated();
-  }
+	/**
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
 
-  /**
-   * Constructor.
-   * 
-   * @param Name the summary name of the core entity
-   * @param Code the unique code of the core entity
-   */
-  public CoreEntity(final String aName) {
-    super();
-    this.realm = DEFAULT_REALM;
-    this.name = aName;
-    autocreateCreated();
-  }
+	/**
+	 * 
+	 * @param aName
+	 *            human readable text representing the question
+	 */
+	public void setName(final String aName) {
+		this.name = aName;
+	}
 
+	/**
+	 * @return the created
+	 */
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	public LocalDateTime getCreated() {
+		return created;
+	}
 
-  /**
-   * @return the id
-   */
-  public Long getId() {
-    return id;
-  }
+	/**
+	 * @param created
+	 *            the created to set
+	 */
+	@Override
+	public void setCreated(final LocalDateTime created) {
+		this.created = created;
+	}
 
-  /**
-   * @param id the id to set
-   */
-  public void setId(final Long id) {
-    this.id = id;
-  }
+	/**
+	 * @return the updated
+	 */
+	public LocalDateTime getUpdated() {
+		return updated;
+	}
 
-  /**
-   * @return name
-   */
-  public String getName() {
-    return name;
-  }
+	/**
+	 * @param updated
+	 *            the updated to set
+	 */
+	public void setUpdated(final LocalDateTime updated) {
+		this.updated = updated;
+	}
 
-  /**
-   * 
-   * @param aName human readable text representing the question
-   */
-  public void setName(final String aName) {
-    this.name = aName;
-  }
+	/**
+	 * @return the realm
+	 */
+	public String getRealm() {
+		return realm;
+	}
 
+	/**
+	 * @param realm
+	 *            the realm to set
+	 */
+	public void setRealm(final String realm) {
+		this.realm = realm;
+	}
 
-  /**
-   * @return the created
-   */
-  @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
-  public LocalDateTime getCreated() {
-    return created;
-  }
+	@PreUpdate
+	public void autocreateUpdate() {
+		setUpdated(LocalDateTime.now(ZoneId.of("Z")));
+	}
 
-  /**
-   * @param created the created to set
-   */
-  @Override
-  public void setCreated(final LocalDateTime created) {
-    this.created = created;
-  }
+	@PrePersist
+	public void autocreateCreated() {
+		if (getCreated() == null)
+			setCreated(LocalDateTime.now(ZoneId.of("Z")));
+	}
 
-  /**
-   * @return the updated
-   */
-  public LocalDateTime getUpdated() {
-    return updated;
-  }
+	@Transient
+	@JsonIgnore
+	public Date getCreatedDate() {
+		final Date out = Date.from(created.atZone(ZoneId.systemDefault()).toInstant());
+		return out;
+	}
 
-  /**
-   * @param updated the updated to set
-   */
-  public void setUpdated(final LocalDateTime updated) {
-    this.updated = updated;
-  }
+	@Transient
+	@JsonIgnore
+	public Date getUpdatedDate() {
+		if (updated != null) {
+			final Date out = Date.from(updated.atZone(ZoneId.systemDefault()).toInstant());
+			return out;
+		} else
+			return null;
+	}
 
-
-
-  /**
-   * @return the realm
-   */
-  public String getRealm() {
-    return realm;
-  }
-
-  /**
-   * @param realm the realm to set
-   */
-  public void setRealm(final String realm) {
-    this.realm = realm;
-  }
-
-  @PreUpdate
-  public void autocreateUpdate() {
-    setUpdated(LocalDateTime.now(ZoneId.of("Z")));
-  }
-
-  @PrePersist
-  public void autocreateCreated() {
-    if (getCreated() == null)
-      setCreated(LocalDateTime.now(ZoneId.of("Z")));
-  }
-
-
-  @Transient
-  @JsonIgnore
-  public Date getCreatedDate() {
-    final Date out = Date.from(created.atZone(ZoneId.systemDefault()).toInstant());
-    return out;
-  }
-
-  @Transient
-  @JsonIgnore
-  public Date getUpdatedDate() {
-    final Date out = Date.from(updated.atZone(ZoneId.systemDefault()).toInstant());
-    return out;
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return "[id=" + id + ", created=" + created + ", updated=" + updated + ", name=" + name + "]";
-  }
-
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "[id=" + id + ", created=" + created + ", updated=" + updated + ", name=" + name + "]";
+	}
 
 }

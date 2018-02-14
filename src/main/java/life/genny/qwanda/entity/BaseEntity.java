@@ -277,6 +277,9 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
     return foundEntity;
   }
+  
+ 
+  
 
   /**
    * findEntityAttribute This returns an attributeEntity if it exists in the baseEntity. Could be

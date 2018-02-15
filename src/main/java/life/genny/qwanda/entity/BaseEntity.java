@@ -566,6 +566,20 @@ public <T> Optional<T> getValue(final String attributeCode) {
 @JsonIgnore
 @Transient
 @XmlTransient
+public <T> Optional<T> getLoopValue(final String attributeCode) {
+	Optional<EntityAttribute> ea = this.findEntityAttribute(attributeCode);
+	
+	Optional<T> result = Optional.empty();
+	if (ea.isPresent()) {
+		result = Optional.of(ea.get().getLoopValue());
+	} 
+	return result;
+
+}
+
+@JsonIgnore
+@Transient
+@XmlTransient
 public Boolean is(final String attributeCode) {
 	Optional<EntityAttribute> ea = this.findEntityAttribute(attributeCode);
 	Boolean result = false;

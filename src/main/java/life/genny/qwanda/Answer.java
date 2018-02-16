@@ -210,7 +210,9 @@ public class Answer implements Serializable {
   @Expose
   private Boolean inferred = false;
 
-
+  @Expose
+  private Boolean changeEvent = true;
+  
   /**
    * Constructor.
    * 
@@ -533,6 +535,24 @@ public void setInferred(Boolean inferred) {
   public void setAttribute(final Attribute attribute) {
     this.attribute = attribute;
   }
+
+
+
+/**
+ * @return the changeEvent
+ */
+public Boolean getChangeEvent() {
+	return changeEvent;
+}
+
+
+
+/**
+ * @param changeEvent the changeEvent to set
+ */
+public void setChangeEvent(Boolean changeEvent) {
+	this.changeEvent = changeEvent;
+}
 
 
 

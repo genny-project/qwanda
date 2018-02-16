@@ -26,7 +26,7 @@ public class MoneyDeserializer implements JsonSerializer<Money>, JsonDeserialize
     public JsonElement serialize(Money src, Type typeOfSrc, JsonSerializationContext context)
     {
     	JsonParser parser = new JsonParser();
-    DecimalFormat decimalFormat = new DecimalFormat("###0.00");
+    DecimalFormat decimalFormat = new DecimalFormat("###############0.00");
         
     	String amount = decimalFormat.format(src.getNumber().doubleValue());
     	JsonElement o = parser.parse("{\"amount\":"+amount+",\"currency\":\""+src.getCurrency().getCurrencyCode()+"\"}");

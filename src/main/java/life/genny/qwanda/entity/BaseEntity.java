@@ -580,6 +580,32 @@ public <T> Optional<T> getLoopValue(final String attributeCode) {
 @JsonIgnore
 @Transient
 @XmlTransient
+public <T> T getValue(final String attributeCode,T defaultValue) {
+	Optional<T> result = getValue(attributeCode);
+	if (result.isPresent()) {
+		if (!result.equals(Optional.empty())) {
+			return result.get();
+		}
+	} 
+	return defaultValue;
+}
+
+@JsonIgnore
+@Transient
+@XmlTransient
+public <T> T getLoopValue(final String attributeCode, T defaultValue) {
+	Optional<T> result = getLoopValue(attributeCode);
+	if (result.isPresent()) {
+		if (!result.equals(Optional.empty())) {
+			return result.get();
+		}
+	} 
+	return defaultValue;
+}
+
+@JsonIgnore
+@Transient
+@XmlTransient
 public Boolean is(final String attributeCode) {
 	Optional<EntityAttribute> ea = this.findEntityAttribute(attributeCode);
 	Boolean result = false;

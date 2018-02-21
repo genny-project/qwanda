@@ -620,4 +620,31 @@ public Boolean is(final String attributeCode) {
 
 }
 
+@JsonIgnore
+@Transient
+@XmlTransient
+public <T> Optional<T> setValue(final Attribute attribute, T value, Double weight) throws BadDataException
+{
+	Optional<EntityAttribute> oldValue = this.findEntityAttribute(attribute.getCode());
+
+	Optional<T> result = Optional.empty();
+	if (oldValue.isPresent()) {
+		result = Optional.of(oldValue.get().getLoopValue());
+		EntityAttribute ea = oldValue.get();
+		ea.setValue(value);
+		ea.setWeight(weight);
+	} else {
+		this.addAttribute(attribute, weight, value);
+	}
+	return result;
+}
+
+@JsonIgnore
+@Transient
+@XmlTransient
+public <T> Optional<T> setValue(final Attribute attribute, T value) throws BadDataException
+{	
+	return setValue(attribute, value,0.0);
+}
+
 }

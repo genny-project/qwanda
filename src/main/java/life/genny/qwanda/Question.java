@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
+import org.hibernate.annotations.Type;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.google.gson.annotations.Expose;
@@ -122,7 +122,9 @@ public class Question extends CodedEntity implements Serializable {
   @Expose
   private Boolean mandatory=false;
   
-  @Expose String html;
+  @Type(type = "text")
+  @Expose 
+  private String html;
 
   /**
    * Constructor.

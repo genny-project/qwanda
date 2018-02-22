@@ -277,6 +277,9 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
     return foundEntity;
   }
+  
+ 
+  
 
   /**
    * findEntityAttribute This returns an attributeEntity if it exists in the baseEntity. Could be
@@ -563,6 +566,46 @@ public <T> Optional<T> getValue(final String attributeCode) {
 @JsonIgnore
 @Transient
 @XmlTransient
+public <T> Optional<T> getLoopValue(final String attributeCode) {
+	Optional<EntityAttribute> ea = this.findEntityAttribute(attributeCode);
+	
+	Optional<T> result = Optional.empty();
+	if (ea.isPresent()) {
+		result = Optional.of(ea.get().getLoopValue());
+	} 
+	return result;
+
+}
+
+@JsonIgnore
+@Transient
+@XmlTransient
+public <T> T getValue(final String attributeCode,T defaultValue) {
+	Optional<T> result = getValue(attributeCode);
+	if (result.isPresent()) {
+		if (!result.equals(Optional.empty())) {
+			return result.get();
+		}
+	} 
+	return defaultValue;
+}
+
+@JsonIgnore
+@Transient
+@XmlTransient
+public <T> T getLoopValue(final String attributeCode, T defaultValue) {
+	Optional<T> result = getLoopValue(attributeCode);
+	if (result.isPresent()) {
+		if (!result.equals(Optional.empty())) {
+			return result.get();
+		}
+	} 
+	return defaultValue;
+}
+
+@JsonIgnore
+@Transient
+@XmlTransient
 public Boolean is(final String attributeCode) {
 	Optional<EntityAttribute> ea = this.findEntityAttribute(attributeCode);
 	Boolean result = false;
@@ -575,6 +618,33 @@ public Boolean is(final String attributeCode) {
 	} 
 	return result;
 
+}
+
+@JsonIgnore
+@Transient
+@XmlTransient
+public <T> Optional<T> setValue(final Attribute attribute, T value, Double weight) throws BadDataException
+{
+	Optional<EntityAttribute> oldValue = this.findEntityAttribute(attribute.getCode());
+
+	Optional<T> result = Optional.empty();
+	if (oldValue.isPresent()) {
+		result = Optional.of(oldValue.get().getLoopValue());
+		EntityAttribute ea = oldValue.get();
+		ea.setValue(value);
+		ea.setWeight(weight);
+	} else {
+		this.addAttribute(attribute, weight, value);
+	}
+	return result;
+}
+
+@JsonIgnore
+@Transient
+@XmlTransient
+public <T> Optional<T> setValue(final Attribute attribute, T value) throws BadDataException
+{	
+	return setValue(attribute, value,0.0);
 }
 
 }

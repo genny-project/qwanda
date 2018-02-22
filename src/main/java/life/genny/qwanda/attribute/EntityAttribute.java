@@ -2,6 +2,7 @@ package life.genny.qwanda.attribute;
 
 import java.lang.invoke.MethodHandles;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -729,7 +730,9 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			String dout2 = df2.format(getValueTime());
 			return dout2;
 		case "org.javamoney.moneta.Money":
-				return "{\"amount\":"+getValueMoney().getNumber()+",\"currency\":\""+getValueMoney().getCurrency().getCurrencyCode()+"\"}";
+			   DecimalFormat decimalFormat = new DecimalFormat("###############0.00");		        
+		    	String amount = decimalFormat.format(getValueMoney().getNumber().doubleValue());
+				return "{\"amount\":"+amount+",\"currency\":\""+getValueMoney().getCurrency().getCurrencyCode()+"\"}";
 		case "java.lang.Double":
 			return getValueDouble().toString();
 		case "java.lang.Boolean":
@@ -756,7 +759,9 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			return getValueString();
 		}
 		if(getValueMoney() != null) {
-			return "{\"amount\":"+getValueMoney().getNumber()+",\"currency\":\""+getValueMoney().getCurrency().getCurrencyCode()+"\"}";
+			   DecimalFormat decimalFormat = new DecimalFormat("###############0.00");		        
+		    	String amount = decimalFormat.format(getValueMoney().getNumber().doubleValue());
+				return "{\"amount\":"+amount+",\"currency\":\""+getValueMoney().getCurrency().getCurrencyCode()+"\"}";
 		}
 		if(getValueInteger() != null) {
 			return getValueInteger().toString();
@@ -1052,7 +1057,9 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 		}
 
 		if (getValueMoney() != null) {
-			return "{\"amount\":"+getValueMoney().getNumber()+",\"currency\":\""+getValueMoney().getCurrency().getCurrencyCode()+"\"}";
+			   DecimalFormat decimalFormat = new DecimalFormat("###############0.00");		        
+		    	String amount = decimalFormat.format(getValueMoney().getNumber().doubleValue());
+				return "{\"amount\":"+amount+",\"currency\":\""+getValueMoney().getCurrency().getCurrencyCode()+"\"}";
 		}
 		
 		if (getValueLong() != null) {

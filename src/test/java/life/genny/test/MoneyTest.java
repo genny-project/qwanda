@@ -46,6 +46,15 @@ public void moneyTest()
 	assertEquals(testMoney,Money.of(12.34, "AUD"));
 	
 	System.out.println("Money = "+testMoney); 
+	
+	System.out.println(gson.toJson(Money.of(new BigDecimal("12.34"), AUD)));
+	System.out.println(gson.toJson(Money.of(new BigDecimal("3333.33"), AUD)));
+	System.out.println(gson.toJson(Money.of(new BigDecimal("33333.33"), AUD)));
+	System.out.println(gson.toJson(Money.of(new BigDecimal("333333.33"), AUD)));
+	System.out.println(gson.toJson(Money.of(new BigDecimal("3333333.33"), AUD)));
+	System.out.println("Money = "+gson.fromJson(gson.toJson(Money.of(new BigDecimal("33333.33"), AUD)), Money.class)); 
+	System.out.println("Money = "+gson.fromJson(gson.toJson(Money.of(new BigDecimal("333333.33"), AUD)), Money.class)); 
+	System.out.println("Money = "+gson.fromJson(gson.toJson(Money.of(new BigDecimal("3333333.33"), AUD)), Money.class)); 
 }
 
 

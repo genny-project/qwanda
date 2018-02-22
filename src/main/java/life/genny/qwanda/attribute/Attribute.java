@@ -253,6 +253,5 @@ public class Attribute extends CodedEntity implements Serializable {
 	}*/
 	
 	
-	
 
 }

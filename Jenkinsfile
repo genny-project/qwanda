@@ -1,17 +1,28 @@
 pipeline {
 	agent any
-	environment {
-		releaseVersion = sh(returnStdout: true, script: 'git describe --abbrev=0 --tags')
-	}
   tools {
       maven 'mvn 3.5'
   }
 	stages {
+		stage ('Clone') {
+		  steps {
+				cleanWs()
+		  	checkout scm
+				script {
+					releaseVersion = sh(returnStdout: true, script: 'git describe --abbrev=0 --tags')
+        }
+		  }
+		}
 		stage('Build') {
 			steps {
 				sh "echo ${releaseVersion}"
 				sh "echo ${env.releaseVersion}"
 				sh 'mvn clean install -U'
+			}
+		}
+		stage('Push to Nexus') {
+			steps {
+				nexusPublisher nexusInstanceId: 'OUTCOME_NEXUS', nexusRepositoryId: 'life.genny', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/qwanda.jar']], mavenCoordinate: [artifactId: 'qwanda', groupId: 'life.genny', packaging: 'jar', version: '1.0.7']]]
 			}
 		}
 	}

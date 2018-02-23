@@ -9,7 +9,7 @@ pipeline {
 				cleanWs()
 		  	checkout scm
 				script {
-					releaseVersion = sh(returnStdout: true, script: 'git describe --abbrev=0 --tags')
+					releaseVersion = sh(returnStdout: true, script: 'git fetch -t && git describe --abbrev=0 --tags')
         }
 		  }
 		}

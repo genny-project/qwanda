@@ -20,11 +20,6 @@ pipeline {
 				sh 'mvn clean install -U'
 			}
 		}
-		// stage('Push to Nexus') {
-		// 	steps {
-		// 		nexusPublisher nexusInstanceId: 'OUTCOME_NEXUS', nexusRepositoryId: 'life.genny', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/qwanda.jar']], mavenCoordinate: [artifactId: 'qwanda', groupId: 'life.genny', packaging: 'jar', version: '1.0.7']]]
-		// 	}
-		// }
 	}
 	post {
 		success {

@@ -1,7 +1,7 @@
 pipeline {
 	agent any
 	environment {
-		releaseVersion = sh(returnStdout: true, script: 'git describe --abbrev=0 --tags')
+		releaseVersion = sh(returnStdout: true, script: 'echo v1.7.0')
 	}
   tools {
       maven 'mvn 3.5'

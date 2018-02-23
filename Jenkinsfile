@@ -1,18 +1,12 @@
 pipeline {
 	agent any
 	environment {
-		releaseVersion = sh(returnStdout: true, script: 'echo v1.7.0')
+		releaseVersion = sh(returnStdout: true, script: 'git describe --abbrev=0 --tags')
 	}
   tools {
       maven 'mvn 3.5'
   }
 	stages {
-		stage ('Clone') {
-		  steps {
-				cleanWs()
-		  	checkout scm
-		  }
-		}
 		stage('Build') {
 			steps {
 				sh "echo ${releaseVersion}"

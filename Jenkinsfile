@@ -15,8 +15,6 @@ pipeline {
 		}
 		stage('Build') {
 			steps {
-				sh "echo ${releaseVersion}"
-				sh "echo ${env.releaseVersion}"
 				sh 'mvn clean install -U'
 			}
 		}

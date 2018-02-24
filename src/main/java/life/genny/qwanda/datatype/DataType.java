@@ -109,6 +109,10 @@ public class DataType implements Serializable {
   public DataType(final Class clazz) {
     this(clazz, new ValidationList());
   }
+  
+  public DataType(final String className) {
+	    this(className, new ValidationList());
+	  }
 
   public DataType(final String className, final ValidationList aValidationList, final String name,final String inputmask) {
 	    setClassName(className);

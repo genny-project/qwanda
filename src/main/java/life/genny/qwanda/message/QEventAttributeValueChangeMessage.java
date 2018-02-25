@@ -31,10 +31,18 @@ public class QEventAttributeValueChangeMessage extends QEventMessage {
 	@Expose
 	  private String oldValue;
 
-		public QEventAttributeValueChangeMessage(final Answer answer, String oldValue, String token) {
-			super(EVENT_TYPE_EVT_ATTRIBUTE_VALUE_CHANGE, answer.getAttributeCode());
+	public QEventAttributeValueChangeMessage(final Answer answer, String oldValue, String token) {
+		super(EVENT_TYPE_EVT_ATTRIBUTE_VALUE_CHANGE, answer.getAttributeCode());
+		this.answer  = answer;
+		this.oldValue = oldValue;
+		setToken(token);
+	}
+		public QEventAttributeValueChangeMessage(String sourceBaseEntityCode,String targetBaseEntityCode, BaseEntity safeBE, String token) {
+			super(EVENT_TYPE_EVT_ATTRIBUTE_VALUE_CHANGE, "DUMMY");
+			Answer answer =  new Answer(sourceBaseEntityCode,targetBaseEntityCode,"DUMMY","DUMMY");
 			this.answer  = answer;
-			this.oldValue = oldValue;
+			this.oldValue = null;
+			this.be = safeBE;
 			setToken(token);
 		}
 		

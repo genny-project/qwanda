@@ -557,6 +557,9 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@Transient
 	@XmlTransient
 	public <T> T getValue() {
+		if ((getPk()==null)||(getPk().attribute==null)) {
+			return getLoopValue();
+		}
 		final String dataType = getPk().getAttribute().getDataType().getClassName();
 		switch (dataType) {
 		case "java.lang.Integer":

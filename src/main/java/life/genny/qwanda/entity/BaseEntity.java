@@ -36,6 +36,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.logging.log4j.Logger;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -73,6 +75,7 @@ import life.genny.qwanda.exception.BadDataException;
 @Table(name = "baseentity")
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
+@FilterDef(name="filterAttribute", parameters=@org.hibernate.annotations.ParamDef( name="attributeCodes", type="String[]" ) )
 
 // @Inheritance(strategy = InheritanceType.JOINED)
 public class BaseEntity extends CodedEntity implements BaseEntityIntf {
@@ -97,6 +100,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   @JsonManagedReference(value="entityAttribute")
   @JsonIgnore
   @Expose
+  @Filter(name="filterAttribute", condition="attributeCode in (:attributeCodes)")
   private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 
   @JsonIgnore

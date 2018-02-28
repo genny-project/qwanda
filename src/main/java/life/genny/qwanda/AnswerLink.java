@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -229,11 +230,21 @@ public class AnswerLink implements java.io.Serializable {
 		if (getAttribute()==null) {
 			System.out.println("attribute is null");
 		}
-		if (getAttribute().getDataType().getClassName().equalsIgnoreCase(String.class.getCanonicalName())) {
-			setValueString(answer.getValue());
-		} else if (getAttribute().getDataType().getClassName()
-				.equalsIgnoreCase(LocalDateTime.class.getCanonicalName())) {
-			final String result = answer.getValue();
+		switch (this.pk.getAttribute().getDataType().getClassName()) {
+		case "life.genny.qwanda.entity":
+			List<String> beCodeList = new ArrayList<String>();
+			beCodeList.add(answer.getValue());
+			setValueBaseEntityCodeList(beCodeList);
+			break;
+		case "java.lang.Integer":
+		case "Integer":
+			String result = answer.getValue();
+			final Integer integer = Integer.parseInt(result);
+			setValueInteger(integer);
+			break;
+		case "java.time.LocalDateTime":
+		case "LocalDateTime":
+			result = answer.getValue();
 			List<String> formatStrings = Arrays.asList("yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd",
 					"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 			for (String formatString : formatStrings) {
@@ -247,9 +258,30 @@ public class AnswerLink implements java.io.Serializable {
 				}
 
 			}
-		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(LocalDate.class.getCanonicalName())) {
-			final String result = answer.getValue();
-			List<String> formatStrings = Arrays.asList("yyyy-MM-dd", "M/y", "yyyy/MM/dd", "yyyy-MM-dd'T'HH:mm:ss",
+			break;
+		case "java.time.LocalTime":
+		case "LocalTime":
+			result = answer.getValue();
+			formatStrings = Arrays.asList("HH:mm", "HH:mm:ss", "HH:mm:ss.SSSZ");
+			for (String formatString : formatStrings) {
+				Date olddate;
+				try {
+					olddate = new SimpleDateFormat(formatString).parse(result);
+					final LocalTime dateTime = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
+					setValueTime(dateTime);
+				} catch (java.text.ParseException e) {
+					continue;
+				}
+
+				break;
+
+			}
+			break;
+
+		case "java.time.LocalDate":
+		case "LocalDate":
+			result = answer.getValue();
+			formatStrings = Arrays.asList("yyyy-MM-dd", "M/y", "yyyy/MM/dd", "yyyy-MM-dd'T'HH:mm:ss",
 					"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 			for (String formatString : formatStrings) {
 				Date olddate;
@@ -264,49 +296,39 @@ public class AnswerLink implements java.io.Serializable {
 				break;
 
 			}
-
-		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(LocalTime.class.getCanonicalName())) {
-			final String result = answer.getValue();
-			List<String> formatStrings = Arrays.asList("HH:mm", "HH:mm:ss", "HH:mm:ss.SSSZ");
-			for (String formatString : formatStrings) {
-				Date olddate;
-				try {
-					olddate = new SimpleDateFormat(formatString).parse(result);
-					final LocalTime dateTime = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
-					setValueTime(dateTime);
-				} catch (java.text.ParseException e) {
-					continue;
-				}
-
-				break;
-
-			}
-		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Money.class.getCanonicalName())) {
-			final String result = answer.getValue();
+			break;
+		case "java.lang.Long":
+		case "Long":
+			result = answer.getValue();
+			final Long l = Long.parseLong(result);
+			setValueLong(l);
+			break;
+		case "java.lang.Double":
+		case "Double":
+			result = answer.getValue();
+			final Double d = Double.parseDouble(result);
+			setValueDouble(d);
+			break;
+		case "java.lang.Boolean":
+		case "Boolean":
+			result = answer.getValue();
+			final Boolean b = Boolean.parseBoolean(result);
+			setValueBoolean(b);
+			break;
+		case "org.javamoney.moneta.Money":
+		case "Money":
+			result = answer.getValue();
 			GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Money.class, new MoneyDeserializer());
 			Gson gson = gsonBuilder.create();
 			Money money = gson.fromJson(result, Money.class);
 			setValueMoney(money);
-
-		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Integer.class.getCanonicalName())) {
-			final String result = answer.getValue();
-			final Integer integer = Integer.parseInt(result);
-			setValueInteger(integer);
-		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Double.class.getCanonicalName())) {
-			final String result = answer.getValue();
-			final Double d = Double.parseDouble(result);
-			setValueDouble(d);
-		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Long.class.getCanonicalName())) {
-			final String result = answer.getValue();
-			final Long l = Long.parseLong(result);
-			setValueLong(l);
-		} else if (getAttribute().getDataType().getClassName().equalsIgnoreCase(Boolean.class.getCanonicalName())) {
-			final String result = answer.getValue();
-			final Boolean b = Boolean.parseBoolean(result);
-			setValueBoolean(b);
-		} else {
+			break;
+		case "java.lang.String":
+		default:
 			setValueString(answer.getValue());
+			break;
 		}
+		
 	}
 
 	// @JsonIgnore
@@ -757,28 +779,36 @@ public class AnswerLink implements java.io.Serializable {
 			setValueBaseEntityCodeList((List<String>) value);
 			break;
 		case "java.lang.Integer":
+		case "Integer":
 			setValueInteger((Integer) value);
 			break;
 		case "java.time.LocalDateTime":
+		case "LocalDateTime":
 			setValueDateTime((LocalDateTime) value);
 			break;
 		case "java.time.LocalTime":
+		case "LocalTime":
 			setValueTime((LocalTime) value);
 			break;
 
 		case "java.time.LocalDate":
+		case "LocalDate":
 			setValueDate((LocalDate) value);
 			break;
 		case "java.lang.Long":
+		case "Long":
 			setValueLong((Long) value);
 			break;
 		case "java.lang.Double":
+		case "Double":
 			setValueDouble((Double) value);
 			break;
 		case "java.lang.Boolean":
+		case "Boolean":
 			setValueBoolean((Boolean) value);
 			break;
 		case "org.javamoney.moneta.Money":
+		case "Money":
 			setValueMoney((Money) value);
 			break;
 		case "java.lang.String":

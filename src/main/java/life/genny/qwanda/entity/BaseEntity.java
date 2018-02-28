@@ -312,7 +312,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
     if (ea == null)
       throw new BadDataException("missing Attribute");
 
-    addAttribute(ea.getAttribute(), ea.getWeight(), ea.getValueString());
+    addAttribute(ea.getAttribute(), ea.getWeight(), ea.getValue());
   }
 
   /**

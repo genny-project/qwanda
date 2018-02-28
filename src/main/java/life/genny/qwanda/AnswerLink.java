@@ -718,20 +718,28 @@ public class AnswerLink implements java.io.Serializable {
 		case "life.genny.qwanda.entity":
 			return (T) getValueBaseEntityCodeList();
 		case "java.lang.Integer":
+		case "Integer":
 			return (T) getValueInteger();
 		case "java.time.LocalDateTime":
+		case "LocalDateTime":
 			return (T) getValueDateTime();
 		case "java.time.LocalDate":
+		case "LocalDate":
 			return (T) getValueDate();
 		case "java.time.LocalTime":
+		case "LocalTime":
 			return (T) getValueTime();
 		case "java.lang.Long":
+		case "Long":
 			return (T) getValueLong();
 		case "java.lang.Double":
+		case "Double":
 			return (T) getValueDouble();
 		case "java.lang.Boolean":
+		case "Boolean":
 			return (T) getValueBoolean();
 		case "org.javamoney.moneta.Money":
+		case "Money":
 			return (T) getValueMoney();
 		case "java.lang.String":
 		default:

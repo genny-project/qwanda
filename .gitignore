@@ -5,4 +5,4 @@ src/main/resources/git.properties
 **/src/main/resources/git.properties
 .settings
 .classpath
-
+./.classpath

@@ -563,20 +563,28 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 		final String dataType = getPk().getAttribute().getDataType().getClassName();
 		switch (dataType) {
 		case "java.lang.Integer":
+		case "Integer":
 			return (T) getValueInteger();
 		case "java.time.LocalDateTime":
+		case "LocalDateTime":
 			return (T) getValueDateTime();
 		case "java.time.LocalTime":
+		case "LocalTime":
 			return (T) getValueTime();
 		case "java.lang.Long":
+		case "Long":
 			return (T) getValueLong();
 		case "java.lang.Double":
+		case "Double":
 			return (T) getValueDouble();
 		case "java.lang.Boolean":
+		case "Boolean":
 			return (T) getValueBoolean();
 		case "java.time.LocalDate":
+		case "LocalDate":
 			return (T) getValueDate();
 		case "org.javamoney.moneta.Money":
+		case "Money":
 			return (T) getValueMoney();
 		case "range.LocalDate":
 			return (T) getValueDateRange();

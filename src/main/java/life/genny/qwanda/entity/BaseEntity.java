@@ -561,7 +561,9 @@ public <T> Optional<T> getValue(final String attributeCode) {
 	
 	Optional<T> result = Optional.empty();
 	if (ea.isPresent()) {
-		result = Optional.of(ea.get().getValue());
+		if (ea.get()!=null) {
+			result = Optional.of(ea.get().getValue());
+		}
 	} 
 	return result;
 

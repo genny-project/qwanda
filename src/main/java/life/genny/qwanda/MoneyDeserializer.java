@@ -26,9 +26,12 @@ public class MoneyDeserializer implements JsonSerializer<Money>, JsonDeserialize
     public JsonElement serialize(Money src, Type typeOfSrc, JsonSerializationContext context)
     {
     	JsonParser parser = new JsonParser();
-    DecimalFormat decimalFormat = new DecimalFormat("###0.00");
+    DecimalFormat decimalFormat = new DecimalFormat("###############0.00");
         
     	String amount = decimalFormat.format(src.getNumber().doubleValue());
+    	if (amount.contains("+")) {
+    		System.out.println("debug");
+    	}
     	JsonElement o = parser.parse("{\"amount\":"+amount+",\"currency\":\""+src.getCurrency().getCurrencyCode()+"\"}");
       return o;
     }
@@ -42,8 +45,13 @@ public class MoneyDeserializer implements JsonSerializer<Money>, JsonDeserialize
 if (StringUtils.isBlank(json.getAsJsonObject().get("amount").getAsString()) )
 		return  null;  //TODO, can we use Optional<Money> ?
 else {
-    	Money money = Money.of(new BigDecimal(json.getAsJsonObject().get("amount").getAsString()), currency);
-
+	String amountStr = json.getAsJsonObject().get("amount").getAsString();
+	if (amountStr.contains("+")) {
+		System.out.println("debug");
+	}
+	BigDecimal bDamount = new BigDecimal(amountStr);
+    	Money money = Money.of(bDamount, currency);
+    	
       return money;
 }
     }

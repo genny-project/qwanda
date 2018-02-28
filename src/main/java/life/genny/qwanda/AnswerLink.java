@@ -216,7 +216,7 @@ public class AnswerLink implements java.io.Serializable {
 		setWeight(weight);
 		setAnswer(answer);
 
-	}
+	} 
 
 	@JsonIgnore
 	public void setAnswer(final Answer answer) {
@@ -226,7 +226,9 @@ public class AnswerLink implements java.io.Serializable {
 		this.setInferred(answer.getInferred());
 
 		// Assume that Attribute Validation has been performed
-
+		if (getAttribute()==null) {
+			System.out.println("attribute is null");
+		}
 		if (getAttribute().getDataType().getClassName().equalsIgnoreCase(String.class.getCanonicalName())) {
 			setValueString(answer.getValue());
 		} else if (getAttribute().getDataType().getClassName()

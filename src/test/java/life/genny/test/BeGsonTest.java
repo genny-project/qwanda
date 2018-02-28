@@ -2,22 +2,32 @@ package life.genny.test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.javamoney.moneta.Money;
 import org.junit.Test;
 
+import com.google.common.collect.Range;
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import life.genny.qwanda.DateTimeDeserializer;
 import life.genny.qwanda.MoneyDeserializer;
+import life.genny.qwanda.RangeDeserializer;
+import life.genny.qwanda.attribute.Attribute;
+import life.genny.qwanda.attribute.AttributeDateRange;
+import life.genny.qwanda.attribute.EntityAttribute;
 import life.genny.qwanda.datatype.LocalDateConverter;
+import life.genny.qwanda.entity.Product;
+import life.genny.qwanda.exception.BadDataException;
 import life.genny.qwanda.message.QDataBaseEntityMessage;
 
 public class BeGsonTest {
 	static GsonBuilder gsonBuilder = new GsonBuilder();
 
 	static public Gson gson = gsonBuilder.registerTypeAdapter(Money.class, new MoneyDeserializer())
+			.registerTypeAdapter(new TypeToken<Range<LocalDate>>(){}.getType(), new RangeDeserializer())
 			.registerTypeAdapter(LocalDateTime.class, new DateTimeDeserializer()).setPrettyPrinting()
 			.registerTypeAdapter(LocalDate.class, new LocalDateConverter()).excludeFieldsWithoutExposeAnnotation()
 			.create();
@@ -31,4 +41,41 @@ public class BeGsonTest {
 		System.out.println("Item =" + item);
 
 	}
+	
+	@Test
+	public void rangeTest()
+	{
+		Product mazdaCX5 = new Product("maxdacx5","Mazda CX-5");
+
+		Attribute rangeAttribute = new AttributeDateRange("PRI_DATE_RANGE","LocalDate Range Test");
+		
+		Range<LocalDate> dateRange = Range.closedOpen(LocalDate.of(2018, 1, 1), LocalDate.of(2018, 2, 20));
+		try {
+			mazdaCX5.addAttribute(rangeAttribute, 2.0, dateRange);
+		} catch (BadDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Optional<Range<LocalDate>> myDateRange = mazdaCX5.getLoopValue("PRI_DATE_RANGE");
+		if (myDateRange.isPresent()) {
+			Range<LocalDate> dr = myDateRange.get();
+			if (dr.contains(LocalDate.of(2018, 1, 20))) {
+				System.out.println("LocalDate Included!");
+			} 
+			if (!dr.contains(LocalDate.of(2017, 1, 20))) {
+				System.out.println("LocalDate NOT Included!");
+			} 
+			Optional<EntityAttribute> ea = mazdaCX5.findEntityAttribute("PRI_DATE_RANGE");
+			if (ea.isPresent()) {
+				String json = gson.toJson(ea.get());
+				System.out.println("JSON RANGE:"+json);
+				
+				EntityAttribute recreatedRangeEA = gson.fromJson(json, EntityAttribute.class);
+//				Range<LocalDate> recreatedRange = gson.fromJson(json, new TypeToken<Range<LocalDate>>(){}.getType());
+				System.out.println("DEJSONED RANGE:"+recreatedRangeEA.getLoopValue());
+			}
+		}
+	}
+	
 }

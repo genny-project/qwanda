@@ -33,19 +33,5 @@ jdk_version() {
       fi
     done
   fi
-  return "$result"
+  echo "$result"
 }
-
-jdk_version
-if [[ $? -eq 9 ]]; then
-   echo "Java 9"
-   export MAVEN_OPTS="--add-modules java.xml.bind" mvn clean install 
-fi
-
-jdk_version
-if [[ $? -eq 8 ]]; then
-   echo "Java 8"
-   mvn clean install
-fi
-
-mvn eclipse:eclipse

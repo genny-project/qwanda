@@ -45,7 +45,7 @@ public class QEventBtnClickMessage extends QEventMessage {
         Gson gson = gsonBuilder.create();
 		
 		JsonObject valueJson = gson.fromJson(value, JsonObject.class);
-		String hint= valueJson.get("hint").toString();
+		String hint= valueJson.get("hint").toString().replaceAll("^\"|\"$", "");
 		return hint;
 	}
 	

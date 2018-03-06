@@ -9,6 +9,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import life.genny.qwanda.attribute.Attribute;
 
@@ -22,6 +23,7 @@ public class EntityEntityId implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JsonBackReference(value="entityEntity")
+
 	private BaseEntity source;
 	
 	

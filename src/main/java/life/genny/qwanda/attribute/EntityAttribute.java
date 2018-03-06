@@ -536,6 +536,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@Transient
 	@JsonIgnore
 	public Date getUpdatedDate() {
+		if (updated==null) return null;
 		final Date out = Date.from(updated.atZone(ZoneId.systemDefault()).toInstant());
 		return out;
 	}
@@ -906,20 +907,28 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 		final String dataType = getPk().getAttribute().getDataType().getClassName();
 		switch (dataType) {
 		case "java.lang.Integer":
+		case "Integer":
 			return new CompareToBuilder().append(this.getValueInteger(), myClass.getValueInteger()).toComparison();
 		case "java.time.LocalDateTime":
+		case "LocalDateTime":
 			return new CompareToBuilder().append(this.getValueDateTime(), myClass.getValueDateTime()).toComparison();
 		case "java.time.LocalTime":
+		case "LocalTime":
 			return new CompareToBuilder().append(this.getValueTime(), myClass.getValueTime()).toComparison();
 		case "java.lang.Long":
+		case "Long":
 			return new CompareToBuilder().append(this.getValueLong(), myClass.getValueLong()).toComparison();
 		case "java.lang.Double":
+		case "Double":
 			return new CompareToBuilder().append(this.getValueDouble(), myClass.getValueDouble()).toComparison();
 		case "java.lang.Boolean":
+		case "Boolean":
 			return new CompareToBuilder().append(this.getValueBoolean(), myClass.getValueBoolean()).toComparison();
 		case "java.time.LocalDate":
+		case "LocalDate":
 			return new CompareToBuilder().append(this.getValueDate(), myClass.getValueDate()).toComparison();
 		case "org.javamoney.moneta.Money":
+		case "Money":
 			return new CompareToBuilder().append(this.getValueMoney(), myClass.getValueMoney()).toComparison();
 		case "range.LocalDate":
 			return new CompareToBuilder().append(this.getValueDateRange(), myClass.getValueDateRange()).toComparison();

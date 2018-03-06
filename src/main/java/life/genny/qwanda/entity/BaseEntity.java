@@ -98,7 +98,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 //  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.baseEntity",cascade = CascadeType.MERGE)
   @JsonManagedReference(value="entityAttribute")
-  @JsonIgnore
+//  @JsonIgnore
   @Expose
   @Filter(name="filterAttribute", condition="attributeCode in (:attributeCodes)")
   private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
@@ -499,6 +499,9 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 //        + baseEntityAttributes;
 //  }
 
+  @Transient
+  @XmlTransient
+  @JsonIgnore
   public Set<EntityAttribute> merge(final BaseEntity entity) {
     final Set<EntityAttribute> changes = new HashSet<EntityAttribute>();
 

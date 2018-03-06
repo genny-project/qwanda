@@ -39,6 +39,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -97,7 +98,8 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   @XmlTransient
 //  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.baseEntity",cascade = CascadeType.MERGE)
-  @JsonManagedReference(value="entityAttribute")
+ // @JsonManagedReference(value="entityAttribute")
+  @JsonBackReference(value="entityAttribute")
 //  @JsonIgnore
   @Expose
   @Filter(name="filterAttribute", condition="attributeCode in (:attributeCodes)")
@@ -106,7 +108,8 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   @JsonIgnore
   @XmlTransient
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source", cascade = CascadeType.MERGE)
-  @JsonManagedReference(value="entityEntity")
+//  @JsonManagedReference(value="entityEntity")
+  @JsonBackReference(value="entityEntity")
   @Expose
   private Set<EntityEntity> links = new HashSet<EntityEntity>(0);
 

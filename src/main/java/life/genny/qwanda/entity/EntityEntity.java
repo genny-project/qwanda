@@ -190,7 +190,9 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
    */
   public EntityEntity(final BaseEntity source, final BaseEntity target,
       final Attribute attribute, Double weight) {
-   this(source,target,attribute, "LINK",weight);
+   this(source,target,attribute, "DUMMY",weight);
+   this.getLink().setLinkValue(null);
+   this.setValueString(null);
   }
 
   /**

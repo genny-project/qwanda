@@ -100,6 +100,9 @@ public abstract class CodedEntity extends CoreEntity {
 	@Column(name = "code", updatable = false, nullable = false, unique = true)
 	@Expose
 	private String code;
+	
+	@Transient
+	private Integer index;
  
 	/**
 	  * Constructor.
@@ -110,6 +113,7 @@ public abstract class CodedEntity extends CoreEntity {
 	{
 		// dummy
 		super();
+		setIndex(0);
 	}
 	
 	/**
@@ -122,6 +126,7 @@ public abstract class CodedEntity extends CoreEntity {
 	{
 		super(aName);
 		setCode(aCode);
+		setIndex(0);
 	}
 	
   
@@ -188,6 +193,20 @@ public abstract class CodedEntity extends CoreEntity {
 //	       .append(this.weight, myClass.weight)
 	       .toComparison();
 	   }
+
+	/**
+	 * @return the index
+	 */
+	public Integer getIndex() {
+		return index;
+	}
+
+	/**
+	 * @param index the index to set
+	 */
+	public void setIndex(Integer index) {
+		this.index = index;
+	}
  
   
 }

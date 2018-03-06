@@ -252,6 +252,7 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
        }
   }
 
+  @JsonIgnore
   public EntityEntityId getPk() {
     return pk;
   }

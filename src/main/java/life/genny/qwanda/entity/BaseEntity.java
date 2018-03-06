@@ -105,7 +105,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   @Filter(name="filterAttribute", condition="attributeCode in (:attributeCodes)")
   private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 
-  @JsonIgnore
+//  @JsonIgnore
   @XmlTransient
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source", cascade = CascadeType.MERGE)
 //  @JsonManagedReference(value="entityEntity")

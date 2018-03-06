@@ -12,6 +12,7 @@ public class QEventBtnClickMessage extends QEventMessage {
 	
 	private String itemCode;
 	private String hint;
+	private String value;
 	
 	private static final long serialVersionUID = 1L;
 
@@ -52,14 +53,28 @@ public class QEventBtnClickMessage extends QEventMessage {
 	public void setHint(String hint) {
 		this.hint = hint;
 	}
+	
+	public String getValue() {
+		String value= this.getData().getValue();
+		
+		GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new DateTimeDeserializer());
+        Gson gson = gsonBuilder.create();
+		
+		JsonObject valueJson = gson.fromJson(value, JsonObject.class);
+		String childValue= valueJson.get("value").toString().replaceAll("^\"|\"$", "");
+		return childValue;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
 
 	@Override
 	public String toString() {
 		return "QEventBtnClickMessage [code="+this.getData().getCode()
 				+ ", event_type=" + getEvent_type() + ", msg_type=" + getMsg_type() + ", itemCode=" + itemCode + ", hint=" + hint + "]";
 	}
-	
-
 	
 	
 }

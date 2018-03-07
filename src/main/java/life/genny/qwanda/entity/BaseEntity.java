@@ -38,6 +38,9 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.FilterDefs;
+import org.hibernate.annotations.FilterJoinTable;
+import org.hibernate.annotations.Filters;
 import org.hibernate.annotations.ParamDef;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -77,11 +80,16 @@ import life.genny.qwanda.exception.BadDataException;
 @Table(name = "baseentity")
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
-@FilterDef(name = "filterAttribute", parameters = @ParamDef(name="attributeCodes", type="String[]"))
-@Filter(name = "filterAttribute", condition = "attributeCode in (:attributeCodes)")
-@FilterDef(name = "filterAttribute2", parameters = @ParamDef(name="attributeCode", type="String"))
-@Filter(name = "filterAttribute2", condition = "attributeCode=:attributeCode")
+//@FilterDef(name = "filterAttribute", parameters = @ParamDef(name="attributeCodes", type="String[]"))
+//@FilterJoinTable(name = "filterAttribute", condition = "attributeCode in (:attributeCodes)")
+//@FilterDef(name = "filterAttribute2", parameters = @ParamDef(name="attributeCode", type="String"))
+//@FilterJoinTable(name = "filterAttribute2", condition = "attributeCode=:attributeCode")
 // @Inheritance(strategy = InheritanceType.JOINED)
+
+@FilterDefs({
+    @FilterDef(name = "filterAttribute", defaultCondition = "attributeCode in (:attributeCodes)", parameters = { @ParamDef(name="attributeCodes", type="string") }),
+    @FilterDef(name = "filterAttribute2", defaultCondition = "attributeCode =:attributeCode", parameters = { @ParamDef(name = "attributeCode", type = "string") })
+})
 public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
   /**
@@ -105,6 +113,12 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   @JsonBackReference(value="entityAttribute")
 //  @JsonIgnore
   @Expose
+	@Filters( {
+	    @org.hibernate.annotations.Filter(name="filterAttribute", condition="attributeCode in (:attributeCodes)"),
+	    @org.hibernate.annotations.Filter(name="filterAttribute2", condition="attributeCode =:attributeCode")
+	    
+	} )
+
   private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 
 //  @JsonIgnore

@@ -27,6 +27,7 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -77,14 +78,12 @@ import life.genny.qwanda.exception.BadDataException;
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
 
-@Table(name = "baseentity")
+@Table(name = "baseentity", 
+indexes = {
+        @Index(columnList = "code", name = "code_idx")
+    })
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
-//@FilterDef(name = "filterAttribute", parameters = @ParamDef(name="attributeCodes", type="String[]"))
-//@FilterJoinTable(name = "filterAttribute", condition = "attributeCode in (:attributeCodes)")
-//@FilterDef(name = "filterAttribute2", parameters = @ParamDef(name="attributeCode", type="String"))
-//@FilterJoinTable(name = "filterAttribute2", condition = "attributeCode=:attributeCode")
-// @Inheritance(strategy = InheritanceType.JOINED)
 
 @FilterDefs({
     @FilterDef(name = "filterAttribute", defaultCondition = "attributeCode in (:attributeCodes)", parameters = { @ParamDef(name="attributeCodes", type="string") }),
@@ -107,11 +106,8 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   private static final String DEFAULT_CODE_PREFIX = "BAS_";
 
   @XmlTransient
-//  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.baseEntity",cascade = CascadeType.MERGE)
- // @JsonManagedReference(value="entityAttribute")
   @JsonBackReference(value="entityAttribute")
-//  @JsonIgnore
   @Expose
 	@Filters( {
 	    @org.hibernate.annotations.Filter(name="filterAttribute", condition="attributeCode in (:attributeCodes)"),
@@ -121,17 +117,15 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
   private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 
-//  @JsonIgnore
   @XmlTransient
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source", cascade = CascadeType.MERGE)
-//  @JsonManagedReference(value="entityEntity")
   @JsonBackReference(value="entityEntity")
   @Expose
   private Set<EntityEntity> links = new HashSet<EntityEntity>(0);
 
   @JsonIgnore
   @XmlTransient
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source", cascade = CascadeType.MERGE)
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.source", cascade = CascadeType.MERGE)
   private Set<AnswerLink> answers = new HashSet<AnswerLink>(0);
 
 

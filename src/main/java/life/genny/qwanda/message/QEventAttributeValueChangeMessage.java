@@ -38,8 +38,8 @@ public class QEventAttributeValueChangeMessage extends QEventMessage {
 		setToken(token);
 	}
 		public QEventAttributeValueChangeMessage(String sourceBaseEntityCode,String targetBaseEntityCode, BaseEntity safeBE, String token) {
-			super(EVENT_TYPE_EVT_ATTRIBUTE_VALUE_CHANGE, "DUMMY");
-			Answer answer =  new Answer(sourceBaseEntityCode,targetBaseEntityCode,"DUMMY","DUMMY");
+			super(EVENT_TYPE_EVT_ATTRIBUTE_VALUE_CHANGE, "MULTI_EVENT");
+			Answer answer =  new Answer(sourceBaseEntityCode,targetBaseEntityCode,"MULTI_EVENT","DUMMY");
 			this.answer  = answer;
 			this.oldValue = null;
 			this.be = safeBE;

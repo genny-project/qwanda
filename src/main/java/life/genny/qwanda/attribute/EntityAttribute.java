@@ -758,6 +758,10 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@Transient
 	@XmlTransient
 	public String getAsString() {
+		if ((getPk()==null)||(getPk().attribute==null)) {
+			return getAsLoopString();
+		}
+
 		if(getValue() == null) {
 			return null;
 		}

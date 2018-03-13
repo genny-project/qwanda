@@ -20,6 +20,7 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -52,7 +53,11 @@ import life.genny.qwanda.entity.BaseEntity;
 
 @Entity
 // #@JsonFilter("EntityAttribute")
-@Table(name = "baseentity_attribute")
+@Table(name = "baseentity_attribute" ,
+indexes = {
+        @Index(columnList = "ATTRIBUTE_ID", name = "aattributeid_idx"),
+        @Index(columnList = "BASEENTITY_ID", name = "baseentityid_idx")
+    })
 @AssociationOverrides({ @AssociationOverride(name = "pk.baseEntity", joinColumns = @JoinColumn(name = "BASEENTITY_ID")),
 		@AssociationOverride(name = "pk.attribute", joinColumns = @JoinColumn(name = "ATTRIBUTE_ID")) })
 public class EntityAttribute implements java.io.Serializable, Comparable<Object> {
@@ -753,6 +758,10 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@Transient
 	@XmlTransient
 	public String getAsString() {
+		if ((getPk()==null)||(getPk().attribute==null)) {
+			return getAsLoopString();
+		}
+
 		if(getValue() == null) {
 			return null;
 		}

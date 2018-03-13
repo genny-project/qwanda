@@ -296,6 +296,23 @@ public String getRule() {
 public void setRule(String rule) {
 	this.rule = rule;
 }
+
+
+
+/* (non-Javadoc)
+ * @see java.lang.Object#toString()
+ */
+@Override
+public String toString() {
+	return "Link [" + (sourceCode != null ? "sourceCode=" + sourceCode + ", " : "")
+			+ (targetCode != null ? "targetCode=" + targetCode + ", " : "")
+			+ (attributeCode != null ? "attributeCode=" + attributeCode + ", " : "")
+			+ (linkValue != null ? "linkValue=" + linkValue + ", " : "")
+			+ (weight != null ? "weight=" + weight + ", " : "")
+			+ (childColor != null ? "childColor=" + childColor + ", " : "")
+			+ (parentColor != null ? "parentColor=" + parentColor + ", " : "") + (rule != null ? "rule=" + rule : "")
+			+ "]";
+}
  
 
 }

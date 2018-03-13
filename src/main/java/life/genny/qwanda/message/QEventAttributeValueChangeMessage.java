@@ -38,8 +38,8 @@ public class QEventAttributeValueChangeMessage extends QEventMessage {
 		setToken(token);
 	}
 		public QEventAttributeValueChangeMessage(String sourceBaseEntityCode,String targetBaseEntityCode, BaseEntity safeBE, String token) {
-			super(EVENT_TYPE_EVT_ATTRIBUTE_VALUE_CHANGE, "DUMMY");
-			Answer answer =  new Answer(sourceBaseEntityCode,targetBaseEntityCode,"DUMMY","DUMMY");
+			super(EVENT_TYPE_EVT_ATTRIBUTE_VALUE_CHANGE, "MULTI_EVENT");
+			Answer answer =  new Answer(sourceBaseEntityCode,targetBaseEntityCode,"MULTI_EVENT","DUMMY");
 			this.answer  = answer;
 			this.oldValue = null;
 			this.be = safeBE;
@@ -63,9 +63,25 @@ public class QEventAttributeValueChangeMessage extends QEventMessage {
 
 	@Override
 	public String toString() {
-		return getAnswer().getSourceCode()+":"+getAnswer().getTargetCode() + ":"+ getAnswer().getAttributeCode()+": old->"+oldValue+": new->"
+		if (be==null) {
+		return "Single Answer:"+getAnswer().getSourceCode()+":"+getAnswer().getTargetCode() + ":"+ getAnswer().getAttributeCode()+": old->"+oldValue+": new->"
 				+ getAnswer().getValue() + " token=" + StringUtils.abbreviateMiddle(getToken(), "...", 30);
-
+		} else {
+			StringBuilder ret = new StringBuilder();
+			ret.append("Multi:");
+			if (!be.getBaseEntityAttributes().isEmpty()) {
+			ret.append(be.getCode());
+			ret.append(":");
+			for (EntityAttribute ea: be.getBaseEntityAttributes()) {
+				ret.append(ea.getAttributeCode());
+				ret.append(":[");
+				ret.append(ea.getAsString());
+				ret.append("],");
+			}
+			
+		}
+			return ret.toString();
+		}
 	}
 
 	/**

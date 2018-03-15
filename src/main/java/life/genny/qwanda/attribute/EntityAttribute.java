@@ -293,6 +293,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	public void setAttribute(final Attribute attribute) {
 		getPk().setAttribute(attribute);
 		this.attributeCode = attribute.getCode();
+		this.attributeName = attribute.getName();
 	}
 
 	/**

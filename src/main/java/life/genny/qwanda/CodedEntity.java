@@ -103,6 +103,7 @@ public abstract class CodedEntity extends CoreEntity {
 	private String code;
 	
 	@Transient
+	@Expose
 	private Integer index;
  
 	/**

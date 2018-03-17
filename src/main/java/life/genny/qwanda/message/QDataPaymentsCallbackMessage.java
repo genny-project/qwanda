@@ -2,14 +2,14 @@ package life.genny.qwanda.message;
 
 import com.google.gson.annotations.Expose;
 
-public class QDataAssemblyCallback extends QDataMessage{
+public class QDataPaymentsCallbackMessage extends QDataMessage{
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final String DATATYPE_ASSEMBLY_CALLBACK = "DATATYPE_ASSEMBLY_CALLBACK";
+	private static final String DATATYPE_ASSEMBLY_CALLBACK = QDataPaymentsCallbackMessage.class.getSimpleName();
 	
 	
-	public QDataAssemblyCallback(String data_type, String objectId, ObjectType object_type, ObjectStatus status) {
+	public QDataPaymentsCallbackMessage(String data_type, String objectId, ObjectType object_type, ObjectStatus status) {
 		super(DATATYPE_ASSEMBLY_CALLBACK);
 		this.objectId = objectId;
 		this.object_status = status;
@@ -70,12 +70,9 @@ public class QDataAssemblyCallback extends QDataMessage{
 
 	@Override
 	public String toString() {
-		return "QDataAssemblyCallback [object_type=" + object_type + ", object_status=" + object_status + ", objectId="
-				+ objectId + "]";
+		return "QDataPaymentsCallbackMessage [object_type=" + object_type + ", object_status=" + object_status
+				+ ", objectId=" + objectId + "]";
 	}
 
-
-
-	
 	
 }

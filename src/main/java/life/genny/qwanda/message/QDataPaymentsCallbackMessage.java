@@ -25,6 +25,9 @@ public class QDataPaymentsCallbackMessage extends QDataMessage{
 	@Expose
 	private String objectId;
 	
+	@Expose
+	private String object_message;
+	
 
 	public enum ObjectType {
 		ITEM,
@@ -34,11 +37,18 @@ public class QDataPaymentsCallbackMessage extends QDataMessage{
 	public enum ObjectStatus {
 		
 		/* Item related callbacks */
-		ITEM_PAYMENT_CREATION,
-		ITEM_PAYMENT_MADE,
-		ITEM_PAYMENT_RELEASED,
-		ITEM_PAYMENT_FAILURE,
-		ITEM_PAYMENT_SUCCESS,
+				
+		ITEM_PAYMENT_CREATION, //manually
+		
+		ITEM_PAYMENT_PENDING,  //error
+		ITEM_PAYMENT_INCOMING, //make payment is done, but its still getting processed //
+		ITEM_PAYMENT_HELD, //when payment is held, due to fraud or such	
+		ITEM_PAYMENT_PROBLEM, //problem
+		ITEM_PAYMENT_DEPOSITED, //payment deposited successfully //
+		ITEM_PAYMENT_COMPLETED, //when payment is made to the buyer successfully //
+		ITEM_PAYMENT_CANCELLED, //When payment is cancelled
+		ITEM_PAYMENT_REFUNDED, //when payment is refunded
+		
 		
 		/* Disbursement related callbacks */
 		DISBURSEMENT_PAYMENT_SUCCESS;
@@ -67,11 +77,20 @@ public class QDataPaymentsCallbackMessage extends QDataMessage{
 	public void setObjectId(String objectId) {
 		this.objectId = objectId;
 	}
+	
+
+	public String getObject_message() {
+		return object_message;
+	}
+
+	public void setObject_message(String object_message) {
+		this.object_message = object_message;
+	}
 
 	@Override
 	public String toString() {
 		return "QDataPaymentsCallbackMessage [object_type=" + object_type + ", object_status=" + object_status
-				+ ", objectId=" + objectId + "]";
+				+ ", objectId=" + objectId + ", object_message=" + object_message + "]";
 	}
 
 	

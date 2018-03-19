@@ -42,8 +42,8 @@ public class QDataPaymentsCallbackMessage extends QDataMessage{
 		
 		ITEM_PAYMENT_PENDING,  //error
 		ITEM_PAYMENT_INCOMING, //make payment is done, but its still getting processed //
-		ITEM_PAYMENT_HELD, //when payment is held, due to fraud or such	
-		ITEM_PAYMENT_PROBLEM, //problem
+		ITEM_PAYMENT_HELD, //when payment is held, due to fraud or such , send email/toast that payment is held
+		ITEM_PAYMENT_PROBLEM, //problem - dispute, send email/toast
 		ITEM_PAYMENT_DEPOSITED, //payment deposited successfully //
 		ITEM_PAYMENT_COMPLETED, //when payment is made to the buyer successfully //
 		ITEM_PAYMENT_CANCELLED, //When payment is cancelled

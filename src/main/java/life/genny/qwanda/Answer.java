@@ -210,6 +210,11 @@ public class Answer implements Serializable {
 	@Expose
 	private Boolean changeEvent = true;
 
+	@Transient
+	@Expose
+	// Provide a clue to any new attribute type that may be needed if the attribute does not exist yet, e.g. java.util.Double
+	private String dataType = null;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -573,6 +578,22 @@ public class Answer implements Serializable {
 	 */
 	public void setChangeEvent(Boolean changeEvent) {
 		this.changeEvent = changeEvent;
+	}
+
+	
+	
+	/**
+	 * @return the dataType
+	 */
+	public String getDataType() {
+		return dataType;
+	}
+
+	/**
+	 * @param dataType the dataType to set
+	 */
+	public void setDataType(String dataType) {
+		this.dataType = dataType;
 	}
 
 	/*

@@ -106,7 +106,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   private static final String DEFAULT_CODE_PREFIX = "BAS_";
 
   @XmlTransient
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.baseEntity",cascade = CascadeType.MERGE)
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.baseEntity",cascade = {CascadeType.MERGE, CascadeType.REMOVE})
   @JsonBackReference(value="entityAttribute")
   @Expose
 	@Filters( {
@@ -118,14 +118,14 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 
   @XmlTransient
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source", cascade = CascadeType.MERGE)
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
   @JsonBackReference(value="entityEntity")
   @Expose
   private Set<EntityEntity> links = new HashSet<EntityEntity>(0);
 
   @JsonIgnore
   @XmlTransient
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.source", cascade = CascadeType.MERGE)
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.source", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
   private Set<AnswerLink> answers = new HashSet<AnswerLink>(0);
 
 

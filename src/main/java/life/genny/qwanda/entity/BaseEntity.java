@@ -22,7 +22,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
@@ -37,6 +37,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.logging.log4j.Logger;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.FilterDefs;
@@ -106,8 +108,9 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   private static final String DEFAULT_CODE_PREFIX = "BAS_";
 
   @XmlTransient
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.baseEntity",cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.baseEntity")
   @JsonBackReference(value="entityAttribute")
+  @Cascade({CascadeType.MERGE,CascadeType.DELETE})
   @Expose
 	@Filters( {
 	    @org.hibernate.annotations.Filter(name="filterAttribute", condition="attributeCode in (:attributeCodes)"),
@@ -118,14 +121,16 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   private Set<EntityAttribute> baseEntityAttributes = new HashSet<EntityAttribute>(0);
 
   @XmlTransient
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source")
   @JsonBackReference(value="entityEntity")
+  @Cascade({CascadeType.MERGE,CascadeType.DELETE})
   @Expose
   private Set<EntityEntity> links = new HashSet<EntityEntity>(0);
 
   @JsonIgnore
   @XmlTransient
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.source", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.source")
+ @Cascade({CascadeType.MERGE, CascadeType.DELETE})
   private Set<AnswerLink> answers = new HashSet<AnswerLink>(0);
 
 
@@ -493,7 +498,6 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
     		EntityAttribute newEA = new EntityAttribute(this, answerLink.getAttribute(), weight,
     				answerLink.getValue());
     		newEA.setInferred(answerLink.getInferred());
-    
     		this.baseEntityAttributes.add(newEA);
     }
     

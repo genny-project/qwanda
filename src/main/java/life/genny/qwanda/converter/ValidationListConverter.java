@@ -2,6 +2,10 @@ package life.genny.qwanda.converter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 import java.lang.invoke.MethodHandles;
@@ -76,14 +80,15 @@ public class ValidationListConverter implements AttributeConverter<List<Validati
 	}
 
 	public String convertToString(final List<String> list) {
-		String ret = "";
-		if (list != null) {
-			for (final String str : list) {
-				ret += str + ":";
-			}
-			ret = StringUtils.removeEnd(ret, ":");
-
-		}
+//		String ret = "";
+//		if (list != null) {
+//			for (final String str : list) {
+//				ret += str + ":";
+//			}
+//			ret = StringUtils.removeEnd(ret, ":");
+//
+//		}
+		String ret = new Gson().toJson(list );
 		return ret;
 
 	}
@@ -91,7 +96,12 @@ public class ValidationListConverter implements AttributeConverter<List<Validati
 	public List<String> convertFromString(final String joined) {
 		List<String> strings = new ArrayList<String>();
 		if (joined != null) {
-			strings = new ArrayList<>(Arrays.asList(joined.split(":")));
+		//	strings = new ArrayList<>(Arrays.asList(joined.split(":")));
+			if (joined.startsWith("{")||joined.startsWith("[")) {
+			strings = new Gson().fromJson(joined, new TypeToken<List<String>>(){}.getType());
+			} else {
+				strings.add(joined); // single , non json Validation
+			}
 		}
 		return strings;
 	}

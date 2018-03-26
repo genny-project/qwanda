@@ -459,7 +459,7 @@ public void setSpeed(Double speed) {
    */
   @Override
   public String toString() {
-    return "GPS [" + created + ", lat=" + latitude + ", long="
+    return "GPS [" + created + ", lat/long=" + latitude + ","
         + longitude + ", bearing=" + bearing + ", targetCode=" + targetCode + "]";
   }
 

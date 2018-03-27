@@ -28,7 +28,19 @@ public class SearchEntity extends BaseEntity {
 	        }
 	    }
 	}
-	
+
+	public enum StringFilter {
+	    EQUAL {
+	        public String toString() {
+	            return "=";
+	        }
+	    },
+	    LIKE {
+	        public String toString() {
+	            return "LIKE";
+	        }
+	    }
+	}
 	public enum Filter {
 	    EQUALS {
 	        public String toString() {
@@ -127,15 +139,17 @@ public class SearchEntity extends BaseEntity {
 		}
 	}	
 
-	public void addSFilter(final String attributeCode, final String value)
+	public void addFilter(final String attributeCode, final StringFilter filterType,final String value)
 	{
-		AttributeText attribute = new AttributeText(attributeCode, "=");
+		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
 		try {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
 			log.error("Bad String Filter Initialisation");
 		}
 	}	
+	
+
 	
 	public void setPageStart(final Integer pageStart)
 	{

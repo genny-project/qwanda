@@ -76,7 +76,7 @@ public class SearchEntity extends BaseEntity {
 	}
 	
 	
-	public void addColumn(final String attributeCode, final String columnName)
+	public SearchEntity addColumn(final String attributeCode, final String columnName)
 	{
 		AttributeText attributeColumn = new AttributeText("COL_"+attributeCode, columnName);
 		try {
@@ -85,9 +85,10 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Column Initialisation");
 		}
+		return this;
 	}
 	
-	public void addSort(final String attributeCode, final String sortHelpText, final Sort sortType)
+	public SearchEntity addSort(final String attributeCode, final String sortHelpText, final Sort sortType)
 	{
 		AttributeText attributeSort = new AttributeText("SRT_"+attributeCode, sortHelpText);
 		try {
@@ -97,9 +98,11 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Sort Initialisation");
 		}
+		
+		return this;
 	}
 	
-	public void addFilter(final String attributeCode, final Filter filterType, final Integer value)
+	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final Integer value)
 	{
 		AttributeInteger attribute = new AttributeInteger(attributeCode, filterType.toString());
 		try {
@@ -107,9 +110,11 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Integer Filter Initialisation");
 		}
+		
+		return this;
 	}
 
-	public void addFilter(final String attributeCode, final Filter filterType, final Long value)
+	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final Long value)
 	{
 		AttributeLong attribute = new AttributeLong(attributeCode, filterType.toString());
 		try {
@@ -117,9 +122,11 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Long Filter Initialisation");
 		}
+		
+		return this;
 	}
 	
-	public void addFilter(final String attributeCode, final Filter filterType, final Double value)
+	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final Double value)
 	{
 		AttributeDouble attribute = new AttributeDouble(attributeCode, filterType.toString());
 		try {
@@ -127,9 +134,11 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Double Filter Initialisation");
 		}
+		
+		return this;
 	}	
 	
-	public void addFilter(final String attributeCode, final Boolean value)
+	public SearchEntity addFilter(final String attributeCode, final Boolean value)
 	{
 		AttributeBoolean attribute = new AttributeBoolean(attributeCode, "=");
 		try {
@@ -137,9 +146,11 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Double Filter Initialisation");
 		}
+		
+		return this;
 	}	
 
-	public void addFilter(final String attributeCode, final StringFilter filterType,final String value)
+	public SearchEntity addFilter(final String attributeCode, final StringFilter filterType,final String value)
 	{
 		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
 		try {
@@ -147,11 +158,13 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad String Filter Initialisation");
 		}
+		
+		return this;
 	}	
 	
 
 	
-	public void setPageStart(final Integer pageStart)
+	public SearchEntity setPageStart(final Integer pageStart)
 	{
 		AttributeInteger attributePageStart = new AttributeInteger("SCH_PAGE_START", "PageStart");
 		try {
@@ -159,9 +172,11 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Page Start ");
 		}
+		
+		return this;
 	}
 	
-	public void setPageSize(final Integer pageSize)
+	public SearchEntity setPageSize(final Integer pageSize)
 	{
 		AttributeInteger attributePageSize = new AttributeInteger("SCH_PAGE_SIZE", "PageSize");
 		try {
@@ -169,9 +184,11 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Page Size");
 		}
+		
+		return this;
 	}
 
-	public void setStakeholder(final String stakeholderCode)
+	public SearchEntity setStakeholder(final String stakeholderCode)
 	{
 		AttributeText attribute = new AttributeText("SCH_STAKEHOLDER_CODE", "Stakeholder");
 		try {
@@ -179,9 +196,11 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Stakeholder");
 		}
+		
+		return this;
 	}
 	
-	public void setLinkCode(final String linkCode)
+	public SearchEntity setLinkCode(final String linkCode)
 	{
 		AttributeText attribute = new AttributeText("SCH_LINK_CODE", "LinkCode");
 		try {
@@ -189,9 +208,11 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Stakeholder");
 		}
+		
+		return this;
 	}
 	
-	public void setLinkValue(final String linkValue)
+	public SearchEntity setLinkValue(final String linkValue)
 	{
 		AttributeText attribute = new AttributeText("SCH_LINK_VALUE", "LinkValue");
 		try {
@@ -199,9 +220,11 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Stakeholder");
 		}
+		
+		return this;
 	}
 	
-	public void setSourceCode(final String sourceCode)
+	public SearchEntity setSourceCode(final String sourceCode)
 	{
 		AttributeText attribute = new AttributeText("SCH_SOURCE_CODE", "SourceCode");
 		try {
@@ -209,9 +232,10 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Stakeholder");
 		}
+		return this;
 	}
 	
-	public void setTargetCode(final String targetCode)
+	public SearchEntity setTargetCode(final String targetCode)
 	{
 		AttributeText attribute = new AttributeText("SCH_TARGET_CODE", "TargetCode");
 		try {
@@ -219,6 +243,8 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Stakeholder");
 		}
+		
+		return this;
 	}
 	
 	

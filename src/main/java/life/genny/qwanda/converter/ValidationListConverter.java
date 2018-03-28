@@ -62,10 +62,14 @@ public class ValidationListConverter implements AttributeConverter<List<Validati
 					System.out.println("ValidationListStr LENGTH=6");
 					for (int i = 0; i < validationListStr.length; i = i + 6) {
 						List<String> validationGroups = convertFromString(validationListStr[i + 3]);
-
-						validations.add(new Validation(validationListStr[i], validationListStr[i + 1], validationGroups,
+						List<String> regexs = convertFromString(validationListStr[i + 2]);
+						Validation v = new Validation(validationListStr[i], validationListStr[i + 1], validationGroups,
 								validationListStr[i + 3].equalsIgnoreCase("TRUE"),
-								validationListStr[i + 4].equalsIgnoreCase("TRUE")));
+								validationListStr[i + 4].equalsIgnoreCase("TRUE"));
+						if (!regexs.isEmpty()) {
+							v.setRegex(regexs.get(0));
+						}
+						validations.add(v);
 					}
 
 				} else {

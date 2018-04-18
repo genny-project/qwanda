@@ -235,7 +235,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
     // Check if this code exists in the baseEntityAttributes
     if (getBaseEntityAttributes().parallelStream()
-        .anyMatch(ti -> ti.getAttribute().getCode().equals(attributeCode))) {
+        .anyMatch(ti -> ti.getAttributeCode().equals(attributeCode))) {
       ret = true;
     }
     return ret;

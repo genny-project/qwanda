@@ -200,6 +200,21 @@ public class SearchEntity extends BaseEntity {
 		return this;
 	}
 	
+	/*
+	 * Setting the stakeholder code of the Source Baseentity
+	 */
+	public SearchEntity setSourceStakeholder(final String sourceStakeholderCode)
+	{
+		AttributeText attribute = new AttributeText("SCH_SOURCE_STAKEHOLDER_CODE", "SourceStakeholder");
+		try {
+			addAttribute(attribute, 1.0, sourceStakeholderCode);
+		} catch (BadDataException e) {
+			log.error("Bad Source Stakeholder");
+		}
+		
+		return this;
+	}
+	
 	public SearchEntity setLinkCode(final String linkCode)
 	{
 		AttributeText attribute = new AttributeText("SCH_LINK_CODE", "LinkCode");

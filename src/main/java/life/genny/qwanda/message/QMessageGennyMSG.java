@@ -1,12 +1,18 @@
 package life.genny.qwanda.message;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gson.annotations.Expose;
 
 public class QMessageGennyMSG extends QMessage {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static final String MESSAGE_TYPE = "MSG_MESSAGE";
 	
 	@Expose
@@ -20,7 +26,9 @@ public class QMessageGennyMSG extends QMessage {
 	
 	@Expose
 	private Map<String, String> messageContextMap;
-
+	
+	@Expose
+	private List<QBaseMSGAttachment> attachmentList;
 	/**
 	 * @return the template_code
 	 */
@@ -77,6 +85,20 @@ public class QMessageGennyMSG extends QMessage {
 		this.messageContextMap = messageContextMap;
 	}
 	
+	/**
+	 * @return the attachmentList
+	 */
+	public List<QBaseMSGAttachment> getAttachmentList() {
+		return attachmentList;
+	}
+
+	/**
+	 * @param attachmentList the attachmentList to set
+	 */
+	public void setAttachmentList(List<QBaseMSGAttachment> attachmentList) {
+		this.attachmentList = attachmentList;
+	}
+
 	public QMessageGennyMSG(String msg_type, QBaseMSGMessageType messageType, String templateCode, Map<String, String> contextMap, String[] recipientArr) {
 		super(msg_type);
 		this.template_code = templateCode;
@@ -84,17 +106,26 @@ public class QMessageGennyMSG extends QMessage {
 		this.messageContextMap = contextMap;
 		this.recipientArr = recipientArr;
 	}
+	
+	
+	public QMessageGennyMSG(String msg_type, QBaseMSGMessageType messageType, String templateCode, Map<String, String> contextMap, String[] recipientArr, List<QBaseMSGAttachment> attachmentList) {
+		super(msg_type);
+		this.template_code = templateCode;
+		this.msgMessageType = messageType;
+		this.messageContextMap = contextMap;
+		this.recipientArr = recipientArr;
+		this.attachmentList = attachmentList;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "QMessageMSG [template_code=" + template_code + ", msgMessageType=" + msgMessageType + ", recipientArr="
-				+ Arrays.toString(recipientArr) + ", messageContextMap=" + messageContextMap + "]";
+		return "QMessageGennyMSG [template_code=" + template_code + ", msgMessageType=" + msgMessageType
+				+ ", recipientArr=" + Arrays.toString(recipientArr) + ", messageContextMap=" + messageContextMap
+				+ ", attachmentList=" + attachmentList + "]";
 	}
-	
-	
-	
+
 
 }

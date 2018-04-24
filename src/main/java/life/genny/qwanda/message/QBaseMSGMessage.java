@@ -1,11 +1,26 @@
 package life.genny.qwanda.message;
 
-import java.util.Arrays;
+import java.util.List;
 
 import com.google.gson.annotations.Expose;
 
 public class QBaseMSGMessage {
 	
+	public QBaseMSGMessage(String source, String target, String priority, String subject, String msgMessageData,
+			List<QBaseMSGAttachment> attachmentList) {
+		super();
+		this.source = source;
+		this.target = target;
+		this.priority = priority;
+		this.subject = subject;
+		this.msgMessageData = msgMessageData;
+		this.attachmentList = attachmentList;
+	}
+	public QBaseMSGMessage() {
+		super();
+	}
+
+
 	@Expose
 	private String source;
 	@Expose
@@ -16,8 +31,11 @@ public class QBaseMSGMessage {
 	private String subject;
 	@Expose
 	private String msgMessageData;
+	/*@Expose
+	private String[] attachments;*/
+	
 	@Expose
-	private String[] attachments;
+	private List<QBaseMSGAttachment> attachmentList; 
 	
 	private String token;
 	
@@ -61,12 +79,12 @@ public class QBaseMSGMessage {
 		this.msgMessageData = msgMessageData;
 	}
 	
-	public String[] getAttachments() {
+	/*public String[] getAttachments() {
 		return attachments;
 	}
 	public void setAttachments(String[] attachments) {
 		this.attachments = attachments;
-	}
+	}*/
 	
 	/**
 	 * @return the token
@@ -74,19 +92,35 @@ public class QBaseMSGMessage {
 	public String getToken() {
 		return token;
 	}
+	
 	/**
 	 * @param token the token to set
 	 */
 	public void setToken(String token) {
 		this.token = token;
 	}
+	
+	/**
+	 * @return the attachmentList
+	 */
+	public List<QBaseMSGAttachment> getAttachmentList() {
+		return attachmentList;
+	}
+	/**
+	 * @param attachmentList the attachmentList to set
+	 */
+	public void setAttachmentList(List<QBaseMSGAttachment> attachmentList) {
+		this.attachmentList = attachmentList;
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "QBaseMSGMessage [source=" + source + ", target=" + target + ", priority=" + priority + ", subject="
-				+ subject + ", msgMessageData=" + msgMessageData + ", attachments=" + Arrays.toString(attachments)
-				+ ", msgMessageType=" + msgMessageType + "]";
+				+ subject + ", msgMessageData=" + msgMessageData + ", attachmentList=" + attachmentList + ", token="
+				+ token + ", msgMessageType=" + msgMessageType + "]";
 	}
-	
-	
 	
 }

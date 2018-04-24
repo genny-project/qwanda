@@ -77,7 +77,7 @@ public class QBaseMSGMessageTemplate  extends CodedEntity implements Serializabl
 	<p>
 	*/
 	@NotNull
-	@Column(name = "sms", updatable = true, nullable = false)
+	@Column(name = "sms", updatable = true, nullable = false, length = 1024)
 	@Expose
 	private String sms_template;
 	
@@ -86,7 +86,7 @@ public class QBaseMSGMessageTemplate  extends CodedEntity implements Serializabl
 	 * A field that stores the toast template doc id.
 	 */
 	@NotNull
-	@Column(name = "toast", updatable = true, nullable = false)
+	@Column(name = "toast", updatable = true, nullable = false, length = 1024)
 	@Expose
 	private String toast_template;
 

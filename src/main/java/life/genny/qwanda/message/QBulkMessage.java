@@ -11,6 +11,9 @@ public class QBulkMessage implements Serializable {
 	  @Expose
 	  private String token;
 	  
+	  private String data_type=	 QBulkMessage.class.getSimpleName();
+
+	  
 	  @Expose
 	  private QMessage[] messages;
 	
@@ -47,6 +50,18 @@ public class QBulkMessage implements Serializable {
 	 */
 	public void setToken(String token) {
 		this.token = token;
+	}
+	/**
+	 * @return the data_type
+	 */
+	public String getData_type() {
+		return data_type;
+	}
+	/**
+	 * @param data_type the data_type to set
+	 */
+	public void setData_type(String data_type) {
+		this.data_type = data_type;
 	}
 	
 	

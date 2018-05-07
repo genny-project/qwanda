@@ -162,7 +162,6 @@ public class SearchEntity extends BaseEntity {
 		return this;
 	}	
 	
-
 	
 	public SearchEntity setPageStart(final Integer pageStart)
 	{
@@ -233,7 +232,7 @@ public class SearchEntity extends BaseEntity {
 		try {
 			addAttribute(attribute, 1.0, linkValue);
 		} catch (BadDataException e) {
-			log.error("Bad Stakeholder");
+			log.error("Bad Link Value");
 		}
 		
 		return this;
@@ -245,7 +244,7 @@ public class SearchEntity extends BaseEntity {
 		try {
 			addAttribute(attribute, 1.0, sourceCode);
 		} catch (BadDataException e) {
-			log.error("Bad Stakeholder");
+			log.error("Bad SourceCode");
 		}
 		return this;
 	}
@@ -256,7 +255,7 @@ public class SearchEntity extends BaseEntity {
 		try {
 			addAttribute(attribute, 1.0, targetCode);
 		} catch (BadDataException e) {
-			log.error("Bad Stakeholder");
+			log.error("Bad Target Code");
 		}
 		
 		return this;

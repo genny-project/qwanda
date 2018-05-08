@@ -7,6 +7,7 @@ import life.genny.qwanda.attribute.AttributeLong;
 import life.genny.qwanda.attribute.AttributeText;
 import life.genny.qwanda.attribute.EntityAttribute;
 import life.genny.qwanda.exception.BadDataException;
+import life.genny.qwandautils.JsonUtils;
 
 public class SearchEntity extends BaseEntity {
 	/**
@@ -266,6 +267,14 @@ public class SearchEntity extends BaseEntity {
 		}
 		
 		return this;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return JsonUtils.toJson(this);
 	}
 	
 	

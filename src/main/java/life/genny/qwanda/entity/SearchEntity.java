@@ -5,6 +5,7 @@ import life.genny.qwanda.attribute.AttributeDouble;
 import life.genny.qwanda.attribute.AttributeInteger;
 import life.genny.qwanda.attribute.AttributeLong;
 import life.genny.qwanda.attribute.AttributeText;
+import life.genny.qwanda.attribute.EntityAttribute;
 import life.genny.qwanda.exception.BadDataException;
 
 public class SearchEntity extends BaseEntity {
@@ -75,6 +76,12 @@ public class SearchEntity extends BaseEntity {
 		setPageSize(20);
 	}
 	
+	public SearchEntity(final BaseEntity be) {
+		super(be.getCode(), be.getName());
+		this.setCreated(be.getCreated());
+		this.setUpdated(be.getUpdated());
+		this.setBaseEntityAttributes(be.getBaseEntityAttributes());
+	}
 	
 	public SearchEntity addColumn(final String attributeCode, final String columnName)
 	{

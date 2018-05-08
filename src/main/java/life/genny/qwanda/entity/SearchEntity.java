@@ -5,7 +5,6 @@ import life.genny.qwanda.attribute.AttributeDouble;
 import life.genny.qwanda.attribute.AttributeInteger;
 import life.genny.qwanda.attribute.AttributeLong;
 import life.genny.qwanda.attribute.AttributeText;
-import life.genny.qwanda.attribute.EntityAttribute;
 import life.genny.qwanda.exception.BadDataException;
 import life.genny.qwandautils.JsonUtils;
 

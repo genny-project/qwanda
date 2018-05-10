@@ -68,41 +68,61 @@ import life.genny.qwanda.datatype.LocalDateTimeAdapter;
  * 
  * @author      Adam Crow
  * @author      Byron Aguirre
+ * @author      Loris Campanile
  * @version     %I%, %G%
  * @since       1.0
  */
 
 
-public class Layout  implements Serializable {
+public class Layout implements Serializable {
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	@Expose
-	private String code;
+	private String download_url;
+	
+	@Expose
+	private String path;
+	
+	@Expose
+	private String name;
+	
 	@Expose
 	private String data;
+	
+	@Expose
+	private String modified_date;
+	
 	/**
 	 * @param code
 	 * @param data
 	 */
-	public Layout(String code, String data) {
-		this.code = code;
+	public Layout(String name, String data, String download_url, String path, String modified_date) {
+		
+		this.name = name;
 		this.data = data;
+		this.path = path;
+		this.download_url = download_url;
+		this.modified_date = modified_date;
 	}
+	
 	/**
-	 * @return the code
+	 * @return the name
 	 */
-	public String getCode() {
-		return code;
+	public String getName() {
+		return name;
 	}
+	
 	/**
-	 * @param code the code to set
+	 * @param name the name to set
 	 */
-	public void setCode(String code) {
-		this.code = code;
+	public void setName(String name) {
+		this.name = name;
 	}
+	
 	/**
 	 * @return the data
 	 */
@@ -116,6 +136,42 @@ public class Layout  implements Serializable {
 		this.data = data;
 	}
 	
+	/**
+	 * @return the download_url
+	 */
+	public String getDownloadUrl() {
+		return download_url;
+	}
+	/**
+	 * @param data the download_url to set
+	 */
+	public void setDownloadUrl(String download_url) {
+		this.download_url = download_url;
+	}
 	
+	/**
+	 * @return the path
+	 */
+	public String getPath() {
+		return path;
+	}
+	/**
+	 * @param data the path to set
+	 */
+	public void setPath(String path) {
+		this.path = path;
+	}
 	
+	/**
+	 * @return the modified_date
+	 */
+	public String getModifiedDate() {
+		return modified_date;
+	}
+	/**
+	 * @param data the modified_date to set
+	 */
+	public void setModifiedDate(String modified_date) {
+		this.modified_date = modified_date;
+	}
 }

@@ -52,7 +52,7 @@ public class QDataSubLayoutMessage extends QDataMessage {
 	public String toString() {
 		String itemCodes = "";
 			for (Layout layout :items) {
-				itemCodes += layout.getCode()+",";
+				itemCodes += layout.getName()+",";
 			}
 		return "QDataSubLayoutMessage "+itemCodes;
 	}

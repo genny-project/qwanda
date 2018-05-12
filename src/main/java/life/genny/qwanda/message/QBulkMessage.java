@@ -8,7 +8,12 @@ import com.google.gson.annotations.Expose;
 public class QBulkMessage implements Serializable {
 
 	
-	  @Expose
+	  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Expose
 	  private String token;
 	  
 	  @Expose

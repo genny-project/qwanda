@@ -1,0 +1,166 @@
+package life.genny.qwanda.payments;
+
+import com.google.gson.annotations.Expose;
+
+public class QPaymentsLocationInfo {
+	
+	@Expose
+	private String addressLine1;
+	
+	@Expose
+	private String addressLine2;
+	
+	@Expose
+	private String city;
+	
+	@Expose
+	private String state;
+	
+	@Expose
+	private String postcode;
+	
+	@Expose
+	private String country;
+
+	/**
+	 * @return the addressLine1
+	 */
+	public String getAddressLine1() {
+		return addressLine1;
+	}
+
+	/**
+	 * @param addressLine1 the addressLine1 to set
+	 */
+	public void setAddressLine1(String addressLine1) {
+		this.addressLine1 = addressLine1;
+	}
+
+	/**
+	 * @return the addressLine2
+	 */
+	public String getAddressLine2() {
+		return addressLine2;
+	}
+
+	/**
+	 * @param addressLine2 the addressLine2 to set
+	 */
+	public void setAddressLine2(String addressLine2) {
+		this.addressLine2 = addressLine2;
+	}
+
+	/**
+	 * @return the city
+	 */
+	public String getCity() {
+		return city;
+	}
+
+	/**
+	 * @param city the city to set
+	 */
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	/**
+	 * @return the state
+	 */
+	public String getState() {
+		return state;
+	}
+
+	/**
+	 * @param state the state to set
+	 */
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	/**
+	 * @return the postcode
+	 */
+	public String getPostcode() {
+		return postcode;
+	}
+
+	/**
+	 * @param postcode the postcode to set
+	 */
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+
+	/**
+	 * @return the country
+	 */
+	public String getCountry() {
+		return country;
+	}
+
+	/**
+	 * @param country the country to set
+	 */
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "QPaymentsLocationInfo [addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + ", city="
+				+ city + ", state=" + state + ", postcode=" + postcode + ", country=" + country + "]";
+	}
+	
+
+	/**
+	 * 
+	 */
+	public QPaymentsLocationInfo() {
+		super();
+	}
+
+	public QPaymentsLocationInfo(String addressLine1, String city, String state, String postcode,
+			String country) {
+		
+		super();
+		
+		if(addressLine1 != null && !addressLine1.trim().isEmpty()) {
+			this.addressLine1 = addressLine1;
+		} else {
+			throw new IllegalArgumentException(String.format("addressLine1 cannot be [%d]", addressLine1));
+		}
+		
+		if(city != null && !city.trim().isEmpty()) {
+			this.city = city;
+		} else {
+			throw new IllegalArgumentException(String.format("city cannot be [%d]", city));
+		}
+		
+		if(state != null && !state.trim().isEmpty()) {
+			this.state = state;
+		} else {
+			throw new IllegalArgumentException(String.format("state cannot be [%d]", state));
+		}
+		
+		if(postcode != null && !postcode.trim().isEmpty()) {
+			this.postcode = postcode;
+		} else {
+			throw new IllegalArgumentException(String.format("postcode cannot be [%d]", postcode));
+		}
+		
+		if(country != null && !country.trim().isEmpty()) {
+			this.country = country;
+		} else {
+			throw new IllegalArgumentException(String.format("country cannot be [%d]", country));
+		}
+		
+	}
+	
+	
+	
+
+}

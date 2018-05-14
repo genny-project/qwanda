@@ -1,0 +1,128 @@
+package life.genny.qwanda.payments;
+
+import com.google.gson.annotations.Expose;
+
+public class QPaymentsUser {
+	
+	@Expose
+	private String id;
+	
+	@Expose
+	private QPaymentsUserInfo personalInfo;
+	
+	@Expose
+	private QPaymentsUserContactInfo contactInfo;
+	
+	@Expose
+	private QPaymentsLocationInfo location;
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+	/**
+	 * @return the personalInfo
+	 */
+	public QPaymentsUserInfo getPersonalInfo() {
+		return personalInfo;
+	}
+
+	/**
+	 * @param personalInfo the personalInfo to set
+	 */
+	public void setPersonalInfo(QPaymentsUserInfo personalInfo) {
+		this.personalInfo = personalInfo;
+	}
+
+	/**
+	 * @return the contactInfo
+	 */
+	public QPaymentsUserContactInfo getContactInfo() {
+		return contactInfo;
+	}
+
+	/**
+	 * @param contactInfo the contactInfo to set
+	 */
+	public void setContactInfo(QPaymentsUserContactInfo contactInfo) {
+		this.contactInfo = contactInfo;
+	}
+
+	/**
+	 * @return the location
+	 */
+	public QPaymentsLocationInfo getLocation() {
+		return location;
+	}
+
+	/**
+	 * @param location the location to set
+	 */
+	public void setLocation(QPaymentsLocationInfo location) {
+		this.location = location;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "QPaymentsUser [id=" + id + ", personalInfo=" + personalInfo + ", contactInfo=" + contactInfo
+				+ ", location=" + location + "]";
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @param personalInfo
+	 * @param contactInfo
+	 * @param location
+	 * This constructor is used when payments-user is created
+	 */
+	public QPaymentsUser(String id, QPaymentsUserInfo personalInfo, QPaymentsUserContactInfo contactInfo,
+			QPaymentsLocationInfo location) {
+		super();
+		
+		if(id != null && !id.trim().isEmpty()) {
+			this.id = id;
+		} else {
+			throw new IllegalArgumentException(String.format("id cannot be [%d]", id));
+		}
+		
+		this.personalInfo = personalInfo;
+		this.contactInfo = contactInfo;
+		this.location = location;
+	}
+
+	public QPaymentsUser() {
+		super();
+	}
+
+	/**
+	 * @param id
+	 * This constructor is used when payments-company is used
+	 */
+	public QPaymentsUser(String id) {
+		super();
+		
+		if(id != null && !id.trim().isEmpty()) {
+			this.id = id;
+		} else {
+			throw new IllegalArgumentException(String.format("id cannot be [%d]", id));
+		}
+	}
+	
+	
+
+}

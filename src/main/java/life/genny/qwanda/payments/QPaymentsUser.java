@@ -100,9 +100,24 @@ public class QPaymentsUser {
 			throw new IllegalArgumentException(String.format("id cannot be [%d]", id));
 		}
 		
-		this.personalInfo = personalInfo;
-		this.contactInfo = contactInfo;
-		this.location = location;
+		if(personalInfo != null) {
+			this.personalInfo = personalInfo;
+		} else {
+			throw new IllegalArgumentException(String.format("personalInfo Object cannot be [%d]", personalInfo));
+		}
+		
+		if(contactInfo != null) {
+			this.contactInfo = contactInfo;
+		} else {
+			throw new IllegalArgumentException(String.format("contactInfo Object cannot be [%d]", contactInfo));
+		}
+		
+		if(location != null) {
+			this.location = location;
+		} else {
+			throw new IllegalArgumentException(String.format("location Object cannot be [%d]", location));
+		}
+		
 	}
 
 	public QPaymentsUser() {

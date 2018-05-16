@@ -1,9 +1,16 @@
 package life.genny.qwanda.payments;
 
+import java.io.Serializable;
+
 import com.google.gson.annotations.Expose;
 
-public class QPaymentsUserContactInfo {
+public class QPaymentsUserContactInfo implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Expose
 	private String email;
 	

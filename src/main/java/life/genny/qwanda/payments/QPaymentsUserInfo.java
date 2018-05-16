@@ -23,6 +23,9 @@ public class QPaymentsUserInfo implements Serializable{
 	
 	@Expose
 	private String governmentNumber;
+	
+	@Expose
+	private String fullName;
 
 
 	/**
@@ -82,6 +85,21 @@ public class QPaymentsUserInfo implements Serializable{
 		this.governmentNumber = governmentNumber;
 	}
 	
+	
+	/**
+	 * @return the fullName
+	 */
+	public String getFullName() {
+		return fullName;
+	}
+
+	/**
+	 * @param fullName the fullName to set
+	 */
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
 	public QPaymentsUserInfo() {
 		super();
 	}
@@ -114,7 +132,8 @@ public class QPaymentsUserInfo implements Serializable{
 	@Override
 	public String toString() {
 		return "QPaymentsUserInfo [firstName=" + firstName + ", lastName=" + lastName + ", dob=" + dob
-				+ ", governmentNumber=" + governmentNumber + "]";
+				+ ", governmentNumber=" + governmentNumber + ", fullName=" + fullName + "]";
 	}
+
 
 }

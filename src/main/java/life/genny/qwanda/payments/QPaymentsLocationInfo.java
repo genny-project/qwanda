@@ -131,7 +131,7 @@ public class QPaymentsLocationInfo {
 		if(addressLine1 != null && !addressLine1.trim().isEmpty()) {
 			this.addressLine1 = addressLine1;
 		} else {
-			throw new IllegalArgumentException("Street address cannot be empty or null");
+			throw new IllegalArgumentException("Street address cannot be empty");
 		}
 		
 		if(city != null && !city.trim().isEmpty()) {

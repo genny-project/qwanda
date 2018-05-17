@@ -9,7 +9,7 @@ public class QCmdNavigateMessage extends QCmdMessage {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static final String MESSAGE_TYPE = "ROUTE_CHANGE";
+  private static final String CMD_TYPE = "ROUTE_CHANGE";
 	private static final String MESSAGE_CODE = "ROUTE_CHANGE";
 
 	@Expose
@@ -17,7 +17,7 @@ public class QCmdNavigateMessage extends QCmdMessage {
 
 
 	public QCmdNavigateMessage(String route) {
-		super(MESSAGE_TYPE, MESSAGE_CODE);
+		super(CMD_TYPE, MESSAGE_CODE);
 		this.route = route;
 	}
 

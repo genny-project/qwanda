@@ -109,19 +109,19 @@ public class QPaymentsUserInfo implements Serializable{
 		if(firstName != null && !firstName.trim().isEmpty()) {
 			this.firstName = firstName;
 		} else {
-			throw new IllegalArgumentException(String.format("firstName cannot be [%d]", firstName));
+			throw new IllegalArgumentException("First name cannot be empty");
 		}
 		
 		if(lastName != null && !lastName.trim().isEmpty()) {
 			this.lastName = lastName;
 		} else {
-			throw new IllegalArgumentException(String.format("lastName cannot be [%d]", lastName));
+			throw new IllegalArgumentException("Last name cannot be empty");
 		}
 		
 		if(dob != null) {
 			this.dob = dob;
 		} else {
-			throw new IllegalArgumentException(String.format("dob cannot be [%d]", dob));
+			throw new IllegalArgumentException("DOB cannot be empty");
 		}
 		
 	}

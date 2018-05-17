@@ -73,7 +73,7 @@ public class QPaymentsUserContactInfo implements Serializable {
 		if(email != null && !email.trim().isEmpty()) {
 			this.email = email;
 		} else {
-			throw new IllegalArgumentException(String.format("email cannot be [%d]", email));
+			throw new IllegalArgumentException("Email cannot be empty");
 		}
 		
 	}

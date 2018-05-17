@@ -97,25 +97,25 @@ public class QPaymentsUser {
 		if(id != null && !id.trim().isEmpty()) {
 			this.id = id;
 		} else {
-			throw new IllegalArgumentException(String.format("id cannot be [%d]", id));
+			throw new IllegalArgumentException("Payment user id cannot be empty");
 		}
 		
 		if(personalInfo != null) {
 			this.personalInfo = personalInfo;
 		} else {
-			throw new IllegalArgumentException(String.format("personalInfo Object cannot be [%d]", personalInfo));
+			throw new IllegalArgumentException("Missing first name or last name or DOB");
 		}
 		
 		if(contactInfo != null) {
 			this.contactInfo = contactInfo;
 		} else {
-			throw new IllegalArgumentException(String.format("contactInfo Object cannot be [%d]", contactInfo));
+			throw new IllegalArgumentException("Missing email ID");
 		}
 		
 		if(location != null) {
 			this.location = location;
 		} else {
-			throw new IllegalArgumentException(String.format("location Object cannot be [%d]", location));
+			throw new IllegalArgumentException("Missing address line 1/city/state/country/postcode in address");
 		}
 		
 	}
@@ -134,7 +134,7 @@ public class QPaymentsUser {
 		if(id != null && !id.trim().isEmpty()) {
 			this.id = id;
 		} else {
-			throw new IllegalArgumentException(String.format("id cannot be [%d]", id));
+			throw new IllegalArgumentException("id cannot be empty");
 		}
 	}
 	

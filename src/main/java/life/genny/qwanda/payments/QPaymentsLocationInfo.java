@@ -131,31 +131,31 @@ public class QPaymentsLocationInfo {
 		if(addressLine1 != null && !addressLine1.trim().isEmpty()) {
 			this.addressLine1 = addressLine1;
 		} else {
-			throw new IllegalArgumentException(String.format("addressLine1 cannot be [%d]", addressLine1));
+			throw new IllegalArgumentException("Street address cannot be empty or null");
 		}
 		
 		if(city != null && !city.trim().isEmpty()) {
 			this.city = city;
 		} else {
-			throw new IllegalArgumentException(String.format("city cannot be [%d]", city));
+			throw new IllegalArgumentException("City cannot be empty");
 		}
 		
 		if(state != null && !state.trim().isEmpty()) {
 			this.state = state;
 		} else {
-			throw new IllegalArgumentException(String.format("state cannot be [%d]", state));
+			throw new IllegalArgumentException("State cannot be empty");
 		}
 		
 		if(postcode != null && !postcode.trim().isEmpty()) {
 			this.postcode = postcode;
 		} else {
-			throw new IllegalArgumentException(String.format("postcode cannot be [%d]", postcode));
+			throw new IllegalArgumentException("Postcode cannot be empty");
 		}
 		
 		if(country != null && !country.trim().isEmpty()) {
 			this.country = country;
 		} else {
-			throw new IllegalArgumentException(String.format("country cannot be [%d]", country));
+			throw new IllegalArgumentException("Country cannot be empty");
 		}
 		
 	}

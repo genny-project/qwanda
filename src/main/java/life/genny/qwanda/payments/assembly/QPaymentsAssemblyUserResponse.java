@@ -37,6 +37,9 @@ public class QPaymentsAssemblyUserResponse implements Serializable {
 	
 	@Expose
 	private String updatedAt;
+	
+	@Expose
+	private String payoutAccount;
 
 	/**
 	 * @return the id
@@ -152,6 +155,21 @@ public class QPaymentsAssemblyUserResponse implements Serializable {
 	public void setLocation(String location) {
 		this.location = location;
 	}
+	
+
+	/**
+	 * @return the payoutAccount
+	 */
+	public String getPayoutAccount() {
+		return payoutAccount;
+	}
+
+	/**
+	 * @param payoutAccount the payoutAccount to set
+	 */
+	public void setPayoutAccount(String payoutAccount) {
+		this.payoutAccount = payoutAccount;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -160,8 +178,8 @@ public class QPaymentsAssemblyUserResponse implements Serializable {
 	public String toString() {
 		return "QPaymentsAssemblyUserResponse [id=" + id + ", personalInfo=" + personalInfo + ", contactInfo="
 				+ contactInfo + ", kyc=" + kyc + ", roles=" + Arrays.toString(roles) + ", location=" + location
-				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", payoutAccount=" + payoutAccount + "]";
 	}
-	
+
 
 }

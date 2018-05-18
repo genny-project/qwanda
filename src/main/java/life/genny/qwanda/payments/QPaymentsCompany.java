@@ -177,13 +177,41 @@ public class QPaymentsCompany {
 	public QPaymentsCompany(String name, String legalName, String taxNumber, Boolean chargesTax,
 			QPaymentsLocationInfo location, QPaymentsUser user, QPaymentsCompanyContactInfo contactInfo) {
 		super();
-		this.name = name;
-		this.legalName = legalName;
-		this.taxNumber = taxNumber;
-		this.chargesTax = chargesTax;
-		this.location = location;
-		this.user = user;
-		this.contactInfo = contactInfo;
+		
+		if(name != null && !name.trim().isEmpty()) {
+			this.name = name;
+			this.legalName = legalName;
+		} else {
+			throw new IllegalArgumentException("Company name cannot be empty");
+		}
+		
+		if(taxNumber != null && !taxNumber.trim().isEmpty()) {
+			this.taxNumber = taxNumber;			
+		} else {
+			throw new IllegalArgumentException("ABN cannot be empty");
+		}
+		
+		if(chargesTax != null) {
+			this.chargesTax = chargesTax;			
+		} else {
+			throw new IllegalArgumentException("GST check cannot be empty");
+		}
+		
+		if(location != null) {
+			this.location = location;			
+		} else {
+			throw new IllegalArgumentException("Missing address line 1/city/state/country/postcode in address");
+		}
+		
+		if(user != null) {
+			this.user = user;			
+		} else {
+			throw new IllegalArgumentException("Missing first name/last name/DOB in user profile");
+		}
+				
+		/* Company landline is not mandatory field */
+		this.contactInfo = contactInfo;		
+		
 	}
 
 	/**

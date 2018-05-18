@@ -97,13 +97,13 @@ public class QPaymentsUser {
 		if(id != null && !id.trim().isEmpty()) {
 			this.id = id;
 		} else {
-			throw new IllegalArgumentException("Payment user id cannot be empty");
+			throw new IllegalArgumentException("Payment user ID cannot be empty");
 		}
 		
 		if(personalInfo != null) {
 			this.personalInfo = personalInfo;
 		} else {
-			throw new IllegalArgumentException("Missing first name or last name or DOB");
+			throw new IllegalArgumentException("Missing first name/last name/DOB in user profile");
 		}
 		
 		if(contactInfo != null) {

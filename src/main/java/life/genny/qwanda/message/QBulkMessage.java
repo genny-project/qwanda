@@ -27,7 +27,10 @@ public class QBulkMessage implements Serializable {
 	  private String[] recipientCodeArray;
 
 	
-	private QBulkMessage(){}
+	public QBulkMessage(){
+		messages = new QDataBaseEntityMessage[0];
+	}
+	
 	public QBulkMessage(QDataBaseEntityMessage[] qMessages){
 		this.messages = qMessages;
 	}

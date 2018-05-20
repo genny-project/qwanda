@@ -27,7 +27,10 @@ public class QBulkMessage implements Serializable {
 	  private String[] recipientCodeArray;
 
 	
-	private QBulkMessage(){}
+	public QBulkMessage(){
+		messages = new QDataBaseEntityMessage[0];
+	}
+	
 	public QBulkMessage(QDataBaseEntityMessage[] qMessages){
 		this.messages = qMessages;
 	}
@@ -49,7 +52,7 @@ public class QBulkMessage implements Serializable {
 		    System.arraycopy(qMessageArray, 0, extended, messages.length, qMessageArray.length);
 
 		    System.arraycopy(messages, 0, extended, 0, messages.length);
-
+		    setMessages(extended);
 	}
 	public void add(List<QDataBaseEntityMessage> qMessageList) {
 		int newSize = messages.length+qMessageList.size();

@@ -21,6 +21,7 @@ public class QPaymentsErrorResponse {
 
 	/**
 	 * @param errors the errors to set
+	 * Returns errors from external payments service
 	 */
 	public void setErrors(Map<String, Object> errors) {
 		this.errors = errors;
@@ -28,6 +29,7 @@ public class QPaymentsErrorResponse {
 
 	/**
 	 * @return the error
+	 * Returns errors from payment verticle
 	 */
 	public Map<String, Object> getError() {
 		return error;

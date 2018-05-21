@@ -21,6 +21,9 @@ public class QPaymentsLocationInfo {
 	
 	@Expose
 	private String country;
+	
+	@Expose
+	private String id;
 
 	/**
 	 * @return the addressLine1
@@ -106,15 +109,29 @@ public class QPaymentsLocationInfo {
 		this.country = country;
 	}
 
+	/**
+	 * @return the location id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "QPaymentsLocationInfo [addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + ", city="
-				+ city + ", state=" + state + ", postcode=" + postcode + ", country=" + country + "]";
+				+ city + ", state=" + state + ", postcode=" + postcode + ", country=" + country + ", id=" + id + "]";
 	}
-	
 
 	/**
 	 * 
@@ -159,8 +176,6 @@ public class QPaymentsLocationInfo {
 		}
 		
 	}
-	
-	
 	
 
 }

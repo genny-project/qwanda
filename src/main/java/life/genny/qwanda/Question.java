@@ -17,6 +17,7 @@
 
 package life.genny.qwanda;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -82,6 +83,7 @@ import life.genny.qwanda.exception.BadDataException;
  */
 
 @XmlRootElement
+@Cacheable
 @XmlAccessorType(value = XmlAccessType.FIELD)
 @Table(name = "question", uniqueConstraints = @UniqueConstraint(columnNames = "code"))
 @Entity

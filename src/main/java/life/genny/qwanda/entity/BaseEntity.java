@@ -22,7 +22,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-
+import javax.persistence.Cacheable;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
@@ -91,6 +91,8 @@ indexes = {
     @FilterDef(name = "filterAttribute", defaultCondition = "attributeCode in (:attributeCodes)", parameters = { @ParamDef(name="attributeCodes", type="string") }),
     @FilterDef(name = "filterAttribute2", defaultCondition = "attributeCode =:attributeCode", parameters = { @ParamDef(name = "attributeCode", type = "string") })
 })
+
+@Cacheable
 public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
   /**

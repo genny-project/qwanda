@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -30,6 +31,7 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
 @Entity
 @Table(name = "question_question")
 @AssociationOverrides({ @AssociationOverride(name = "pk.source", joinColumns = @JoinColumn(name = "SOURCE_ID")) })
+@Cacheable
 public class QuestionQuestion implements java.io.Serializable, Comparable<Object> {
 
 	/**

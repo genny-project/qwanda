@@ -16,6 +16,7 @@ import java.util.List;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.EmbeddedId;
@@ -52,6 +53,7 @@ import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 import life.genny.qwanda.entity.BaseEntity;
 
 @Entity
+@Cacheable
 // #@JsonFilter("EntityAttribute")
 @Table(name = "baseentity_attribute" ,
 indexes = {

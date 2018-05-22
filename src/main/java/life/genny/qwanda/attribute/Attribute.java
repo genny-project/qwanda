@@ -24,6 +24,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Embedded;
@@ -80,7 +81,7 @@ import life.genny.qwanda.datatype.DataType;
 @Table(name = "attribute", uniqueConstraints = @UniqueConstraint(columnNames = "code"))
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
-
+@Cacheable
 
 public class Attribute extends CodedEntity implements Serializable {
 	

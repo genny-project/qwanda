@@ -137,4 +137,18 @@ public class QPaymentMethod implements Serializable{
 	}
 
 
+	public QPaymentMethod(String id) {
+		super();
+		
+		if(id != null && !id.trim().isEmpty() ) {
+			this.id = id;
+		} else {
+			throw new IllegalArgumentException("Payment method cannot be empty");
+		}
+		
+	}
+	
+	
+
+
 }

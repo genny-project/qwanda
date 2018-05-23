@@ -1,6 +1,9 @@
 package life.genny.qwanda.entity;
 
+import java.time.LocalDateTime;
+
 import life.genny.qwanda.attribute.AttributeBoolean;
+import life.genny.qwanda.attribute.AttributeDateTime;
 import life.genny.qwanda.attribute.AttributeDouble;
 import life.genny.qwanda.attribute.AttributeInteger;
 import life.genny.qwanda.attribute.AttributeLong;
@@ -133,9 +136,9 @@ public class SearchEntity extends BaseEntity {
 		return this;
 	}
 	
-	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final Double value)
+	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final LocalDateTime value)
 	{
-		AttributeDouble attribute = new AttributeDouble(attributeCode, filterType.toString());
+		AttributeDateTime attribute = new AttributeDateTime(attributeCode, filterType.toString());
 		try {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
@@ -144,6 +147,7 @@ public class SearchEntity extends BaseEntity {
 		
 		return this;
 	}	
+	
 	
 	public SearchEntity addFilter(final String attributeCode, final Boolean value)
 	{

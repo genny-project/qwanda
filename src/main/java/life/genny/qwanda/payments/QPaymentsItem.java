@@ -38,29 +38,21 @@ public class QPaymentsItem implements Serializable {
 	private PaymentTransactionType paymentType;
 	
 	@Expose
-	private NumberValue amount;
+	private Double amount;
 	
 	@Expose
 	private CurrencyUnit currency;
-	
-	@Expose
-	private String state;
-	
-	@Expose
-	private String depositReference;
-	
+
 	/* Array of fee Ids */
 	@Expose
 	private String[] fees;
-	
-	/* product-owner user info */
+
 	@Expose
 	private QPaymentsUser buyer;
 	
-	/* product-seller user info */
 	@Expose
 	private QPaymentsUser seller;
-
+	
 	/**
 	 * @return the id
 	 */
@@ -117,18 +109,17 @@ public class QPaymentsItem implements Serializable {
 		this.paymentType = paymentType;
 	}
 
-
 	/**
 	 * @return the amount
 	 */
-	public NumberValue getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
 	/**
 	 * @param amount the amount to set
 	 */
-	public void setAmount(NumberValue amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 
@@ -147,34 +138,6 @@ public class QPaymentsItem implements Serializable {
 	}
 
 	/**
-	 * @return the state
-	 */
-	public String getState() {
-		return state;
-	}
-
-	/**
-	 * @param state the state to set
-	 */
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	/**
-	 * @return the depositReference
-	 */
-	public String getDepositReference() {
-		return depositReference;
-	}
-
-	/**
-	 * @param depositReference the depositReference to set
-	 */
-	public void setDepositReference(String depositReference) {
-		this.depositReference = depositReference;
-	}
-
-	/**
 	 * @return the fees
 	 */
 	public String[] getFees() {
@@ -187,6 +150,7 @@ public class QPaymentsItem implements Serializable {
 	public void setFees(String[] fees) {
 		this.fees = fees;
 	}
+	
 
 	/**
 	 * @return the buyer
@@ -209,6 +173,17 @@ public class QPaymentsItem implements Serializable {
 		return seller;
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "QPaymentsItem [id=" + id + ", name=" + name + ", description=" + description + ", paymentType="
+				+ paymentType + ", amount=" + amount + ", currency=" + currency + ", fees=" + Arrays.toString(fees)
+				+ ", buyer=" + buyer + ", seller=" + seller + "]";
+	}
+
 	/**
 	 * @param seller the seller to set
 	 */
@@ -216,20 +191,8 @@ public class QPaymentsItem implements Serializable {
 		this.seller = seller;
 	}
 
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "QPaymentsItem [id=" + id + ", name=" + name + ", description=" + description + ", paymentType="
-				+ paymentType + ", amount=" + amount + ", currency=" + currency + ", state=" + state
-				+ ", depositReference=" + depositReference + ", fees=" + Arrays.toString(fees) + ", buyer=" + buyer
-				+ ", seller=" + seller + "]";
-	}
-
 	public QPaymentsItem( String name, String description, PaymentTransactionType paymentType,
-			NumberValue amount, CurrencyUnit currency, String[] fees,
+			Double amount, CurrencyUnit currency, String[] fees,
 			QPaymentsUser buyer, QPaymentsUser seller) {
 		super();
 		

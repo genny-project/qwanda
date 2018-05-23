@@ -182,4 +182,5 @@ public class QPaymentsAssemblyUserResponse implements Serializable {
 	}
 
 
+
 }

@@ -46,16 +46,16 @@ public class QPaymentsFee implements Serializable {
 	private int type;
 	
 	@Expose
-	private NumberValue amount;
+	private Double amount;
 	
 	@Expose
 	private String cap;
 	
 	@Expose
-	private NumberValue min;
+	private Double min;
 	
 	@Expose
-	private NumberValue max;
+	private Double max;
 	
 	@Expose 
 	private PAYMENT_TO to;
@@ -89,20 +89,6 @@ public class QPaymentsFee implements Serializable {
 	}
 
 	/**
-	 * @return the amount
-	 */
-	public NumberValue getAmount() {
-		return amount;
-	}
-
-	/**
-	 * @param amount the amount to set
-	 */
-	public void setAmount(NumberValue amount) {
-		this.amount = amount;
-	}
-
-	/**
 	 * @return the cap
 	 */
 	public String getCap() {
@@ -114,34 +100,6 @@ public class QPaymentsFee implements Serializable {
 	 */
 	public void setCap(String cap) {
 		this.cap = cap;
-	}
-
-	/**
-	 * @return the min
-	 */
-	public NumberValue getMin() {
-		return min;
-	}
-
-	/**
-	 * @param min the min to set
-	 */
-	public void setMin(NumberValue min) {
-		this.min = min;
-	}
-
-	/**
-	 * @return the max
-	 */
-	public NumberValue getMax() {
-		return max;
-	}
-
-	/**
-	 * @param max the max to set
-	 */
-	public void setMax(NumberValue max) {
-		this.max = max;
 	}
 
 	/**
@@ -173,6 +131,48 @@ public class QPaymentsFee implements Serializable {
 		this.id = id;
 	}
 
+	/**
+	 * @return the amount
+	 */
+	public Double getAmount() {
+		return amount;
+	}
+
+	/**
+	 * @param amount the amount to set
+	 */
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
+
+	/**
+	 * @return the min
+	 */
+	public Double getMin() {
+		return min;
+	}
+
+	/**
+	 * @param min the min to set
+	 */
+	public void setMin(Double min) {
+		this.min = min;
+	}
+
+	/**
+	 * @return the max
+	 */
+	public Double getMax() {
+		return max;
+	}
+
+	/**
+	 * @param max the max to set
+	 */
+	public void setMax(Double max) {
+		this.max = max;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -182,7 +182,7 @@ public class QPaymentsFee implements Serializable {
 				+ ", min=" + min + ", max=" + max + ", to=" + to + "]";
 	}
 
-	public QPaymentsFee(String name, FEETYPE feeType, NumberValue amount, PAYMENT_TO to) {
+	public QPaymentsFee(String name, FEETYPE feeType, Double amount, PAYMENT_TO to) {
 		super();
 		
 		if(name != null && !name.trim().isEmpty()) {
@@ -197,12 +197,15 @@ public class QPaymentsFee implements Serializable {
 			throw new IllegalArgumentException("Fee type cannot be invalid. The valid fee types are FIXED, PERCENTAGE, PERCENTAGE_WITH_CAP and PERCENTAGE_WITH_MIN");
 		}
 		
-		Double limitAmount = 100.00;
-		if(amount.doubleValue() >= limitAmount) {
-			this.amount = amount;
-		} else {
-			throw new IllegalArgumentException("Item amount needs to be greater than 100 cents");
+		/* Fee amount is required only if fee type is FIXED */
+		if(feeType.equals(FEETYPE.FIXED)) {
+			if(amount.doubleValue() > 0) {
+				this.amount = amount;
+			} else {
+				throw new IllegalArgumentException("Fee amount needs to be greater than 0 cents");
+			}
 		}
+		
 		
 		if(to != null) {
 			this.to = to;

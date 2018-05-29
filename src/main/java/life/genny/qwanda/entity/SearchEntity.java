@@ -73,12 +73,12 @@ public class SearchEntity extends BaseEntity {
 	    },
 	    BIT_MASK_POSITIVE{
 	    	    public String toString() {
-	            return "&";
+	            return "&+";
 	        }
 	    },
 	    BIT_MASK_ZERO{
 	    	    public String toString() {
-	            return "&";
+	            return "&0";
 	        }
        }
 	}

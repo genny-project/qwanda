@@ -71,7 +71,18 @@ public class SearchEntity extends BaseEntity {
 	            return "<";
 	        }
 	    },
+	    BIT_MASK_POSITIVE{
+	    	    public String toString() {
+	            return "&";
+	        }
+	    },
+	    BIT_MASK_ZERO{
+	    	    public String toString() {
+	            return "&";
+	        }
+       }
 	}
+	
 
 	public SearchEntity(final String code, final String name) {
 		super(code,name);

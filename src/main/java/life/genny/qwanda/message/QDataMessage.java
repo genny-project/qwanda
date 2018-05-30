@@ -25,6 +25,10 @@ public abstract class QDataMessage extends QMessage implements QDataMessageIntf 
   private String data_type;
   @Expose
   private Boolean delete = false;
+  
+  @Expose
+  private Boolean replace = false;
+  
   @Expose
   private String aliasCode;
   @Expose
@@ -93,6 +97,24 @@ public String[] getRecipientCodeArray() {
  */
 public void setRecipientCodeArray(String[] recipientCodeArray) {
 	this.recipientCodeArray = recipientCodeArray;
+}
+
+
+
+/**
+ * @return the replace
+ */
+public Boolean getReplace() {
+	return replace;
+}
+
+
+
+/**
+ * @param replace the replace to set
+ */
+public void setReplace(Boolean replace) {
+	this.replace = replace;
 }
 
 

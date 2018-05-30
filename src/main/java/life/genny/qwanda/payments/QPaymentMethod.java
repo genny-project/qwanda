@@ -37,6 +37,11 @@ public class QPaymentMethod implements Serializable{
 	@Expose
 	private String accountNumber;
 	
+	@Expose
+	private String name;
+	
+	@Expose
+	private String nickname;
 	
 	public QPaymentMethod() {
 		super();
@@ -110,6 +115,38 @@ public class QPaymentMethod implements Serializable{
 
 
 	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	/**
+	 * @return the nickname
+	 */
+	public String getNickname() {
+		return nickname;
+	}
+
+
+	/**
+	 * @param nickname the nickname to set
+	 */
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+
+	/**
 	 * @param accountNumber the accountNumber to set
 	 */
 	public void setAccountNumber(String accountNumber) {
@@ -122,8 +159,8 @@ public class QPaymentMethod implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "PaymentMethod [type=" + type + ", number=" + number + ", bsb=" + bsb + ", id=" + id + ", accountNumber="
-				+ accountNumber + "]";
+		return "QPaymentMethod [type=" + type + ", number=" + number + ", bsb=" + bsb + ", id=" + id
+				+ ", accountNumber=" + accountNumber + ", name=" + name + ", nickname=" + nickname + "]";
 	}
 
 

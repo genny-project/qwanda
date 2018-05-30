@@ -134,7 +134,7 @@ public class QPaymentsUser {
 		if(id != null && !id.trim().isEmpty()) {
 			this.id = id;
 		} else {
-			throw new IllegalArgumentException("Assembly user Id cannot be empty");
+			throw new IllegalArgumentException("Payments user ID cannot be empty");
 		}
 	}
 	

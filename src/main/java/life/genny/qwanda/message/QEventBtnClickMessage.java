@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 
 import life.genny.qwanda.DateTimeDeserializer;
 
@@ -23,14 +24,26 @@ public class QEventBtnClickMessage extends QEventMessage {
 	}
 	
 	public String getItemCode() {
-		String value= this.getData().getValue();
+		
+		String value= null;
+		if (this.getData()==null) {
+			return null;
+		}
+		value = this.getData().getValue();
 		
 		GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(LocalDateTime.class, new DateTimeDeserializer());
         Gson gson = gsonBuilder.create();
 		
-		JsonObject valueJson = gson.fromJson(value, JsonObject.class);
-		String itemCode= valueJson.get("itemCode").toString().replaceAll("^\"|\"$", "");
+		JsonObject valueJson = null;
+		
+		String itemCode = null;
+		try {
+			valueJson = gson.fromJson(value, JsonObject.class);
+			itemCode = valueJson.get("itemCode").toString().replaceAll("^\"|\"$", "");
+		} catch (JsonSyntaxException e) {
+			return value;
+		}
 		return itemCode;
 	}
 	

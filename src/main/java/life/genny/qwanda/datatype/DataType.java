@@ -20,6 +20,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.javamoney.moneta.Money;
+
+import javax.money.Monetary;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embeddable;
@@ -29,16 +32,17 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 import life.genny.qwanda.converter.ValidationListConverter;
 import life.genny.qwanda.validation.Validation;
 import life.genny.qwanda.validation.ValidationList;
 
-
 /**
- * DataType represents a distinct abstract Data Representation in the Qwanda library. The data types
- * express the format and the validations required for values collected. In addition to the extended
- * CoreEntity this information includes:
+ * DataType represents a distinct abstract Data Representation in the Qwanda
+ * library. The data types express the format and the validations required for
+ * values collected. In addition to the extended CoreEntity this information
+ * includes:
  * <ul>
  * <li>The code type of the base data e.g. Text, Integer, etc.
  * <li>The List of default Validation items
@@ -55,167 +59,225 @@ import life.genny.qwanda.validation.ValidationList;
  * @since 1.0
  */
 
-
-
 @Embeddable
 public class DataType implements Serializable {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
-  
-  public static final String DTT_LINK = "LNK_ATTRIBUTE"; // This datatype classname indicates the datatype belongs to the BaseEntity set with parent
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-  @NotNull
-  @NotEmpty
-  @Size(max = 120)
-  @Expose
-  private String className; // e.g. java.util.String
+	public static final String DTT_LINK = "LNK_ATTRIBUTE"; // This datatype classname indicates the datatype belongs to
+															// the BaseEntity set with parent
 
-  @NotNull
-  @NotEmpty
-  @Size(max = 120)
-//  @JsonIgnore
-  @Expose
-  private String typeName; // e.g. TEXT
+	@NotNull
+	@NotEmpty
+	@Size(max = 120)
+	@Expose
+	private String className; // e.g. java.util.String
 
-  @Expose
-  private String inputmask;
+	@NotNull
+	@NotEmpty
+	@Size(max = 120)
+	// @JsonIgnore
+	@Expose
+	private String typeName; // e.g. TEXT
 
-  /**
-   * A fieldlist that stores the validations for this object.
-   * <p>
-   * Note that this is stored into a single object
-   */
+	@Expose
+	private String inputmask;
 
-  @Column(name = "validation_list", length = 512)
-  @Convert(converter = ValidationListConverter.class)
-  @Expose
-  private List<Validation> validationList = new ArrayList<Validation>(0);
+	/**
+	 * A fieldlist that stores the validations for this object.
+	 * <p>
+	 * Note that this is stored into a single object
+	 */
 
+	@Column(name = "validation_list", length = 512)
+	@Convert(converter = ValidationListConverter.class)
+	@Expose
+	private List<Validation> validationList = new ArrayList<Validation>(0);
 
-  /**
-   * Constructor.
-   * 
-   * @param none
-   */
-  @SuppressWarnings("unused")
-  protected DataType() {
-    super();
-    // dummy for hibernate
-  }
+	/**
+	 * Constructor.
+	 * 
+	 * @param none
+	 */
+	@SuppressWarnings("unused")
+	protected DataType() {
+		super();
+		// dummy for hibernate
+	}
 
-  public DataType(final Class clazz) {
-    this(clazz, new ValidationList());
-  }
-  
-  public DataType(final String className) {
-	    this(className, new ValidationList());
-	  }
+	public DataType(final Class clazz) {
+		this(clazz, new ValidationList());
+	}
 
-  public DataType(final String className, final ValidationList aValidationList, final String name,final String inputmask) {
-	    setClassName(className);
-	    setValidationList(aValidationList.getValidationList());
-	    setTypeName(name);
-	    setInputmask(inputmask);
-	  }
-  public DataType(final String className, final ValidationList aValidationList, final String name) {
-	  this(className, aValidationList,name,"");
-	  }
-  public DataType(final String className, final ValidationList aValidationList) {
-	  this(className, aValidationList,"UNSET");
-  }
+	public DataType(final String className) {
+		this(className, new ValidationList());
+	}
 
-  public DataType(final Class clazz, final ValidationList aValidationList) {
-    this(clazz.getCanonicalName(), aValidationList);
-  }
+	public DataType(final String className, final ValidationList aValidationList, final String name,
+			final String inputmask) {
+		setClassName(className);
+		setValidationList(aValidationList.getValidationList());
+		setTypeName(name);
+		setInputmask(inputmask);
+	}
 
-  /**
-   * @return the validationList
-   */
-  public List<Validation> getValidationList() {
-    return validationList;
-  }
+	public DataType(final String className, final ValidationList aValidationList, final String name) {
+		this(className, aValidationList, name, "");
+	}
 
-  /**
-   * @param validationList the validationList to set
-   */
-  public void setValidationList(final List<Validation> validationList) {
-    this.validationList = validationList;
-  }
+	public DataType(final String className, final ValidationList aValidationList) {
+		this(className, aValidationList, "UNSET");
+	}
 
-  /**
-   * @return the className
-   */
-  public String getClassName() {
-    return className;
-  }
+	public DataType(final Class clazz, final ValidationList aValidationList) {
+		this(clazz.getCanonicalName(), aValidationList);
+	}
 
-  /**
-   * @param className the className to set
-   */
-  public void setClassName(final String className) {
-    this.className = className;
-  }
+	/**
+	 * @return the validationList
+	 */
+	public List<Validation> getValidationList() {
+		return validationList;
+	}
 
-  
-  
-  /**
- * @return the name
- */
-public String getTypeName() {
-	return typeName;
-}
+	/**
+	 * @param validationList
+	 *            the validationList to set
+	 */
+	public void setValidationList(final List<Validation> validationList) {
+		this.validationList = validationList;
+	}
 
-/**
- * @param name the name to set
- */
-public void setTypeName(String name) {
-	this.typeName = name;
-}
+	/**
+	 * @return the className
+	 */
+	public String getClassName() {
+		return className;
+	}
 
+	/**
+	 * @param className
+	 *            the className to set
+	 */
+	public void setClassName(final String className) {
+		this.className = className;
+	}
 
-/**
- * @return the inputmask
- */
-public String getInputmask() {
-	return inputmask;
-}
+	/**
+	 * @return the name
+	 */
+	public String getTypeName() {
+		return typeName;
+	}
 
-/**
- * @param inputmask the inputmask to set
- */
-public void setInputmask(String inputmask) {
-	this.inputmask = inputmask;
-}
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setTypeName(String name) {
+		this.typeName = name;
+	}
 
-@JsonIgnore
-  @Transient
-  @XmlTransient
-  public void setClass(final Class clazz) {
-    final String simpleClassName = clazz.getCanonicalName();
-    setClassName(simpleClassName);
-  }
+	/**
+	 * @return the inputmask
+	 */
+	public String getInputmask() {
+		return inputmask;
+	}
 
+	/**
+	 * @param inputmask
+	 *            the inputmask to set
+	 */
+	public void setInputmask(String inputmask) {
+		this.inputmask = inputmask;
+	}
 
+	@JsonIgnore
+	@Transient
+	@XmlTransient
+	public void setClass(final Class clazz) {
+		final String simpleClassName = clazz.getCanonicalName();
+		setClassName(simpleClassName);
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return "DType(" + className + ")";
-  }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "DType(" + className + ")";
+	}
 
-static public DataType getInstance(final String className)
-{
-	final List<Validation> validationList = new ArrayList<Validation>(0);
-	ValidationList vlist = new ValidationList(validationList);
-	DataType dataTypeInstance = new DataType(className,vlist);
-	return dataTypeInstance;
-}
-  
+	static public DataType getInstance(final String className) {
+		final List<Validation> validationList = new ArrayList<Validation>(0);
+		ValidationList vlist = new ValidationList(validationList);
+		DataType dataTypeInstance = new DataType(className, vlist);
+		return dataTypeInstance;
+	}
+
+	// Is DataType summable?
+
+	static public boolean summable(DataType dtype) {
+		switch (dtype.getClassName()) {
+		case "java.lang.Integer":
+		case "Integer":
+		case "java.lang.Long":
+		case "Long":
+		case "java.lang.Double":
+		case "Double":
+		case "org.javamoney.moneta.Money":
+		case "Money":
+			return true;
+		default:
+			return false;
+		}
+	}
+
+	static public Object Zero(DataType dtype) {
+		switch (dtype.getClassName()) {
+		case "java.lang.Integer":
+		case "Integer":
+			return new Integer(0);
+		case "java.lang.Long":
+		case "Long":
+			return new Long(0);
+		case "java.lang.Double":
+		case "Double":
+			return new Double(0.0);
+		case "org.javamoney.moneta.Money":
+		case "Money":
+			return Money.zero(Monetary.getCurrency("AUD"));
+		default:
+			return null;
+		}
+	}
+
+	static public Object add(DataType dtype, Object v1, Object v2) {
+		switch (dtype.getClassName()) {
+		case "java.lang.Integer":
+		case "Integer":
+			return ((Integer)v1) + ((Integer)v2);
+		case "java.lang.Long":
+		case "Long":
+			return ((Long)v1) + ((Long)v2);
+		case "java.lang.Double":
+		case "Double":
+			return ((Double)v1) + ((Double)v2);
+		case "org.javamoney.moneta.Money":
+		case "Money":
+			Money m1 = (Money)v1;
+			Money m2 = (Money)v2;
+			Money sum = m1.add(m2);
+			return sum;
+		default:
+			return null;
+		}
+	}
+
 }

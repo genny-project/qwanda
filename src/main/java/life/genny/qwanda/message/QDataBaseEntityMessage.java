@@ -23,6 +23,8 @@ public class QDataBaseEntityMessage extends QDataMessage {
   private Long total = -1L;
   @Expose
   private Long returnCount;
+  @Expose
+  private BaseEntity sum;
 
   public QDataBaseEntityMessage(final BaseEntity item, final String alias) {
 	    super(DATATYPE_BASEENTITY);
@@ -167,6 +169,20 @@ public WeightedItem[] getWeightedItems() {
  */
 public void setWeightedItems(WeightedItem[] weightedItems) {
 	this.weightedItems = weightedItems;
+}
+
+/**
+ * @return the sum
+ */
+public BaseEntity getSum() {
+	return sum;
+}
+
+/**
+ * @param sum the sum to set
+ */
+public void setSum(BaseEntity sum) {
+	this.sum = sum;
 }
 
 

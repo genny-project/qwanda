@@ -1,6 +1,8 @@
 package life.genny.qwanda.message;
 
 
+import java.util.List;
+
 import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.WeightedItem;
@@ -44,6 +46,13 @@ public class QDataBaseEntityMessage extends QDataMessage {
     setItems(items);
     setTotal(-1L);
   }
+  
+  public QDataBaseEntityMessage(final List<BaseEntity> items) {
+	    super(DATATYPE_BASEENTITY);
+	    
+	    setItems(items.toArray(new BaseEntity[0]));
+	    setTotal(-1L);
+	  }
 
   public QDataBaseEntityMessage(final BaseEntity[] items, final String parentCode,
       final String linkCode) {

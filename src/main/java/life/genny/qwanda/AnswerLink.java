@@ -245,7 +245,7 @@ public class AnswerLink implements java.io.Serializable {
 		case "java.time.LocalDateTime":
 		case "LocalDateTime":
 			result = answer.getValue();
-			List<String> formatStrings = Arrays.asList("yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd",
+			List<String> formatStrings = Arrays.asList("yyyy-MM-dd'T'HH:mm:ss","yyyy-MM-dd HH:mm", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd",
 					"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 			for (String formatString : formatStrings) {
 				try {

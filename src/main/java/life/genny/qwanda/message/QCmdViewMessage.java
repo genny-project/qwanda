@@ -4,19 +4,20 @@ import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 
 public class QCmdViewMessage extends QCmdMessage {
+	
 	private static final String CMD_TYPE = "CMD_VIEW";
 
 	@Expose
-	private String root;
+	private Object root;
 	@Expose
 	private String view_type;
 	@Expose
 	private String data;
 	@Expose
 	private Boolean isPopup;
+	
 
-
-	public QCmdViewMessage(final String view_type, final String root) {
+	public QCmdViewMessage(final String view_type, final Object root) {
 		super(CMD_TYPE, view_type);
 		setRoot(root);
 		setView_type(view_type);
@@ -41,11 +42,11 @@ public class QCmdViewMessage extends QCmdMessage {
 		this.data = data;
 	}
 
-	public String getRoot() {
+	public Object getRoot() {
 		return root;
 	}
 
-	public void setRoot(String root) {
+	public void setRoot(Object root) {
 		this.root = root;
 	}
 

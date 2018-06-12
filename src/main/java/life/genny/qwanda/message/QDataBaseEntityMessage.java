@@ -194,6 +194,14 @@ public void setSum(BaseEntity sum) {
 	this.sum = sum;
 }
 
-
+/**
+ * 
+ * @param delete
+ * @param parentCode
+ */
+public void setDelete(final Boolean delete, final String parentCode) {
+    super.setDelete(delete);
+	this.parentCode = parentCode;
+  }
 
 }

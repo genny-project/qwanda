@@ -18,17 +18,17 @@ public abstract class QDataMessage extends QMessage implements QDataMessageIntf 
 
 
   /**
-   * 
+   *
    */
   private static final String MESSAGE_TYPE = "DATA_MSG";
   @Expose
   private String data_type;
   @Expose
   private Boolean delete = false;
-  
   @Expose
   private Boolean replace = false;
-  
+  @Expose
+  private Boolean shouldDeleteLinkedBaseEntities = false;
   @Expose
   private String aliasCode;
   @Expose
@@ -117,6 +117,20 @@ public void setReplace(Boolean replace) {
 	this.replace = replace;
 }
 
+/**
+ * @return the shouldDeleteLinkedBaseEntities
+ */
+public Boolean getShouldDeleteLinkedBaseEntities() {
+	return shouldDeleteLinkedBaseEntities;
+}
 
+
+
+/**
+ * @param shouldDeleteLinkedBaseEntities the shouldDeleteLinkedBaseEntities to set
+ */
+public void setShouldDeleteLinkedBaseEntities(Boolean shouldDeleteLinkedBaseEntities) {
+	this.shouldDeleteLinkedBaseEntities = shouldDeleteLinkedBaseEntities;
+}
 
 }

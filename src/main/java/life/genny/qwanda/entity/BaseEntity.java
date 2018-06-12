@@ -18,9 +18,11 @@ package life.genny.qwanda.entity;
 
 import java.lang.invoke.MethodHandles;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.persistence.Cacheable;
 import javax.persistence.DiscriminatorColumn;
@@ -312,13 +314,26 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
    * @param attribute
    * @returns EntityAttribute
    */
+  public List<EntityAttribute> findPrefixEntityAttributes(final String attributePrefix) {
+    List<EntityAttribute> foundEntitys = getBaseEntityAttributes().stream()
+        .filter(x -> (x.getAttributeCode().startsWith(attributePrefix))).collect(Collectors.toList());
+
+    return foundEntitys;
+  }
+
+  /**
+   * findEntityAttributes This returns attributeEntitys if it exists in the baseEntity. Could be
+   * more efficient in retrival (ACC: test)
+   * 
+   * @param attribute
+   * @returns EntityAttribute
+   */
   public EntityAttribute findEntityAttribute(final Attribute attribute) {
     final EntityAttribute foundEntity = getBaseEntityAttributes().stream()
         .filter(x -> (x.getAttributeCode().equals(attribute.getCode()))).findFirst().get();
 
     return foundEntity;
   }
-
 
   /**
    * addAttribute This adds an attribute with default weight of 0.0 to the baseEntity. It auto

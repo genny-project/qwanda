@@ -78,6 +78,8 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@Expose 
 	@Transient
 	private String attributeName;
+	@Expose
+	private Boolean readonly = false;
 
 	/**
 	 * @return the baseEntityCode
@@ -235,6 +237,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 							// attribute from scoring.
 		}
 		setWeight(weight);
+		setReadonly(false);
 	}
 
 	/**
@@ -524,6 +527,23 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 		this.inferred = inferred;
 	}
 
+	
+	
+	
+	/**
+	 * @return the readonly
+	 */
+	public Boolean getReadonly() {
+		return readonly;
+	}
+
+	/**
+	 * @param readonly the readonly to set
+	 */
+	public void setReadonly(Boolean readonly) {
+		this.readonly = readonly;
+	}
+
 	@PreUpdate
 	public void autocreateUpdate() {
 		setUpdated(LocalDateTime.now(ZoneId.of("Z")));
@@ -609,7 +629,17 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@Transient
 	@XmlTransient
 	public <T> void setValue(final Object value) {
-
+		setValue(value,false);
+	}
+	
+	@JsonIgnore
+	@Transient
+	@XmlTransient
+	public <T> void setValue(final Object value, final Boolean lock) {
+		if (this.getReadonly()) {
+			log.error("Trying to set the value of a readonly EntityAttribute! "+this.getBaseEntityCode()+":"+this.attributeCode);
+			return; 
+		}
 		if (value instanceof String) {
 			String result = (String) value;
 			try {
@@ -727,12 +757,28 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			}
 		}
 
+		// if the lock is set then 'Lock it in Eddie!'. 
+		if (lock)
+		{
+			this.setReadonly(true);
+		}
 	}
 
 	@JsonIgnore
 	@Transient
 	@XmlTransient
 	public <T> void setLoopValue(final Object value) {
+		setLoopValue(value,false);
+	}
+	
+	@JsonIgnore
+	@Transient
+	@XmlTransient
+	public <T> void setLoopValue(final Object value, final Boolean lock) {
+		if (this.getReadonly()) {
+			log.error("Trying to set the value of a readonly EntityAttribute! "+this.getBaseEntityCode()+":"+this.attributeCode);
+			return; 
+		}
 
 
 			if (value instanceof Money)
@@ -755,7 +801,10 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 				setValueDateRange((Range<LocalDate>) value);
 			else
 				setValueString((String) value);
-
+ 
+			if (lock) {
+				this.setReadonly(true);
+			}
 
 	}
 	@JsonIgnore

@@ -61,8 +61,13 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 	private Double weight;
 
 	private Long version = 1L;
+	
 	  @Expose
 	Boolean mandatory = false;
+	  
+	  // If this is set to true then attribute needs to be set to readonly after value set.
+	  @Expose
+	  Boolean oneshot = false;
 
 	public QuestionQuestion() {
 	}
@@ -205,6 +210,22 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 	 */
 	public void setMandatory(Boolean mandatory) {
 		this.mandatory = mandatory;
+	}
+
+	
+	
+	/**
+	 * @return the oneshot
+	 */
+	public Boolean getOneshot() {
+		return oneshot;
+	}
+
+	/**
+	 * @param oneshot , if true then attribute must be set to readonly
+	 */
+	public void setOneshot(Boolean oneshot) {
+		this.oneshot = oneshot;
 	}
 
 	@PreUpdate

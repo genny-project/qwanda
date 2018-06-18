@@ -124,6 +124,9 @@ public class Question extends CodedEntity implements Serializable {
   @Expose
   private Boolean mandatory=false;
   
+  @Expose
+  private Boolean oneshot=false;
+  
   @Type(type = "text")
   @Expose 
   private String html;
@@ -498,7 +501,24 @@ public String toString() {
 	  }
 	  return ret;
   }
+
+/**
+ * @return the oneshot
+ */
+public Boolean getOneshot() {
+	return oneshot;
+}
+
+/**
+ * @param oneshot the oneshot to set
+ */
+public void setOneshot(Boolean oneshot) {
+	this.oneshot = oneshot;
+}
    
+
+
+
 }
 
 

@@ -115,6 +115,9 @@ public class Ask extends CoreEntity implements Serializable {
   @Expose
   private Boolean mandatory=false;
   @Expose
+  private Boolean oneshot=false;
+
+  @Expose
   private Boolean disabled=false;
   @Expose
   private Boolean hidden = false;
@@ -458,6 +461,20 @@ public void setParentId(Long parentId) {
 	 */
 	public void setChildAsks(Ask[] childAsks) {
 		this.childAsks = childAsks;
+	}
+
+	/**
+	 * @return the oneshot
+	 */
+	public Boolean getOneshot() {
+		return oneshot;
+	}
+
+	/**
+	 * @param oneshot the oneshot to set
+	 */
+	public void setOneshot(Boolean oneshot) {
+		this.oneshot = oneshot;
 	}
 
 

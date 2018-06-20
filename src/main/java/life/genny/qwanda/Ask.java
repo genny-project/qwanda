@@ -91,17 +91,6 @@ public class Ask extends CoreEntity implements Serializable {
   @Expose
   private Question question;
 
-  // @JsonIgnore
-  // @XmlTransient
-  // @ManyToOne(fetch = FetchType.EAGER)
-  // @JoinColumn(name = "source_id", nullable = false)
-  // private BaseEntity source;
-  //
-  // @JsonIgnore
-  // @XmlTransient
-  // @ManyToOne(fetch = FetchType.EAGER)
-  // @JoinColumn(name = "target_id", nullable = false)
-  // private BaseEntity target;
 
   @Expose
   private String sourceCode;

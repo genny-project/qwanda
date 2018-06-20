@@ -22,9 +22,12 @@ package life.genny.qwanda.attribute;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
+import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Embedded;
@@ -48,6 +51,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.CodedEntity;
+import life.genny.qwanda.converter.StringListConverter;
 import life.genny.qwanda.datatype.DataType;
 
 /**
@@ -116,6 +120,8 @@ public class Attribute extends CodedEntity implements Serializable {
 	
 	@Expose
 	private String defaultValue;
+	
+
 	
 	/**
 	  * Constructor.

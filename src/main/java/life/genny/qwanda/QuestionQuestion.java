@@ -3,11 +3,13 @@ package life.genny.qwanda;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -22,6 +24,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
 
+import life.genny.qwanda.converter.StringListConverter;
 import life.genny.qwanda.entity.EntityEntity;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
@@ -68,6 +71,7 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 	  // If this is set to true then attribute needs to be set to readonly after value set.
 	  @Expose
 	  Boolean oneshot = false;
+	  
 
 	public QuestionQuestion() {
 	}

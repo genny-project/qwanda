@@ -184,6 +184,29 @@ public class SearchEntity extends BaseEntity {
 		return this;
 	}	
 	
+	public SearchEntity setLinkWeight(final Double value) 
+	{
+		AttributeDouble attribute = new AttributeDouble("SCH_LINK_WEIGHT", "LinkWeight");
+		try {
+			addAttribute(attribute, 1.0, value);
+		} catch (BadDataException e) {
+			log.error("Bad String Filter Initialisation");
+		}
+		
+		return this;
+	}
+	
+	public SearchEntity addFilterToLinkWeight(final Filter filterType)
+	{
+		AttributeText attribute = new AttributeText("SCH_LINK_FILTER", "LinkFilterByWeight");
+		try {
+			addAttribute(attribute, 1.0, filterType.toString());
+		} catch (BadDataException e) {
+			log.error("Bad String Filter Initialisation");
+		}
+		
+		return this;
+	}
 	
 	public SearchEntity setPageStart(final Integer pageStart)
 	{

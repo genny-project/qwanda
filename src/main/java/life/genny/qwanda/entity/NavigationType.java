@@ -2,8 +2,8 @@ package life.genny.qwanda.entity;
 
 public enum NavigationType {
 	
-	Back("ROUTE_BACK"),
-	RouteChange("ROUTE_CHANGE");
+	ROUTE_BACK("ROUTE_BACK"),
+	ROUTE_CHANGE("ROUTE_CHANGE");
 	
 	String navigationType;
 	NavigationType(String type) {

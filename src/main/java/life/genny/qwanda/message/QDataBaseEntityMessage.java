@@ -24,6 +24,8 @@ public class QDataBaseEntityMessage extends QDataMessage implements Comparable<Q
 	@Expose
 	private String linkCode;
 	@Expose
+	private String linkValue;
+	@Expose
 	private Long total = -1L;
 	@Expose
 	private Long returnCount;
@@ -232,6 +234,20 @@ public class QDataBaseEntityMessage extends QDataMessage implements Comparable<Q
 	 public void setDelete(final Boolean delete, final String parentCode) {
 		 super.setDelete(delete);
 		 this.parentCode = parentCode;
+	 }
+	 
+	 /**
+	  * @return the linkValue
+	  */
+	 public String getLinkValue() {
+		 return linkValue;
+	 }
+
+	 /**
+	  * @param linkValue, the linkValue to set
+	  */
+	 public void setLinkValue(final String linkValue) {
+		 this.linkValue = linkValue;
 	 }
 
 }

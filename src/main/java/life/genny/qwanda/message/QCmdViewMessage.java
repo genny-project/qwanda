@@ -10,6 +10,8 @@ public class QCmdViewMessage extends QCmdMessage {
 	@Expose
 	private Object root;
 	@Expose
+	private Object contextRoot;
+	@Expose
 	private String view_type;
 	@Expose
 	private String data;
@@ -105,4 +107,19 @@ public class QCmdViewMessage extends QCmdMessage {
 		QCmdViewMessageAction action = new QCmdViewMessageAction(actionCode);
 		this.setAction(action);
 	}
+
+	/**
+	 * @return the contextRoot
+	 */
+	public Object getContextRoot() {
+		return contextRoot;
+	}
+
+	/**
+	 * @param contextRoot the contextRoot to set
+	 */
+	public void setContextRoot(Object contextRoot) {
+		this.contextRoot = contextRoot;
+	}
+	
 }

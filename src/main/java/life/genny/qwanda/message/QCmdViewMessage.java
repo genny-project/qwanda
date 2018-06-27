@@ -1,5 +1,6 @@
 package life.genny.qwanda.message;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 
@@ -8,9 +9,7 @@ public class QCmdViewMessage extends QCmdMessage {
 	private static final String CMD_TYPE = "CMD_VIEW";
 
 	@Expose
-	private Object root;
-	@Expose
-	private Object contextRoot;
+	private Object root;	
 	@Expose
 	private String view_type;
 	@Expose
@@ -19,6 +18,7 @@ public class QCmdViewMessage extends QCmdMessage {
 	private Boolean isPopup;
 	@Expose 
 	private QCmdViewMessageAction[] actions;
+
 	
 
 	public QCmdViewMessage(final String view_type, final Object root) {
@@ -108,18 +108,4 @@ public class QCmdViewMessage extends QCmdMessage {
 		this.setAction(action);
 	}
 
-	/**
-	 * @return the contextRoot
-	 */
-	public Object getContextRoot() {
-		return contextRoot;
-	}
-
-	/**
-	 * @param contextRoot the contextRoot to set
-	 */
-	public void setContextRoot(Object contextRoot) {
-		this.contextRoot = contextRoot;
-	}
-	
 }

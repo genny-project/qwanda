@@ -5,7 +5,7 @@ import com.google.gson.annotations.Expose;
 public class QCmdViewMessageAction {
 	
 	@Expose
-	private String actionCode;
+	private String code;
 	
 	@Expose 
 	private String title;
@@ -13,30 +13,47 @@ public class QCmdViewMessageAction {
 	@Expose
 	private String icon;
 	
-	public QCmdViewMessageAction(String actionCode, String title, String icon) {
-		
-		this.actionCode = actionCode;
+	@Expose
+	private String color;
+	
+	public QCmdViewMessageAction(String code) {
+		super();
+		this.code = code;
+	}
+	
+	public QCmdViewMessageAction(String code, String title) {
+		super();
+		this.code = code;
+		this.title = title;
+	}
+	public QCmdViewMessageAction(String code, String title, String icon) {
+		super();
+		this.code = code;
 		this.title = title;
 		this.icon = icon;
 	}
-	
-	public QCmdViewMessageAction(String actionCode, String title) {
-		
-		this.actionCode = actionCode;
+	public QCmdViewMessageAction(String code, String title, String icon, String color) {
+		super();
+		this.code = code;
 		this.title = title;
+		this.icon = icon;
+		this.color = color;
 	}
+
 	
-	public QCmdViewMessageAction(String actionCode) {
-		
-		this.actionCode = actionCode;
+
+	/**
+	 * @return the code
+	 */
+	public String getCode() {
+		return code;
 	}
 
-	public String getActionCode() {
-		return actionCode;
-	}
-
-	public void setActionCode(String actionCode) {
-		this.actionCode = actionCode;
+	/**
+	 * @param code the code to set
+	 */
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getTitle() {
@@ -54,4 +71,13 @@ public class QCmdViewMessageAction {
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
 }

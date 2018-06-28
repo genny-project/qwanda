@@ -21,6 +21,8 @@ public class QCmdViewTableMessage extends QCmdViewMessage {
 	
 	@Expose
 	private QCmdTableMessage[] columns;
+	// @Expose
+	// private QCmdViewMessageAction[] actions;
 	
 	@Expose
 	private String contextRoot;
@@ -38,6 +40,21 @@ public class QCmdViewTableMessage extends QCmdViewMessage {
 	public void setColumns(QCmdTableMessage[] columns) {
 		this.columns = columns;
 	}
+	
+
+	// /**
+	//  * @return the actions
+	//  */
+	// public QCmdViewMessageAction[] getActions() {
+	// 	return actions;
+	// }
+
+	// /**
+	//  * @param actions the actions to set
+	//  */
+	// public void setActions(QCmdViewMessageAction[] actions) {
+	// 	this.actions = actions;
+	// }
 
 	/**
 	 * @return the contextRoot
@@ -60,6 +77,11 @@ public class QCmdViewTableMessage extends QCmdViewMessage {
 	public String toString() {
 		return "QCmdViewTableMessage [columns=" + Arrays.toString(columns) + ", contextRoot=" + contextRoot + "]";
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	
 
 
 }

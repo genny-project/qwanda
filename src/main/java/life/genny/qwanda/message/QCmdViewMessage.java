@@ -76,36 +76,19 @@ public class QCmdViewMessage extends QCmdMessage {
 		}
 	}
 	
-	private void setAction(QCmdViewMessageAction action) {
-		
-		if(this.actions == null) {
-			this.actions = new QCmdViewMessageAction[1];
-		}
-		else {
-			this.actions = new QCmdViewMessageAction[this.actions.length + 1];
-		}
-		
-		this.actions[this.actions.length - 1] = action;
-	}
 	
-	public void addAction(QCmdViewMessageAction action) {
-		this.setAction(action);
+	/**
+	 * @return the actions
+	 */
+	public QCmdViewMessageAction[] getActions() {
+		return actions;
 	}
-		
-	public void addAction(String actionCode, String title, String icon) {
-		
-		QCmdViewMessageAction action = new QCmdViewMessageAction(actionCode, title, icon);
-		this.setAction(action);
-	}
-	
-	public void addAction(String actionCode, String title) {
-		QCmdViewMessageAction action = new QCmdViewMessageAction(actionCode, title);
-		this.setAction(action);
-	}
-	
-	public void addAction(String actionCode) {
-		QCmdViewMessageAction action = new QCmdViewMessageAction(actionCode);
-		this.setAction(action);
+
+	/**
+	 * @param actions the actions to set
+	 */
+	public void setActions(QCmdViewMessageAction[] actions) {
+		this.actions = actions;
 	}
 
 }

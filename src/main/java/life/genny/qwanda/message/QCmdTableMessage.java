@@ -87,23 +87,31 @@ public class QCmdTableMessage implements Serializable{
 		return "QCmdTableMessage [title=" + title + ", icon=" + icon + ", code=" + code + ", color=" + color + "]";
 	}
 
-	public QCmdTableMessage(String title, String code) {
-		super();
-		this.title = title;
-		this.code = code;
-	}
-
-	public QCmdTableMessage(String title, String icon, String code, String color) {
-		super();
-		this.title = title;
-		this.icon = icon;
-		this.code = code;
-		this.color = color;
-	}
-
 	public QCmdTableMessage(String code) {
 		super();
 		this.code = code;
 	}
+	
+	public QCmdTableMessage(String code, String title) {
+		super();
+		this.code = code;
+		this.title = title;
+	}
+	public QCmdTableMessage(String code, String title, String icon) {
+		super();
+		this.code = code;
+		this.title = title;
+		this.icon = icon;
+	}
+	public QCmdTableMessage(String code, String title, String icon, String color) {
+		super();
+		this.code = code;
+		this.title = title;
+		this.icon = icon;
+		this.color = color;
+	}
+
+
+	
 	
 }

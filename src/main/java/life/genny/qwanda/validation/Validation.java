@@ -162,8 +162,11 @@ public class Validation extends CodedEntity implements Serializable {
 	 * @param regex the regex to set
 	 */
 	public void setRegex(String regex) throws PatternSyntaxException {
-		
-		validateRegex(regex);  // confirm the regex is valid, if invalid throws PatternSyntaxException
+		if (regex!=null) {
+			validateRegex(regex);  // confirm the regex is valid, if invalid throws PatternSyntaxException
+		} else {
+			regex = ".*";
+		}
 		this.regex = regex;
 	}
 

@@ -142,4 +142,17 @@ public class FileUploadDetails implements Serializable {
 		this.userMetaDataObjValue = userMetaDataObjValue;
 	}
 
+	public FileUploadDetails() {
+		super();
+	}
+
+	public FileUploadDetails(String uploadObjKey, String uploadObjValue) {
+		super();
+		this.uploadObjKey = uploadObjKey;
+		this.uploadObjValue = uploadObjValue;
+	}
+	
+	
+	
+
 }

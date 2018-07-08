@@ -225,9 +225,9 @@ public class QPaymentsItem implements Serializable {
 
 		if(fees != null && fees.length > 0) {
 			this.fees = fees;
-		} else {
+		} /* else {
 			throw new IllegalArgumentException("Fees for the item should not be empty");
-		}
+		} */
 		
 		if(buyer != null) {
 			this.buyer = buyer;

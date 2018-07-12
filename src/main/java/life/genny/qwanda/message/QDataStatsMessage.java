@@ -27,6 +27,9 @@ public class QDataStatsMessage extends QDataMessage {
 	Integer itemCount = 0;
 	
 	@Expose
+	Integer availableItems = 0;
+	
+	@Expose
 	Money monthTurnover = Money.of(BigDecimal.ZERO,life.genny.qwanda.message.QDataStatsMessage.DEFAULT_CURRENCY_AUD);
 	
 
@@ -34,12 +37,13 @@ public class QDataStatsMessage extends QDataMessage {
 		super(DATATYPE_ANSWER);
 	}
 	
-	public QDataStatsMessage(Integer buyerCount, Integer sellerCount, Integer itemCount, Money monthTurnover) {
+	public QDataStatsMessage(Integer buyerCount, Integer sellerCount, Integer itemCount, Integer availableItems, Money monthTurnover) {
 		super(DATATYPE_ANSWER);
 		this.buyerCount = buyerCount;
 		this.sellerCount = sellerCount;
 		this.itemCount = itemCount;
 		this.monthTurnover = monthTurnover;
+		this.availableItems = availableItems;
 	}
 
 	/**
@@ -98,6 +102,20 @@ public class QDataStatsMessage extends QDataMessage {
 		this.monthTurnover = monthTurnover;
 	}
 
+	/**
+	 * @return the availableItems
+	 */
+	public Integer getAvailableItems() {
+		return availableItems;
+	}
+
+	/**
+	 * @param availableItems the availableItems to set
+	 */
+	public void setAvailableItems(Integer availableItems) {
+		this.availableItems = availableItems;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -106,10 +124,11 @@ public class QDataStatsMessage extends QDataMessage {
 		return "QDataStatsMessage [" + (buyerCount != null ? "buyerCount=" + buyerCount + ", " : "")
 				+ (sellerCount != null ? "sellerCount=" + sellerCount + ", " : "")
 				+ (itemCount != null ? "itemCount=" + itemCount + ", " : "")
+				+ (availableItems != null ? "availableItems=" + availableItems + ", " : "")
 				+ (monthTurnover != null ? "monthTurnover=" + monthTurnover : "") + "]";
 	}
-	
 
+	
 
 
 

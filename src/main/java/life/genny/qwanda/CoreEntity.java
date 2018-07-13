@@ -76,7 +76,7 @@ public abstract class CoreEntity implements CreatedIntf, Serializable, Comparabl
 	protected static final Logger log = org.apache.logging.log4j.LogManager
 			.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
 
-	static public final String REGEX_NAME = "[a-zA-Z0-9/\\:\\ \\_\\.\\'\\-\\@\\(\\)]+.?";
+	static public final String REGEX_NAME = "[\\pL0-9/\\:\\ \\_\\.\\'\\-\\@\\(\\)]+.?";
 	static public final String REGEX_REALM = "[a-zA-Z0-9\\'\\-\\@\\(\\)]+";
 	static public final String DEFAULT_REALM = "genny";
 

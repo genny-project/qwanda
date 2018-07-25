@@ -1,6 +1,5 @@
 package life.genny.qwanda;
 
-
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -21,38 +20,36 @@ import com.google.gson.JsonSerializer;
 
 public class MoneyDeserializer implements JsonSerializer<Money>, JsonDeserializer<Money> {
 
-    
-    @Override
-    public JsonElement serialize(Money src, Type typeOfSrc, JsonSerializationContext context)
-    {
-    	JsonParser parser = new JsonParser();
-    DecimalFormat decimalFormat = new DecimalFormat("###############0.00");
-        
-    	String amount = decimalFormat.format(src.getNumber().doubleValue());
-    	if (amount.contains("+")) {
-    		System.out.println("debug");
-    	}
-    	JsonElement o = parser.parse("{\"amount\":"+amount+",\"currency\":\""+src.getCurrency().getCurrencyCode()+"\"}");
-      return o;
-    }
-    
-    @Override
-    public Money deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-        throws JsonParseException
-    {
-    	final CurrencyUnit currency = Monetary.getCurrency(json.getAsJsonObject().get("currency").getAsString());
+	@Override
+	public JsonElement serialize(Money src, Type typeOfSrc, JsonSerializationContext context) {
+		JsonParser parser = new JsonParser();
+		DecimalFormat decimalFormat = new DecimalFormat("###############0.00");
 
-if (StringUtils.isBlank(json.getAsJsonObject().get("amount").getAsString()) )
-		return  null;  //TODO, can we use Optional<Money> ?
-else {
-	String amountStr = json.getAsJsonObject().get("amount").getAsString();
-	if (amountStr.contains("+")) {
-		System.out.println("debug");
+		String amount = decimalFormat.format(src.getNumber().doubleValue());
+		if (amount.contains("+")) {
+			System.out.println("debug");
+		}
+		JsonElement o = parser
+				.parse("{\"amount\":" + amount + ",\"currency\":\"" + src.getCurrency().getCurrencyCode() + "\"}");
+		return o;
 	}
-	BigDecimal bDamount = new BigDecimal(amountStr);
-    	Money money = Money.of(bDamount, currency);
-    	
-      return money;
-}
-    }
+
+	@Override
+	public Money deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+			throws JsonParseException {
+		final CurrencyUnit currency = Monetary.getCurrency(json.getAsJsonObject().get("currency").getAsString());
+
+		if (StringUtils.isBlank(json.getAsJsonObject().get("amount").getAsString()))
+			return null; // TODO, can we use Optional<Money> ?
+		else {
+			String amountStr = json.getAsJsonObject().get("amount").getAsString();
+			if (amountStr.contains("+")) {
+				System.out.println("debug");
+			}
+			BigDecimal bDamount = new BigDecimal(amountStr);
+			Money money = Money.of(bDamount, currency);
+
+			return money;
+		}
+	}
 }

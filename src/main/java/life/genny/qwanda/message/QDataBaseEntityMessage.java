@@ -85,6 +85,16 @@ public class QDataBaseEntityMessage extends QDataMessage implements Comparable<Q
 		setItems(items.toArray(new BaseEntity[0]));
 		setTotal(-1L);
 	}
+	
+	public QDataBaseEntityMessage(final List<BaseEntity> items, final String parentCode,
+			final String linkCode) {
+		super(DATATYPE_BASEENTITY);
+
+		setItems(items.toArray(new BaseEntity[0]));
+		this.linkCode = linkCode;
+		this.parentCode = parentCode;
+		setTotal(-1L);
+	}
 
 	public QDataBaseEntityMessage(final BaseEntity[] items, final String parentCode,
 			final String linkCode) {

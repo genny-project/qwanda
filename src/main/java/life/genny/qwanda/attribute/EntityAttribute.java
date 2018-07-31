@@ -640,6 +640,10 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			log.error("Trying to set the value of a readonly EntityAttribute! "+this.getBaseEntityCode()+":"+this.attributeCode);
 			return; 
 		}
+		if (getAttribute()==null) { //TODO: Ugly
+			setLoopValue(value);
+			return;
+		}
 		if (value instanceof String) {
 			String result = (String) value;
 			try {
@@ -656,6 +660,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 									.toLocalDateTime();
 							setValueDateTime(dateTime);
 							break;
+							
 						} catch (ParseException e) {
 						}
 
@@ -714,7 +719,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			}
 		} else {
 
-			switch (this.getPk().getAttribute().getDataType().getClassName()) {
+			switch (this.getAttribute().getDataType().getClassName()) {
 			case "java.lang.Integer":
 			case "Integer":
 				setValueInteger((Integer) value);

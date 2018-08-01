@@ -84,7 +84,8 @@ import life.genny.qwanda.exception.BadDataException;
 
 @Table(name = "baseentity", 
 indexes = {
-        @Index(columnList = "code", name = "code_idx")
+        @Index(columnList = "code", name =  "code_idx"),
+        @Index(columnList = "realm", name = "code_idx")
     })
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)

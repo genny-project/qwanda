@@ -563,6 +563,9 @@ public class Answer implements Serializable {
 	 */
 	public void setAttribute(final Attribute attribute) {
 		this.attribute = attribute;
+		if (this.dataType==null) {
+			setDataType(attribute.getDataType().getClassName());
+		}
 	}
 
 	/**

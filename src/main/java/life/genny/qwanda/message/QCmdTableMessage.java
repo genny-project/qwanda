@@ -19,6 +19,9 @@ public class QCmdTableMessage implements Serializable{
 	
 	@Expose
 	private String code;
+
+	@Expose
+	private String subCode;
 	
 	@Expose
 	private String color;
@@ -64,6 +67,20 @@ public class QCmdTableMessage implements Serializable{
 	public void setCode(String code) {
 		this.code = code;
 	}
+	
+	/**
+	 * @return the subCode
+	 */
+	public String getSubCode() {
+		return subCode;
+	}
+
+	/**
+	 * @param subCode the subCode to set
+	 */
+	public void setSubCode(String subCode) {
+		this.subCode = subCode;
+	}
 
 	/**
 	 * @return the color
@@ -84,7 +101,8 @@ public class QCmdTableMessage implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "QCmdTableMessage [title=" + title + ", icon=" + icon + ", code=" + code + ", color=" + color + "]";
+		return "QCmdTableMessage [title=" + title + ", icon=" + icon + ", code=" + code + ", subCode=" + subCode
+				+ ", color=" + color + "]";
 	}
 
 	public QCmdTableMessage(String code) {
@@ -109,6 +127,15 @@ public class QCmdTableMessage implements Serializable{
 		this.title = title;
 		this.icon = icon;
 		this.color = color;
+	}
+	
+	public QCmdTableMessage(String code, String title, String icon, String color, String subCode) {
+		super();
+		this.code = code;
+		this.title = title;
+		this.icon = icon;
+		this.color = color;
+		this.subCode = subCode;
 	}
 
 

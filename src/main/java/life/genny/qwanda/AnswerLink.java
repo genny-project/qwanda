@@ -230,7 +230,7 @@ public class AnswerLink implements java.io.Serializable {
 		if (getAttribute()==null) {
 			System.out.println("attribute is null");
 		}
-		switch (this.pk.getAttribute().getDataType().getClassName()) {
+		switch (this.getAttribute().getDataType().getClassName()) {
 		case "life.genny.qwanda.entity":
 			List<String> beCodeList = new ArrayList<String>();
 			beCodeList.add(answer.getValue());

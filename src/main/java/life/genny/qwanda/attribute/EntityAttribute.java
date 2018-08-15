@@ -28,7 +28,6 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -36,6 +35,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.logging.log4j.Logger;
 import org.h2.util.DateTimeUtils;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.javamoney.moneta.Money;
 
@@ -45,16 +45,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 
-import life.genny.qwanda.datatype.LocalTimeAdapter;
 import life.genny.qwanda.MoneyDeserializer;
 import life.genny.qwanda.converter.MoneyConverter;
-import life.genny.qwanda.datatype.LocalDateAdapter;
-import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 import life.genny.qwanda.entity.BaseEntity;
 
 @Entity
-@Cacheable
-// #@JsonFilter("EntityAttribute")
+
 @Table(name = "baseentity_attribute" ,
 indexes = {
         @Index(columnList = "ATTRIBUTE_ID", name = "aattributeid_idx"),
@@ -62,6 +58,9 @@ indexes = {
     })
 @AssociationOverrides({ @AssociationOverride(name = "pk.baseEntity", joinColumns = @JoinColumn(name = "BASEENTITY_ID")),
 		@AssociationOverride(name = "pk.attribute", joinColumns = @JoinColumn(name = "ATTRIBUTE_ID")) })
+
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class EntityAttribute implements java.io.Serializable, Comparable<Object> {
 
 	/**

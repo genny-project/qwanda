@@ -79,5 +79,14 @@ public class QCmdViewMessageAction {
 	public void setColor(String color) {
 		this.color = color;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "QCmdViewMessageAction [code=" + code + ", title=" + title + ", icon=" + icon + ", color=" + color + "]";
+	}
+
 	
 }

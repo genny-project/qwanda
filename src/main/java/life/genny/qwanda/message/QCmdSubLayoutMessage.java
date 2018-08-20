@@ -15,7 +15,13 @@ public class QCmdSubLayoutMessage extends QCmdMessage {
 	 * @Expose private String data;
 	 * 
 	 * @Expose private Boolean visible;
+	 * 
 	 */
+	@Expose
+	private String data;
+	
+	@Expose
+	private Boolean visible;
 
 	@Expose
 	private String layoutCode;
@@ -95,13 +101,42 @@ public class QCmdSubLayoutMessage extends QCmdMessage {
 		this.isPopup = isPopup;
 	}
 
+
+	/**
+	 * @return the data
+	 */
+	public String getData() {
+		return data;
+	}
+
+	/**
+	 * @param data the data to set
+	 */
+	public void setData(String data) {
+		this.data = data;
+	}
+
+	/**
+	 * @return the visible
+	 */
+	public Boolean getVisible() {
+		return visible;
+	}
+
+	/**
+	 * @param visible the visible to set
+	 */
+	public void setVisible(Boolean visible) {
+		this.visible = visible;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "QCmdSubLayoutMessage [layoutCode=" + layoutCode + ", root=" + root + ", items=" + items + ", isPopup="
-				+ isPopup + "]";
+		return "QCmdSubLayoutMessage [data=" + data + ", visible=" + visible + ", layoutCode=" + layoutCode + ", root="
+				+ root + ", items=" + items + ", isPopup=" + isPopup + "]";
 	}
 
 

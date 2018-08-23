@@ -1,10 +1,11 @@
 package life.genny.qwanda.message;
 
-import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
-import java.util.HashMap;
 
 public class QTabView {
+	
+	@Expose
+	private String name;
 
     @Expose
     private String title;
@@ -13,13 +14,30 @@ public class QTabView {
     private String icon;
 
     @Expose
-    private QTabViewLayout layout;
+    private QCmdMessage layout;
 
     public void setTitle(String title) {
         this.title = title;
     }
+    
 
-    public String getTitle() {
+    /**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+	public String getTitle() {
         return this.title;
     }
 
@@ -31,11 +49,37 @@ public class QTabView {
         return this.icon;
     }
 
-    public void setLayout(QTabViewLayout layout) {
-        this.layout = layout;
-    }
 
-    public QTabViewLayout getLayout() {
-        return this.layout;
-    }
+	/**
+	 * @return the layout
+	 */
+	public QCmdMessage getLayout() {
+		return layout;
+	}
+
+
+	/**
+	 * @param layout the layout to set
+	 */
+	public void setLayout(QCmdMessage layout) {
+		this.layout = layout;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "QTabView [name=" + name + ", title=" + title + ", icon=" + icon + ", layout=" + layout + "]";
+	}
+
+
+	public QTabView(String name, String icon, QCmdMessage layout) {
+		super();
+		this.name = name;
+		this.icon = icon;
+		this.layout = layout;
+	}
+   
 }

@@ -1,29 +1,52 @@
 package life.genny.qwanda.message;
 
-import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
-import java.util.HashMap;
+
+public class QCmdTabViewMessage extends QCmdViewMessage {
+
+	private static final String CMD_TYPE = "CMD_VIEW";
+	private static final String VIEW_TYPE = "TAB_VIEW";
+	private static final long serialVersionUID = 1L;
+
+	/*
+	 * @Expose private QTabView[] views;
+	 */
+
+	@Expose
+	private QTabView[] tabs;
 
 
-public class QCmdTabViewMessage extends QCmdMessage {
-  
-  private static final String CMD_TYPE = "CMD_VIEW";
-  private static final String VIEW_TYPE = "TAB_VIEW";
-  private static final long serialVersionUID = 1L;
+	public QCmdTabViewMessage(final QTabView[] tabs) {
+		super(CMD_TYPE, VIEW_TYPE);
+		// this.views = views;
+		this.tabs = tabs;
+	}
+	
+	public QCmdTabViewMessage(final Object root, final QTabView[] tabs) {
+		super(VIEW_TYPE, root);
+		this.tabs = tabs;
+	}
 
-  @Expose 
-  private QTabView[] views;
+	/*
+	 * public void setViews(QTabView[] views) { this.views = views; }
+	 * 
+	 * public QTabView[] getViews() { return this.views; }
+	 */
 
-  public QCmdTabViewMessage(final QTabView[] views) {
-    super(CMD_TYPE, VIEW_TYPE);
-    this.views = views;
-  }
+	/**
+	 * @return the tabs
+	 */
+	public QTabView[] getTabs() {
+		return tabs;
+	}
 
-  public void setViews(QTabView[] views) {
-    this.views = views;
-  }
+	/**
+	 * @param tabs
+	 * the tabs to set
+	 */
+	public void setTabs(QTabView[] tabs) {
+		this.tabs = tabs;
+	}
 
-  public QTabView[] getViews() {
-    return this.views;
-  }
+
 }

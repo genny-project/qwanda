@@ -1,7 +1,5 @@
 package life.genny.qwanda.message;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 
 public class QCmdViewMessage extends QCmdMessage {
@@ -13,19 +11,44 @@ public class QCmdViewMessage extends QCmdMessage {
 	@Expose
 	private String view_type;
 	@Expose
-	private String data;
+	private Object data;
 	@Expose
 	private Boolean isPopup;
 	@Expose 
 	private QCmdViewMessageAction[] actions;
-
 	
-
+	/* used for detail-view */
+	@Expose
+	private String layoutCode;
+	
+	/* used for detail-view */
+	@Expose
+	private String parentCode;
+	
+	
+	/* used for list view, bucket view */
 	public QCmdViewMessage(final String view_type, final Object root) {
 		super(CMD_TYPE, view_type);
 		setRoot(root);
 		setView_type(view_type);
 	}
+	
+	/* used for split view */
+	public QCmdViewMessage(final String view_type, final Object root, final Object data) {
+		super(CMD_TYPE, view_type);
+		setRoot(root);
+		setView_type(view_type);
+		setData(data);
+	}
+	
+	/* used for detail view */
+	public QCmdViewMessage(final String view_type, final Object root, final String layoutCode, final String parentCode) {
+		super(CMD_TYPE, view_type);
+		setRoot(root);
+		setView_type(view_type);
+		setLayoutCode(layoutCode);
+		setParentCode(parentCode);
+	} 
 
 	/**
 	 * 
@@ -35,14 +58,14 @@ public class QCmdViewMessage extends QCmdMessage {
 	/**
 	 * @return the data
 	 */
-	public String getData() {
+	public Object getData() {
 		return data;
 	}
 
 	/**
 	 * @param data the data to set
 	 */
-	private void setData(final String data) {
+	public void setData(Object data) {
 		this.data = data;
 	}
 
@@ -89,6 +112,34 @@ public class QCmdViewMessage extends QCmdMessage {
 	 */
 	public void setActions(QCmdViewMessageAction[] actions) {
 		this.actions = actions;
+	}
+
+	/**
+	 * @return the layoutCode
+	 */
+	public String getLayoutCode() {
+		return layoutCode;
+	}
+
+	/**
+	 * @param layoutCode the layoutCode to set
+	 */
+	public void setLayoutCode(String layoutCode) {
+		this.layoutCode = layoutCode;
+	}
+
+	/**
+	 * @return the parentCode
+	 */
+	public String getParentCode() {
+		return parentCode;
+	}
+
+	/**
+	 * @param parentCode the parentCode to set
+	 */
+	public void setParentCode(String parentCode) {
+		this.parentCode = parentCode;
 	}
 
 }

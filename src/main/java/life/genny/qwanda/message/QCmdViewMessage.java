@@ -1,5 +1,7 @@
 package life.genny.qwanda.message;
 
+import java.util.Arrays;
+
 import com.google.gson.annotations.Expose;
 
 public class QCmdViewMessage extends QCmdMessage {
@@ -141,5 +143,19 @@ public class QCmdViewMessage extends QCmdMessage {
 	public void setParentCode(String parentCode) {
 		this.parentCode = parentCode;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "QCmdViewMessage [root=" + root + ", view_type=" + view_type + ", data=" + data + ", isPopup=" + isPopup
+				+ ", actions=" + Arrays.toString(actions) + ", layoutCode=" + layoutCode + ", parentCode=" + parentCode
+				+ "]";
+		
+		
+		
+	}
+	
 
 }

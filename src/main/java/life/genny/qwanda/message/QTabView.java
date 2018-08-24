@@ -14,7 +14,7 @@ public class QTabView {
     private String icon;
 
     @Expose
-    private QCmdMessage layout;
+    private QCmdViewMessage layout;
 
     public void setTitle(String title) {
         this.title = title;
@@ -53,7 +53,7 @@ public class QTabView {
 	/**
 	 * @return the layout
 	 */
-	public QCmdMessage getLayout() {
+	public QCmdViewMessage getLayout() {
 		return layout;
 	}
 
@@ -61,7 +61,7 @@ public class QTabView {
 	/**
 	 * @param layout the layout to set
 	 */
-	public void setLayout(QCmdMessage layout) {
+	public void setLayout(QCmdViewMessage layout) {
 		this.layout = layout;
 	}
 
@@ -75,7 +75,7 @@ public class QTabView {
 	}
 
 
-	public QTabView(String name, String icon, QCmdMessage layout) {
+	public QTabView(String name, String icon, QCmdViewMessage layout) {
 		super();
 		this.name = name;
 		this.icon = icon;

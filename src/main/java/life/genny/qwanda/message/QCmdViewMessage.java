@@ -11,6 +11,8 @@ public class QCmdViewMessage extends QCmdMessage {
 	@Expose
 	private Object root;	
 	@Expose
+	private Object contextRoot;	
+	@Expose
 	private String view_type;
 	@Expose
 	private Object data;
@@ -77,6 +79,21 @@ public class QCmdViewMessage extends QCmdMessage {
 
 	public void setRoot(Object root) {
 		this.root = root;
+	}
+	
+	
+	/**
+	 * @return the contextRoot
+	 */
+	public Object getContextRoot() {
+		return contextRoot;
+	}
+
+	/**
+	 * @param contextRoot the contextRoot to set
+	 */
+	public void setContextRoot(Object contextRoot) {
+		this.contextRoot = contextRoot;
 	}
 
 	public String getView_type() {

@@ -32,9 +32,11 @@ import life.genny.test.qwanda.util.JsonUtils;
 public class QuestionAnswerTest {
 
   Person person;
+  Attribute attributeBrackets = null;
   Attribute attributeFirstname = null;
   Attribute attributeLastname = null;
   Attribute attributeBirthdate = null;
+  Question questionBrackets = null;
   Question questionFirstname = null;
   Question questionLastname = null;
   Question questionBirthdate = null;
@@ -54,6 +56,9 @@ public class QuestionAnswerTest {
 
   @Before
   public void setup() throws BadDataException {
+
+	    attributeBrackets =
+	            new AttributeText(AttributeText.getDefaultCodePrefix() + "BRACKETS_TEST", "Brackets");
 
     attributeFirstname =
         new AttributeText(AttributeText.getDefaultCodePrefix() + "FIRSTNAME_TEST", "Firstname");
@@ -101,6 +106,10 @@ public class QuestionAnswerTest {
 
       // Firstname
 
+      questionBrackets = new Question(Question.getDefaultCodePrefix() + "BRACKETS", "(?)",
+              attributeBrackets);
+
+      
       questionFirstname = new Question(Question.getDefaultCodePrefix() + "FIRSTNAME1", "Firstname:",
           attributeFirstname);
       questionLastname = new Question(Question.getDefaultCodePrefix() + "LASTNAME1", "Lastname:",
@@ -108,6 +117,7 @@ public class QuestionAnswerTest {
       questionBirthdate = new Question(Question.getDefaultCodePrefix() + "BIRTHDATE1",
           "Birthdatee:", attributeBirthdate);
 
+      session.save(questionBrackets);
       session.save(questionFirstname);
       session.save(questionLastname);
       session.save(questionBirthdate);

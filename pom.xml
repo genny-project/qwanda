@@ -62,6 +62,13 @@
 		<system>jenkins</system>
 		<url>https://jenkins.outcome-hub.com</url>
 	</ciManagement>
+
+<distributionManagement>
+  <repository>
+    <id>life.genny</id>
+    <url>https://nexus.outcome-hub.com/nexus/content/repositories/life.genny</url>
+  </repository>
+</distributionManagement>
 	<repositories>
 		<repository>
 			<url>http://download.java.net/maven/2/</url>

@@ -116,23 +116,27 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
    * Store the Double value of the attribute for the baseEntity
    */
   @Expose
+  @Column(name = "valueDouble")
   private Double valueDouble;
 
   /**
    * Store the Boolean value of the attribute for the baseEntity
    */
   @Expose
+  @Column(name = "valueBoolean")
   private Boolean valueBoolean;
   /**
    * Store the Integer value of the attribute for the baseEntity
    */
   @Expose
+  @Column(name = "valueInteger")
   private Integer valueInteger;
 
   /**
    * Store the Long value of the attribute for the baseEntity
    */
   @Expose
+  @Column(name = "valueLong")
   private Long valueLong;
 
   /**
@@ -140,6 +144,7 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
    */
 //  @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
   @Expose
+  @Column(name = "valueDateTime")
   private LocalDateTime valueDateTime;
 
   /**
@@ -147,6 +152,7 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
    */
 //  @XmlJavaTypeAdapter(LocalDateAdapter.class)
   @Expose
+  @Column(name = "valueDate")
   private LocalDate valueDate;
  
   /**
@@ -154,6 +160,7 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
    */
 //  @XmlJavaTypeAdapter(LocalTimeAdapter.class)
   @Expose
+  @Column(name = "valueTime")
   private LocalTime valueTime;
  
 	@Column(name = "money", length = 128)
@@ -166,6 +173,7 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
    */
   @Type(type="text")
   @Expose
+  @Column(name = "valueString")
   private String valueString;
 
 
@@ -173,8 +181,10 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
    * Store the relative importance of the attribute for the baseEntity
    */
   @Expose
+  @Column(name = "weight")
   private Double weight;
 
+  @Column(name = "version")
   private Long version = 1L;
 
 

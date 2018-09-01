@@ -24,6 +24,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
@@ -68,6 +69,7 @@ public class Link implements Serializable {
    * <p>
    */
 	@Expose
+	@Column(name = "LINK_CODE")
   private String attributeCode;
 
  
@@ -76,6 +78,7 @@ public class Link implements Serializable {
    * <p>
    */
 	@Expose
+	@Column(name = "TARGET_CODE")
   private String targetCode;
 
   /**
@@ -83,6 +86,7 @@ public class Link implements Serializable {
    * <p>
    */
 	@Expose
+	@Column(name = "SOURCE_CODE")
   private String sourceCode;
 
 
@@ -91,16 +95,21 @@ public class Link implements Serializable {
    * <p>
    */
 	@Expose
+	@Column(name = "linkValue")
   private String linkValue;
   
 	@Expose
+	@Column(name = "LINK_WEIGHT")
   private Double weight;
   
 @Expose
+@Column(name = "childColor")
   private String childColor;
 @Expose
+@Column(name = "parentColor")
   private String parentColor;
 @Expose
+@Column(name = "rule")
   private String rule;
 
   /**
@@ -109,7 +118,7 @@ public class Link implements Serializable {
    * @param none
    */
   @SuppressWarnings("unused")
-  private Link() {
+  public Link() {
     // dummy for hibernate
   }
 

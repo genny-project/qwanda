@@ -68,7 +68,12 @@
     <id>life.genny</id>
     <url>https://nexus.outcome-hub.com/nexus/content/repositories/life.genny</url>
   </repository>
+   <snapshotRepository>
+      <id>nexus-snapshots</id>
+      <url>http://nexus.outcome-hub.com/nexus/content/repositories/snapshots</url>
+   </snapshotRepository>
 </distributionManagement>
+
 	<repositories>
 		<repository>
 			<url>http://download.java.net/maven/2/</url>
@@ -468,7 +473,7 @@
       </execution>
    </executions>
    <configuration>
-      <serverId>nexus</serverId>
+      <serverId>life.genny</serverId>
       <nexusUrl>https://nexus.outcome-hub.com/nexus/</nexusUrl>
       <skipStaging>true</skipStaging>
    </configuration>

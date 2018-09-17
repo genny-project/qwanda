@@ -73,9 +73,66 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 	  Boolean oneshot = false;
 	  
 
+	  @Expose
+	  private Boolean disabled=false;
+	  @Expose
+	  private Boolean hidden = false;
+	  
 	public QuestionQuestion() {
 	}
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param source
+	 *            the source baseEntity
+	 * @param target
+	 *            the target entity that is linked to
+	 * @param weight
+	 *            the associated weight
+	 * @param mandatory
+	 *            Is the question mandatory
+	 * @param disabled
+	 *            Is the question read only
+	 * @param hidden
+	 *            Is the question hidden
+	 * @param Weight
+	 *            the weighted importance of this attribute (relative to the other
+	 *            attributes)
+	 */
+	public QuestionQuestion(final Question source, final String targetCode, Double weight, boolean mandatory, boolean disabled, boolean hidden) {
+		autocreateCreated();
+		getPk().setSource(source);
+		getPk().setTargetCode(targetCode);
+		setMandatory(mandatory);
+		setDisabled(disabled);
+		setHidden(hidden);
+		if (weight == null) {
+			weight = 0.0; // This permits ease of adding attributes and hides
+							// attribute from scoring.
+		}
+		setWeight(weight);
+	}
+	/**
+	 * Constructor.
+	 * 
+	 * @param source
+	 *            the source baseEntity
+	 * @param target
+	 *            the target entity that is linked to
+	 * @param weight
+	 *            the associated weight
+	 * @param mandatory
+	 *            Is the question mandatory
+	 * @param disabled
+	 *            Is the question read only
+	 * @param Weight
+	 *            the weighted importance of this attribute (relative to the other
+	 *            attributes)
+	 */
+	public QuestionQuestion(final Question source, final String targetCode, Double weight, boolean mandatory, boolean disabled) {
+		this(source,targetCode,weight,mandatory,disabled,false);;
+	}
 	/**
 	 * Constructor.
 	 * 
@@ -92,15 +149,7 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 	 *            attributes)
 	 */
 	public QuestionQuestion(final Question source, final String targetCode, Double weight, boolean mandatory) {
-		autocreateCreated();
-		getPk().setSource(source);
-		getPk().setTargetCode(targetCode);
-		setMandatory(mandatory);
-		if (weight == null) {
-			weight = 0.0; // This permits ease of adding attributes and hides
-							// attribute from scoring.
-		}
-		setWeight(weight);
+		this(source,targetCode,weight,mandatory,false);
 	}
 
 	/**
@@ -230,6 +279,36 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 	 */
 	public void setOneshot(Boolean oneshot) {
 		this.oneshot = oneshot;
+	}
+
+	
+	
+	/**
+	 * @return the disabled
+	 */
+	public Boolean getDisabled() {
+		return disabled;
+	}
+
+	/**
+	 * @param disabled the disabled to set
+	 */
+	public void setDisabled(Boolean disabled) {
+		this.disabled = disabled;
+	}
+
+	/**
+	 * @return the hidden
+	 */
+	public Boolean getHidden() {
+		return hidden;
+	}
+
+	/**
+	 * @param hidden the hidden to set
+	 */
+	public void setHidden(Boolean hidden) {
+		this.hidden = hidden;
 	}
 
 	@PreUpdate

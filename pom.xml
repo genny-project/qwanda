@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>life.genny</groupId>
 	<artifactId>qwanda</artifactId>
-	<version>1.0.56</version>
+	<version>1.0.57</version>
 	<name>qwanda</name>
 	<description>Question and Answer Engine</description>
 
@@ -51,7 +51,7 @@
 		<jackson.version>2.8.7</jackson.version>
 		<version.mysql-connector>6.0.6</version.mysql-connector>
 		<version.guava>24.0-jre</version.guava>
-
+		<commons-lang3.version>3.7</commons-lang3.version>
 	</properties>
 
 	<scm>
@@ -216,7 +216,7 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.5</version>
+			<version>${commons-lang3.version}</version>
 		</dependency>
 
 

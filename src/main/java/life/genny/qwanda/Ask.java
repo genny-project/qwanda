@@ -110,7 +110,9 @@ public class Ask extends CoreEntity implements Serializable {
   private Boolean disabled=false;
   @Expose
   private Boolean hidden = false;
-  
+ 
+  @Expose
+  private Boolean readonly = false;
   @Expose
   private Double weight=0.0;
   
@@ -176,6 +178,7 @@ public class Ask extends CoreEntity implements Serializable {
     contextList = new ContextList(new ArrayList<Context>());
     this.disabled = false;
     this.hidden = false;
+    this.readonly = false;
   }
 
 
@@ -226,6 +229,21 @@ public class Ask extends CoreEntity implements Serializable {
    * @param aWeight 
    */
   public Ask(final Question aQuestion, final String aSourceCode, final String aTargetCode, final Boolean aMandatory, final Double weight, final Boolean disabled, final Boolean hidden) {
+	  
+this(aQuestion, aSourceCode, aTargetCode, aMandatory, weight, disabled,hidden, false);
+  }
+
+  /**
+   * Constructor.
+   * 
+   * @param aQuestion The associated Question
+   * @param aSource The person answering the question
+   * @param aTarget The BaseEntity that the question is about
+   * @param aMandatory Is this ask mandatory?
+   * @param aWeight 
+   * @param readonly
+   */
+  public Ask(final Question aQuestion, final String aSourceCode, final String aTargetCode, final Boolean aMandatory, final Double weight, final Boolean disabled, final Boolean hidden, final Boolean readonly) {
     super(aQuestion.getName());
     setQuestion(aQuestion);
 
@@ -238,8 +256,8 @@ public class Ask extends CoreEntity implements Serializable {
     this.weight = weight;
     this.disabled = disabled;
     this.hidden = hidden;
+    this.readonly = readonly;
   }
-
   /**
    * @return the question
    */
@@ -464,6 +482,20 @@ public void setParentId(Long parentId) {
 	 */
 	public void setOneshot(Boolean oneshot) {
 		this.oneshot = oneshot;
+	}
+
+	/**
+	 * @return the readonly
+	 */
+	public Boolean getReadonly() {
+		return readonly;
+	}
+
+	/**
+	 * @param readonly the readonly to set
+	 */
+	public void setReadonly(Boolean readonly) {
+		this.readonly = readonly;
 	}
 
 

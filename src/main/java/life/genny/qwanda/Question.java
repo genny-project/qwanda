@@ -125,6 +125,9 @@ public class Question extends CodedEntity implements Serializable {
   private Boolean mandatory=false;
   
   @Expose
+  private Boolean readonly=false;
+  
+  @Expose
   private Boolean oneshot=false;
   
   @Type(type = "text")
@@ -514,6 +517,20 @@ public Boolean getOneshot() {
  */
 public void setOneshot(Boolean oneshot) {
 	this.oneshot = oneshot;
+}
+
+/**
+ * @return the readonly
+ */
+public Boolean getReadonly() {
+	return readonly;
+}
+
+/**
+ * @param readonly the readonly to set
+ */
+public void setReadonly(Boolean readonly) {
+	this.readonly = readonly;
 }
    
 

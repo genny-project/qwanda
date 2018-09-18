@@ -77,10 +77,47 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 	  private Boolean disabled=false;
 	  @Expose
 	  private Boolean hidden = false;
+
+	  @Expose
+	  private Boolean readonly = false;
 	  
 	public QuestionQuestion() {
 	}
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param source
+	 *            the source baseEntity
+	 * @param target
+	 *            the target entity that is linked to
+	 * @param weight
+	 *            the associated weight
+	 * @param mandatory
+	 *            Is the question mandatory
+	 * @param disabled
+	 *            Is the question read only
+	 * @param readonly
+	 *            Is the question readonly
+	 * @param hidden
+	 *            Is the question hidden	 * @param Weight
+	 *            the weighted importance of this attribute (relative to the other
+	 *            attributes)
+	 */
+	public QuestionQuestion(final Question source, final String targetCode, Double weight, boolean mandatory, boolean disabled, boolean hidden, boolean readonly) {
+		autocreateCreated();
+		getPk().setSource(source);
+		getPk().setTargetCode(targetCode);
+		setMandatory(mandatory);
+		setDisabled(disabled);
+		setHidden(hidden);
+		setReadonly(readonly);
+		if (weight == null) {
+			weight = 0.0; // This permits ease of adding attributes and hides
+							// attribute from scoring.
+		}
+		setWeight(weight);
+	}
 	/**
 	 * Constructor.
 	 * 
@@ -101,17 +138,7 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 	 *            attributes)
 	 */
 	public QuestionQuestion(final Question source, final String targetCode, Double weight, boolean mandatory, boolean disabled, boolean hidden) {
-		autocreateCreated();
-		getPk().setSource(source);
-		getPk().setTargetCode(targetCode);
-		setMandatory(mandatory);
-		setDisabled(disabled);
-		setHidden(hidden);
-		if (weight == null) {
-			weight = 0.0; // This permits ease of adding attributes and hides
-							// attribute from scoring.
-		}
-		setWeight(weight);
+		this(source,targetCode,weight,mandatory,disabled,hidden,false);;
 	}
 	/**
 	 * Constructor.
@@ -309,6 +336,21 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 	 */
 	public void setHidden(Boolean hidden) {
 		this.hidden = hidden;
+	}
+
+	
+	/**
+	 * @return the readonly
+	 */
+	public Boolean getReadonly() {
+		return readonly;
+	}
+
+	/**
+	 * @param readonly the readonly to set
+	 */
+	public void setReadonly(Boolean readonly) {
+		this.readonly = readonly;
 	}
 
 	@PreUpdate

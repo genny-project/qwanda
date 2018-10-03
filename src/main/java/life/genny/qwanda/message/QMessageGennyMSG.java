@@ -29,6 +29,9 @@ public class QMessageGennyMSG extends QMessage {
 	
 	@Expose
 	private List<QBaseMSGAttachment> attachmentList;
+	
+	@Expose
+	private String[] to;
 	/**
 	 * @return the template_code
 	 */
@@ -99,6 +102,20 @@ public class QMessageGennyMSG extends QMessage {
 		this.attachmentList = attachmentList;
 	}
 
+	/**
+	 * @return the to
+	 */
+	public String[] getTo() {
+		return to;
+	}
+
+	/**
+	 * @param to the to to set
+	 */
+	public void setTo(String[] to) {
+		this.to = to;
+	}
+
 	public QMessageGennyMSG(String msg_type, QBaseMSGMessageType messageType, String templateCode, Map<String, String> contextMap, String[] recipientArr) {
 		super(msg_type);
 		this.template_code = templateCode;
@@ -116,6 +133,29 @@ public class QMessageGennyMSG extends QMessage {
 		this.recipientArr = recipientArr;
 		this.attachmentList = attachmentList;
 	}
+	
+	
+
+	public QMessageGennyMSG(String msg_type, String template_code, QBaseMSGMessageType msgMessageType,
+			Map<String, String> messageContextMap, List<QBaseMSGAttachment> attachmentList, String[] to) {
+		super(msg_type);
+		this.template_code = template_code;
+		this.msgMessageType = msgMessageType;
+		this.messageContextMap = messageContextMap;
+		this.attachmentList = attachmentList;
+		this.to = to;
+	}
+	
+	
+
+	public QMessageGennyMSG(String msg_type, String template_code, QBaseMSGMessageType msgMessageType,
+			Map<String, String> messageContextMap, String[] to) {
+		super(msg_type);
+		this.template_code = template_code;
+		this.msgMessageType = msgMessageType;
+		this.messageContextMap = messageContextMap;
+		this.to = to;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -124,8 +164,7 @@ public class QMessageGennyMSG extends QMessage {
 	public String toString() {
 		return "QMessageGennyMSG [template_code=" + template_code + ", msgMessageType=" + msgMessageType
 				+ ", recipientArr=" + Arrays.toString(recipientArr) + ", messageContextMap=" + messageContextMap
-				+ ", attachmentList=" + attachmentList + "]";
+				+ ", attachmentList=" + attachmentList + ", to=" + Arrays.toString(to) + "]";
 	}
-
 
 }

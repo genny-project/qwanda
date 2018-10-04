@@ -129,6 +129,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   @JsonBackReference(value="entityEntity")
   @Cascade({CascadeType.MERGE,CascadeType.DELETE})
   @Expose
+  /* Stores the links of BaseEntity to another BaseEntity */
   private Set<EntityEntity> links = new HashSet<EntityEntity>(0);
 
   @JsonIgnore
@@ -212,6 +213,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   }
 
   /**
+   * Sets the Links of the BaseEntity with another BaseEntity
    * @param links the links to set
    */
   public void setLinks(final Set<EntityEntity> links) {

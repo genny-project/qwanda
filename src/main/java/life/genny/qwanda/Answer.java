@@ -120,7 +120,7 @@ public class Answer implements Serializable {
 	 * <p>
 	 */
 	@NotNull
-	@NotEmpty
+//	@NotEmpty
 	@Type(type = "text")
 	@Column(name = "value", updatable = true, nullable = false)
 	@Expose

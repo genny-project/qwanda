@@ -47,6 +47,43 @@ public class EntityAttributeId implements java.io.Serializable {
 		this.attribute = attribute;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((attribute == null) ? 0 : attribute.hashCode());
+		result = prime * result + ((baseEntity == null) ? 0 : baseEntity.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EntityAttributeId other = (EntityAttributeId) obj;
+		if (attribute == null) {
+			if (other.attribute != null)
+				return false;
+		} else if (!attribute.equals(other.attribute))
+			return false;
+		if (baseEntity == null) {
+			if (other.baseEntity != null)
+				return false;
+		} else if (!baseEntity.equals(other.baseEntity))
+			return false;
+		return true;
+	}
+
 
 
 

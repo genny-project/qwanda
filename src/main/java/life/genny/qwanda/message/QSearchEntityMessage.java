@@ -16,6 +16,7 @@ import life.genny.qwanda.entity.BaseEntity;
 import life.genny.qwanda.entity.SearchEntity;
 import life.genny.qwanda.entity.SearchEntity.Sort;
 import life.genny.qwanda.exception.BadDataException;
+import life.genny.qwandautils.JsonUtils;
 
 public class QSearchEntityMessage extends QDataBaseEntityMessage  {
 
@@ -118,6 +119,7 @@ public class QSearchEntityMessage extends QDataBaseEntityMessage  {
         private SearchEntity searchEntity = new SearchEntity("SBE_"+UUID.randomUUID().toString().substring(0, 20),"New Search");
 
         private List<SearchEntity> searchEntityList = new ArrayList<SearchEntity>();
+        private List<QSearchEntityMessage> searchEntityMessageList = new ArrayList<QSearchEntityMessage>();
 
  
         public Builder(final String code, final String name) {
@@ -161,13 +163,103 @@ public class QSearchEntityMessage extends QDataBaseEntityMessage  {
     	 * This method allows to add sorting to the attributes of the search results
     	 * It can either sort in ascending or descending order
     	 */
-    	public Builder addSort(final String attributeCode, final String sortHelpText, final SearchEntity.Sort sortType)
+    	public Builder sort(final String attributeCode, final String sortHelpText, final SearchEntity.Sort sortType)
     	{
         	this.searchEntity.addSort(attributeCode, sortHelpText,sortType);      	
             return this;  //By returning the builder each time, we can create a fluent interface.
    		
     	}
-   
+  
+    	/*
+    	 * This method allows to set the stakeholder/user code to the search. It will search for the BaseEntites 
+    	 * that the given user is stakeholder of.
+    	 * @param stakeholderCode - userCode
+    	 */
+    	public Builder stakeholderCode(final String stakeholderCode)
+    	{
+    		AttributeText attribute = new AttributeText("SCH_STAKEHOLDER_CODE", "Stakeholder");
+    		try {
+    			this.searchEntity.addAttribute(attribute, 1.0, stakeholderCode);
+    		} catch (BadDataException e) {
+    			log.error("Bad Stakeholder");
+    		}
+    		
+    		return this;
+    	}
+    	
+    	/*
+    	 * This method allows to set the stakeholder/user code to the parent/source Basentity involved in the search. 
+    	 * It will search for the BaseEntites under the give source BE that the given user is stakeholder of.
+    	 * @param sourceStakeholderCode - userCode
+    	 */
+    	public Builder sourceStakeholderCode(final String sourceStakeholderCode)
+    	{
+    		AttributeText attribute = new AttributeText("SCH_SOURCE_STAKEHOLDER_CODE", "SourceStakeholder");
+    		try {
+    			this.searchEntity.addAttribute(attribute, 1.0, sourceStakeholderCode);
+    		} catch (BadDataException e) {
+    			log.error("Bad Source Stakeholder");
+    		}
+    		
+    		return this;
+    	}
+    	
+    	/*
+    	 * This method allows to set the stakeholder/user code to the parent/source Basentity involved in the search. 
+    	 * It will search for the BaseEntites under the give source BE that the given user is stakeholder of.
+    	 * @param sourceStakeholderCode - userCode
+    	 */
+    	public Builder linkCode(final String linkCode)
+    	{
+    		AttributeText attribute = new AttributeText("SCH_LINK_CODE", "LinkCode");
+    		try {
+    			this.searchEntity.addAttribute(attribute, 1.0, linkCode);
+    		} catch (BadDataException e) {
+    			log.error("Bad Stakeholder");
+    		}
+    		
+    		return this;
+    	}
+    	
+    	/*
+    	 * This method allows to set the link value the result of the search. 
+    	 * @param linkValue - linkValue of the sourceCode to the results (BaseEntities) of the search
+    	 */
+    	public Builder linkValue(final String linkValue)
+    	{
+    		AttributeText attribute = new AttributeText("SCH_LINK_VALUE", "LinkValue");
+    		try {
+    			this.searchEntity.addAttribute(attribute, 1.0, linkValue);
+    		} catch (BadDataException e) {
+    			log.error("Bad Link Value");
+    		}
+    		
+    		return this;
+    	}
+    	
+    	public Builder sourceCode(final String sourceCode)
+    	{
+    		AttributeText attribute = new AttributeText("SCH_SOURCE_CODE", "SourceCode");
+    		try {
+    			this.searchEntity.addAttribute(attribute, 1.0, sourceCode);
+    		} catch (BadDataException e) {
+    			log.error("Bad SourceCode");
+    		}
+    		return this;
+    	}
+    	
+    	public Builder targetCode(final String targetCode)
+    	{
+    		AttributeText attribute = new AttributeText("SCH_TARGET_CODE", "TargetCode");
+    		try {
+    			this.searchEntity.addAttribute(attribute, 1.0, targetCode);
+    		} catch (BadDataException e) {
+    			log.error("Bad Target Code");
+    		}
+    		
+    		return this;
+    	}    	
+    	
        	/*
     	 * This method allows to add searches that are ORd
      	 */
@@ -176,7 +268,18 @@ public class QSearchEntityMessage extends QDataBaseEntityMessage  {
         	this.searchEntityList.add(searchEntity);      	
             return this;  //By returning the builder each time, we can create a fluent interface.
    		
+    	}   
+    	
+      	/*
+    	 * This method allows to add searches that are recursively ORd
+     	 */
+    	public Builder searchOr(final QSearchEntityMessage searchEntity)
+    	{
+        	this.searchEntityMessageList.add(searchEntity);      	
+            return this;  //By returning the builder each time, we can create a fluent interface.
+   		
     	}   	
+
     	
         public QSearchEntityMessage build(){
 
@@ -191,4 +294,13 @@ public class QSearchEntityMessage extends QDataBaseEntityMessage  {
         }
 
     }
+    
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return JsonUtils.toJson(this);
+	}
+	
 }

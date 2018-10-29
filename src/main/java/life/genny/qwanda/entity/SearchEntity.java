@@ -1,6 +1,7 @@
 package life.genny.qwanda.entity;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import life.genny.qwanda.attribute.AttributeBoolean;
 import life.genny.qwanda.attribute.AttributeDateTime;
@@ -97,6 +98,11 @@ public class SearchEntity extends BaseEntity {
 	            return "&0";
 	        }
        }
+	}
+
+	/* Constructor to create SearchEntity with code and name */
+	public SearchEntity() {
+		this("SBE_"+UUID.randomUUID().toString().substring(0, 15),"Or Search");
 	}
 	
 	/* Constructor to create SearchEntity with code and name */

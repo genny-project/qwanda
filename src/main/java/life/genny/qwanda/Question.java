@@ -140,7 +140,7 @@ public class Question extends CodedEntity implements Serializable {
    * @param none
    */
   @SuppressWarnings("unused")
-  private Question() {
+  public Question() {
     // dummy for hibernate
   }
 

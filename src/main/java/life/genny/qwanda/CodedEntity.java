@@ -46,6 +46,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.cdi.crud.infra.model.CoreEntityInterface;
 import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.entity.BaseEntity;
@@ -73,7 +74,7 @@ import life.genny.qwanda.entity.BaseEntity;
  */
 
 @MappedSuperclass
-public abstract class CodedEntity extends CoreEntity {
+public abstract class CodedEntity extends CoreEntity{
 
 	/**
 	 * 

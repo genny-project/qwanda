@@ -16,6 +16,7 @@
 
 package life.genny.qwanda;
 
+import com.cdi.crud.infra.model.CoreEntityInterface;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
 
@@ -63,7 +64,7 @@ import life.genny.qwanda.datatype.LocalDateTimeAdapter;
  */
 
 @MappedSuperclass
-public abstract class CoreEntity implements CreatedIntf, Serializable, Comparable<Object> {
+public abstract class CoreEntity implements CoreEntityInterface, CreatedIntf, Serializable, Comparable<Object> {
 
 	/**
 	 * 

@@ -33,6 +33,7 @@ import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -84,7 +85,8 @@ import life.genny.qwanda.exception.BadDataException;
 indexes = {
         @Index(columnList = "code", name =  "code_idx"),
         @Index(columnList = "realm", name = "code_idx")
-    })
+    },
+uniqueConstraints = @UniqueConstraint(columnNames = {"code", "realm"}))
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 

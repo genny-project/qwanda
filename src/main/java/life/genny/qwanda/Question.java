@@ -85,7 +85,7 @@ import life.genny.qwanda.exception.BadDataException;
 @XmlRootElement
 @Cacheable
 @XmlAccessorType(value = XmlAccessType.FIELD)
-@Table(name = "question", uniqueConstraints = @UniqueConstraint(columnNames = "code"))
+@Table(name = "question", uniqueConstraints = @UniqueConstraint(columnNames = {"code", "realm"}))
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 @Inheritance(strategy = InheritanceType.JOINED)

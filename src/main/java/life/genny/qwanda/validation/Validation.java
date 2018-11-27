@@ -68,7 +68,7 @@ import life.genny.qwanda.converter.StringListConverter;
 
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
-@Table(name = "validation", uniqueConstraints = @UniqueConstraint(columnNames = "code"))
+@Table(name = "validation", uniqueConstraints = @UniqueConstraint(columnNames = {"code", "realm"}))
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 

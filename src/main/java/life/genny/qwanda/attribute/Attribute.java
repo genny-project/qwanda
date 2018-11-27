@@ -69,7 +69,7 @@ import life.genny.qwanda.datatype.DataType;
 
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
-@Table(name = "attribute", uniqueConstraints = @UniqueConstraint(columnNames = "code"))
+@Table(name = "attribute", uniqueConstraints = @UniqueConstraint(columnNames = {"code", "realm"}))
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 @Cacheable

@@ -77,8 +77,7 @@ public abstract class CoreEntity implements CoreEntityInterface, CreatedIntf, Se
 	protected static final Logger log = org.apache.logging.log4j.LogManager
 			.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
 
-	static public final String REGEX_NAME = "[\\pL0-9/\\:\\ \\_\\.\\,\\?\\>\\<\\%\\$\\&\\!\\*"
-			+ ""
+	static public final String REGEX_NAME = "[\\pL0-9/\\:\\ \\_\\.\\,\\?\\>\\<\\%\\$\\&\\!\\*" + ""
 			+ "\\[\\]\\'\\-\\@\\(\\)]+.?";
 	static public final String REGEX_REALM = "[a-zA-Z0-9]+";
 	static public final String DEFAULT_REALM = "genny";
@@ -291,4 +290,7 @@ public abstract class CoreEntity implements CoreEntityInterface, CreatedIntf, Se
 		return "[id=" + id + ", created=" + created + ", updated=" + updated + ", name=" + name + "]";
 	}
 
+	public boolean hasName() {
+		return name != null && !"".equals(name.trim());
+	}
 }

@@ -18,7 +18,6 @@
  *     Byron Aguirre
  */
 
-
 package life.genny.qwanda;
 
 import java.lang.invoke.MethodHandles;
@@ -46,16 +45,15 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.cdi.crud.infra.model.CoreEntityInterface;
 import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.entity.BaseEntity;
 
 /**
- * CoreEntity represents a base level core set of class attributes.
- * It is the base parent for many Qwanda classes and serves to establish
- * Hibernate compatibility and datetime stamping.
- *  This
- * attribute information includes:
+ * CoreEntity represents a base level core set of class attributes. It is the
+ * base parent for many Qwanda classes and serves to establish Hibernate
+ * compatibility and datetime stamping. This attribute information includes:
  * <ul>
  * <li>The Human Readable name for this class (used for summary lists)
  * <li>The unique code for the class object
@@ -66,10 +64,10 @@ import life.genny.qwanda.entity.BaseEntity;
  *
  * 
  * 
- * @author      Adam Crow
- * @author      Byron Aguirre
- * @version     %I%, %G%
- * @since       1.0
+ * @author Adam Crow
+ * @author Byron Aguirre
+ * @version %I%, %G%
+ * @since 1.0
  */
 
 @MappedSuperclass
@@ -83,59 +81,55 @@ public abstract class CodedEntity extends CoreEntity {
 	/**
 	 * Stores logger object.
 	 */
-	protected static final Logger log =org.apache.logging.log4j.LogManager.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
+	protected static final Logger log = org.apache.logging.log4j.LogManager
+			.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
 
 	static public final String REGEX_CODE = "[A-Z]{3}\\_[A-Z0-9\\.\\-\\@\\_]*";
 
-
-
 	/**
-	A field that stores the unique code name of the attribute.
-	<p>p
-	Note that the prefix of the attribute can specify the source.
-	e.g. FBK_BIRTHDATE indicates that the attribute represents the facebook value
-	*/
+	 * A field that stores the unique code name of the attribute.
+	 * <p>
+	 * p Note that the prefix of the attribute can specify the source. e.g.
+	 * FBK_BIRTHDATE indicates that the attribute represents the facebook value
+	 */
 	@NotNull
 	@Size(max = 64)
 	@Pattern(regexp = REGEX_CODE, message = "Must be valid Code!")
 	@Column(name = "code", updatable = false, nullable = false, unique = true)
 	@Expose
 	private String code;
-	
+
 	@Transient
 	@Expose
 	private Integer index;
- 
+
 	/**
-	  * Constructor.
-	  * 
-	  * @param none
-	  */
-	protected CodedEntity()
-	{
+	 * Constructor.
+	 * 
+	 * @param none
+	 */
+	protected CodedEntity() {
 		// dummy
 		super();
 		setIndex(0);
 	}
-	
+
 	/**
-	  * Constructor.
-	  * 
-	  * @param Name the summary name of the coded entity
-	  * @param Code the unique code of the coded entity 
-	  */
-	public CodedEntity(String aCode, String aName)
-	{
+	 * Constructor.
+	 * 
+	 * @param Name
+	 *            the summary name of the coded entity
+	 * @param Code
+	 *            the unique code of the coded entity
+	 */
+	public CodedEntity(String aCode, String aName) {
 		super(aName);
 		setCode(aCode);
 		setIndex(0);
 	}
-	
-  
-	
-	
+
 	/**
-	 * @return code 
+	 * @return code
 	 */
 	public String getCode() {
 		return code;
@@ -143,7 +137,8 @@ public abstract class CodedEntity extends CoreEntity {
 
 	/**
 	 * 
-	 * @param aName human readable text representing the unique code
+	 * @param aName
+	 *            human readable text representing the unique code
 	 */
 	public void setCode(String aCode) {
 		if (aCode == null) {
@@ -153,25 +148,27 @@ public abstract class CodedEntity extends CoreEntity {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return super.toString()+"[code=" + code + "]";
+		return super.toString() + "[code=" + code + "]";
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
-	      HashCodeBuilder hcb = new HashCodeBuilder();
-	        hcb.append(code);
-	        return hcb.toHashCode();
+		HashCodeBuilder hcb = new HashCodeBuilder();
+		hcb.append(code);
+		return hcb.toHashCode();
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -183,18 +180,17 @@ public abstract class CodedEntity extends CoreEntity {
 		}
 		CodedEntity that = (CodedEntity) obj;
 		EqualsBuilder eb = new EqualsBuilder();
-		eb.append(code,that.getCode());
+		eb.append(code, that.getCode());
 		return eb.isEquals();
 	}
 
 	@Override
-	 public int compareTo(Object o) {
-		 CodedEntity myClass = (CodedEntity) o;
-	     return new CompareToBuilder()
-	       .append(code,myClass.getCode())
-//	       .append(this.weight, myClass.weight)
-	       .toComparison();
-	   }
+	public int compareTo(Object o) {
+		CodedEntity myClass = (CodedEntity) o;
+		return new CompareToBuilder().append(code, myClass.getCode())
+				// .append(this.weight, myClass.weight)
+				.toComparison();
+	}
 
 	/**
 	 * @return the index
@@ -204,11 +200,14 @@ public abstract class CodedEntity extends CoreEntity {
 	}
 
 	/**
-	 * @param index the index to set
+	 * @param index
+	 *            the index to set
 	 */
 	public void setIndex(Integer index) {
 		this.index = index;
 	}
- 
-  
+
+	public boolean hasCode() {
+		return code != null && !"".equals(code.trim());
+	}
 }

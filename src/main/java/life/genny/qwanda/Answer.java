@@ -244,6 +244,7 @@ public class Answer implements Serializable {
 		this.attribute = attribute;
 		this.setValue(value);
 		autocreateCreated();
+		checkInputs();
 	}
 
 	/**
@@ -264,6 +265,7 @@ public class Answer implements Serializable {
 		this.attributeCode = attributeCode;
 		this.setValue(value);
 		autocreateCreated();
+		checkInputs();
 	}
 
 	/**
@@ -284,6 +286,7 @@ public class Answer implements Serializable {
 		this.attributeCode = attributeCode;
 		this.setValue(value);
 		autocreateCreated();
+		checkInputs();
 	}
 
 	/**
@@ -303,6 +306,7 @@ public class Answer implements Serializable {
 		this.targetCode = aAsk.getTargetCode();
 		this.setValue(value);
 		autocreateCreated();
+		checkInputs();
 		// this.ask.add(this);
 	}
 
@@ -327,6 +331,7 @@ public class Answer implements Serializable {
 		this.setRefused(refused);
 		this.setExpired(expired);
 		autocreateCreated();
+		checkInputs();
 		// this.ask.add(this);
 	}
 
@@ -617,4 +622,11 @@ public class Answer implements Serializable {
 				+ "]";
 	}
 
+	private void checkInputs()
+	{
+		if (this.sourceCode==null) throw new NullPointerException("SourceCode cannot be null");
+		if (this.targetCode==null) throw new NullPointerException("targetCode cannot be null");
+		if (this.attributeCode==null) throw new NullPointerException("attributeCode cannot be null");
+	}
+	
 }

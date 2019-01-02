@@ -506,7 +506,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
     }
     // Set<AnswerLink> answerLinkSet = new HashSet<AnswerLink>();
     // answerLinkSet.addAll(answer.getAsk().getAnswerList().getAnswerList());
-    getAnswers().add(answerLink);
+  //  getAnswers().add(answerLink);
     
     // Update the EntityAttribute
     Optional<EntityAttribute> ea = findEntityAttribute(answer.getAttributeCode());

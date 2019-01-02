@@ -226,10 +226,6 @@ public class AnswerLink implements java.io.Serializable {
 		this.setRefused(answer.getRefused());
 		this.setInferred(answer.getInferred());
 
-		// Assume that Attribute Validation has been performed
-		if (getAttribute()==null) {
-			System.out.println("attribute is null");
-		}
 		switch (this.getAttribute().getDataType().getClassName()) {
 		case "life.genny.qwanda.entity":
 			List<String> beCodeList = new ArrayList<String>();

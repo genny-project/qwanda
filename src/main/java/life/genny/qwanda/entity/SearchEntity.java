@@ -10,7 +10,7 @@ import life.genny.qwanda.attribute.AttributeInteger;
 import life.genny.qwanda.attribute.AttributeLong;
 import life.genny.qwanda.attribute.AttributeText;
 import life.genny.qwanda.exception.BadDataException;
-import life.genny.qwandautils.JsonUtils;
+import life.genny.qwandautils.QwandaJsonUtils;
 
 /* SearchEntity class implements the search of base entities applying different filters/search to the
  * baseEntity and its attributes 
@@ -403,7 +403,7 @@ public class SearchEntity extends BaseEntity {
 	 */
 	@Override
 	public String toString() {
-		return JsonUtils.toJson(this);
+		return QwandaJsonUtils.toJson(this);
 	}
 	
 	

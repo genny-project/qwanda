@@ -16,7 +16,7 @@ import life.genny.qwanda.entity.BaseEntity;
 import life.genny.qwanda.entity.SearchEntity;
 import life.genny.qwanda.entity.SearchEntity.Sort;
 import life.genny.qwanda.exception.BadDataException;
-import life.genny.qwandautils.JsonUtils;
+import life.genny.qwandautils.QwandaJsonUtils;
 
 public class QSearchEntityMessage extends QDataBaseEntityMessage  {
 
@@ -300,7 +300,7 @@ public class QSearchEntityMessage extends QDataBaseEntityMessage  {
 	 */
 	@Override
 	public String toString() {
-		return JsonUtils.toJson(this);
+		return QwandaJsonUtils.toJson(this);
 	}
 	
 }

@@ -27,7 +27,7 @@ import life.genny.qwanda.MoneyDeserializer;
 import life.genny.qwanda.datatype.LocalDateConverter;
 import life.genny.qwanda.entity.BaseEntity;
 
-public class JsonUtils {
+public class QwandaJsonUtils {
 	
 	protected static final Logger log = org.apache.logging.log4j.LogManager
 			.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
@@ -52,7 +52,7 @@ public class JsonUtils {
 	                      item = (T)gson.fromJson(json, clazz);
 	                	}
 	                } catch (Exception e) {
-	                	     System.out.println("The JSON file received is  :::  "+json);;
+	                	     log.info("The JSON file received is  :::  "+json);;
 	                     log.error("Bad Deserialisation for "+clazz.getSimpleName());
 	                }
 	        }
@@ -67,7 +67,7 @@ public class JsonUtils {
 	                      item = (T)gson.fromJson(json, clazz);
 
 	                } catch (Exception e) {
-	                	     System.out.println("The JSON file received is  :::  "+json);;
+	                	     log.info("The JSON file received is  :::  "+json);;
 	                     log.error("Bad Deserialisation for "+clazz.getTypeName());
 	                }
 	        }

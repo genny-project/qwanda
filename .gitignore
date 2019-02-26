@@ -10,3 +10,4 @@ src/main/resources/qwanda-git.properties
 .classpath
 ./.classpath
 /.apt_generated/
+/.apt_generated_tests/

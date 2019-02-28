@@ -75,6 +75,7 @@ public class QDataBaseEntityMessage extends QDataMessage implements Comparable<Q
 
 	public QDataBaseEntityMessage() {
 		super(DATATYPE_BASEENTITY);
+		this.setItems(new BaseEntity[0]);
 	}
 
 	public QDataBaseEntityMessage(final BaseEntity item) {
@@ -168,14 +169,15 @@ public class QDataBaseEntityMessage extends QDataMessage implements Comparable<Q
 
 	public void add(BaseEntity item) {
 		
-		List<BaseEntity> bes = new ArrayList<>(Arrays.asList(this.getItems()));
+		List<BaseEntity> bes = this.getItems() != null ? new ArrayList<>(Arrays.asList(this.getItems())) : new ArrayList<>();
 		bes.add(item);
 		this.setItems(bes.toArray(new BaseEntity[0]));
 	}
 
 	public void add(List<BaseEntity> items) {
 
-		List<BaseEntity> bes = new ArrayList<>(Arrays.asList(this.getItems()));
+		List<BaseEntity> existingList = Arrays.asList(this.getItems());
+		List<BaseEntity> bes = new ArrayList<>(existingList);
 		bes.addAll(items);
 		this.setItems(bes.toArray(new BaseEntity[0]));
 	}

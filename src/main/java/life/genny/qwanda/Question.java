@@ -38,12 +38,15 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.Type;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -91,6 +94,10 @@ import life.genny.qwanda.exception.BadDataException;
 @Inheritance(strategy = InheritanceType.JOINED)
 
 public class Question extends CodedEntity implements Serializable {
+	
+	  protected static final Logger log = org.apache.logging.log4j.LogManager
+		      .getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
+
   /**
    * 
    */
@@ -433,7 +440,7 @@ public void setChildQuestions(Set<QuestionQuestion> childQuestions) {
    if (mandatory == null)
    throw new BadDataException("missing mandatory setting");
   
-   System.out.println("Adding childQuestion..."+childQuestionCode+" to "+this.getCode());
+   log.info("Adding childQuestion..."+childQuestionCode+" to "+this.getCode());
    final QuestionQuestion questionLink =
    new QuestionQuestion(this, childQuestionCode, weight, mandatory);
    getChildQuestions().add(questionLink);

@@ -1,5 +1,6 @@
 package life.genny.qwanda;
 
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -8,6 +9,7 @@ import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.Logger;
 import org.javamoney.moneta.Money;
 
 import com.google.gson.JsonDeserializationContext;
@@ -19,6 +21,10 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
 public class MoneyDeserializer implements JsonSerializer<Money>, JsonDeserializer<Money> {
+	
+	  protected static final Logger log = org.apache.logging.log4j.LogManager
+		      .getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
+
 
 	@Override
 	public JsonElement serialize(Money src, Type typeOfSrc, JsonSerializationContext context) {
@@ -27,7 +33,7 @@ public class MoneyDeserializer implements JsonSerializer<Money>, JsonDeserialize
 
 		String amount = decimalFormat.format(src.getNumber().doubleValue());
 		if (amount.contains("+")) {
-			System.out.println("debug");
+			log.debug("debug");
 		}
 		JsonElement o = parser
 				.parse("{\"amount\":" + amount + ",\"currency\":\"" + src.getCurrency().getCurrencyCode() + "\"}");
@@ -44,7 +50,7 @@ public class MoneyDeserializer implements JsonSerializer<Money>, JsonDeserialize
 		else {
 			String amountStr = json.getAsJsonObject().get("amount").getAsString();
 			if (amountStr.contains("+")) {
-				System.out.println("debug");
+				log.debug("debug");
 			}
 			BigDecimal bDamount = new BigDecimal(amountStr);
 			Money money = Money.of(bDamount, currency);

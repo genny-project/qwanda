@@ -40,6 +40,7 @@ import org.hibernate.annotations.FetchMode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.google.gson.annotations.Expose;
 
 /**
  * ContextList represents a set of Contexts in the Qwanda library.
@@ -79,6 +80,7 @@ public class ContextList implements Serializable {
 	@OneToMany( cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	@JoinColumn(name = "list_id", referencedColumnName = "id")
+	@Expose
 	private List<Context> contextList;
 
  

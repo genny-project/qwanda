@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.entity.BaseEntity;
 
@@ -84,6 +85,9 @@ public class Context extends CoreEntity implements Serializable {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "attribute_id", nullable = false)
 	private BaseEntity entity;
+	
+	@Expose
+	private String contextCode;
 
 	/**
 	 * Constructor.
@@ -108,6 +112,7 @@ public class Context extends CoreEntity implements Serializable {
 	public Context(String key, BaseEntity aEntity) {
 		super(key);
 		this.entity = aEntity;
+		this.contextCode = aEntity.getCode();
 	}
 
 	/**
@@ -117,13 +122,6 @@ public class Context extends CoreEntity implements Serializable {
 		return entity;
 	}
 
-	/**
-	 * @param entity
-	 *            the entity to set
-	 */
-	public void setEntity(BaseEntity entity) {
-		this.entity = entity;
-	}
 
 	@Override
 	 public int compareTo(Object o) {

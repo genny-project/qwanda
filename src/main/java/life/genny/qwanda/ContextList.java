@@ -81,7 +81,7 @@ public class ContextList implements Serializable {
 	@Fetch(value = FetchMode.SUBSELECT)
 	@JoinColumn(name = "list_id", referencedColumnName = "id")
 	@Expose
-	private List<Context> contextList;
+	private List<Context> contexts;
 
  
 	
@@ -98,27 +98,22 @@ public class ContextList implements Serializable {
 	
 	public ContextList(List<Context> Contexts) 
 	{
-		this.contextList = Contexts;
+		this.contexts = Contexts;
 	}
-
-
 
 	/**
-	 * @return the ContextList
+	 * @return the contexts
 	 */
-	public List<Context> getContextList() {
-		return contextList;
+	public List<Context> getContexts() {
+		return contexts;
 	}
-
-
 
 	/**
-	 * @param ContextList the ContextList to set
+	 * @param contexts the contexts to set
 	 */
-	public void setContextList(List<Context> ContextList) {
-		this.contextList = ContextList;
+	public void setContexts(List<Context> contexts) {
+		this.contexts = contexts;
 	}
-
 
 
 }

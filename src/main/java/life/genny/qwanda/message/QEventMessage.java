@@ -10,6 +10,7 @@ public class QEventMessage extends QMessage{
 	@Expose
 	public MessageData data;
 
+
 	@Override
 	public String toString() {
 		return "QEventMessage [event_type=" + event_type + ", data=" + data + "]";

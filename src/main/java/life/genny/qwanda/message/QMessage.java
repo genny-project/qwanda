@@ -60,6 +60,12 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 
 		@Expose
 		private String code;
+		
+		@Expose
+		private String parentCode;
+		
+		@Expose
+		private String rootCode;
 
 		public String getCode() {
 			return code;
@@ -85,6 +91,34 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 			this.value = value;
 		}
 
+		/**
+		 * @return the parentCode
+		 */
+		public String getParentCode() {
+			return parentCode;
+		}
+
+		/**
+		 * @param parentCode the parentCode to set
+		 */
+		public void setParentCode(String parentCode) {
+			this.parentCode = parentCode;
+		}
+
+		/**
+		 * @return the rootCode
+		 */
+		public String getRootCode() {
+			return rootCode;
+		}
+
+		/**
+		 * @param rootCode the rootCode to set
+		 */
+		public void setRootCode(String rootCode) {
+			this.rootCode = rootCode;
+		}
+
 		@Expose
 		private Long id;
 		@Expose
@@ -93,7 +127,6 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 		public MessageData(String code) {
 			this.code = code;
 		}
-
 	}
 
 	/**

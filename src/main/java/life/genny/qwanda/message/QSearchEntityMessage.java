@@ -4,7 +4,9 @@ package life.genny.qwanda.message;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.logging.log4j.Logger;
@@ -27,6 +29,11 @@ public class QSearchEntityMessage extends QDataBaseEntityMessage  {
 	 */
 	protected static final Logger log = org.apache.logging.log4j.LogManager
 			.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
+	
+	public enum LinkType {
+		PARENT,
+		CHILD
+	}
 
 	@Expose
 	private SearchEntity parent ;
@@ -158,7 +165,17 @@ public class QSearchEntityMessage extends QDataBaseEntityMessage  {
         	this.searchEntity.addColumn(attributeCode, columnName);      	
             return this;  //By returning the builder each time, we can create a fluent interface.
         }
-        
+ 
+    	/*
+    	 * This method allows to add an associated baseentity attribute to the SearchEntity that is required in the result 
+    	 * BaseEntities
+    	 */
+
+        public Builder column(final String linkCode, final LinkType linkType, final String attributeCode, final String columnName) {
+        	this.searchEntity.addAssociatedColumn(linkCode+"@"+linkType.toString()+"@"+attributeCode, columnName);      	
+            return this;  //By returning the builder each time, we can create a fluent interface.
+        }
+
     	/*
     	 * This method allows to add sorting to the attributes of the search results
     	 * It can either sort in ascending or descending order
@@ -293,6 +310,24 @@ public class QSearchEntityMessage extends QDataBaseEntityMessage  {
 
         }
 
+    }
+    
+    public static Map<String,String> getAssociationCodes(final String columnAttributeCode) {
+    	Map<String,String> associatedCodes = new HashMap<String,String>();
+    	
+    	if (columnAttributeCode.startsWith("CAL_")) {
+    		// associated attribute
+    		String[] splitData = columnAttributeCode.substring("CAL_".length()).split("@");
+    		associatedCodes.put("LINK_CODE", splitData[0]);
+    		associatedCodes.put("LINK_TYPE", splitData[1]);
+    		associatedCodes.put("ATTRIBUTE_CODE", splitData[2]);
+    	} else {
+    		// normal
+    		String[] splitData = columnAttributeCode.split("@");
+    		associatedCodes.put("ATTRIBUTE_CODE", splitData[0]);
+    	}
+    	
+    	return associatedCodes;
     }
     
 	/* (non-Javadoc)

@@ -137,6 +137,22 @@ public class SearchEntity extends BaseEntity {
 	}
 	
 	/*
+	 * This method allows to add the associated attributes to the SearchEntity that is required in the result 
+	 * BaseEntities
+	 */
+	public SearchEntity addAssociatedColumn(final String attributeCode, final String columnName)
+	{
+		AttributeText attributeColumn = new AttributeText("CAL_"+attributeCode, columnName);
+		try {
+			addAttribute(attributeColumn, colIndex);
+			colIndex += 1.0;
+		} catch (BadDataException e) {
+			log.error("Bad Associated Column Initialisation");
+		}
+		return this;
+	}
+	
+	/*
 	 * This method allows to add sorting to the attributes of the search results
 	 * It can either sort in ascending or descending order
 	 */

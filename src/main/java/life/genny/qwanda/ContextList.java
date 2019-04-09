@@ -117,6 +117,21 @@ public class ContextList implements Serializable {
 		this.contextList = ContextList;
 	}
 
+	/**
+	 * @return the ContextList
+	 */
+	public List<Context> getContexts() {
+		return contextList;
+	}
+
+
+
+	/**
+	 * @param ContextList the ContextList to set
+	 */
+	public void setContexts(List<Context> ContextList) {
+		this.contextList = ContextList;
+	}
 
 
 }

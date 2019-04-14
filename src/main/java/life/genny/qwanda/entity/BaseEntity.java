@@ -134,6 +134,10 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   /* Stores the links of BaseEntity to another BaseEntity */
   private Set<EntityEntity> links = new HashSet<EntityEntity>(0);
 
+  @Expose
+  @Transient
+  private Set<EntityQuestion> questions = new HashSet<EntityQuestion>(0);
+
   @JsonIgnore
   @XmlTransient
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.source")
@@ -220,6 +224,22 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
    */
   public void setLinks(final Set<EntityEntity> links) {
     this.links = links;
+  }
+
+  /**
+   * @return the questions
+   */
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  public Set<EntityQuestion> getQuestions() {
+    return this.questions;
+  }
+
+  /**
+   * Sets the Questions of the BaseEntity with another BaseEntity
+   * @param questions the questions to set
+   */
+  public void setQuestions(final Set<EntityQuestion> questions) {
+    this.questions = questions;
   }
 
   /**

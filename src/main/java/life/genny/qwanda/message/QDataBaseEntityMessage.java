@@ -2,11 +2,15 @@ package life.genny.qwanda.message;
 
 
 import java.util.List;
+import java.util.Arrays;
+import java.util.ArrayList;
 
 import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.WeightedItem;
 import life.genny.qwanda.entity.BaseEntity;
+
+
 
 public class QDataBaseEntityMessage extends QDataMessage implements Comparable<QDataBaseEntityMessage> {
 
@@ -67,6 +71,11 @@ public class QDataBaseEntityMessage extends QDataMessage implements Comparable<Q
 		setItems(items);
 		setAliasCode(alias);
 		setTotal(1L);
+	}
+
+	public QDataBaseEntityMessage() {
+		super(DATATYPE_BASEENTITY);
+		this.setItems(new BaseEntity[0]);
 	}
 
 	public QDataBaseEntityMessage(final BaseEntity item) {
@@ -158,6 +167,20 @@ public class QDataBaseEntityMessage extends QDataMessage implements Comparable<Q
 		setTotal(total);
 	}
 
+	public void add(BaseEntity item) {
+		
+		List<BaseEntity> bes = this.getItems() != null ? new ArrayList<>(Arrays.asList(this.getItems())) : new ArrayList<>();
+		bes.add(item);
+		this.setItems(bes.toArray(new BaseEntity[0]));
+	}
+
+	public void add(List<BaseEntity> items) {
+
+		List<BaseEntity> existingList = Arrays.asList(this.getItems());
+		List<BaseEntity> bes = new ArrayList<>(existingList);
+		bes.addAll(items);
+		this.setItems(bes.toArray(new BaseEntity[0]));
+	}
 
 	public BaseEntity[] getItems() {
 		return items;

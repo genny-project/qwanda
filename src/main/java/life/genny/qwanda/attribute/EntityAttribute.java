@@ -79,6 +79,11 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	private String attributeName;
 	@Expose
 	private Boolean readonly = false;
+	
+	@Expose
+	@Transient
+	@XmlTransient
+	private Integer index=0;  // used to assist with ordering 
 
 	/**
 	 * @return the baseEntityCode
@@ -1237,4 +1242,19 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 		this.attributeName = attributeName;
 	}
 
+	/**
+	 * @return the index
+	 */
+	public Integer getIndex() {
+		return index;
+	}
+
+	/**
+	 * @param index the index to set
+	 */
+	public void setIndex(Integer index) {
+		this.index = index;
+	}
+
+	
 }

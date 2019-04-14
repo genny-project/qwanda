@@ -40,6 +40,7 @@ import org.hibernate.annotations.FetchMode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.google.gson.annotations.Expose;
 
 /**
  * ContextList represents a set of Contexts in the Qwanda library.
@@ -79,7 +80,8 @@ public class ContextList implements Serializable {
 	@OneToMany( cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	@JoinColumn(name = "list_id", referencedColumnName = "id")
-	private List<Context> contextList;
+	@Expose
+	private List<Context> contexts;
 
  
 	
@@ -96,42 +98,49 @@ public class ContextList implements Serializable {
 	
 	public ContextList(List<Context> Contexts) 
 	{
-		this.contextList = Contexts;
-	}
-
-
-
-	/**
-	 * @return the ContextList
-	 */
-	public List<Context> getContextList() {
-		return contextList;
-	}
-
-
-
-	/**
-	 * @param ContextList the ContextList to set
-	 */
-	public void setContextList(List<Context> ContextList) {
-		this.contextList = ContextList;
+		this.contexts = Contexts;
 	}
 
 	/**
-	 * @return the ContextList
+	 * @return the contexts
 	 */
 	public List<Context> getContexts() {
-		return contextList;
+		return contexts;
 	}
-
-
 
 	/**
-	 * @param ContextList the ContextList to set
+	 * @param contexts the contexts to set
 	 */
-	public void setContexts(List<Context> ContextList) {
-		this.contextList = ContextList;
+	public void setContexts(List<Context> contexts) {
+		this.contexts = contexts;
+	}
+
+	/**
+	 * @return the contexts
+	 */
+	public List<Context> getContextList() {
+		return contexts;
+	}
+
+	/**
+	 * @param contexts the contexts to set
+	 */
+	public void setContextList(List<Context> contexts) {
+		this.contexts = contexts;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		String ret = "ContextList->";
+		for (Context context : contexts) {
+			ret += context+",";
+		}
+		return ret;
 	}
 
 
+	
 }

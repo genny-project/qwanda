@@ -2,6 +2,7 @@ package life.genny.qwanda.message;
 
 
 import java.lang.invoke.MethodHandles;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -16,7 +17,9 @@ import com.google.gson.annotations.Expose;
 import life.genny.qwanda.attribute.AttributeText;
 import life.genny.qwanda.entity.BaseEntity;
 import life.genny.qwanda.entity.SearchEntity;
+import life.genny.qwanda.entity.SearchEntity.Filter;
 import life.genny.qwanda.entity.SearchEntity.Sort;
+import life.genny.qwanda.entity.SearchEntity.StringFilter;
 import life.genny.qwanda.exception.BadDataException;
 import life.genny.qwandautils.QwandaJsonUtils;
 
@@ -43,8 +46,8 @@ public class QSearchEntityMessage extends QDataBaseEntityMessage  {
 	Double colIndex = 1.0;
 	Double sortIndex = 1.0;
 	
-
-
+	
+	private QSearchEntityMessage() {}
 	
 	private QSearchEntityMessage(final SearchEntity searchSettings, final SearchEntity[] searches) {
 		super(searches);
@@ -156,6 +159,73 @@ public class QSearchEntityMessage extends QDataBaseEntityMessage  {
             return this;  //By returning the builder each time, we can create a fluent interface.
         }
 
+     	/*
+    	 * This method allows to add filters
+     	 */
+    	public Builder filter(final String attributeCode, final Filter filterType, final Integer value)
+    	{
+    		QSearchEntityMessage tmp = new QSearchEntityMessage();
+    		SearchEntity se = new SearchEntity();
+    		se.addFilter(attributeCode, filterType,value); 
+    		tmp.addSearchOr(se);
+        	this.searchEntityMessageList.add(tmp);      	
+            return this;  //By returning the builder each time, we can create a fluent interface.
+
+    		
+    	}   	
+
+     	/*
+    	 * This method allows to add filters
+     	 */
+    	public Builder filter(final String attributeCode, final Filter filterType, final Long value)
+    	{
+    		QSearchEntityMessage tmp = new QSearchEntityMessage();
+    		SearchEntity se = new SearchEntity();
+    		se.addFilter(attributeCode, filterType,value); 
+    		tmp.addSearchOr(se);
+        	this.searchEntityMessageList.add(tmp);      	
+            return this;  //By returning the builder each time, we can create a fluent interface.
+  		
+    	}   	
+
+     	/*
+    	 * This method allows to add filters
+     	 */
+    	public Builder filter(final String attributeCode, final Filter filterType, final LocalDateTime value)
+    	{
+    		QSearchEntityMessage tmp = new QSearchEntityMessage();
+    		SearchEntity se = new SearchEntity();
+    		se.addFilter(attributeCode, filterType,value); 
+    		tmp.addSearchOr(se);
+        	this.searchEntityMessageList.add(tmp);      	
+            return this;  //By returning the builder each time, we can create a fluent interface.
+    	}   	
+
+     	/*
+    	 * This method allows to add filters
+     	 */
+    	public Builder filter(final String attributeCode, final Boolean value)
+    	{
+    		QSearchEntityMessage tmp = new QSearchEntityMessage();
+    		SearchEntity se = new SearchEntity();
+    		se.addFilter(attributeCode,value); 
+    		tmp.addSearchOr(se);
+        	this.searchEntityMessageList.add(tmp);      	
+            return this;  //By returning the builder each time, we can create a fluent interface.
+    	}  
+ 
+     	/*
+    	 * This method allows to add filters
+     	 */
+    	public Builder filter(final String attributeCode, final StringFilter filterType, final String value)
+    	{
+    		QSearchEntityMessage tmp = new QSearchEntityMessage();
+    		SearchEntity se = new SearchEntity();
+    		se.addFilter(attributeCode, filterType,value); 
+    		tmp.addSearchOr(se);
+        	this.searchEntityMessageList.add(tmp);      	
+            return this;  //By returning the builder each time, we can create a fluent interface.
+    	}  
     	/*
     	 * This method allows to add the attributes to the SearchEntity that is required in the result 
     	 * BaseEntities

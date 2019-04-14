@@ -115,5 +115,32 @@ public class ContextList implements Serializable {
 		this.contexts = contexts;
 	}
 
+	/**
+	 * @return the contexts
+	 */
+	public List<Context> getContextList() {
+		return contexts;
+	}
 
+	/**
+	 * @param contexts the contexts to set
+	 */
+	public void setContextList(List<Context> contexts) {
+		this.contexts = contexts;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		String ret = "ContextList->";
+		for (Context context : contexts) {
+			ret += context+",";
+		}
+		return ret;
+	}
+
+
+	
 }

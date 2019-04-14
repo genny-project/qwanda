@@ -130,4 +130,14 @@ public class Context extends CoreEntity implements Serializable {
 	       .append(entity,myClass.getEntity())
 	       .toComparison();
 	   }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getName()+":"+getEntity().getCode();
+	}
+	
+	
 }

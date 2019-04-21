@@ -12,11 +12,13 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -31,9 +33,17 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
 
 
 
+
 @Entity
-@Table(name = "question_question")
-@AssociationOverrides({ @AssociationOverride(name = "pk.source", joinColumns = @JoinColumn(name = "SOURCE_ID")) })
+@Table(name = "question_question", uniqueConstraints = @UniqueConstraint(columnNames= {"sourceCode","targetCode", "realm"}),
+indexes = {
+		 @Index(columnList = "sourceCode", name = "source_idx"),
+        @Index(columnList = "realm", name = "code_idx")
+    })
+@AssociationOverrides(
+		{ @AssociationOverride(name = "pk.source", joinColumns = @JoinColumn(name = "SOURCE_ID"))
+		}
+)
 @Cacheable
 public class QuestionQuestion implements java.io.Serializable, Comparable<Object> {
 
@@ -80,6 +90,9 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 
 	  @Expose
 	  private Boolean readonly = false;
+	  
+	  @Expose
+	  private String realm;
 	  
 	public QuestionQuestion() {
 	}
@@ -386,6 +399,7 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 		HashCodeBuilder hcb = new HashCodeBuilder();
 		hcb.append(pk.getSourceCode());
 		hcb.append(pk.getTargetCode());
+		hcb.append(getRealm());
 		return hcb.toHashCode();
 	}
 
@@ -401,6 +415,7 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 		EqualsBuilder eb = new EqualsBuilder();
 		eb.append(pk.getSourceCode(), that.pk.getSourceCode());
 		eb.append(pk.getTargetCode(), that.pk.getTargetCode());
+		eb.append(getRealm(), that.getRealm());
 		return eb.isEquals();
 	}
 
@@ -412,6 +427,20 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 	       .append(this.weight, myClass.weight)
 	       .toComparison();
 	   }
+
+	/**
+	 * @return the realm
+	 */
+	public String getRealm() {
+		return realm;
+	}
+
+	/**
+	 * @param realm the realm to set
+	 */
+	public void setRealm(String realm) {
+		this.realm = realm;
+	}
 
 
 

@@ -30,6 +30,7 @@ import javax.persistence.Convert;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -68,7 +69,12 @@ import life.genny.qwanda.converter.StringListConverter;
 
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
-@Table(name = "validation", uniqueConstraints = @UniqueConstraint(columnNames = {"code", "realm"}))
+@Table(name = "validation", 
+indexes = {
+        @Index(columnList = "code", name =  "code_idx"),
+        @Index(columnList = "realm", name = "code_idx")
+    },
+uniqueConstraints = @UniqueConstraint(columnNames = {"code", "realm"}))
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 

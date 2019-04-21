@@ -24,6 +24,7 @@ import javax.persistence.DiscriminatorType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -88,7 +89,12 @@ import life.genny.qwanda.exception.BadDataException;
 @XmlRootElement
 @Cacheable
 @XmlAccessorType(value = XmlAccessType.FIELD)
-@Table(name = "question", uniqueConstraints = @UniqueConstraint(columnNames = {"code", "realm"}))
+@Table(name = "question", 
+indexes = {
+        @Index(columnList = "code", name =  "code_idx"),
+        @Index(columnList = "realm", name = "code_idx")
+    },
+uniqueConstraints = @UniqueConstraint(columnNames = {"code", "realm"}))
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 @Inheritance(strategy = InheritanceType.JOINED)

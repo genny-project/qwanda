@@ -88,6 +88,36 @@ public class Context extends CoreEntity implements Serializable {
 	
 	@Expose
 	private String contextCode;
+	
+	public enum VisualControlType {
+		WRAPPER,
+		INPUT,
+		ICON,
+		LABEL,
+		DESCRIPTION,
+		HINT,
+		ERROR,
+		REQUIRED,
+		DEFAULT
+	}
+	
+	@Expose
+	private VisualControlType visualControlType;
+
+
+	/**
+	 * @return the visualControlType
+	 */
+	public VisualControlType getVisualControlType() {
+		return visualControlType;
+	}
+
+	/**
+	 * @param visualControlType the visualControlType to set
+	 */
+	public void setVisualControlType(VisualControlType visualControlType) {
+		this.visualControlType = visualControlType;
+	}
 
 	/**
 	 * Constructor.
@@ -113,6 +143,13 @@ public class Context extends CoreEntity implements Serializable {
 		super(key);
 		this.entity = aEntity;
 		this.contextCode = aEntity.getCode();
+	}
+	
+	public Context(String key, BaseEntity aEntity, VisualControlType visualControlType) {
+		super(key);
+		this.entity = aEntity;
+		this.contextCode = aEntity.getCode();
+		this.visualControlType = visualControlType;
 	}
 
 	/**

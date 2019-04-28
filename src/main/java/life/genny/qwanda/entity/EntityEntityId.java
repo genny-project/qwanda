@@ -31,6 +31,7 @@ public class EntityEntityId implements java.io.Serializable {
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 //	@JsonIgnore
 	private Attribute attribute;
+	
 
 
 /**

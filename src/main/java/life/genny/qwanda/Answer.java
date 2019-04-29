@@ -215,6 +215,8 @@ public class Answer implements Serializable {
 	// Provide a clue to any new attribute type that may be needed if the attribute does not exist yet, e.g. java.util.Double
 	private String dataType = null;
 	
+	private String realm;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -602,6 +604,22 @@ public class Answer implements Serializable {
 	 */
 	public void setDataType(String dataType) {
 		this.dataType = dataType;
+	}
+
+	
+	
+	/**
+	 * @return the realm
+	 */
+	public String getRealm() {
+		return realm;
+	}
+
+	/**
+	 * @param realm the realm to set
+	 */
+	public void setRealm(String realm) {
+		this.realm = realm;
 	}
 
 	/*

@@ -27,6 +27,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
@@ -53,11 +54,15 @@ import life.genny.qwanda.entity.BaseEntity;
 
 @Table(name = "baseentity_attribute" ,
 indexes = {
-        @Index(columnList = "ATTRIBUTE_ID", name = "aattributeid_idx"),
-        @Index(columnList = "BASEENTITY_ID", name = "baseentityid_idx")
-    })
+        @Index(columnList = "attributeCode", name = "ba_idx"),
+        @Index(columnList = "baseEntityCode", name = "ba_idx"),
+        @Index(columnList = "realm", name = "ba_idx")
+    },
+uniqueConstraints = @UniqueConstraint(columnNames = {"attributeCode","baseEntityCode","realm"})
+)
 @AssociationOverrides({ @AssociationOverride(name = "pk.baseEntity", joinColumns = @JoinColumn(name = "BASEENTITY_ID")),
-		@AssociationOverride(name = "pk.attribute", joinColumns = @JoinColumn(name = "ATTRIBUTE_ID")) })
+		@AssociationOverride(name = "pk.attribute", joinColumns = @JoinColumn(name = "ATTRIBUTE_ID")) }
+		)
 
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -79,6 +84,8 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	private String attributeName;
 	@Expose
 	private Boolean readonly = false;
+	
+	private String realm;
 	
 	@Expose
 	@Transient
@@ -292,6 +299,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	public void setBaseEntity(final BaseEntity baseEntity) {
 		getPk().setBaseEntity(baseEntity);
 		this.baseEntityCode = baseEntity.getCode();
+		this.realm = baseEntity.getRealm();
 	}
 
 	@Transient
@@ -1254,6 +1262,20 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	 */
 	public void setIndex(Integer index) {
 		this.index = index;
+	}
+
+	/**
+	 * @return the realm
+	 */
+	public String getRealm() {
+		return realm;
+	}
+
+	/**
+	 * @param realm the realm to set
+	 */
+	public void setRealm(String realm) {
+		this.realm = realm;
 	}
 
 	

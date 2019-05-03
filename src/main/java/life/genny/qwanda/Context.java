@@ -139,14 +139,14 @@ public class Context extends CoreEntity implements Serializable {
 	 * @param attribute
 	 *            The associated attribute
 	 */
-	public Context(String key, BaseEntity aEntity) {
-		super(key);
+	public Context(ContextType key, BaseEntity aEntity) {
+		super(key.contextType());
 		this.entity = aEntity;
 		this.contextCode = aEntity.getCode();
 	}
 	
-	public Context(String key, BaseEntity aEntity, VisualControlType visualControlType) {
-		super(key);
+	public Context(ContextType key, BaseEntity aEntity, VisualControlType visualControlType) {
+		super(key.contextType());
 		this.entity = aEntity;
 		this.contextCode = aEntity.getCode();
 		this.visualControlType = visualControlType;

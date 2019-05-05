@@ -22,6 +22,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -30,6 +31,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -38,6 +40,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -46,6 +49,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -78,12 +84,25 @@ import life.genny.qwanda.exception.BadDataException;
  * @since 1.0
  */
 
+
+
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
-@Table(name = "answer")
+
+@Table(name = "answer", 
+indexes = {
+        @Index(columnList = "sourcecode", name =  "code_idx"),
+        @Index(columnList = "targetcode", name =  "code_idx"),
+        @Index(columnList = "attributecode", name =  "code_idx"),
+        @Index(columnList = "realm", name = "code_idx")
+    }//,
+//uniqueConstraints = @UniqueConstraint(columnNames = {"sourcecode","targetcode","attributecode", "realm"})
+)
 @Entity
+@Immutable
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
-@Inheritance(strategy = InheritanceType.JOINED)
+//@Cacheable
+//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 
 public class Answer implements Serializable {
 	/**
@@ -95,7 +114,10 @@ public class Answer implements Serializable {
 	 * Stores the hibernate generated Id value for this object
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
+
 	@Basic(optional = false)
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
@@ -214,6 +236,8 @@ public class Answer implements Serializable {
 	@Expose
 	// Provide a clue to any new attribute type that may be needed if the attribute does not exist yet, e.g. java.util.Double
 	private String dataType = null;
+	
+	private String realm;
 	
 	/**
 	 * Constructor.
@@ -604,6 +628,22 @@ public class Answer implements Serializable {
 		this.dataType = dataType;
 	}
 
+	
+	
+	/**
+	 * @return the realm
+	 */
+	public String getRealm() {
+		return realm;
+	}
+
+	/**
+	 * @param realm the realm to set
+	 */
+	public void setRealm(String realm) {
+		this.realm = realm;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -611,7 +651,7 @@ public class Answer implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Answer [" + (created != null ? "created=" + created + ", " : "")
+		return "Answer ["+realm+"," + (created != null ? "created=" + created + ", " : "")
 				+ (sourceCode != null ? "sourceCode=" + sourceCode + ", " : "")
 				+ (targetCode != null ? "targetCode=" + targetCode + ", " : "")
 				+ (attributeCode != null ? "attributeCode=" + attributeCode + ", " : "")

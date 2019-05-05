@@ -27,6 +27,7 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -69,7 +70,13 @@ import life.genny.qwanda.datatype.DataType;
 
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
-@Table(name = "attribute", uniqueConstraints = @UniqueConstraint(columnNames = "code"))
+
+@Table(name = "attribute", 
+indexes = {
+        @Index(columnList = "code", name =  "code_idx"),
+        @Index(columnList = "realm", name = "code_idx")
+    },
+uniqueConstraints = @UniqueConstraint(columnNames = {"code", "realm"}))
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 @Cacheable

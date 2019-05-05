@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -31,7 +32,7 @@ import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 @SuppressWarnings("deprecation")
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
-@Table(name = "template")
+@Table(name = "template", uniqueConstraints = @UniqueConstraint(columnNames = {"code", "realm"}))
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

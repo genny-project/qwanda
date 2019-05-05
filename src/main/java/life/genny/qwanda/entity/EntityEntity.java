@@ -75,6 +75,9 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
 	})
 	@Expose
 	private Link link ;
+	
+	private String realm;
+	
   /**
    * 
    */
@@ -210,6 +213,7 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
     getPk().setSource(source);
 //    getPk().setTarget(target);
     getPk().setAttribute(attribute);
+    this.setRealm(target.getRealm());
 //    this.pk.setSourceCode(source.getCode());
     this.pk.setTargetCode(target.getCode());
     link = new Link(source.getCode(),target.getCode(),attribute.getCode(),null);
@@ -772,4 +776,20 @@ public String getObjectAsString(Object value) {
 
 
 }
+
+/**
+ * @return the realm
+ */
+public String getRealm() {
+	return realm;
+}
+
+/**
+ * @param realm the realm to set
+ */
+public void setRealm(String realm) {
+	this.realm = realm;
+}
+
+
 }

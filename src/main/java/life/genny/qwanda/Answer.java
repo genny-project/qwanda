@@ -91,7 +91,7 @@ import life.genny.qwanda.exception.BadDataException;
 
 @Table(name = "answer", 
 indexes = {
-        @Index(columnList = "sourcecode", name =  "code_idx"),
+  //      @Index(columnList = "sourcecode", name =  "code_idx"), // Don't need to index sourcecode
         @Index(columnList = "targetcode", name =  "code_idx"),
         @Index(columnList = "attributecode", name =  "code_idx"),
         @Index(columnList = "realm", name = "code_idx")

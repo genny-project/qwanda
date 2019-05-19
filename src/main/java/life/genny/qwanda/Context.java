@@ -59,8 +59,8 @@ import life.genny.qwanda.entity.BaseEntity;
  * permits a source to make a full decision. Contexts are also used in message
  * merging.
  * <p>
- * 
- * 
+ *
+ *
  * @author Adam Crow
  * @author Byron Aguirre
  * @version %I%, %G%
@@ -76,7 +76,7 @@ import life.genny.qwanda.entity.BaseEntity;
 
 public class Context extends CoreEntity implements Serializable {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -85,10 +85,13 @@ public class Context extends CoreEntity implements Serializable {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "attribute_id", nullable = false)
 	private BaseEntity entity;
-	
+
+	@Expose
+	private Double weight = 1.0;
+
 	@Expose
 	private String contextCode;
-	
+
 	public enum VisualControlType {
 		WRAPPER,
 		INPUT,
@@ -98,9 +101,10 @@ public class Context extends CoreEntity implements Serializable {
 		HINT,
 		ERROR,
 		REQUIRED,
+		DELIMITER,
 		DEFAULT
 	}
-	
+
 	@Expose
 	private VisualControlType visualControlType;
 
@@ -121,7 +125,7 @@ public class Context extends CoreEntity implements Serializable {
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param none
 	 */
 	@SuppressWarnings("unused")
@@ -131,7 +135,7 @@ public class Context extends CoreEntity implements Serializable {
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param aCode
 	 *            The unique code for this Question
 	 * @param aName
@@ -144,12 +148,19 @@ public class Context extends CoreEntity implements Serializable {
 		this.entity = aEntity;
 		this.contextCode = aEntity.getCode();
 	}
-	
+
 	public Context(ContextType key, BaseEntity aEntity, VisualControlType visualControlType) {
 		super(key.contextType());
 		this.entity = aEntity;
 		this.contextCode = aEntity.getCode();
 		this.visualControlType = visualControlType;
+	}
+	public Context(ContextType key, BaseEntity aEntity, VisualControlType visualControlType, Double weight) {
+		super(key.contextType());
+		this.entity = aEntity;
+		this.contextCode = aEntity.getCode();
+		this.visualControlType = visualControlType;
+		this.weight = weight;
 	}
 
 	/**
@@ -158,6 +169,23 @@ public class Context extends CoreEntity implements Serializable {
 	public BaseEntity getEntity() {
 		return entity;
 	}
+
+	/**
+	 * @return the weight
+	 */
+	public Double getWeight() {
+		return weight;
+	}
+
+	/**
+	 * @param weight
+	 *            the weight to set
+	 */
+	public void setWeight(final Double weight) {
+		this.weight = weight;
+	}
+
+
 
 
 	@Override
@@ -175,6 +203,6 @@ public class Context extends CoreEntity implements Serializable {
 	public String toString() {
 		return getName()+":"+getEntity().getCode();
 	}
-	
-	
+
+
 }

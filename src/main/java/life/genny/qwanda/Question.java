@@ -446,7 +446,7 @@ public void setChildQuestions(Set<QuestionQuestion> childQuestions) {
    if (mandatory == null)
    throw new BadDataException("missing mandatory setting");
   
-   log.info("Adding childQuestion..."+childQuestionCode+" to "+this.getCode());
+   log.info("["+this.getRealm()+"] Adding childQuestion..."+childQuestionCode+" to "+this.getCode());
    final QuestionQuestion questionLink =
    new QuestionQuestion(this, childQuestionCode, weight, mandatory);
    getChildQuestions().add(questionLink);

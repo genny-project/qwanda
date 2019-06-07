@@ -1,27 +1,30 @@
 package life.genny.qwanda.message;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.annotations.Expose;
 
 public abstract class QMessage implements Serializable, QMessageIntf {
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
 	public enum MsgOption {
-		CACHE,  // cache this message as a response to a trigger event
-		EXEC,   // execute this 
+		CACHE, // cache this message as a response to a trigger event
+		EXEC, // execute this
 		EXEC_CACHE, // execute this AND set up as a cached response
-		LOCAL,   // This message (if triggered, does not need to be sent through to the back end as well 
-		IGNORE   // the front end can ignore and handling of this message (useful for testing)
+		LOCAL, // This message (if triggered, does not need to be sent through to the back end
+				// as well
+		IGNORE // the front end can ignore and handling of this message (useful for testing)
 	}
 
 	@Override
 	public String toString() {
-		return "QMessage [msg_type=" + msg_type + "],"+option.toString();
+		return "QMessage [msg_type=" + msg_type + "]," + option.toString();
 	}
 
 	@Expose
@@ -32,9 +35,12 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 
 	@Expose
 	private String option = MsgOption.EXEC.toString();
-	
+
 	@Expose
-	private String triggerCode;  // This can be used to trigger any option
+	private String triggerCode; // This can be used to trigger any option
+
+	@Expose
+	private List<String> targetCodes;
 
 	public String getMsg_type() {
 		return msg_type;
@@ -60,13 +66,13 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 
 		@Expose
 		private String code;
-		
+
 		@Expose
 		private String parentCode;
-		
+
 		@Expose
 		private String rootCode;
-		
+
 		@Expose
 		private String targetCode;
 
@@ -121,6 +127,7 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 		public void setRootCode(String rootCode) {
 			this.rootCode = rootCode;
 		}
+
 		/**
 		 * @return the targetCode
 		 */
@@ -187,6 +194,18 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 		this.triggerCode = triggerCode;
 	}
 
-	
-	
+	/**
+	 * @return the targetCodes
+	 */
+	public List<String> getTargetCodes() {
+		return targetCodes;
+	}
+
+	/**
+	 * @param targetCodes the targetCodes to set
+	 */
+	public void setTargetCodes(List<String> targetCodes) {
+		this.targetCodes = targetCodes;
+	}
+
 }

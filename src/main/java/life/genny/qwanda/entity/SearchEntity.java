@@ -2,7 +2,6 @@ package life.genny.qwanda.entity;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
-
 import life.genny.qwanda.attribute.AttributeBoolean;
 import life.genny.qwanda.attribute.AttributeDateTime;
 import life.genny.qwanda.attribute.AttributeDouble;
@@ -12,20 +11,22 @@ import life.genny.qwanda.attribute.AttributeText;
 import life.genny.qwanda.exception.BadDataException;
 import life.genny.qwandautils.QwandaJsonUtils;
 
+
+
 /* SearchEntity class implements the search of base entities applying different filters/search to the
- * baseEntity and its attributes 
+ * baseEntity and its attributes
  */
 public class SearchEntity extends BaseEntity {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	Double colIndex = 1.0;
 	Double sortIndex = 1.0;
-	
+
 	/*
-	 * This Sort Enum is used to sort the search results in 
+	 * This Sort Enum is used to sort the search results in
 	 * either Ascending and descending order
 	 */
 	public enum Sort {
@@ -42,7 +43,7 @@ public class SearchEntity extends BaseEntity {
 	}
 
 	/*
-	 * This StringFilter Enum is used to put the filter to the search entity. 
+	 * This StringFilter Enum is used to put the filter to the search entity.
 	 * It filters the string values in the attributes
 	 */
 	public enum StringFilter {
@@ -57,9 +58,9 @@ public class SearchEntity extends BaseEntity {
 	        }
 	    }
 	}
-	
+
 	/*
-	 * This Filter Enum is used to put the filter to the search entity. 
+	 * This Filter Enum is used to put the filter to the search entity.
 	 * It filtesr the numeric and bit masked values of the attributes
 	 */
 	public enum Filter {
@@ -104,14 +105,14 @@ public class SearchEntity extends BaseEntity {
 	public SearchEntity() {
 		this("SBE_"+UUID.randomUUID().toString().substring(0, 15),"Or Search");
 	}
-	
+
 	/* Constructor to create SearchEntity with code and name */
 	public SearchEntity(final String code, final String name) {
 		super(code,name);
 		setPageStart(0);
 		setPageSize(20);
 	}
-	
+
 	/* Constructor to create SearchEntity passing BaseEntity */
 	public SearchEntity(final BaseEntity be) {
 		super(be.getCode(), be.getName());
@@ -119,9 +120,9 @@ public class SearchEntity extends BaseEntity {
 		this.setUpdated(be.getUpdated());
 		this.setBaseEntityAttributes(be.getBaseEntityAttributes());
 	}
-	
+
 	/*
-	 * This method allows to add the attributes to the SearchEntity that is required in the result 
+	 * This method allows to add the attributes to the SearchEntity that is required in the result
 	 * BaseEntities
 	 */
 	public SearchEntity addColumn(final String attributeCode, final String columnName)
@@ -135,9 +136,9 @@ public class SearchEntity extends BaseEntity {
 		}
 		return this;
 	}
-	
+
 	/*
-	 * This method allows to add the associated attributes to the SearchEntity that is required in the result 
+	 * This method allows to add the associated attributes to the SearchEntity that is required in the result
 	 * BaseEntities
 	 */
 	public SearchEntity addAssociatedColumn(final String attributeCode, final String columnName)
@@ -151,7 +152,7 @@ public class SearchEntity extends BaseEntity {
 		}
 		return this;
 	}
-	
+
 	/*
 	 * This method allows to add sorting to the attributes of the search results
 	 * It can either sort in ascending or descending order
@@ -162,16 +163,16 @@ public class SearchEntity extends BaseEntity {
 		try {
 			addAttribute(attributeSort, sortIndex, sortType.toString());
 			sortIndex += 1.0;
-			
+
 		} catch (BadDataException e) {
 			log.error("Bad Sort Initialisation");
 		}
-		
+
 		return this;
 	}
-	
+
 	/*
-	 * This method allows to set the filter for the integer value in the search 
+	 * This method allows to set the filter for the integer value in the search
 	 * @param attributeCode - the attributeCode which holds integer value where we apply the filter
 	 * @param filterType - type of the filter
 	 * @param value - filter against (search for)  this value
@@ -184,12 +185,12 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Integer Filter Initialisation");
 		}
-		
+
 		return this;
 	}
 
 	/*
-	 * This method allows to set the filter for the Long value in the search 
+	 * This method allows to set the filter for the Long value in the search
 	 * @param attributeCode - the attributeCode which holds long value where we apply the filter
 	 * @param filterType - type of the filter
 	 * @param value - filter against (search for)  this value
@@ -202,12 +203,12 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Long Filter Initialisation");
 		}
-		
+
 		return this;
 	}
-	
+
 	/*
-	 * This method allows to set the filter for the LocalDateTime value in the search 
+	 * This method allows to set the filter for the LocalDateTime value in the search
 	 * @param attributeCode - the attributeCode which holds LocalDateTime value where we apply the filter
 	 * @param filterType - type of the filter
 	 * @param value - filter against (search for)  this value
@@ -220,12 +221,12 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Double Filter Initialisation");
 		}
-		
+
 		return this;
-	}	
-	
+	}
+
 	/*
-	 * This method allows to set the filter for the Boolean value in the search 
+	 * This method allows to set the filter for the Boolean value in the search
 	 * @param attributeCode - the attributeCode which holds Boolean value where we apply the filter
 	 * @param value - filter against (search for) this value
 	 */
@@ -237,12 +238,12 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Double Filter Initialisation");
 		}
-		
+
 		return this;
-	}	
+	}
 
 	/*
-	 * This method allows to set the filter for the String value in the search 
+	 * This method allows to set the filter for the String value in the search
 	 * @param attributeCode - the attributeCode which holds String value where we apply the filter
 	 * @param filterType - type of the string filter
 	 * @param value - filter against (search for) this value
@@ -255,16 +256,16 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad String Filter Initialisation");
 		}
-		
+
 		return this;
-	}	
-	
+	}
+
 	/*
-	 * This method allows to set the LinkWeight to the resulted BaseEntities 
-	 * to its parent 
+	 * This method allows to set the LinkWeight to the resulted BaseEntities
+	 * to its parent
 	 * @param value - value/linkWeight to be set
 	 */
-	public SearchEntity setLinkWeight(final Double value) 
+	public SearchEntity setLinkWeight(final Double value)
 	{
 		AttributeDouble attribute = new AttributeDouble("SCH_LINK_WEIGHT", "LinkWeight");
 		try {
@@ -272,10 +273,10 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad String Filter Initialisation");
 		}
-		
+
 		return this;
 	}
-	
+
 	/*
 	 * This method allows to set the filter based on the linkweight value of BaseEntities to its parent
 	 * @param filterType - type of the filter set to the linkWeight
@@ -288,10 +289,10 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad String Filter Initialisation");
 		}
-		
+
 		return this;
 	}
-	
+
 	/*
 	 * This method allows to set the start/begining number of the range(page) of the results data to be sent
 	 * @param pageStart - start of the page number
@@ -304,10 +305,25 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Page Start ");
 		}
-		
+
 		return this;
 	}
-	
+	/*
+	 * This method allows to set size of the selection allowed for a searchEntity
+	 * @param pageStart - size of selection
+	 */
+	public SearchEntity setSelectSize(final Integer selectSize)
+	{
+		AttributeInteger attributeSelectSize = new AttributeInteger("SCH_SELECT_SIZE", "SelectSize");
+		try {
+			addAttribute(attributeSelectSize, 1.0, selectSize);
+		} catch (BadDataException e) {
+			log.error("Bad Page Start ");
+		}
+
+		return this;
+	}
+
 	/*
 	 * This method allows to set the total number of the results (BaseEntites) to be sent
 	 * @param pageSize - total number of data's to be sent
@@ -320,12 +336,12 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Page Size");
 		}
-		
+
 		return this;
 	}
 
 	/*
-	 * This method allows to set the stakeholder/user code to the search. It will search for the BaseEntites 
+	 * This method allows to set the stakeholder/user code to the search. It will search for the BaseEntites
 	 * that the given user is stakeholder of.
 	 * @param stakeholderCode - userCode
 	 */
@@ -337,12 +353,12 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Stakeholder");
 		}
-		
+
 		return this;
 	}
-	
+
 	/*
-	 * This method allows to set the stakeholder/user code to the parent/source Basentity involved in the search. 
+	 * This method allows to set the stakeholder/user code to the parent/source Basentity involved in the search.
 	 * It will search for the BaseEntites under the give source BE that the given user is stakeholder of.
 	 * @param sourceStakeholderCode - userCode
 	 */
@@ -354,12 +370,12 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Source Stakeholder");
 		}
-		
+
 		return this;
 	}
-	
+
 	/*
-	 * This method allows to set the stakeholder/user code to the parent/source Basentity involved in the search. 
+	 * This method allows to set the stakeholder/user code to the parent/source Basentity involved in the search.
 	 * It will search for the BaseEntites under the give source BE that the given user is stakeholder of.
 	 * @param sourceStakeholderCode - userCode
 	 */
@@ -371,12 +387,12 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Stakeholder");
 		}
-		
+
 		return this;
 	}
-	
+
 	/*
-	 * This method allows to set the link value the result of the search. 
+	 * This method allows to set the link value the result of the search.
 	 * @param linkValue - linkValue of the sourceCode to the results (BaseEntities) of the search
 	 */
 	public SearchEntity setLinkValue(final String linkValue)
@@ -387,10 +403,10 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Link Value");
 		}
-		
+
 		return this;
 	}
-	
+
 	public SearchEntity setSourceCode(final String sourceCode)
 	{
 		AttributeText attribute = new AttributeText("SCH_SOURCE_CODE", "SourceCode");
@@ -401,7 +417,7 @@ public class SearchEntity extends BaseEntity {
 		}
 		return this;
 	}
-	
+
 	public SearchEntity setTargetCode(final String targetCode)
 	{
 		AttributeText attribute = new AttributeText("SCH_TARGET_CODE", "TargetCode");
@@ -410,7 +426,7 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Target Code");
 		}
-		
+
 		return this;
 	}
 
@@ -421,6 +437,6 @@ public class SearchEntity extends BaseEntity {
 	public String toString() {
 		return QwandaJsonUtils.toJson(this);
 	}
-	
-	
+
+
 }

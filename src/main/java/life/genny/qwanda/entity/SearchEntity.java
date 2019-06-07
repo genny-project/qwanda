@@ -2,7 +2,6 @@ package life.genny.qwanda.entity;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
-
 import life.genny.qwanda.attribute.AttributeBoolean;
 import life.genny.qwanda.attribute.AttributeDateTime;
 import life.genny.qwanda.attribute.AttributeDouble;
@@ -11,6 +10,7 @@ import life.genny.qwanda.attribute.AttributeLong;
 import life.genny.qwanda.attribute.AttributeText;
 import life.genny.qwanda.exception.BadDataException;
 import life.genny.qwandautils.QwandaJsonUtils;
+
 
 
 /* SearchEntity class implements the search of base entities applying different filters/search to the
@@ -309,8 +309,8 @@ public class SearchEntity extends BaseEntity {
 		return this;
 	}
 	/*
-	 * This method allows to set the start/begining number of the range(page) of the results data to be sent
-	 * @param pageStart - start of the page number
+	 * This method allows to set size of the selection allowed for a searchEntity
+	 * @param pageStart - size of selection
 	 */
 	public SearchEntity setSelectSize(final Integer selectSize)
 	{

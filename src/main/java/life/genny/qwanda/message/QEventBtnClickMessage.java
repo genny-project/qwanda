@@ -115,7 +115,7 @@ public class QEventBtnClickMessage extends QEventMessage {
 	@Override
 	public String toString() {
 		return "QEventBtnClickMessage [itemCode=" + itemCode + ", hint=" + hint + ", value=" + value + ", message="
-				+ message + "]";
+				+ message + ","+super.toString()+"]";
 	}
 	
 	

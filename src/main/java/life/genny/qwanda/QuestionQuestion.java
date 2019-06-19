@@ -443,6 +443,11 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 		this.realm = realm;
 	}
 
+	@Override
+	public String toString() {
+		return "SRC:"+getPk().getSourceCode()+" - "+getPk().getTargetCode()+" "+(this.getMandatory()?"MANDATORY":"OPTIONAL")+" "+(this.getReadonly()?"RO":"RW");
+	}
+
 
 
 }

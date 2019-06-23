@@ -791,5 +791,10 @@ public void setRealm(String realm) {
 	this.realm = realm;
 }
 
+@Override
+public String toString() {
+	return this.realm+":"+this.link;
+}
+
 
 }

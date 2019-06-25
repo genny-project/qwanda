@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
+
+import com.google.gson.JsonObject;
 
 import io.vavr.Tuple;
 import io.vavr.Tuple2;
@@ -23,7 +26,7 @@ public class Frame extends BaseEntity {
 
 	private FramePosition position;
 	private BaseEntity parent;
-	private List<Tuple4<String, Frame.ThemeAttribute,  Object, Double>> themeObjects = new ArrayList<Tuple4<String, Frame.ThemeAttribute, Object, Double>>();;
+	private List<Tuple4<String, Frame.ThemeAttribute,  JSONObject, Double>> themeObjects = new ArrayList<Tuple4<String, Frame.ThemeAttribute, JSONObject, Double>>();
 
 	private List<Tuple3<String, FramePosition, Double>> frameCodes = new ArrayList<Tuple3<String, FramePosition, Double>>();
 	private List<Tuple3<Frame, FramePosition, Double>> frames = new ArrayList<Tuple3<Frame, FramePosition, Double>>();
@@ -101,7 +104,7 @@ public class Frame extends BaseEntity {
 		private String code;
 		private String name;
 		private FramePosition position;
-		List<Tuple4<String, Frame.ThemeAttribute,  Object, Double>> themeObjects = new ArrayList<Tuple4<String, Frame.ThemeAttribute, Object, Double>>();;
+		List<Tuple4<String, Frame.ThemeAttribute,  JSONObject, Double>> themeObjects = new ArrayList<Tuple4<String, Frame.ThemeAttribute, JSONObject, Double>>();;
 
 		List<Tuple3<Frame, FramePosition, Double>> frames = new ArrayList<Tuple3<Frame, FramePosition, Double>>();
 
@@ -129,17 +132,11 @@ public class Frame extends BaseEntity {
 		}
 		
 		public Builder addTheme(final String themeCode, Frame.ThemeAttribute attributeCode, String property, Object value) {
-			String stringValue = null;
-			if (value instanceof Integer) {
-				stringValue = value+"";
-			} else if (value instanceof String) {
-				stringValue = "\""+value+"\"";
-			} else {
-				stringValue = value.toString();
-			}
-			String propertyValue = "\""+property+"\":"+stringValue+"";
+			JSONObject keyValue = new JSONObject();
 			
-			Tuple4<String, Frame.ThemeAttribute, Object, Double> theme = Tuple.of(themeCode, attributeCode, propertyValue,
+			keyValue.put(property, value);
+			
+			Tuple4<String, Frame.ThemeAttribute, JSONObject, Double> theme = Tuple.of(themeCode, attributeCode, keyValue,
 					themeWeight);
 			themeObjects.add(theme);
 			themeWeight = themeWeight - 1.0;
@@ -148,7 +145,7 @@ public class Frame extends BaseEntity {
 
 		public Builder addTheme(final String themeCode) {
 			Frame.ThemeAttribute codeOnly = Frame.ThemeAttribute.codeOnly;
-			Tuple4<String, Frame.ThemeAttribute, Object, Double> theme = Tuple.of(themeCode, codeOnly, "codeOnly",
+			Tuple4<String, Frame.ThemeAttribute, JSONObject, Double> theme = Tuple.of(themeCode, codeOnly, new JSONObject("{\"codeOnly\":true}"),
 					themeWeight);
 			themeObjects.add(theme);
 			themeWeight = themeWeight - 1.0;
@@ -224,7 +221,7 @@ public class Frame extends BaseEntity {
 	/**
 	 * @return the themeObjects
 	 */
-	public List<Tuple4<String, Frame.ThemeAttribute, Object, Double>> getThemeObjects() {
+	public List<Tuple4<String, Frame.ThemeAttribute, JSONObject, Double>> getThemeObjects() {
 		return themeObjects;
 	}
 

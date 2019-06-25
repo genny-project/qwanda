@@ -155,7 +155,7 @@ public abstract class CodedEntity extends CoreEntity {
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + "[code=" + code + "]";
+		return code+":"+super.toString();
 	}
 
 	/*

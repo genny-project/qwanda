@@ -2,19 +2,16 @@ package life.genny.qwanda.llama;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 
 import io.vavr.Tuple;
-import io.vavr.Tuple1;
 import io.vavr.Tuple2;
 import io.vavr.Tuple3;
+import io.vavr.Tuple4;
+import io.vavr.Tuple5;
 import life.genny.qwanda.entity.BaseEntity;
-import life.genny.qwanda.llama.Llama.Builder;
-import life.genny.qwanda.message.QDataBaseEntityMessage;
-
-
+import life.genny.qwanda.llama.Frame.ThemeAttribute;
 
 /* Llama class implements the frame of base entities 
  */
@@ -24,274 +21,227 @@ public class Frame extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	Double colIndex = 1.0;
-	Double sortIndex = 1.0;
-	
 	private FramePosition position;
-    private List<Tuple3<String,Frame.ThemeAttribute,String>> themeStrings =  new ArrayList<Tuple3<String, Frame.ThemeAttribute, String>>();;
-    private List<Tuple3<String,Frame.ThemeAttribute,Integer>> themeIntegers =  new ArrayList<Tuple3<String, Frame.ThemeAttribute, Integer>>();;
-    private List<Tuple1<String>> themeCodes = new ArrayList<Tuple1<String>>();
+	private BaseEntity parent;
+	private List<Tuple4<String, Frame.ThemeAttribute,  Object, Double>> themeObjects = new ArrayList<Tuple4<String, Frame.ThemeAttribute, Object, Double>>();;
 
-    private List<Tuple2<String,FramePosition>> frameCodes = new ArrayList<Tuple2<String,FramePosition>>();
-    private List<Tuple2<Frame,FramePosition>> frames = new ArrayList<Tuple2<Frame,FramePosition>>();	  
+	private List<Tuple3<String, FramePosition, Double>> frameCodes = new ArrayList<Tuple3<String, FramePosition, Double>>();
+	private List<Tuple3<Frame, FramePosition, Double>> frames = new ArrayList<Tuple3<Frame, FramePosition, Double>>();
 
-	
 	public enum ThemeAttribute {
-    backgroundColor ("backgroundColor"),
-    width ("width"),
-    flexDirection ("flexDirection"),
-    justifyContent ("justifyContent");
+		PRI_CONTENT("PRI_CONTENT"), PRI_CONTENT_HOVER("PRI_CONTENT_HOVER"), PRI_CONTENT_ACTIVE("PRI_CONTENT_ACTIVE"),
+		PRI_CONTENT_DISABLED("PRI_CONTENT_DISABLED"), PRI_CONTENT_CLOSED("PRI_CONTENT_CLOSED"),
+		PRI_IS_INHERITABLE("PRI_IS_INHERITABLE"), PRI_IS_EXPANDABLE("PRI_IS_EXPANDABLE"),
+		PRI_HAS_QUESTION_GRP_INPUT("PRI_HAS_QUESTION_GRP_INPUT"), PRI_HAS_LABEL("PRI_HAS_LABEL"),
+		PRI_HAS_REQUIRED("PRI_HAS_REQUIRED"), PRI_HAS_HINT("PRI_HAS_HINT"), PRI_HAS_DESCRIPTION("PRI_HAS_DESCRIPTION"),
+		PRI_HAS_ICON("PRI_HAS_ICON"),
 
+		codeOnly("codeOnly"); // used to pass an existing theme
 
-    private final String name;       
+		private final String name;
 
-    private ThemeAttribute(String s) {
-        name = s;
-    }
-
-    public boolean equalsName(String otherName) {
-        // (otherName == null) check is not needed because name.equals(null) returns false 
-        return name.equals(otherName);
-    }
-
-    public String toString() {
-       return this.name;
-    }
-	}
-	
-	public enum FramePosition {
-	    NORTH ("NORTH"),
-	    EAST ("EAST"),
-	    WEST  ("WEST"),
-	    SOUTH  ("SOUTH"),
-	    CENTRE ("CENTRE");
-
-
-	    private final String name;       
-
-	    private FramePosition(String s) {
-	        name = s;
-	    }
-
-	    public boolean equalsName(String otherName) {
-	        // (otherName == null) check is not needed because name.equals(null) returns false 
-	        return name.equals(otherName);
-	    }
-
-	    public String toString() {
-	       return this.name;
-	    }
+		private ThemeAttribute(String s) {
+			name = s;
 		}
 
+		public boolean equalsName(String otherName) {
+			// (otherName == null) check is not needed because name.equals(null) returns
+			// false
+			return name.equals(otherName);
+		}
+
+		public String toString() {
+			return this.name;
+		}
+	}
+
+
+	public enum FramePosition {
+		NORTH("NORTH"), EAST("EAST"), WEST("WEST"), SOUTH("SOUTH"), CENTRE("CENTRE");
+
+		private final String name;
+
+		private FramePosition(String s) {
+			name = s;
+		}
+
+		public boolean equalsName(String otherName) {
+			// (otherName == null) check is not needed because name.equals(null) returns
+			// false
+			return name.equals(otherName);
+		}
+
+		public String toString() {
+			return this.name;
+		}
+	}
 
 	private Frame() {
-	
+
 	}
 
+	public Frame(Builder builder) {
+		/* Set Root */
+		super(builder.code, builder.name);
+		this.position = builder.position;
 
+		//
+		this.themeObjects = builder.themeObjects;
+		this.frames = builder.frames;
 
+	}
 
-	   public Frame(Builder builder) 
-	    { 
-		   /* Set Root */
-		   	super(builder.code,builder.name);
-			this.position = builder.position;
+	// Static class Builder
+	public static class Builder {
+		Double frameWeight = 1.0; // used to set the order
+		Double themeWeight = 1000.0; // themes weight goes backward
+
+		/// instance fields
+
+		private String code;
+		private String name;
+		private FramePosition position;
+		List<Tuple4<String, Frame.ThemeAttribute,  Object, Double>> themeObjects = new ArrayList<Tuple4<String, Frame.ThemeAttribute, Object, Double>>();;
+
+		List<Tuple3<Frame, FramePosition, Double>> frames = new ArrayList<Tuple3<Frame, FramePosition, Double>>();
+
+		public static Builder newInstance(final String code) {
+			return new Builder(code);
+		}
+
+		private Builder(final String code) {
+			this.code = code;
+
+		}
+
+		public Builder name(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public Builder position(FramePosition position) {
+			this.position = position;
+			return this;
+		}
+
+		public Builder addTheme(final String themeCode, String property, Object value) {
+			return addTheme(themeCode,ThemeAttribute.PRI_CONTENT,property,value);
+		}
 		
-			//
-			this.themeCodes = builder.themeCodes;
-			this.themeIntegers = builder.themeIntegers;
-			this.themeStrings = builder.themeStrings;
-			this.frameCodes = builder.frameCodes;
-			this.frames = builder.frames;
-		
-	    } 
-
-	// Static class Builder 
-	    public static class Builder { 
-	  
-	        /// instance fields 
-
-	        private String code;
-	        private String name;
-	        private FramePosition position;
-	        List<Tuple3<String,Frame.ThemeAttribute,String>> themeStrings =  new ArrayList<Tuple3<String, Frame.ThemeAttribute, String>>();;
-	        List<Tuple3<String,Frame.ThemeAttribute,Integer>> themeIntegers =  new ArrayList<Tuple3<String, Frame.ThemeAttribute, Integer>>();;
-	        List<Tuple1<String>> themeCodes = new ArrayList<Tuple1<String>>();
-
-	        List<Tuple2<String,FramePosition>> frameCodes = new ArrayList<Tuple2<String,FramePosition>>();
-	        List<Tuple2<Frame,FramePosition>> frames = new ArrayList<Tuple2<Frame,FramePosition>>();	  
-	        
-	        public static Builder newInstance(final String code) 
-	        { 
-	            return new Builder(code); 
-	        } 
-	  
-	        private Builder(final String code) {
-	        	this.code = code;
-
-	        } 
-	  
-	        public Builder name(String name) 
-	        { 
-	            this.name = name; 
-	            return this; 
-	        } 
-	        
-	        public Builder position(FramePosition position)
-	        {
-	        	this.position = position;
-	        	return this;
-	        }
-
-        
-	        public Builder addTheme(final String themeCode,Frame.ThemeAttribute attributeCode,String value) 
-	        { 
-	            Tuple3<String,Frame.ThemeAttribute,String> theme = Tuple.of(themeCode,attributeCode,value);
-	            themeStrings.add(theme);
-	            return this; 
-	        } 
-
-	        public Builder addTheme(final String themeCode,Frame.ThemeAttribute attributeCode,Integer value) 
-	        { 
-	            Tuple3<String,Frame.ThemeAttribute,Integer> theme = Tuple.of(themeCode,attributeCode,value);
-	            themeIntegers.add(theme);
-	            return this; 
-	        } 
-
-	        public Builder addTheme(final String themeCode) 
-	        { 
-	            Tuple1<String> theme = Tuple.of(themeCode);
-	            themeCodes.add(theme);
-	            return this; 
-	        } 
-	        
-	        public Builder addFrame(final String frameCode, FramePosition position)
-	        {
-	            Tuple2<String,FramePosition> frame = Tuple.of(frameCode,position);
-	            frameCodes.add(frame);
-	            return this; 
-	        	
-	        }
-	        
-	        public Builder addFrame(final Frame frame, FramePosition position)
-	        {
-	            Tuple2<Frame,FramePosition> frameTuple = Tuple.of(frame,position);
-	            frames.add(frameTuple);
-	            return this; 
-	        	
-	        }
-
-	        public Builder addFrame(final Frame frame)
-	        {
-	            Tuple2<Frame,FramePosition> frameTuple = Tuple.of(frame,Frame.FramePosition.CENTRE);
-	            frames.add(frameTuple);
-	            return this; 	        	
-	        }
-
-	        
-	        // build method to deal with outer class 
-	        // to return outer instance 
-	        public Frame build() 
-	        { 
-	        	if (StringUtils.isBlank(name)) {
-	        		this.name = this.code;
-	        	}
-	        	
-	        	if (position == null) {
-	        		position = FramePosition.CENTRE;
-	        	}
-	            return new Frame(this); 
-	        } 
-	    }
-
-		/**
-		 * @return the position
-		 */
-		public FramePosition getPosition() {
-			return position;
+		public Builder addTheme(final String themeCode, Frame.ThemeAttribute attributeCode, String property, Object value) {
+			String stringValue = null;
+			if (value instanceof Integer) {
+				stringValue = value+"";
+			} else if (value instanceof String) {
+				stringValue = "\""+value+"\"";
+			} else {
+				stringValue = value.toString();
+			}
+			String propertyValue = "\""+property+"\":"+stringValue+"";
+			
+			Tuple4<String, Frame.ThemeAttribute, Object, Double> theme = Tuple.of(themeCode, attributeCode, propertyValue,
+					themeWeight);
+			themeObjects.add(theme);
+			themeWeight = themeWeight - 1.0;
+			return this;
 		}
 
-
-
-
-		/**
-		 * @return the serialversionuid
-		 */
-		public static long getSerialversionuid() {
-			return serialVersionUID;
+		public Builder addTheme(final String themeCode) {
+			Frame.ThemeAttribute codeOnly = Frame.ThemeAttribute.codeOnly;
+			Tuple4<String, Frame.ThemeAttribute, Object, Double> theme = Tuple.of(themeCode, codeOnly, "codeOnly",
+					themeWeight);
+			themeObjects.add(theme);
+			themeWeight = themeWeight - 1.0;
+			return this;
 		}
 
+		public Builder addFrame(final Frame frame, FramePosition position) {
+			Tuple3<Frame, FramePosition, Double> frameTuple = Tuple.of(frame, position, frameWeight);
+			frames.add(frameTuple);
+			frameWeight = frameWeight + 1.0;
+			return this;
 
-
-
-		/**
-		 * @return the colIndex
-		 */
-		public Double getColIndex() {
-			return colIndex;
 		}
 
-
-
-
-		/**
-		 * @return the sortIndex
-		 */
-		public Double getSortIndex() {
-			return sortIndex;
+		public Builder addFrame(final Frame frame) {
+			return this.addFrame(frame, Frame.FramePosition.CENTRE);
 		}
 
-
-
-
-		/**
-		 * @return the themeStrings
-		 */
-		public List<Tuple3<String, Frame.ThemeAttribute, String>> getThemeStrings() {
-			return themeStrings;
+		public Builder addFrame(final String frameCode) {
+			return this.addFrame(frameCode, Frame.FramePosition.CENTRE);
 		}
 
-
-
-
-		/**
-		 * @return the themeIntegers
-		 */
-		public List<Tuple3<String, Frame.ThemeAttribute, Integer>> getThemeIntegers() {
-			return themeIntegers;
+		public Builder addFrame(final String frameCode, FramePosition position) {
+			Frame frame = new Frame.Builder(frameCode).build();
+			Tuple3<Frame, FramePosition, Double> frameTuple = Tuple.of(frame, Frame.FramePosition.CENTRE, frameWeight);
+			frames.add(frameTuple);
+			frameWeight = frameWeight + 1.0;
+			return this;
 		}
 
+		// build method to deal with outer class
+		// to return outer instance
+		public Frame build() {
+			if (StringUtils.isBlank(name)) {
+				this.name = this.code;
+			}
 
-
-
-		/**
-		 * @return the themeCodes
-		 */
-		public List<Tuple1<String>> getThemeCodes() {
-			return themeCodes;
+			if (position == null) {
+				position = FramePosition.CENTRE;
+			}
+			return new Frame(this);
 		}
+	}
 
+	/**
+	 * @return the position
+	 */
+	public FramePosition getPosition() {
+		return position;
+	}
 
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
+	/**
+	 * @return the frameCodes
+	 */
+	public List<Tuple3<String, FramePosition, Double>> getFrameCodes() {
+		return frameCodes;
+	}
 
-		/**
-		 * @return the frameCodes
-		 */
-		public List<Tuple2<String, FramePosition>> getFrameCodes() {
-			return frameCodes;
-		}
+	/**
+	 * @return the frames
+	 */
+	public List<Tuple3<Frame, FramePosition, Double>> getFrames() {
+		return frames;
+	}
 
+	/**
+	 * @return the themeObjects
+	 */
+	public List<Tuple4<String, Frame.ThemeAttribute, Object, Double>> getThemeObjects() {
+		return themeObjects;
+	}
 
+	/**
+	 * @return the parent
+	 */
+	public BaseEntity getParent() {
+		return parent;
+	}
 
+	/**
+	 * @param parent the parent to set
+	 */
+	public void setParent(BaseEntity parent) {
+		this.parent = parent;
+	}
 
-		/**
-		 * @return the frames
-		 */
-		public List<Tuple2<Frame, FramePosition>> getFrames() {
-			return frames;
-		}
-
-
-
-
+	
+	
 }

@@ -130,7 +130,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.source")
   @JsonBackReference(value="entityEntity")
   @Cascade({CascadeType.MERGE,CascadeType.DELETE})
-  //@Expose
+  @Expose
   /* Stores the links of BaseEntity to another BaseEntity */
   private Set<EntityEntity> links = new HashSet<EntityEntity>(0);
 

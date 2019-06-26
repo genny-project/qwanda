@@ -1,10 +1,12 @@
 package life.genny.qwanda.message;
 
+import java.io.Serializable;
+
 import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.Ask;
 
-public class QDataAskMessage extends QDataMessage {
+public class QDataAskMessage extends QDataMessage implements Serializable {
 
 	/**
 	 * 

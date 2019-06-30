@@ -1127,8 +1127,8 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 
 	@Override
 	public String toString() {
-		return "EntityAttribute [baseEntityCode=" + baseEntityCode + ", attributeCode=" + attributeCode + ", value="
-				+ getObjectAsString() + ", weight=" + weight + ", inferred=" + inferred + "]";
+		return "attributeCode=" + attributeCode + ", value="
+				+ getObjectAsString() + ", weight=" + weight + ", inferred=" + inferred + "] be="+this.getBaseEntityCode();
 	}
 
 	@JsonIgnore

@@ -123,6 +123,7 @@ public class Question extends CodedEntity implements Serializable {
 
 	@Embedded
 	@Valid
+	@Expose
 	private ContextList contextList;
 
 	@Expose

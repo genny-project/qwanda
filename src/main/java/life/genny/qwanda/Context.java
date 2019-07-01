@@ -99,18 +99,7 @@ public class Context extends CoreEntity implements Serializable {
 	@Expose
 	private String contextCode;
 
-	public enum VisualControlType {
-		WRAPPER,
-		INPUT,
-		ICON,
-		LABEL,
-		DESCRIPTION,
-		HINT,
-		ERROR,
-		REQUIRED,
-		DELIMITER,
-		DEFAULT
-	}
+
 
 	@Expose
 	private VisualControlType visualControlType;

@@ -4,6 +4,10 @@ import com.google.gson.annotations.Expose;
 
 public class QEventMessage extends QMessage{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final String MESSAGE_TYPE = "EVT_MSG";
 	@Expose
 	private String event_type;
@@ -34,7 +38,6 @@ public class QEventMessage extends QMessage{
 		super(MESSAGE_TYPE);
 		this.event_type = eventType;
 		this.data = new MessageData(code);
-		// TODO Auto-generated constructor stub
 	}
 	
 }

@@ -1,8 +1,10 @@
 package life.genny.qwanda.message;
 
+import java.io.Serializable;
+
 import com.google.gson.annotations.Expose;
 
-public class QEventMessage extends QMessage{
+public class QEventMessage extends QMessage implements Serializable {
 	
 	/**
 	 * 

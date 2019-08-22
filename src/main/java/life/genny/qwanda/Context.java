@@ -99,7 +99,8 @@ public class Context extends CoreEntity implements Serializable {
 	@Expose
 	private String contextCode;
 
-
+	@Expose
+	private String dataType;
 
 	@Expose
 	private VisualControlType visualControlType;
@@ -183,6 +184,20 @@ public class Context extends CoreEntity implements Serializable {
 
 
 
+
+	/**
+	 * @return the dataType
+	 */
+	public String getDataType() {
+		return dataType;
+	}
+
+	/**
+	 * @param dataType the dataType to set
+	 */
+	public void setDataType(String dataType) {
+		this.dataType = dataType;
+	}
 
 	@Override
 	 public int compareTo(Object o) {

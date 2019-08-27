@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
@@ -295,6 +296,33 @@ public String getRule() {
  */
 public void setRule(String rule) {
 	this.rule = rule;
+}
+
+
+
+@Override
+public int hashCode() {
+	return Objects.hash(attributeCode, childColor, linkValue, parentColor, sourceCode, targetCode, weight);
+}
+
+
+
+@Override
+public boolean equals(Object obj) {
+	if (this == obj) {
+		return true;
+	}
+	if (obj == null) {
+		return false;
+	}
+	if (!(obj instanceof Link)) {
+		return false;
+	}
+	Link other = (Link) obj;
+	return Objects.equals(attributeCode, other.attributeCode) && Objects.equals(childColor, other.childColor)
+			&& Objects.equals(linkValue, other.linkValue) && Objects.equals(parentColor, other.parentColor)
+			&& Objects.equals(sourceCode, other.sourceCode) && Objects.equals(targetCode, other.targetCode)
+			&& Objects.equals(weight, other.weight);
 }
 
 

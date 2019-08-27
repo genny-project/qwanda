@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
@@ -475,42 +476,35 @@ public void setLink(Link link) {
 
  
   
-  
-  @Override
+
+
+
+
+@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((created == null) ? 0 : created.hashCode());
-		result = prime * result + ((link == null) ? 0 : link.hashCode());
-		result = prime * result + ((valueString == null) ? 0 : valueString.hashCode());
-		return result;
+		return Objects.hash(link, realm, valueBoolean, valueDate, valueDateTime, valueDouble, valueInteger,
+				valueLong, valueMoney, valueString, valueTime, weight);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (!(obj instanceof EntityEntity)) {
 			return false;
+		}
 		EntityEntity other = (EntityEntity) obj;
-		if (created == null) {
-			if (other.created != null)
-				return false;
-		} else if (!created.equals(other.created))
-			return false;
-		if (link == null) {
-			if (other.link != null)
-				return false;
-		} else if (!link.equals(other.link))
-			return false;
-		if (valueString == null) {
-			if (other.valueString != null)
-				return false;
-		} else if (!valueString.equals(other.valueString))
-			return false;
-		return true;
+		return  Objects.equals(link, other.link)
+				&& Objects.equals(realm, other.realm) && Objects.equals(valueBoolean, other.valueBoolean)
+				&& Objects.equals(valueDate, other.valueDate) && Objects.equals(valueDateTime, other.valueDateTime)
+				&& Objects.equals(valueDouble, other.valueDouble) && Objects.equals(valueInteger, other.valueInteger)
+				&& Objects.equals(valueLong, other.valueLong) && Objects.equals(valueMoney, other.valueMoney)
+				&& Objects.equals(valueString, other.valueString) && Objects.equals(valueTime, other.valueTime)
+				&& Objects.equals(weight, other.weight);
 	}
 
 @JsonIgnore

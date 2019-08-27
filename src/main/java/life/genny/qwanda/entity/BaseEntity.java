@@ -85,8 +85,8 @@ import life.genny.qwanda.exception.BadDataException;
 indexes = {
         @Index(columnList = "code", name =  "code_idx"),
         @Index(columnList = "realm", name = "code_idx")
-    })//,
-//uniqueConstraints = @UniqueConstraint(columnNames = {"code", "realm"}))
+    },
+	uniqueConstraints = @UniqueConstraint(columnNames = {"code", "realm"}))//,
 @Entity
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 

@@ -1,0 +1,13 @@
+/target/
+src/main/resources/rebel.xml
+.project
+src/main/resources/git.properties
+src/main/resources/qwanda-git.properties
+**/src/main/resources/git.properties
+.settings/org.eclipse.wst.common.component
+.settings
+./.classpath
+.classpath
+./.classpath
+/.apt_generated/
+/.apt_generated_tests/

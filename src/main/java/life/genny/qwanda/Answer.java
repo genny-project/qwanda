@@ -295,6 +295,27 @@ public class Answer implements Serializable {
 	/**
 	 * Constructor.
 	 * 
+	 * @param sourceCode
+	 *            The sourceCode associated with this Answer
+	 * @param targetCode
+	 *            The targetCode associated with this Answer
+	 * @param attributeCode
+	 *            The attributeCode associated with this Answer
+	 * @param value
+	 *            The associated String value
+	 */
+	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final String value, final Boolean changeEvent) {
+		this.sourceCode = sourceCode;
+		this.targetCode = targetCode;
+		this.attributeCode = attributeCode;
+		this.setValue(value);
+		autocreateCreated();
+		checkInputs();
+		this.changeEvent = changeEvent;
+	}
+	/**
+	 * Constructor.
+	 * 
 	 * @param source
 	 *            The source BE associated with this Answer
 	 * @param target

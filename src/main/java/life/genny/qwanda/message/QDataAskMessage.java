@@ -20,6 +20,13 @@ public class QDataAskMessage extends QDataMessage implements Serializable {
 		super(DATATYPE_ASK);
 		setItems(asks);
 	}
+	
+	public QDataAskMessage(Ask ask) {
+		super(DATATYPE_ASK);
+		Ask[] asks = new Ask[1];
+		asks[0] = ask;
+		setItems(asks);
+	}
 
 	public Ask[] getItems() {
 		return this.items;

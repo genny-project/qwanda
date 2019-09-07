@@ -430,6 +430,8 @@ public class SearchEntity extends BaseEntity {
 		return this;
 	}
 
+	
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

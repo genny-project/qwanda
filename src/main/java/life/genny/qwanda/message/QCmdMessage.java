@@ -16,6 +16,15 @@ public class QCmdMessage extends QMessage {
 	private String cmd_type;
 	@Expose
 	private String code;
+	
+	@Expose
+	private Boolean exec;
+	
+	@Expose
+	private Boolean send;
+	
+	@Expose 
+	private String cache;
 
 	@Embedded
 	@Valid
@@ -27,6 +36,9 @@ public class QCmdMessage extends QMessage {
 		super(MESSAGE_TYPE);
 		this.code = code;
 		this.cmd_type = cmd_type;
+		this.send = true;
+		this.exec=true;
+		this.cache = null;
 	}
 
 	public String getCmd_type() {
@@ -43,6 +55,51 @@ public class QCmdMessage extends QMessage {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	
+	
+	
+	/**
+	 * @return the exec
+	 */
+	public Boolean getExec() {
+		return exec;
+	}
+
+	/**
+	 * @param exec the exec to set
+	 */
+	public void setExec(Boolean exec) {
+		this.exec = exec;
+	}
+
+	/**
+	 * @return the send
+	 */
+	public Boolean getSend() {
+		return send;
+	}
+
+	/**
+	 * @param send the send to set
+	 */
+	public void setSend(Boolean send) {
+		this.send = send;
+	}
+
+	/**
+	 * @return the cache
+	 */
+	public String getCache() {
+		return cache;
+	}
+
+	/**
+	 * @param cache the cache to set
+	 */
+	public void setCache(String cache) {
+		this.cache = cache;
 	}
 
 	/**

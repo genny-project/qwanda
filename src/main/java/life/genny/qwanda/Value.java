@@ -267,6 +267,7 @@ public Value(Object value, DataType dataType)
 		this.weight = weight;
 	}
 
+	@SuppressWarnings("unchecked")
 	@JsonIgnore
 	@Transient
 	@XmlTransient

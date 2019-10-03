@@ -4,23 +4,14 @@ import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import org.apache.logging.log4j.Logger;
 import org.javamoney.moneta.Money;
-import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
 
 import life.genny.qwanda.DateTimeDeserializer;
 import life.genny.qwanda.MoneyDeserializer;
@@ -41,6 +32,7 @@ public class QwandaJsonUtils {
 			.excludeFieldsWithoutExposeAnnotation().create();
 	
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static <T> T fromJson(final String json, Class clazz)
 	{
 	        T item = null;
@@ -59,6 +51,7 @@ public class QwandaJsonUtils {
 	        return item;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static <T> T fromJson(final String json, Type clazz)
 	{
 	        T item = null;

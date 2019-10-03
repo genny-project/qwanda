@@ -30,10 +30,11 @@ public class JsonUtils {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	@Transient
 	@JsonIgnore
 	@XmlTransient
-	public  <T>  T get(Class testClass,final String json)  {
+	public  <T>  T get(@SuppressWarnings("rawtypes") Class testClass,final String json)  {
 	        T item = null;
 
 

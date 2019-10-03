@@ -21,10 +21,11 @@
 
 package life.genny.qwanda;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.gson.annotations.Expose;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -44,10 +45,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
+
 import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 
 /**
@@ -111,7 +112,6 @@ public class GPS  implements Serializable {
 	<p>
 	*/
 	@NotNull
-	@NotEmpty
 	@Column(name = "latitude", updatable = false, nullable = false)
 	@Expose
 	private Double latitude;
@@ -121,7 +121,6 @@ public class GPS  implements Serializable {
     <p>
     */
     @NotNull
-    @NotEmpty
     @Column(name = "longitude", updatable = false, nullable = false)
     @Expose
     private Double longitude;
@@ -131,7 +130,6 @@ public class GPS  implements Serializable {
     <p>
     */
     @NotNull
-    @NotEmpty
     @Size(max = 32)
     @Column(name = "timestamp", updatable = false, nullable = false)
     @Expose
@@ -142,7 +140,6 @@ public class GPS  implements Serializable {
     <p>
     */
     @NotNull
-    @NotEmpty
     @Column(name = "accuracy", updatable = false, nullable = true)
     @Expose
     private Double accuracy;
@@ -152,7 +149,6 @@ public class GPS  implements Serializable {
     <p>
     */
     @NotNull
-    @NotEmpty
     @Column(name = "bearing", updatable = false, nullable = true)
     @Expose
     private Double bearing;
@@ -162,7 +158,6 @@ public class GPS  implements Serializable {
     <p>
     */
     @NotNull
-    @NotEmpty
     @Column(name = "altitude", updatable = false, nullable = true)
     @Expose
     private Double altitude;
@@ -172,7 +167,6 @@ public class GPS  implements Serializable {
     <p>
     */
     @NotNull
-    @NotEmpty
     @Column(name = "altitude_accuracy", updatable = false, nullable = true)
     @Expose
     private Double altitude_accuracy;
@@ -182,7 +176,6 @@ public class GPS  implements Serializable {
     <p>
     */
     @NotNull
-    @NotEmpty
     @Column(name = "speed", updatable = true, nullable = true)
     @Expose
     private Double speed;
@@ -192,7 +185,6 @@ public class GPS  implements Serializable {
 	<p>
 	*/
 	@NotNull
-	@NotEmpty
 	@Size(max = 64)
 	@Column(name = "targetcode", updatable = true, nullable = true)
 	@Expose

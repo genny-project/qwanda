@@ -35,7 +35,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.logging.log4j.Logger;
-import org.h2.util.DateTimeUtils;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.javamoney.moneta.Money;
@@ -595,6 +594,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	 * ":"+(inferred?"INFERRED":"PRI")+"]"; // + ", version=" + version + "]"; }
 	 */
 
+	@SuppressWarnings("unchecked")
 	@JsonIgnore
 	@Transient
 	@XmlTransient
@@ -644,6 +644,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 		setValue(value,false);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@JsonIgnore
 	@Transient
 	@XmlTransient
@@ -652,7 +653,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			log.error("Trying to set the value of a readonly EntityAttribute! "+this.getBaseEntityCode()+":"+this.attributeCode);
 			return; 
 		}
-		if (getAttribute()==null) { //TODO: Ugly
+		if (getAttribute()==null) { 
 			setLoopValue(value);
 			return;
 		}
@@ -690,7 +691,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 						olddate = DateUtils.parseDate(result, "M/y", "yyyy-MM-dd", "yyyy/MM/dd",
 								"yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 					} catch (java.text.ParseException e) {
-						olddate = DateTimeUtils.parseDateTime(result, "yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss",
+						olddate = DateUtils.parseDate(result, "yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss",
 								"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 					}
 					final LocalDate date = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -788,6 +789,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 		setLoopValue(value,false);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@JsonIgnore
 	@Transient
 	@XmlTransient
@@ -919,6 +921,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	@JsonIgnore
 	@Transient
 	@XmlTransient
@@ -1131,6 +1134,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 				+ getObjectAsString() + ", weight=" + weight + ", inferred=" + inferred + "] be="+this.getBaseEntityCode();
 	}
 
+	@SuppressWarnings("unchecked")
 	@JsonIgnore
 	@Transient
 	@XmlTransient

@@ -16,11 +16,9 @@
 
 package life.genny.qwanda.datatype;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.gson.annotations.Expose;
-
-import org.hibernate.validator.constraints.NotEmpty;
-import org.javamoney.moneta.Money;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.money.Monetary;
 import javax.persistence.Column;
@@ -30,10 +28,12 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Currency;
-import java.util.List;
+
+import org.javamoney.moneta.Money;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
+
 import life.genny.qwanda.converter.ValidationListConverter;
 import life.genny.qwanda.validation.Validation;
 import life.genny.qwanda.validation.ValidationList;
@@ -71,13 +71,11 @@ public class DataType implements Serializable {
 															// the BaseEntity set with parent
 
 	@NotNull
-	@NotEmpty
 	@Size(max = 120)
 	@Expose
 	private String className; // e.g. java.util.String
 
 	@NotNull
-	@NotEmpty
 	@Size(max = 120)
 	// @JsonIgnore
 	@Expose

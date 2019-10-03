@@ -1,33 +1,23 @@
 package life.genny.qwanda.message;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.CodedEntity;
-import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 
 @SuppressWarnings("deprecation")
 @XmlRootElement
@@ -41,11 +31,16 @@ public class QBaseMSGMessageTemplate  extends CodedEntity implements Serializabl
 
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	/**
 	A field that stores the description.
 	<p>
 	*/
 	@NotNull
-	@NotEmpty
 	@Column(name = "description", updatable = true, nullable = false)
 	@Expose
 	private String description;
@@ -56,7 +51,6 @@ public class QBaseMSGMessageTemplate  extends CodedEntity implements Serializabl
 	<p>
 	*/
 	@NotNull
-	@NotEmpty
 	@Column(name = "subject", updatable = true, nullable = false)
 	@Expose
 	private String subject;
@@ -67,7 +61,6 @@ public class QBaseMSGMessageTemplate  extends CodedEntity implements Serializabl
 	<p>
 	*/
 	@NotNull
-	@NotEmpty
 	@Column(name = "email", updatable = true, nullable = false)
 	@Expose
 	private String email_templateId;

@@ -31,17 +31,14 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.Index;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.Type;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import com.google.gson.annotations.Expose;
 
@@ -103,7 +100,6 @@ public class Validation extends CodedEntity implements Serializable {
 	Note that this regex needs to be applied to the complete value (Not partial).
 	*/
 	@NotNull
-	@NotEmpty
 	@Type(type = "text")
 	@Column(name = "regex", updatable = true, nullable = false)	
 	@Expose

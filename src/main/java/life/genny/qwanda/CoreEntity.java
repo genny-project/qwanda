@@ -16,12 +16,12 @@
 
 package life.genny.qwanda;
 
-import com.cdi.crud.infra.model.CoreEntityInterface;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.gson.annotations.Expose;
+import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
-import org.apache.logging.log4j.Logger;
-import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -31,16 +31,17 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
-import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import java.io.Serializable;
-import java.lang.invoke.MethodHandles;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
+
+import org.apache.logging.log4j.Logger;
+
+import com.cdi.crud.infra.model.CoreEntityInterface;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
+
 import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 
 /**
@@ -114,7 +115,6 @@ public abstract class CoreEntity implements CoreEntityInterface, CreatedIntf, Se
 	 * Note that this field is in English.
 	 */
 	@NotNull
-	@NotEmpty
 	@Size(max = 128)
 	@Pattern(regexp = REGEX_NAME, message = "Must contain valid characters for name")
 	@Column(name = "name", updatable = true, nullable = true)
@@ -127,7 +127,6 @@ public abstract class CoreEntity implements CoreEntityInterface, CreatedIntf, Se
 	 * Note that this field is in English.
 	 */
 	@NotNull
-	@NotEmpty
 	@Size(max = 48)
 	@Pattern(regexp = REGEX_REALM, message = "Must contain valid characters for realm")
 	@Column(name = "realm", updatable = true, nullable = false)
@@ -139,7 +138,6 @@ public abstract class CoreEntity implements CoreEntityInterface, CreatedIntf, Se
 	 * 
 	 * @param none
 	 */
-	@SuppressWarnings("unused")
 	protected CoreEntity() {
 		// dummy
 	}

@@ -31,8 +31,8 @@
 		<war-plugin-version>2.4</war-plugin-version>
 		<ear-plugin-version>2.9</ear-plugin-version>
 		<compiler-plugin-version>3.1</compiler-plugin-version>
-		<version.maven-jar-plugin>3.0.2</version.maven-jar-plugin>
-		<version.maven-source-plugin>3.0.1</version.maven-source-plugin>
+		<version.maven-jar-plugin>3.1.2</version.maven-jar-plugin>
+		<version.maven-source-plugin>3.1.0</version.maven-source-plugin>
 
 		<!-- dependency versions -->
 		<javaee-api-version>8.0</javaee-api-version>
@@ -41,18 +41,17 @@
 		<ejb-spec-version>3.2</ejb-spec-version>
 
 
-		<version.hibernate>5.2.16.Final</version.hibernate>
-		<version.hibernate-validator>6.0.7.Final</version.hibernate-validator>
-		<version.hibernate.envers>5.2.13.Final</version.hibernate.envers>
-		<version.hsqldb>2.4.0</version.hsqldb>
-		<version.h2db>1.4.193</version.h2db>
+		<version.hibernate>5.3.12.Final</version.hibernate>	
+		<version.hibernate-validator>6.0.17.Final</version.hibernate-validator>
+		<version.hibernate.envers>5.4.6.Final</version.hibernate.envers>
+		<version.hsqldb>2.5.0</version.hsqldb>
+		<version.h2db>1.4.199</version.h2db>
 		<swagger.io.version>1.5.9</swagger.io.version>
 
 		<jackson.version>2.9.5</jackson.version>
-		<version.mysql-connector>6.0.6</version.mysql-connector>
 		<version.guava>24.0-jre</version.guava>
-		<commons-lang3.version>3.8.1</commons-lang3.version>
-                <gson.version>2.8.2</gson.version>
+		<commons-text.version>1.8</commons-text.version>
+		<gson.version>2.8.5</gson.version>
 	</properties>
 
 	<scm>
@@ -65,14 +64,14 @@
 	</ciManagement>
 
 	<distributionManagement>
-	  <repository>
-	    <id>life.genny</id>
-	    <url>https://nexus.outcome-hub.com/nexus/content/repositories/life.genny</url>
-	  </repository>
-	   <snapshotRepository>
-	      <id>nexus-snapshots</id>
-	      <url>http://nexus.outcome-hub.com/nexus/content/repositories/snapshots</url>
-	   </snapshotRepository>
+		<repository>
+			<id>life.genny</id>
+			<url>https://nexus.outcome-hub.com/nexus/content/repositories/life.genny</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<url>http://nexus.outcome-hub.com/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
 	</distributionManagement>
 
 	<repositories>
@@ -132,9 +131,6 @@
 			<artifactId>gson</artifactId>
 			<version>${gson.version}</version>
 		</dependency>
-		<!-- MySQL database driver -->
-		<!-- <dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> 
-			<version>${version.mysql-connector}</version> </dependency> -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -157,18 +153,16 @@
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<version>${version.hsqldb}</version>
+			<scope>test</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<version>${version.h2db}</version>
-			<scope>provided</scope>
+			<scope>test</scope>
 		</dependency>
 
-		<!-- <dependency> <groupId>org.hibernate</groupId> <artifactId>hibernate-validator-cdi</artifactId> 
-			<version>${version.hibernate-validator}</version> </dependency> -->
-		<!-- hibernate spatial -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-spatial</artifactId>
@@ -199,8 +193,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- <dependency> <groupId>org.glassfish.jersey.media</groupId> <artifactId>jersey-media-json-jackson</artifactId> 
-			<version>${jersey-version}</version> </dependency> -->
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -216,8 +208,8 @@
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>${commons-lang3.version}</version>
+			<artifactId>commons-text</artifactId>
+			<version>${commons-text.version}</version>
 		</dependency>
 
 		<dependency>
@@ -225,7 +217,7 @@
 			<artifactId>vavr</artifactId>
 			<version>0.9.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -234,7 +226,7 @@
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
-			<version>2.3.0</version>
+			<version>2.3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.json</groupId>
@@ -269,6 +261,7 @@
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
+					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -466,23 +459,23 @@
 				</executions>
 			</plugin>
 			<plugin>
-			   <groupId>org.sonatype.plugins</groupId>
-			   <artifactId>nexus-staging-maven-plugin</artifactId>
-			   <version>1.5.1</version>
-			   <executions>
-			      <execution>
-			         <id>default-deploy</id>
-			         <phase>deploy</phase>
-			         <goals>
-			            <goal>deploy</goal>
-			         </goals>
-			      </execution>
-			   </executions>
-			   <configuration>
-			      <serverId>life.genny</serverId>
-			      <nexusUrl>https://nexus.outcome-hub.com/nexus/</nexusUrl>
-			      <skipStaging>true</skipStaging>
-			   </configuration>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.5.1</version>
+				<executions>
+					<execution>
+						<id>default-deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<serverId>life.genny</serverId>
+					<nexusUrl>https://nexus.outcome-hub.com/nexus/</nexusUrl>
+					<skipStaging>true</skipStaging>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

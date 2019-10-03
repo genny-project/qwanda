@@ -21,19 +21,9 @@
 package life.genny.qwanda;
 
 import java.lang.invoke.MethodHandles;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -43,12 +33,8 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.validator.constraints.NotEmpty;
 
-import com.cdi.crud.infra.model.CoreEntityInterface;
 import com.google.gson.annotations.Expose;
-
-import life.genny.qwanda.entity.BaseEntity;
 
 /**
  * CoreEntity represents a base level core set of class attributes. It is the

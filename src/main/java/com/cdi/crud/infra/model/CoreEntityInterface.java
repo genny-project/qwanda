@@ -13,7 +13,7 @@ import java.io.Serializable;
 public interface CoreEntityInterface extends Serializable{
 
 
-    public <T extends Serializable> T getId();
+    public Long getId();
 
 
 }

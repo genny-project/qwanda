@@ -36,6 +36,7 @@ import life.genny.qwanda.entity.EntityEntity;
 import life.genny.qwanda.entity.EntityEntityId;
 import life.genny.qwanda.entity.Person;
 import life.genny.qwanda.entity.Product;
+import life.genny.qwanda.payments.QPaymentsFee;
 import life.genny.qwanda.rule.Rule;
 import life.genny.qwanda.rule.RuleDrool;
 import life.genny.qwanda.rule.RuleSpreadsheet;
@@ -94,6 +95,7 @@ public class HibernateUtil {
             		.addAnnotatedClass(EntityEntity.class)
             		.addAnnotatedClass(EntityEntityId.class)
             		.addAnnotatedClass(AttributeDateRange.class)
+            		.addAnnotatedClass(QPaymentsFee.class)
             	
             .addAnnotatedClass(AttributeList.class);
             configuration.configure(hibernateFile);

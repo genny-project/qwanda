@@ -727,6 +727,7 @@ public class AnswerLink implements java.io.Serializable {
 				+ weight + ", value=" + getValue() + ", v=" + version + "]";
 	}
 
+	@SuppressWarnings("unchecked")
 	@JsonIgnore
 	@Transient
 	@XmlTransient
@@ -766,6 +767,7 @@ public class AnswerLink implements java.io.Serializable {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@JsonIgnore
 	@Transient
 	@XmlTransient

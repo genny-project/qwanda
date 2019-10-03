@@ -28,12 +28,10 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.logging.log4j.Logger;
-import org.h2.util.DateTimeUtils;
 import org.hibernate.annotations.Type;
 import org.javamoney.moneta.Money;
 
@@ -46,9 +44,6 @@ import life.genny.qwanda.Link;
 import life.genny.qwanda.MoneyDeserializer;
 import life.genny.qwanda.attribute.Attribute;
 import life.genny.qwanda.converter.MoneyConverter;
-import life.genny.qwanda.datatype.LocalDateAdapter;
-import life.genny.qwanda.datatype.LocalDateTimeAdapter;
-import life.genny.qwanda.datatype.LocalTimeAdapter;
 
 @Entity
 @Table(name = "baseentity_baseentity")
@@ -507,6 +502,7 @@ public void setLink(Link link) {
 				&& Objects.equals(weight, other.weight);
 	}
 
+@SuppressWarnings("unchecked")
 @JsonIgnore
   @Transient
   @XmlTransient
@@ -601,7 +597,7 @@ public <T> void setValue(final Object value) {
 					olddate = DateUtils.parseDate(result, "M/y", "yyyy-MM-dd", "yyyy/MM/dd",
 							"yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 				} catch (java.text.ParseException e) {
-					olddate = DateTimeUtils.parseDateTime(result, "yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss",
+					olddate = DateUtils.parseDate(result, "yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss",
 							"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 				}
 				final LocalDate date = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();

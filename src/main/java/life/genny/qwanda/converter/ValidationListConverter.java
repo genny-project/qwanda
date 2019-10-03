@@ -1,5 +1,6 @@
 package life.genny.qwanda.converter;
 
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
@@ -48,6 +49,7 @@ public class ValidationListConverter implements AttributeConverter<List<Validati
 
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public List<Validation> convertToEntityAttribute(String joined) {
 		final List<Validation> validations = new ArrayList<Validation>();

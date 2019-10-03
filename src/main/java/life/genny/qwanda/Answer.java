@@ -22,7 +22,6 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import javax.persistence.Basic;
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -32,15 +31,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -49,11 +45,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.Type;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
@@ -142,7 +136,6 @@ public class Answer implements Serializable {
 	 * <p>
 	 */
 	@NotNull
-//	@NotEmpty
 	@Type(type = "text")
 	@Column(name = "value", updatable = true, nullable = false)
 	@Expose
@@ -154,7 +147,6 @@ public class Answer implements Serializable {
 	 * <p>
 	 */
 	@NotNull
-	@NotEmpty
 	@Size(max = 250)
 	@Column(name = "attributecode", updatable = true, nullable = false)
 	@Expose
@@ -187,7 +179,6 @@ public class Answer implements Serializable {
 	 * <p>
 	 */
 	@NotNull
-	@NotEmpty
 	@Size(max = 64)
 	@Column(name = "targetcode", updatable = true, nullable = true)
 	@Expose
@@ -199,7 +190,6 @@ public class Answer implements Serializable {
 	 * <p>
 	 */
 	@NotNull
-	@NotEmpty
 	@Size(max = 64)
 	@Column(name = "sourcecode", updatable = true, nullable = true)
 	@Expose

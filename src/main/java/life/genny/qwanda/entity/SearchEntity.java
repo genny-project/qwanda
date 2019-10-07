@@ -111,6 +111,7 @@ public class SearchEntity extends BaseEntity {
 		super(code,name);
 		setPageStart(0);
 		setPageSize(20);
+		setTitle(name);
 	}
 
 	/* Constructor to create SearchEntity passing BaseEntity */
@@ -293,6 +294,22 @@ public class SearchEntity extends BaseEntity {
 		return this;
 	}
 
+	/*
+	 * This method allows to set the title of the results data to be sent
+	 * @param title - The page Title
+	 */
+	public SearchEntity setTitle(final String title)
+	{
+		AttributeText attributeTitle = new AttributeText("SCH_TITLE", "Title");
+		try {
+			addAttribute(attributeTitle, 5.0, title);
+		} catch (BadDataException e) {
+			log.error("Bad Title ");
+		}
+
+		return this;
+	}
+	
 	/*
 	 * This method allows to set the start/begining number of the range(page) of the results data to be sent
 	 * @param pageStart - start of the page number

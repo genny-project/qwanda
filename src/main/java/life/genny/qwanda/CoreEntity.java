@@ -96,7 +96,7 @@ public abstract class CoreEntity implements CoreEntityInterface, CreatedIntf, Se
 	 */
 	// @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	@Column(name = "updated")
-	@Expose
+	//@Expose
 	private LocalDateTime updated;
 
 	/**

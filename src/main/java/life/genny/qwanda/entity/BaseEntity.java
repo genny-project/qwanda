@@ -549,6 +549,8 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
     if (ea.isPresent()) {
     	// modify
     		ea.get().setValue(answerLink.getValue());
+    		ea.get().setInferred(answer.getInferred());
+    		ea.get().setWeight(answer.getWeight());
     } else {
     		EntityAttribute newEA = new EntityAttribute(this, answerLink.getAttribute(), weight,
     				answerLink.getValue());

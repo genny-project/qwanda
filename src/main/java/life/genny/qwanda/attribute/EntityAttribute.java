@@ -926,15 +926,16 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@Transient
 	@XmlTransient
 	public  <T> T getLoopValue() {
+		if(getValueInteger() != null) {
+			return (T)  getValueInteger();
+		}
+
 		if( getValueString() != null) {
 			return  (T) getValueString();
 		}
 		if(getValueMoney() != null) {
 			//return  (T) ("{\"amount\":"+getValueMoney().getNumber()+",\"currency\":\""+getValueMoney().getCurrency().getCurrencyCode()+"\"}");
 			return (T) getValueMoney();
-		}
-		if(getValueInteger() != null) {
-			return (T)  getValueInteger();
 		}
 		if(getValueDateTime() != null) {
 			return  (T) getValueDateTime();

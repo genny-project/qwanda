@@ -18,6 +18,7 @@ package life.genny.qwanda.entity;
 
 import java.lang.invoke.MethodHandles;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -418,9 +419,12 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
     final EntityAttribute entityAttribute = new EntityAttribute(this, attribute, weight, value);
     Optional<EntityAttribute> existing = findEntityAttribute(attribute.getCode());
     if (existing.isPresent()) {
-    	removeAttribute(existing.get().getAttributeCode());
+    	existing.get().setValue(value);
+    	existing.get().setWeight(weight);
+    	//removeAttribute(existing.get().getAttributeCode());
+    } else {
+    	getBaseEntityAttributes().add(entityAttribute);
     }
-    getBaseEntityAttributes().add(entityAttribute);
     return entityAttribute;
   }
 
@@ -431,11 +435,21 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
    * @param attributeCode
    * @param weight
    */
-  public void removeAttribute(final String attributeCode) {
-    final Optional<EntityAttribute> optEntityAttribute = findEntityAttribute(attributeCode);
-    if (optEntityAttribute.isPresent()) {
-    		getBaseEntityAttributes().remove(optEntityAttribute.get());
-    }
+  public Boolean removeAttribute(final String attributeCode) {
+	  Boolean removed = false;
+	  
+	  Iterator<EntityAttribute> i = this.baseEntityAttributes.iterator();
+	  while (i.hasNext()) {
+		  EntityAttribute ea = i.next();
+	         if (ea.getAttributeCode().equals(attributeCode)) {
+	            i.remove();
+	            removed = true;
+	            break;
+	         }
+	      }
+	  
+ 
+    return removed;
   }
 
   /**

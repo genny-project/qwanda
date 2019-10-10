@@ -260,6 +260,8 @@ public class SearchEntity extends BaseEntity {
 
 		return this;
 	}
+	
+	
 
 	/*
 	 * This method allows to set the LinkWeight to the resulted BaseEntities

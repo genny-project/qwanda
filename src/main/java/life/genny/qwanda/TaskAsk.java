@@ -13,14 +13,16 @@ public class TaskAsk implements Serializable {
 	private Boolean answered = false;
 	private Boolean tableRow = false;
 	private Boolean formTrigger = false;
+	private Boolean createOnTrigger = false;
 	
-	public TaskAsk(Ask ask, String formCode, Boolean answered, Boolean tableRow, Boolean formTrigger) {
+	public TaskAsk(Ask ask, String formCode, Boolean answered, Boolean tableRow, Boolean formTrigger, Boolean createOnTrigger) {
 		super();
 		this.ask = ask;
 		this.formCode = formCode;
 		this.answered = answered;
 		this.tableRow = tableRow;
 		this.formTrigger = formTrigger;
+		this.createOnTrigger = createOnTrigger;
 	}
 
 	/**
@@ -93,10 +95,25 @@ public class TaskAsk implements Serializable {
 		this.formTrigger = formTrigger;
 	}
 
+	
+	/**
+	 * @return the createOnTrigger
+	 */
+	public Boolean getCreateOnTrigger() {
+		return createOnTrigger;
+	}
+
+	/**
+	 * @param createOnTrigger the createOnTrigger to set
+	 */
+	public void setCreateOnTrigger(Boolean createOnTrigger) {
+		this.createOnTrigger = createOnTrigger;
+	}
+
 	@Override
 	public String toString() {
 		return "TaskAsk [ask=" + ask + ", formCode=" + formCode + ", answered=" + answered + ", tableRow=" + tableRow
-				+ ", formTrigger=" + formTrigger + "]";
+				+ ", formTrigger=" + formTrigger + ", createOnTrigger=" + createOnTrigger+"]";
 	}
 	
 	

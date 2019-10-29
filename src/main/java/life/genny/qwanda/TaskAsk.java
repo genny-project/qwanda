@@ -2,6 +2,8 @@ package life.genny.qwanda;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class TaskAsk implements Serializable {
 	/**
 	 * 
@@ -14,6 +16,7 @@ public class TaskAsk implements Serializable {
 	private Boolean tableRow = false;
 	private Boolean formTrigger = false;
 	private Boolean createOnTrigger = false;
+	private String value = "";
 	
 	public TaskAsk(Ask ask, String formCode, Boolean answered, Boolean tableRow, Boolean formTrigger, Boolean createOnTrigger) {
 		super();
@@ -110,10 +113,33 @@ public class TaskAsk implements Serializable {
 		this.createOnTrigger = createOnTrigger;
 	}
 
+	
+	/**
+	 * @return the value
+	 */
+	public String getValue() {
+		return value;
+	}
+
+	/**
+	 * @param value the value to set
+	 */
+	public void setValue(String value) {
+		this.value = value;
+	}
+
 	@Override
 	public String toString() {
-		return "TaskAsk [ask=" + ask + ", formCode=" + formCode + ", answered=" + answered + ", tableRow=" + tableRow
-				+ ", formTrigger=" + formTrigger + ", createOnTrigger=" + createOnTrigger+"]";
+//		return "TaskAsk [ask=" + ask + ", formCode=" + formCode + ", answered=" + answered + ", tableRow=" + tableRow
+//				+ ", formTrigger=" + formTrigger + ", createOnTrigger=" + createOnTrigger+"]";
+		return StringUtils.abbreviate(formCode, "...", 20)
+				+ String.format(": %-15s",StringUtils.abbreviate(ask.getTargetCode(), "...", 15))
+				+ String.format(": %25s",StringUtils.abbreviate(ask.getAttributeCode(), "...", 25))
+				+":"+(this.createOnTrigger?"TempBE":"TrgtBE")
+				+":"+(this.getFormTrigger()?"Trigger":"NonTrig")
+				+":"+(this.getAsk().getMandatory()?"M":"O")
+				+":"+(this.answered?("ANSWERED - "+StringUtils.abbreviate(this.value, "...", 20)):" ")
+				;
 	}
 	
 	

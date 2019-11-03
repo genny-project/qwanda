@@ -123,6 +123,9 @@ public class Ask extends CoreEntity implements Serializable {
 
 	@Expose
 	private Boolean formTrigger = false;
+	
+	@Expose
+	private Boolean createOnTrigger = false;
 
 	@Transient
 	@Expose
@@ -506,6 +509,22 @@ public class Ask extends CoreEntity implements Serializable {
 	 */
 	public void setFormTrigger(Boolean formTrigger) {
 		this.formTrigger = formTrigger;
+	}
+
+	
+	
+	/**
+	 * @return the createOnTrigger
+	 */
+	public Boolean getCreateOnTrigger() {
+		return createOnTrigger;
+	}
+
+	/**
+	 * @param createOnTrigger the createOnTrigger to set
+	 */
+	public void setCreateOnTrigger(Boolean createOnTrigger) {
+		this.createOnTrigger = createOnTrigger;
 	}
 
 	@XmlTransient

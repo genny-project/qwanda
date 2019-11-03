@@ -94,6 +94,11 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 	  @Expose
 	  private String realm;
 	  
+	  @Expose
+	  private Boolean formTrigger;
+	  
+	  @Expose 
+	  private Boolean createOnTrigger;
 	  
 	public QuestionQuestion() {
 	}
@@ -443,9 +448,39 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 		this.realm = realm;
 	}
 
+	
+	
+	/**
+	 * @return the formTrigger
+	 */
+	public Boolean getFormTrigger() {
+		return formTrigger;
+	}
+
+	/**
+	 * @param formTrigger the formTrigger to set
+	 */
+	public void setFormTrigger(Boolean formTrigger) {
+		this.formTrigger = formTrigger;
+	}
+
+	/**
+	 * @return the createOnTrigger
+	 */
+	public Boolean getCreateOnTrigger() {
+		return createOnTrigger;
+	}
+
+	/**
+	 * @param createOnTrigger the createOnTrigger to set
+	 */
+	public void setCreateOnTrigger(Boolean createOnTrigger) {
+		this.createOnTrigger = createOnTrigger;
+	}
+
 	@Override
 	public String toString() {
-		return "SRC:"+getPk().getSourceCode()+" - "+getPk().getTargetCode()+" "+(this.getMandatory()?"MANDATORY":"OPTIONAL")+" "+(this.getReadonly()?"RO":"RW");
+		return "SRC:"+getPk().getSourceCode()+" - "+getPk().getTargetCode()+" "+(this.getMandatory()?"MANDATORY":"OPTIONAL")+" "+(this.getReadonly()?"RO":"RW")+" "+(this.getFormTrigger()?"FT":"NFT")+" "+(this.getCreateOnTrigger()?"COT":"NCOT");
 	}
 
 

@@ -294,7 +294,7 @@ public class Answer implements Serializable {
 	 * @param value
 	 *            The associated String value
 	 */
-	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final String value, final Boolean changeEvent) {
+	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final String value, final Boolean changeEvent, final Boolean inferred) {
 		this.sourceCode = sourceCode;
 		this.targetCode = targetCode;
 		this.attributeCode = attributeCode;
@@ -302,6 +302,22 @@ public class Answer implements Serializable {
 		autocreateCreated();
 		checkInputs();
 		this.changeEvent = changeEvent;
+		this.inferred = inferred;
+	}
+	/**
+	 * Constructor.
+	 * 
+	 * @param sourceCode
+	 *            The sourceCode associated with this Answer
+	 * @param targetCode
+	 *            The targetCode associated with this Answer
+	 * @param attributeCode
+	 *            The attributeCode associated with this Answer
+	 * @param value
+	 *            The associated String value
+	 */
+	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final String value, final Boolean changeEvent) {
+		this(sourceCode,targetCode,attributeCode, value, changeEvent,false);
 	}
 	/**
 	 * Constructor.

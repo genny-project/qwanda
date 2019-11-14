@@ -586,12 +586,17 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
       final Attribute attribute = ea.getAttribute();
       if (this.containsEntityAttribute(attribute.getCode())) {
         // check for update value
-        final String oldValue = this.getValue(attribute);
-        final String newValue = this.getValue(ea);
+        final Object oldValue = this.getValue(attribute);
+        final Object newValue = this.getValue(ea);
         if (newValue != null) {
           if (!newValue.equals(oldValue)) {
             // override the old value // TODO allow versioning
-
+        	  try {
+				this.setValue(attribute, this.getValue(ea), ea.getValueDouble());
+			} catch (BadDataException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
           }
         }
       } else {

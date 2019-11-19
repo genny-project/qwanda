@@ -840,27 +840,35 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 		final String dataType = getPk().getAttribute().getDataType().getClassName();
 		switch (dataType) {
 		case "java.lang.Integer":
+		case "Integer":
 			return "" + getValueInteger();
 		case "java.time.LocalDateTime":
+		case "LocalDateTime":
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS");
 			Date datetime = Date.from(getValueDateTime().atZone(ZoneId.systemDefault()).toInstant());
 			String dout = df.format(datetime);
 			return dout;
 		case "java.lang.Long":
+		case "Long":
 			return "" + getValueLong();
 		case "java.time.LocalTime":
+		case "LocalTime":
 			DateFormat df2 = new SimpleDateFormat("HH:mm");			
 			String dout2 = df2.format(getValueTime());
 			return dout2;
 		case "org.javamoney.moneta.Money":
+		case "Money":
 			   DecimalFormat decimalFormat = new DecimalFormat("###############0.00");		        
 		    	String amount = decimalFormat.format(getValueMoney().getNumber().doubleValue());
 				return "{\"amount\":"+amount+",\"currency\":\""+getValueMoney().getCurrency().getCurrencyCode()+"\"}";
 		case "java.lang.Double":
+		case "Double":
 			return getValueDouble().toString();
 		case "java.lang.Boolean":
+		case "Boolean":
 			return getValueBoolean() ? "TRUE" : "FALSE";
 		case "java.time.LocalDate":
+		case "LocalDate":
 			df2 = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = Date.from(getValueDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
 		    dout2 = df2.format(date);

@@ -544,6 +544,30 @@ public class Ask extends CoreEntity implements Serializable {
 		}
 		return false;
 	}
+	
+	public static Ask clone(Ask ask) {
+		Ask newAsk = new Ask();
+		newAsk.sourceCode = ask.getSourceCode();
+		newAsk.targetCode = ask.getTargetCode();
+		newAsk.questionCode = ask.getQuestionCode();
+		newAsk.question = ask.getQuestion();
+		newAsk.attributeCode = ask.getAttributeCode();
+		newAsk.mandatory = ask.getMandatory();
+		newAsk.oneshot = ask.getOneshot();
+		newAsk.disabled = ask.getDisabled();
+		newAsk.readonly = ask.getReadonly();
+		newAsk.weight = ask.getWeight();
+		newAsk.parentId = ask.getParentId();
+		newAsk.formTrigger = ask.getFormTrigger();
+		newAsk.createOnTrigger = ask.getCreateOnTrigger();
+		if(ask.getChildAsks() != null && ask.getChildAsks().length > 0){
+			newAsk.childAsks = ask.getChildAsks();
+		}
+		if(ask.getContextList() != null ){
+			newAsk.contextList = ask.getContextList();
+		}
+		return newAsk;
+	}
 
 
 	

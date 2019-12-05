@@ -433,7 +433,7 @@ public class Ask extends CoreEntity implements Serializable {
 	/**
 	 * @param targetCode the targetCode to set
 	 */
-	private void setTargetCode(final String targetCode) {
+	public void setTargetCode(final String targetCode) {
 		this.targetCode = targetCode;
 	}
 

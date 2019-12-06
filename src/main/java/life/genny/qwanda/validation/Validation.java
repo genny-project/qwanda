@@ -117,6 +117,23 @@ public class Validation extends CodedEntity implements Serializable {
 	@Expose
 	private Boolean multiAllowed = false;
 	
+	@Expose
+	private String options;
+	
+	/**
+	 * @return the options
+	 */
+	public String getOptions() {
+		return options;
+	}
+
+	/**
+	 * @param options the options to set
+	 */
+	public void setOptions(String options) {
+		this.options = options;
+	}
+
 	/**
 	  * Constructor.
 	  * 
@@ -129,11 +146,21 @@ public class Validation extends CodedEntity implements Serializable {
 		// dummy for hibernate
 	}
 	
+
+	
 	public Validation(String aCode, String aName, String aRegex) throws PatternSyntaxException
 	{
 		super(aCode, aName);
 		setRegex(aRegex);
 	}
+	
+	public Validation(String aCode, String aName, String aRegex,String aOptions) throws PatternSyntaxException
+	{
+		super(aCode, aName);
+		setRegex(aRegex);
+		setOptions(aOptions);
+	}
+
 	
 	public Validation(String aCode, String aName, String aSelectionBaseEntityGroup, Boolean recursive, Boolean multiAllowed) throws PatternSyntaxException
 	{
@@ -144,6 +171,17 @@ public class Validation extends CodedEntity implements Serializable {
 		setSelectionBaseEntityGroupList(aSelectionBaseEntityGroupList);
 		setMultiAllowed(multiAllowed);
 	}
+
+	public Validation(String aCode, String aName, String aSelectionBaseEntityGroup, Boolean recursive, Boolean multiAllowed,String aOptions) throws PatternSyntaxException
+	{
+		super(aCode, aName);
+		setRegex(DEFAULT_REGEX);
+		ArrayList<String> aSelectionBaseEntityGroupList = new ArrayList<String>();
+		aSelectionBaseEntityGroupList.add(aSelectionBaseEntityGroup);
+		setSelectionBaseEntityGroupList(aSelectionBaseEntityGroupList);
+		setMultiAllowed(multiAllowed);
+		setOptions(aOptions);
+	}
 	
 	public Validation(String aCode, String aName, List<String> aSelectionBaseEntityGroupList, Boolean recursive, Boolean multiAllowed) throws PatternSyntaxException
 	{
@@ -151,6 +189,15 @@ public class Validation extends CodedEntity implements Serializable {
 		setRegex(DEFAULT_REGEX);
 		setSelectionBaseEntityGroupList(aSelectionBaseEntityGroupList);
 		setMultiAllowed(multiAllowed);
+	}
+	
+	public Validation(String aCode, String aName, List<String> aSelectionBaseEntityGroupList, Boolean recursive, Boolean multiAllowed,String aOptions) throws PatternSyntaxException
+	{
+		super(aCode, aName);
+		setRegex(DEFAULT_REGEX);
+		setSelectionBaseEntityGroupList(aSelectionBaseEntityGroupList);
+		setMultiAllowed(multiAllowed);
+		setOptions(aOptions);
 	}
 
 	/**

@@ -116,7 +116,8 @@ public class Validation extends CodedEntity implements Serializable {
 	
 	@Expose
 	private Boolean multiAllowed = false;
-	
+
+	@Column(name = "options", length = 2048, updatable = true, nullable = true)
 	@Expose
 	private String options;
 	

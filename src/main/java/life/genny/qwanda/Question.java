@@ -139,7 +139,7 @@ public class Question extends CodedEntity implements Serializable {
 	private Boolean oneshot = false;
 	
 	@Expose
-	private String placeholder;
+	private String placeholder = "";
 
 	@Type(type = "text")
 	@Expose

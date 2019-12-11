@@ -137,6 +137,9 @@ public class Question extends CodedEntity implements Serializable {
 
 	@Expose
 	private Boolean oneshot = false;
+	
+	@Expose
+	private String placeholder;
 
 	@Type(type = "text")
 	@Expose
@@ -169,12 +172,23 @@ public class Question extends CodedEntity implements Serializable {
 	 * @param aCode     The unique code for this Question
 	 * @param aName     The human readable summary name
 	 * @param attribute The associated attribute
+	 */
+	public Question(final String aCode, final String aName, final Attribute aAttribute,final String placeholder) {
+		this(aCode, aName, aAttribute, false, aName, placeholder);
+	}
+	
+	/**
+	 * Constructor.
+	 * 
+	 * @param aCode     The unique code for this Question
+	 * @param aName     The human readable summary name
+	 * @param attribute The associated attribute
 	 * @param mandatory
 	 */
 	public Question(final String aCode, final String aName, final Attribute aAttribute, final Boolean mandatory) {
 		this(aCode, aName, aAttribute, mandatory, aName);
 	}
-
+	
 	/**
 	 * Constructor.
 	 * 
@@ -185,6 +199,20 @@ public class Question extends CodedEntity implements Serializable {
 	 */
 	public Question(final String aCode, final String aName, final Attribute aAttribute, final Boolean mandatory,
 			final String html) {
+		this(aCode, aName, aAttribute, mandatory, html, null);
+	}
+
+	
+	/**
+	 * Constructor.
+	 * 
+	 * @param aCode     The unique code for this Question
+	 * @param aName     The human readable summary name
+	 * @param attribute The associated attribute
+	 * @param mandatory
+	 */
+	public Question(final String aCode, final String aName, final Attribute aAttribute, final Boolean mandatory,
+			final String html, final String placeholder) {
 		super(aCode, aName);
 		if (aAttribute == null) {
 			throw new InvalidParameterException("Attribute must not be null");
@@ -193,6 +221,7 @@ public class Question extends CodedEntity implements Serializable {
 		this.attributeCode = aAttribute.getCode();
 		this.mandatory = mandatory;
 		this.html = html;
+		this.placeholder = placeholder;
 	}
 
 	/**
@@ -348,6 +377,20 @@ public class Question extends CodedEntity implements Serializable {
 	 */
 	public Boolean getMandatory() {
 		return mandatory;
+	}
+
+	/**
+	 * @return the placeholder
+	 */
+	public String getPlaceholder() {
+		return placeholder;
+	}
+
+	/**
+	 * @param placeholder the placeholder to set
+	 */
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
 	}
 
 	/**

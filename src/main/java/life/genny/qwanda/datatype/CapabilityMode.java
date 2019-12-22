@@ -1,6 +1,8 @@
 package life.genny.qwanda.datatype;
 
-public enum CapabilityMode {
+import java.io.Serializable;
+
+public enum CapabilityMode implements Serializable {
 	NONE ("NONE",0),
 	VIEW("VIEW",1),
 	EDIT ("EDIT",2),

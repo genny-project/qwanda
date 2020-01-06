@@ -16,6 +16,16 @@
 
 package life.genny.qwanda;
 
+import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
+import java.security.InvalidParameterException;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
@@ -29,7 +39,6 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -41,23 +50,12 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.Type;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.google.gson.annotations.Expose;
 
-import java.io.Serializable;
-import java.lang.invoke.MethodHandles;
-import java.security.InvalidParameterException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
 import life.genny.qwanda.attribute.Attribute;
-import life.genny.qwanda.entity.BaseEntity;
-import life.genny.qwanda.entity.EntityEntity;
 import life.genny.qwanda.exception.BadDataException;
 
 /**
@@ -533,7 +531,7 @@ public class Question extends CodedEntity implements Serializable {
 	@Transient
 	@JsonIgnore
 	private String getChildQuestionCodes() {
-		List<QuestionQuestion> qqList = new ArrayList<QuestionQuestion>(getChildQuestions());
+		List<QuestionQuestion> qqList = new CopyOnWriteArrayList<QuestionQuestion>(getChildQuestions());
 		Collections.sort(qqList);
 		String ret = "";
 		if (getAttributeCode().equals(QUESTION_GROUP_ATTRIBUTE_CODE)) {

@@ -3,12 +3,12 @@ package life.genny.qwanda.message;
 
 import java.lang.invoke.MethodHandles;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.logging.log4j.Logger;
 
@@ -128,8 +128,8 @@ public class QSearchEntityMessage extends QDataBaseEntityMessage  {
         
         private SearchEntity searchEntity = new SearchEntity("SBE_"+UUID.randomUUID().toString().substring(0, 20),"New Search");
 
-        private List<SearchEntity> searchEntityList = new ArrayList<SearchEntity>();
-        private List<QSearchEntityMessage> searchEntityMessageList = new ArrayList<QSearchEntityMessage>();
+        private List<SearchEntity> searchEntityList = new CopyOnWriteArrayList<SearchEntity>();
+        private List<QSearchEntityMessage> searchEntityMessageList = new CopyOnWriteArrayList<QSearchEntityMessage>();
 
  
         public Builder(final String code, final String name) {

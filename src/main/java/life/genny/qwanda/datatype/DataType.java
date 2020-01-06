@@ -17,8 +17,8 @@
 package life.genny.qwanda.datatype;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.money.Monetary;
 import javax.persistence.Column;
@@ -93,7 +93,7 @@ public class DataType implements Serializable {
 	@Column(name = "validation_list", length = 512)
 	@Convert(converter = ValidationListConverter.class)
 	@Expose
-	private List<Validation> validationList = new ArrayList<Validation>(0);
+	private List<Validation> validationList = new CopyOnWriteArrayList<Validation>();
 
 	/**
 	 * Constructor.
@@ -213,7 +213,7 @@ public class DataType implements Serializable {
 	}
 
 	static public DataType getInstance(final String className) {
-		final List<Validation> validationList = new ArrayList<Validation>(0);
+		final List<Validation> validationList = new CopyOnWriteArrayList<Validation>();
 		ValidationList vlist = new ValidationList(validationList);
 		DataType dataTypeInstance = new DataType(className, vlist);
 		return dataTypeInstance;

@@ -22,8 +22,8 @@
 package life.genny.qwanda;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -219,7 +219,7 @@ public class GPSLeg  implements Serializable {
 	
 	public void add(final GPSStep gpsStep) {
 		if (stepList == null) {
-			stepList = new ArrayList<GPSStep>();
+			stepList = new CopyOnWriteArrayList<GPSStep>();
 		}
 		gpsStep.setGpsLeg(this);
 		stepList.add(gpsStep);

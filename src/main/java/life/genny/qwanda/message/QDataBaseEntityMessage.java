@@ -1,9 +1,9 @@
 package life.genny.qwanda.message;
 
 
-import java.util.List;
 import java.util.Arrays;
-import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.google.gson.annotations.Expose;
 
@@ -169,7 +169,7 @@ public class QDataBaseEntityMessage extends QDataMessage implements Comparable<Q
 
 	public void add(BaseEntity item) {
 		
-		List<BaseEntity> bes = this.getItems() != null ? new ArrayList<>(Arrays.asList(this.getItems())) : new ArrayList<>();
+		List<BaseEntity> bes = this.getItems() != null ? new CopyOnWriteArrayList<>(Arrays.asList(this.getItems())) : new CopyOnWriteArrayList<>();
 		bes.add(item);
 		this.setItems(bes.toArray(new BaseEntity[0]));
 	}
@@ -177,7 +177,7 @@ public class QDataBaseEntityMessage extends QDataMessage implements Comparable<Q
 	public void add(List<BaseEntity> items) {
 
 		List<BaseEntity> existingList = Arrays.asList(this.getItems());
-		List<BaseEntity> bes = new ArrayList<>(existingList);
+		List<BaseEntity> bes = new CopyOnWriteArrayList<>(existingList);
 		bes.addAll(items);
 		this.setItems(bes.toArray(new BaseEntity[0]));
 	}

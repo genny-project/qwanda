@@ -21,15 +21,14 @@
 package life.genny.qwanda.attribute;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -74,7 +73,7 @@ public class AttributeList implements Serializable {
 	@XmlTransient
 	@ManyToMany( cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name = "base_id", referencedColumnName = "id")
-	private List<Attribute> attributeList = new ArrayList<Attribute>(0);
+	private List<Attribute> attributeList = new CopyOnWriteArrayList<Attribute>();
 
  
 	

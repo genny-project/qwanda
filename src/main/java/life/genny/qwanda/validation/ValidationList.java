@@ -16,8 +16,9 @@
 
 package life.genny.qwanda.validation;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.gson.annotations.Expose;
+import java.io.Serializable;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
@@ -28,9 +29,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
 
 
 /**
@@ -71,7 +72,7 @@ public class ValidationList implements Serializable {
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "dtype_id", referencedColumnName = "id")
   @Expose
-  private List<Validation> validationList = new ArrayList<Validation>(0);
+  private List<Validation> validationList = new CopyOnWriteArrayList<Validation>();
 
   public ValidationList() {
 

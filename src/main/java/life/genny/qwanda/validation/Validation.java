@@ -21,8 +21,8 @@
 package life.genny.qwanda.validation;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.PatternSyntaxException;
 
 import javax.persistence.Column;
@@ -167,7 +167,7 @@ public class Validation extends CodedEntity implements Serializable {
 	{
 		super(aCode, aName);
 		setRegex(DEFAULT_REGEX);
-		ArrayList<String> aSelectionBaseEntityGroupList = new ArrayList<String>();
+		List<String> aSelectionBaseEntityGroupList = new CopyOnWriteArrayList<String>();
 		aSelectionBaseEntityGroupList.add(aSelectionBaseEntityGroup);
 		setSelectionBaseEntityGroupList(aSelectionBaseEntityGroupList);
 		setMultiAllowed(multiAllowed);
@@ -177,7 +177,7 @@ public class Validation extends CodedEntity implements Serializable {
 	{
 		super(aCode, aName);
 		setRegex(DEFAULT_REGEX);
-		ArrayList<String> aSelectionBaseEntityGroupList = new ArrayList<String>();
+		List<String> aSelectionBaseEntityGroupList = new CopyOnWriteArrayList<String>();
 		aSelectionBaseEntityGroupList.add(aSelectionBaseEntityGroup);
 		setSelectionBaseEntityGroupList(aSelectionBaseEntityGroupList);
 		setMultiAllowed(multiAllowed);

@@ -16,8 +16,10 @@
 
 package life.genny.qwanda;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import java.io.Serializable;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
@@ -27,9 +29,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  * AnswerList represents a set of Answers in the Qwanda library. The answers in the list can be
@@ -70,7 +72,7 @@ public class AnswerList implements Serializable {
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @Fetch(value = FetchMode.SUBSELECT)
   @JoinColumn(name = "answerlist_id", referencedColumnName = "id")
-  private List<AnswerLink> answerList = new ArrayList<AnswerLink>(0);
+  private List<AnswerLink> answerList = new CopyOnWriteArrayList<AnswerLink>();
 
 
 

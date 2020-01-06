@@ -16,9 +16,8 @@
 
 package life.genny.qwanda;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.google.gson.annotations.Expose;
+import java.io.Serializable;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -41,8 +40,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
-import java.io.Serializable;
-import java.util.ArrayList;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.google.gson.annotations.Expose;
+
 import life.genny.qwanda.exception.BadDataException;
 
 /**
@@ -160,8 +161,7 @@ public class Ask extends CoreEntity implements Serializable {
 	public Ask(final Question aQuestion) {
 		super(aQuestion.getName());
 		setQuestion(aQuestion);
-		// answerList = new AnswerList(new ArrayList<AnswerLink>());
-		contextList = new ContextList(new ArrayList<Context>());
+		contextList = new ContextList(new CopyOnWriteArrayList<Context>());
 		this.disabled = false;
 		this.hidden = false;
 	}
@@ -181,8 +181,7 @@ public class Ask extends CoreEntity implements Serializable {
 		this.sourceCode = aSourceCode;
 		this.targetCode = aTargetCode;
 		this.attributeCode = aAttributeCode;
-		// answerList = new AnswerList(new ArrayList<AnswerLink>());
-		contextList = new ContextList(new ArrayList<Context>());
+		contextList = new ContextList(new CopyOnWriteArrayList<Context>());
 		this.disabled = false;
 		this.hidden = false;
 		this.readonly = false;
@@ -257,9 +256,8 @@ public class Ask extends CoreEntity implements Serializable {
 
 		this.sourceCode = aSourceCode;
 		this.targetCode = aTargetCode;
-		this.attributeCode = aQuestion.getAttributeCode();
-		// answerList = new AnswerList(new ArrayList<AnswerLink>());
-		contextList = new ContextList(new ArrayList<Context>());
+		this.attributeCode = aQuestion.getAttributeCode();		
+		contextList = new ContextList(new CopyOnWriteArrayList<Context>());
 		this.mandatory = aMandatory;
 		this.weight = weight;
 		this.disabled = disabled;

@@ -24,9 +24,9 @@ package life.genny.qwanda;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -189,7 +189,7 @@ public class GPSRoute  implements Serializable {
 
 	public void add(final GPSLeg gpsLeg) {
 		if (legList == null) {
-			legList = new ArrayList<GPSLeg>();
+			legList = new CopyOnWriteArrayList<GPSLeg>();
 		}
 		gpsLeg.setGpsRoute(this);
 		legList.add(gpsLeg);

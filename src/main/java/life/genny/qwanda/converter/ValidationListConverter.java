@@ -1,18 +1,19 @@
 package life.genny.qwanda.converter;
 
 
+import java.lang.invoke.MethodHandles;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
-import java.lang.invoke.MethodHandles;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import life.genny.qwanda.validation.Validation;
 
 @Converter
@@ -52,7 +53,7 @@ public class ValidationListConverter implements AttributeConverter<List<Validati
 	@SuppressWarnings("deprecation")
 	@Override
 	public List<Validation> convertToEntityAttribute(String joined) {
-		final List<Validation> validations = new ArrayList<Validation>();
+		final List<Validation> validations = new CopyOnWriteArrayList<Validation>();
 		if (joined != null) {
 		//	System.out.println("ValidationStr=" + joined);
 			if (!StringUtils.isBlank(joined)) {
@@ -103,9 +104,8 @@ public class ValidationListConverter implements AttributeConverter<List<Validati
 	}
 
 	public List<String> convertFromString(final String joined) {
-		List<String> strings = new ArrayList<String>();
+		List<String> strings = new CopyOnWriteArrayList<String>();
 		if (!StringUtils.isBlank(joined)) {
-		//	strings = new ArrayList<>(Arrays.asList(joined.split(":")));
 			if (joined.startsWith("{")||joined.startsWith("[")) {
 			strings = new Gson().fromJson(joined, new TypeToken<List<String>>(){}.getType());
 			} else {

@@ -5,10 +5,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
@@ -228,7 +228,7 @@ public class AnswerLink implements java.io.Serializable {
 
 		switch (this.getAttribute().getDataType().getClassName()) {
 		case "life.genny.qwanda.entity":
-			List<String> beCodeList = new ArrayList<String>();
+			List<String> beCodeList = new CopyOnWriteArrayList<String>();
 			beCodeList.add(answer.getValue());
 			setValueBaseEntityCodeList(beCodeList);
 			break;

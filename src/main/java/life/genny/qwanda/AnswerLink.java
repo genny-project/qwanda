@@ -23,6 +23,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Type;
 import org.javamoney.moneta.Money;
 
@@ -160,15 +161,11 @@ public class AnswerLink implements java.io.Serializable {
 	/**
 	 * Constructor.
 	 * 
-	 * @param source
-	 *            the source baseEntity
-	 * @param target
-	 *            the target entity that is linked to
-	 * @param linkAttribute
-	 *            the associated linkAttribute
-	 * @param Weight
-	 *            the weighted importance of this attribute (relative to the other
-	 *            attributes)
+	 * @param source        the source baseEntity
+	 * @param target        the target entity that is linked to
+	 * @param linkAttribute the associated linkAttribute
+	 * @param Weight        the weighted importance of this attribute (relative to
+	 *                      the other attributes)
 	 */
 	public AnswerLink(final BaseEntity source, final BaseEntity target, final Answer answer) {
 
@@ -182,17 +179,12 @@ public class AnswerLink implements java.io.Serializable {
 	/**
 	 * Constructor.
 	 * 
-	 * @param BaseEntity
-	 *            the entity that needs to contain attributes
-	 * @param Attribute
-	 *            the associated Attribute
-	 * @param linkAttribute
-	 *            the associated linkAttribute
-	 * @param Weight
-	 *            the weighted importance of this attribute (relative to the other
-	 *            attributes)
-	 * @param Value
-	 *            the value associated with this attribute
+	 * @param BaseEntity    the entity that needs to contain attributes
+	 * @param Attribute     the associated Attribute
+	 * @param linkAttribute the associated linkAttribute
+	 * @param Weight        the weighted importance of this attribute (relative to
+	 *                      the other attributes)
+	 * @param Value         the value associated with this attribute
 	 */
 	public AnswerLink(final BaseEntity source, final BaseEntity target, final Answer answer, Double weight) {
 		autocreateCreated();
@@ -217,7 +209,7 @@ public class AnswerLink implements java.io.Serializable {
 		setWeight(weight);
 		setAnswer(answer);
 
-	} 
+	}
 
 	@JsonIgnore
 	public void setAnswer(final Answer answer) {
@@ -225,6 +217,8 @@ public class AnswerLink implements java.io.Serializable {
 		this.setExpired(answer.getExpired());
 		this.setRefused(answer.getRefused());
 		this.setInferred(answer.getInferred());
+		
+		List<String> formatStrings = null;
 
 		switch (this.getAttribute().getDataType().getClassName()) {
 		case "life.genny.qwanda.entity":
@@ -235,14 +229,22 @@ public class AnswerLink implements java.io.Serializable {
 		case "java.lang.Integer":
 		case "Integer":
 			String result = answer.getValue();
+			if (!StringUtils.isBlank(result)) {
+
 			final Integer integer = Integer.parseInt(result);
 			setValueInteger(integer);
+			} else {
+				setValueInteger(0);
+
+			}
 			break;
 		case "java.time.LocalDateTime":
 		case "LocalDateTime":
 			result = answer.getValue();
-			List<String> formatStrings = Arrays.asList("yyyy-MM-dd'T'HH:mm:ss","yyyy-MM-dd HH:mm", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd",
-					"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+			if (!StringUtils.isBlank(result)) {
+
+			formatStrings = Arrays.asList("yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd HH:mm",
+					"yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 			for (String formatString : formatStrings) {
 				try {
 					Date olddate = new SimpleDateFormat(formatString).parse(result);
@@ -254,6 +256,7 @@ public class AnswerLink implements java.io.Serializable {
 				}
 
 			}
+			} 
 			break;
 		case "java.time.LocalTime":
 		case "LocalTime":
@@ -277,54 +280,73 @@ public class AnswerLink implements java.io.Serializable {
 		case "java.time.LocalDate":
 		case "LocalDate":
 			result = answer.getValue();
-			formatStrings = Arrays.asList("yyyy-MM-dd", "M/y", "yyyy/MM/dd", "yyyy-MM-dd'T'HH:mm:ss",
-					"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-			for (String formatString : formatStrings) {
-				Date olddate;
-				try {
-					olddate = new SimpleDateFormat(formatString).parse(result);
-					final LocalDate dateTime = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-					setValueDate(dateTime);
-				} catch (java.text.ParseException e) {
-					continue;
+			if (!StringUtils.isBlank(result)) {
+				formatStrings = Arrays.asList("yyyy-MM-dd", "M/y", "yyyy/MM/dd", "yyyy-MM-dd'T'HH:mm:ss",
+						"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+				for (String formatString : formatStrings) {
+					Date olddate;
+					try {
+						olddate = new SimpleDateFormat(formatString).parse(result);
+						final LocalDate dateTime = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+						setValueDate(dateTime);
+					} catch (java.text.ParseException e) {
+						continue;
+					}
+
+					break;
+
 				}
-
-				break;
-
 			}
 			break;
 		case "java.lang.Long":
 		case "Long":
 			result = answer.getValue();
+			if (!StringUtils.isBlank(result)) {
+
 			final Long l = Long.parseLong(result);
 			setValueLong(l);
+			} else {
+				setValueLong(0L);
+			}
 			break;
 		case "java.lang.Double":
 		case "Double":
 			result = answer.getValue();
+			if (!StringUtils.isBlank(result)) {
+
 			final Double d = Double.parseDouble(result);
 			setValueDouble(d);
+			} else {
+				setValueDouble(0.0);
+			}
 			break;
 		case "java.lang.Boolean":
 		case "Boolean":
 			result = answer.getValue();
+			if (!StringUtils.isBlank(result)) {
+
 			final Boolean b = Boolean.parseBoolean(result);
 			setValueBoolean(b);
+			} 
 			break;
 		case "org.javamoney.moneta.Money":
 		case "Money":
 			result = answer.getValue();
+			if (!StringUtils.isBlank(result)) {
 			GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Money.class, new MoneyDeserializer());
 			Gson gson = gsonBuilder.create();
 			Money money = gson.fromJson(result, Money.class);
 			setValueMoney(money);
+			} else {
+				setValueMoney(Money.zero(null));
+			}
 			break;
 		case "java.lang.String":
 		default:
 			setValueString(answer.getValue());
 			break;
 		}
-		
+
 	}
 
 	// @JsonIgnore
@@ -391,8 +413,7 @@ public class AnswerLink implements java.io.Serializable {
 	}
 
 	/**
-	 * @param askId
-	 *            the askId to set
+	 * @param askId the askId to set
 	 */
 	public void setAskId(final Long askId) {
 		this.askId = askId;
@@ -406,8 +427,7 @@ public class AnswerLink implements java.io.Serializable {
 	}
 
 	/**
-	 * @param created
-	 *            the created to set
+	 * @param created the created to set
 	 */
 	public void setCreated(final LocalDateTime created) {
 		this.created = created;
@@ -421,8 +441,7 @@ public class AnswerLink implements java.io.Serializable {
 	}
 
 	/**
-	 * @param updated
-	 *            the updated to set
+	 * @param updated the updated to set
 	 */
 	public void setUpdated(final LocalDateTime updated) {
 		this.updated = updated;
@@ -436,8 +455,7 @@ public class AnswerLink implements java.io.Serializable {
 	}
 
 	/**
-	 * @param weight
-	 *            the weight to set
+	 * @param weight the weight to set
 	 */
 	public void setWeight(final Double weight) {
 		this.weight = weight;
@@ -451,8 +469,7 @@ public class AnswerLink implements java.io.Serializable {
 	}
 
 	/**
-	 * @param version
-	 *            the version to set
+	 * @param version the version to set
 	 */
 	public void setVersion(final Long version) {
 		this.version = version;
@@ -466,8 +483,7 @@ public class AnswerLink implements java.io.Serializable {
 	}
 
 	/**
-	 * @param inferred
-	 *            the inferred to set
+	 * @param inferred the inferred to set
 	 */
 	public void setInferred(Boolean inferred) {
 		this.inferred = inferred;
@@ -481,8 +497,7 @@ public class AnswerLink implements java.io.Serializable {
 	}
 
 	/**
-	 * @param valueDouble
-	 *            the valueDouble to set
+	 * @param valueDouble the valueDouble to set
 	 */
 	public void setValueDouble(final Double valueDouble) {
 		this.valueDouble = valueDouble;
@@ -496,8 +511,7 @@ public class AnswerLink implements java.io.Serializable {
 	}
 
 	/**
-	 * @param valueInteger
-	 *            the valueInteger to set
+	 * @param valueInteger the valueInteger to set
 	 */
 	public void setValueInteger(final Integer valueInteger) {
 		this.valueInteger = valueInteger;
@@ -511,8 +525,7 @@ public class AnswerLink implements java.io.Serializable {
 	}
 
 	/**
-	 * @param valueLong
-	 *            the valueLong to set
+	 * @param valueLong the valueLong to set
 	 */
 	public void setValueLong(final Long valueLong) {
 		this.valueLong = valueLong;
@@ -534,8 +547,7 @@ public class AnswerLink implements java.io.Serializable {
 	}
 
 	/**
-	 * @param valueTime
-	 *            the valueTime to set
+	 * @param valueTime the valueTime to set
 	 */
 	public void setValueTime(LocalTime valueTime) {
 		this.valueTime = valueTime;
@@ -549,8 +561,7 @@ public class AnswerLink implements java.io.Serializable {
 	}
 
 	/**
-	 * @param valueDateTime
-	 *            the valueDateTime to set
+	 * @param valueDateTime the valueDateTime to set
 	 */
 	public void setValueDateTime(final LocalDateTime valueDateTime) {
 		this.valueDateTime = valueDateTime;
@@ -564,8 +575,7 @@ public class AnswerLink implements java.io.Serializable {
 	}
 
 	/**
-	 * @param valueString
-	 *            the valueString to set
+	 * @param valueString the valueString to set
 	 */
 	public void setValueString(final String valueString) {
 		this.valueString = valueString;
@@ -579,8 +589,7 @@ public class AnswerLink implements java.io.Serializable {
 	}
 
 	/**
-	 * @param valueBoolean
-	 *            the valueBoolean to set
+	 * @param valueBoolean the valueBoolean to set
 	 */
 	public void setValueBoolean(final Boolean valueBoolean) {
 		this.valueBoolean = valueBoolean;
@@ -594,8 +603,7 @@ public class AnswerLink implements java.io.Serializable {
 	}
 
 	/**
-	 * @param valueMoney
-	 *            the valueMoney to set
+	 * @param valueMoney the valueMoney to set
 	 */
 	public void setValueMoney(Money valueMoney) {
 		this.valueMoney = valueMoney;
@@ -609,8 +617,7 @@ public class AnswerLink implements java.io.Serializable {
 	}
 
 	/**
-	 * @param valueBaseEntityCode
-	 *            the valueBaseEntityCode to set
+	 * @param valueBaseEntityCode the valueBaseEntityCode to set
 	 */
 	public void setValueBaseEntityCodeList(List<String> valueBaseEntityCode) {
 		this.ValueBaseEntityCodeList = valueBaseEntityCode;
@@ -624,8 +631,7 @@ public class AnswerLink implements java.io.Serializable {
 	}
 
 	/**
-	 * @param expired
-	 *            the expired to set
+	 * @param expired the expired to set
 	 */
 	public void setExpired(final Boolean expired) {
 		this.expired = expired;
@@ -639,8 +645,7 @@ public class AnswerLink implements java.io.Serializable {
 	}
 
 	/**
-	 * @param refused
-	 *            the refused to set
+	 * @param refused the refused to set
 	 */
 	public void setRefused(final Boolean refused) {
 		this.refused = refused;

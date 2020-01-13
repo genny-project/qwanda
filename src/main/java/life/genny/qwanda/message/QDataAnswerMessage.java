@@ -1,10 +1,12 @@
 package life.genny.qwanda.message;
 
 import java.util.Arrays;
+import java.util.List;
 
 import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.Answer;
+import life.genny.qwanda.entity.BaseEntity;
 
 public class QDataAnswerMessage extends QDataMessage {
 
@@ -22,6 +24,11 @@ public class QDataAnswerMessage extends QDataMessage {
 		setItems(items);
 	}
 	
+	
+	public QDataAnswerMessage(List<Answer> items) {
+		super(DATATYPE_ANSWER);
+		setItems(items.toArray(new Answer[0]));
+	}
 	public QDataAnswerMessage(Answer item) {
 		super(DATATYPE_ANSWER);
 		items = new Answer[1];

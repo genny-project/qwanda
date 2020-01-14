@@ -1,5 +1,6 @@
 package life.genny.qwanda;
 
+import java.lang.invoke.MethodHandles;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,6 +25,7 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.Type;
 import org.javamoney.moneta.Money;
 
@@ -45,6 +47,9 @@ import life.genny.qwanda.entity.BaseEntity;
 @AssociationOverrides({ @AssociationOverride(name = "pk.source", joinColumns = @JoinColumn(name = "SOURCE_ID")),
 		@AssociationOverride(name = "pk.target", joinColumns = @JoinColumn(name = "TARGET_ID")) })
 public class AnswerLink implements java.io.Serializable {
+
+	protected static final Logger log = org.apache.logging.log4j.LogManager
+			.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
 
 	/**
 	 * 
@@ -314,7 +319,13 @@ public class AnswerLink implements java.io.Serializable {
 			result = answer.getValue();
 			if (!StringUtils.isBlank(result)) {
 
-			final Double d = Double.parseDouble(result);
+			Double d = null;
+			try {
+				d = Double.parseDouble(result);
+			} catch (NumberFormatException e) {
+				log.error("Bad double coversion for "+answer.getAttributeCode()+" for value="+answer.getValue());
+				d = 0.0;
+			}
 			setValueDouble(d);
 			} else {
 				setValueDouble(0.0);

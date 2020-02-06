@@ -220,7 +220,7 @@ public class Answer implements Serializable {
 	private Boolean inferred = false;
 
 	@Expose
-	private Boolean changeEvent = true;
+	private Boolean changeEvent = false;
 
 	@Transient
 	@Expose

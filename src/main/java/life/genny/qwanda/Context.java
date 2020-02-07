@@ -141,16 +141,11 @@ public class Context extends CoreEntity implements Serializable {
 	 *            The associated attribute
 	 */
 	public Context(ContextType key, BaseEntity aEntity) {
-		super(key.contextType());
-		this.entity = aEntity;
-		this.contextCode = aEntity.getCode();
+		this(key, aEntity, VisualControlType.VCL_DEFAULT);
 	}
 
 	public Context(ContextType key, BaseEntity aEntity, VisualControlType visualControlType) {
-		super(key.contextType());
-		this.entity = aEntity;
-		this.contextCode = aEntity.getCode();
-		this.visualControlType = visualControlType;
+		this(key, aEntity, visualControlType, 1.0);
 	}
 	public Context(ContextType key, BaseEntity aEntity, VisualControlType visualControlType, Double weight) {
 		super(key.contextType());
@@ -159,12 +154,36 @@ public class Context extends CoreEntity implements Serializable {
 		this.visualControlType = visualControlType;
 		this.weight = weight;
 	}
+	
+	public Context(ContextType key, String entityCode) {
+		this(key, entityCode, VisualControlType.VCL_DEFAULT);
+	}
+
+	public Context(ContextType key, String entityCode, VisualControlType visualControlType) {
+		this(key, entityCode, visualControlType, 1.0);
+	}
+	
+	public Context(ContextType key, String entityCode, VisualControlType visualControlType, Double weight) {
+		super(key.contextType());
+		this.entity = null;
+		this.contextCode = entityCode;
+		this.visualControlType = visualControlType;
+		this.weight = weight;
+	}
+	
 
 	/**
 	 * @return the entity
 	 */
 	public BaseEntity getEntity() {
 		return entity;
+	}
+	/**
+	 * @param the entity to set
+	 */
+	public void setEntity(BaseEntity aEntity) {
+		this.entity = aEntity;
+		this.contextCode = aEntity.getCode();
 	}
 
 	/**
@@ -181,7 +200,13 @@ public class Context extends CoreEntity implements Serializable {
 	public void setWeight(final Double weight) {
 		this.weight = weight;
 	}
-
+	
+	/**
+	 * @return the contextCode
+	 */
+	public String getContextCode() {
+		return contextCode;
+	}
 
 
 
@@ -207,13 +232,13 @@ public class Context extends CoreEntity implements Serializable {
 	       .toComparison();
 	   }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		return getName()+":"+getEntity().getCode();
+		return "Context [entity=" + entity + ", weight=" + weight + ", contextCode=" + contextCode + ", dataType="
+				+ dataType + ", visualControlType=" + visualControlType + "]";
 	}
+
+	
 
 
 }

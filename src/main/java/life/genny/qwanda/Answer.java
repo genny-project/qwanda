@@ -379,6 +379,22 @@ public class Answer implements Serializable {
 	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final Integer value) {
 		this(sourceCode,targetCode,attributeCode,value+"");
 	}
+	
+	/**
+	 * Constructor.
+	 * 
+	 * @param sourceCode
+	 *            The sourceCode associated with this Answer
+	 * @param targetCode
+	 *            The targetCode associated with this Answer
+	 * @param attributeCode
+	 *            The attributeCode associated with this Answer
+	 * @param value
+	 *            The associated  Integer value
+	 */
+	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final Boolean value) {
+		this(sourceCode,targetCode,attributeCode,value?"TRUE":"FALSE");
+	}
 	/**
 	 * Constructor.
 	 * 

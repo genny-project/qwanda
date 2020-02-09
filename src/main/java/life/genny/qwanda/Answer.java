@@ -17,8 +17,11 @@
 package life.genny.qwanda;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -281,7 +284,101 @@ public class Answer implements Serializable {
 		autocreateCreated();
 		checkInputs();
 	}
+	
+	/**
+	 * Constructor.
+	 * 
+	 * @param sourceCode
+	 *            The sourceCode associated with this Answer
+	 * @param targetCode
+	 *            The targetCode associated with this Answer
+	 * @param attributeCode
+	 *            The attributeCode associated with this Answer
+	 * @param value
+	 *            The associated Double value
+	 */
+	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final Double value) {
+		this(sourceCode,targetCode,attributeCode,value+"");
+	}
+	/**
+	 * Constructor.
+	 * 
+	 * @param sourceCode
+	 *            The sourceCode associated with this Answer
+	 * @param targetCode
+	 *            The targetCode associated with this Answer
+	 * @param attributeCode
+	 *            The attributeCode associated with this Answer
+	 * @param value
+	 *            The associated Long value
+	 */
+	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final Long value) {
+		this(sourceCode,targetCode,attributeCode,value+"");
+	}
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param sourceCode
+	 *            The sourceCode associated with this Answer
+	 * @param targetCode
+	 *            The targetCode associated with this Answer
+	 * @param attributeCode
+	 *            The attributeCode associated with this Answer
+	 * @param value
+	 *            The associated LocalDateTime value
+	 */
+	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final LocalDateTime value) {
+		this(sourceCode,targetCode,attributeCode,value.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+	}
+	
+	/**
+	 * Constructor.
+	 * 
+	 * @param sourceCode
+	 *            The sourceCode associated with this Answer
+	 * @param targetCode
+	 *            The targetCode associated with this Answer
+	 * @param attributeCode
+	 *            The attributeCode associated with this Answer
+	 * @param value
+	 *            The associated LocalDate value
+	 */
+	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final LocalDate value) {
+		this(sourceCode,targetCode,attributeCode,value.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+	}
+	
+	/**
+	 * Constructor.
+	 * 
+	 * @param sourceCode
+	 *            The sourceCode associated with this Answer
+	 * @param targetCode
+	 *            The targetCode associated with this Answer
+	 * @param attributeCode
+	 *            The attributeCode associated with this Answer
+	 * @param value
+	 *            The associated LocalTime value
+	 */
+	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final LocalTime value) {
+		this(sourceCode,targetCode,attributeCode,value.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+	}
+	
+	/**
+	 * Constructor.
+	 * 
+	 * @param sourceCode
+	 *            The sourceCode associated with this Answer
+	 * @param targetCode
+	 *            The targetCode associated with this Answer
+	 * @param attributeCode
+	 *            The attributeCode associated with this Answer
+	 * @param value
+	 *            The associated  Integer value
+	 */
+	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final Integer value) {
+		this(sourceCode,targetCode,attributeCode,value+"");
+	}
 	/**
 	 * Constructor.
 	 * 

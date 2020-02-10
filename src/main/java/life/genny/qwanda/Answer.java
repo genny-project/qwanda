@@ -390,11 +390,12 @@ public class Answer implements Serializable {
 	 * @param attributeCode
 	 *            The attributeCode associated with this Answer
 	 * @param value
-	 *            The associated  Integer value
+	 *            The associated  Boolean value
 	 */
 	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final Boolean value) {
 		this(sourceCode,targetCode,attributeCode,value?"TRUE":"FALSE");
-	}
+	
+}
 	/**
 	 * Constructor.
 	 * 

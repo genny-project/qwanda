@@ -69,6 +69,10 @@ public class DataType implements Serializable {
 
 	public static final String DTT_LINK = "LNK_ATTRIBUTE"; // This datatype classname indicates the datatype belongs to
 															// the BaseEntity set with parent
+	@NotNull
+	@Size(max = 120)
+	@Expose
+	private String dttCode; // e.g. java.util.String
 
 	@NotNull
 	@Size(max = 120)
@@ -179,6 +183,20 @@ public class DataType implements Serializable {
 		this.typeName = name;
 	}
 
+	/**
+	 * @return the name
+	 */
+	public String getDttCode() {
+		return this.dttCode;
+	}
+
+	/**
+	 * @param code
+	 *            the name to set
+	 */
+	public void setDttCode(String code) {
+		this.dttCode = code;
+	}
 	/**
 	 * @return the inputmask
 	 */

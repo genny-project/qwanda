@@ -120,6 +120,7 @@ public class DataType implements Serializable {
 
 	public DataType(final String className, final ValidationList aValidationList, final String name,
 			final String inputmask) {
+        setDttCodeFromClassName(className);
 		setClassName(className);
 		setValidationList(aValidationList.getValidationList());
 		setTypeName(name);
@@ -128,6 +129,35 @@ public class DataType implements Serializable {
 
 	public DataType(final String className, final ValidationList aValidationList, final String name) {
 		this(className, aValidationList, name, "");
+	}
+
+    public void setDttCodeFromClassName(String str){
+		String[] strs = str.split("\\.");
+		String type;
+
+		if (strs.length > 1){
+			type = strs[strs.length-1];
+		} else {
+			type = strs[0];
+		}
+
+
+		switch(type){
+			case "BaseEntity": 
+				setDttCode("DTT_BASEENTITY");
+				break;
+			case "Boolean":
+				setDttCode("DTT_BOOLEEEEEAN");
+				break;
+			case "DTT_TEXT":
+				setDttCode("DTT_TEXT");
+				break;
+            default:
+                setDttCode("DTT_MRJIAN");
+                break;
+		}
+
+        System.out.println(this.dttCode);
 	}
 
 	public DataType(final String className, final ValidationList aValidationList) {

@@ -101,6 +101,9 @@ public class Context extends CoreEntity implements Serializable {
 
 	@Expose
 	private String dataType;
+	
+	@Expose
+	private String dttCode;
 
 	@Expose
 	private VisualControlType visualControlType;
@@ -170,6 +173,14 @@ public class Context extends CoreEntity implements Serializable {
 		this.visualControlType = visualControlType;
 		this.weight = weight;
 	}
+	public Context(ContextType key, String entityCode, VisualControlType visualControlType, Double weight, String dttCode) {
+		super(key.contextType());
+		this.entity = null;
+		this.contextCode = entityCode;
+		this.visualControlType = visualControlType;
+		this.weight = weight;
+		this.dttCode = dttCode;
+	}
 	
 
 	/**
@@ -222,6 +233,20 @@ public class Context extends CoreEntity implements Serializable {
 	 */
 	public void setDataType(String dataType) {
 		this.dataType = dataType;
+	}
+	
+	/**
+	 * @return the dttCode
+	 */
+	public String getDttCode() {
+		return dttCode;
+	}
+
+	/**
+	 * @param dttCode the dttCode to set
+	 */
+	public void setDttCode(String dttCode) {
+		this.dttCode = dttCode;
 	}
 
 	@Override

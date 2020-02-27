@@ -147,7 +147,7 @@ public class DataType implements Serializable {
 				setDttCode("DTT_BASEENTITY");
 				break;
 			case "Boolean":
-				setDttCode("DTT_BOOLEEAN");
+				setDttCode("DTT_BOOLEAN");
 				break;
 			case "DTT_TEXT":
 				setDttCode("DTT_TEXT");

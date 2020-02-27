@@ -147,17 +147,17 @@ public class DataType implements Serializable {
 				setDttCode("DTT_BASEENTITY");
 				break;
 			case "Boolean":
-				setDttCode("DTT_BOOLEAN");
+				setDttCode("DTT_BOOLEEAN");
 				break;
 			case "DTT_TEXT":
 				setDttCode("DTT_TEXT");
 				break;
             default:
-                setDttCode("DTT_MRJIAN");
+                setDttCode("DTT_UNKNOWN");
+                System.out.println("Using default value for " + str);
                 break;
 		}
 
-        System.out.println(this.dttCode);
 	}
 
 	public DataType(final String className, final ValidationList aValidationList) {

@@ -4,7 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
+
+import java.lang.invoke.MethodHandles;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +22,20 @@ import life.genny.qwanda.message.QDataAskMessage;
 import life.genny.test.qwanda.util.JsonUtils;
 
 public class JTest {
+	/**
+	 * Stores logger object.
+	 */
+	protected static final Logger log = org.apache.logging.log4j.LogManager
+			.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
+
+	
   @Test
   public void timeTest() {
     final LocalDateTime time = LocalDateTime.now();
 
     final String json = JsonUtils.set(time);
 
-    System.out.println(json);
+    log.info(json);
   }
 
   @Test
@@ -34,20 +45,20 @@ public class JTest {
     final String json = JsonUtils.set(msg);
 
     try {
-      System.out.println(gson.toJson(msg));
+      log.info(gson.toJson(msg));
       final String json2 = gson.toJson(msg);
       final QDataAskMessage item3 = gson.fromJson(json2, QDataAskMessage.class);
 
-      System.out.println(item3);
+      log.info(item3);
 
       final ObjectMapper mapper = new ObjectMapper();
       mapper.registerModule(new JavaTimeModule());
       final QDataAskMessage item = mapper.readValue(json2.getBytes(), QDataAskMessage.class);
       // item = (T) CoreUtils.deserializeBytes(bytes);
-      System.out.println("fdsfsdklfjsdkfj" + item);
+      log.info("fdsfsdklfjsdkfj" + item);
 
 
-      System.out.println(json);
+      log.info(json);
       mapper.readValue(json.getBytes(), QDataAskMessage.class);
 
 
@@ -80,11 +91,11 @@ public class JTest {
 
       try {
         final String json = gson.toJson(msg);
-        System.out.println(json);
+        log.info(json);
 
         final QDataAnswerMessage item = gson.fromJson(json, QDataAnswerMessage.class);
 
-        System.out.println(item);
+        log.info(item);
 
 
       } catch (final Exception e) {
@@ -106,7 +117,7 @@ public class JTest {
         "{\"items\":[{\"created\":{\"date\":{\"year\":2017,\"month\":7,\"day\":8},\"time\":{\"hour\":12,\"minute\":23,\"second\":14,\"nano\":806000000}},\"value\":\"Console\",\"attributeCode\":\"PRI_LASTNAME\",\"targetCode\":22,\"sourceCode\":20,\"expired\":false,\"refused\":false,\"weight\":0.5},{\"created\":{\"date\":{\"year\":2017,\"month\":7,\"day\":8},\"time\":{\"hour\":12,\"minute\":23,\"second\":14,\"nano\":806000000}},\"value\":\"Console\",\"attributeCode\":\"PRI_LASTNAME\",\"targetCode\":22,\"sourceCode\":20,\"expired\":false,\"refused\":false,\"weight\":0.5}],\"data_type\":\"Answer\",\"delete\":false,\"msg_type\":\"DATA_MSG\"}\n";
     try {
       final QDataAnswerMessage item = gson.fromJson(testStr, QDataAnswerMessage.class);
-      System.out.println(item);
+      log.info(item);
 
 
       // String askMsg =
@@ -114,7 +125,7 @@ public class JTest {
       // of
       // Birth\",\"code\":\"PRI_BIRTHDATE\",\"dataType\":{\"className\":\"java.time.LocalDateTime\",\"validationList\":{}}},\"contextList\":{\"contextList\":[]}},\"answerList\":{\"answerList\":[{\"created\":\"2017-07-10T15:12:46\",\"updated\":\"2017-07-10T15:12:46\",\"valueDouble\":null,\"valueInteger\":null,\"valueLong\":null,\"valueDateTime\":\"1989-01-07T16:00:00\",\"valueString\":null,\"valueBoolean\":null,\"expired\":false,\"refused\":false,\"weight\":1.0,\"version\":2,\"targetId\":5,\"sourceId\":5,\"askId\":3,\"createdDate\":\"2017-07-10T05:12:46.000+0000\",\"updatedDate\":\"2017-07-10T05:12:46.000+0000\"}]},\"contextList\":{\"contextList\":[]}}]";
       // QDataAskMessage qask = gson.fromJson(askMsg, QDataAskMessage.class);
-      // System.out.println(qask);;
+      // log.info(qask);;
     } catch (final JsonSyntaxException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();

@@ -1,7 +1,9 @@
 package life.genny.test;
 
+import java.lang.invoke.MethodHandles;
 import java.util.UUID;
 
+import org.apache.logging.log4j.Logger;
 import org.javamoney.moneta.Money;
 import org.junit.Test;
 
@@ -13,7 +15,12 @@ import life.genny.qwanda.message.QBulkPullMessage;
 
 public class QBulkPullMessageTest {
 	
-	
+	/**
+	 * Stores logger object.
+	 */
+	protected static final Logger log = org.apache.logging.log4j.LogManager
+			.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
+
 
 @Test
 public void jsonTest()
@@ -26,7 +33,7 @@ public void jsonTest()
 	Gson gson = gsonBuilder.create();
 
 	String moneyJson2 = gson.toJson(msg);
-	System.out.println(moneyJson2);
+	log.info(moneyJson2);
 	
 
 }

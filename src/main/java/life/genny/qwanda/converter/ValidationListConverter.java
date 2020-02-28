@@ -55,14 +55,14 @@ public class ValidationListConverter implements AttributeConverter<List<Validati
 	public List<Validation> convertToEntityAttribute(String joined) {
 		final List<Validation> validations = new CopyOnWriteArrayList<Validation>();
 		if (joined != null) {
-		//	System.out.println("ValidationStr=" + joined);
+		//	log.info("ValidationStr=" + joined);
 			if (!StringUtils.isBlank(joined)) {
 				joined = joined.substring(1); // remove leading quotes
 				joined = StringUtils.chomp(joined, "\""); // remove last char
 				final String[] validationListStr = joined.split("\",\"");
 
 				if (validationListStr.length == 6) {
-				//	System.out.println("ValidationListStr LENGTH=6");
+				//	log.info("ValidationListStr LENGTH=6");
 					for (int i = 0; i < validationListStr.length; i = i + 6) {
 						List<String> validationGroups = convertFromString(validationListStr[i + 3]);
 						List<String> regexs = convertFromString(validationListStr[i + 2]);
@@ -79,7 +79,7 @@ public class ValidationListConverter implements AttributeConverter<List<Validati
 					for (int i = 0; i < validationListStr.length; i = i + 3) {
 						Validation validation  = new Validation(validationListStr[i], validationListStr[i + 1],
 								validationListStr[i + 2]);
-					//	System.out.println("VALIDATION:"+validation);
+					//	log.info("VALIDATION:"+validation);
 						validations.add(validation);
 					}
 				}

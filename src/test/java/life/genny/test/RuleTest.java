@@ -1,5 +1,8 @@
 package life.genny.test;
 
+import java.lang.invoke.MethodHandles;
+
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +13,12 @@ import life.genny.test.qwanda.util.JsonUtils;
 
 
 public class RuleTest {
+
+	/**
+	 * Stores logger object.
+	 */
+	protected static final Logger log = org.apache.logging.log4j.LogManager
+			.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
 
 	
 	@Before
@@ -30,6 +39,6 @@ public class RuleTest {
 	 Rule rule = new Rule("RUL_RULE1","Rule 1","This is a rule");
 	 
 	 String jsonString = JsonUtils.set(rule);
-	 System.out.println("Json Rule = "+jsonString);
+	 log.info("Json Rule = "+jsonString);
  }
 }

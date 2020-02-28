@@ -17,6 +17,7 @@
 package life.genny.qwanda.datatype;
 
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -29,6 +30,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.apache.logging.log4j.Logger;
 import org.javamoney.moneta.Money;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -66,6 +68,10 @@ public class DataType implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	  protected static final Logger log = org.apache.logging.log4j.LogManager
+		      .getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
+
 
 	public static final String DTT_LINK = "LNK_ATTRIBUTE"; // This datatype classname indicates the datatype belongs to
 															// the BaseEntity set with parent
@@ -154,7 +160,7 @@ public class DataType implements Serializable {
 				break;
             default:
                 setDttCode("DTT_UNKNOWN");
-                System.out.println("Using default value for " + str);
+               // log.warn("Using default value for " + str);
                 break;
 		}
 

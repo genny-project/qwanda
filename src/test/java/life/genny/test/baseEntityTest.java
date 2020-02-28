@@ -6,12 +6,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assume.assumeThat;
 
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 
+import org.apache.logging.log4j.Logger;
 import org.javamoney.moneta.Money;
 import org.junit.After;
 import org.junit.Before;
@@ -46,6 +48,13 @@ import life.genny.test.qwanda.util.JsonUtils;
 
 
 public class baseEntityTest {
+	
+	/**
+	 * Stores logger object.
+	 */
+	protected static final Logger log = org.apache.logging.log4j.LogManager
+			.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
+
 
 	Person person;
 	Product product;
@@ -93,7 +102,7 @@ public class baseEntityTest {
 	public void entityAttributeTest()
 	{	
 		// SHow the person details
-		System.out.println(person);
+		log.info(person);
 		
 		// CHeck some attributes exist
 		assertFalse(person.containsEntityAttribute(AttributeText.getDefaultCodePrefix()+"TEST0"));
@@ -121,7 +130,7 @@ public class baseEntityTest {
 	public void linkBaseEntity()
 	{
 		String json = JsonUtils.set(person);
-		System.out.println(json);
+		log.info(json);
 	}
 	
 
@@ -185,7 +194,7 @@ public class baseEntityTest {
 //		int count = 0;
 //		for (Student s :person.getStudentsWithHighestGPA()) {
 //			count++;
-//			System.out.println(s.firstName);
+//			log.info(s.firstName);
 //		}
 //		assertThat(count, is(2));
 //	}
@@ -196,7 +205,7 @@ public class baseEntityTest {
 	 LocalDateTime now = LocalDateTime.of(2017, Month.JUNE, 20, 10, 13);
 	 
 	 String jsonString = JsonUtils.set(now);
-	 System.out.println("Json LocalDateTime = "+jsonString);
+	 log.info("Json LocalDateTime = "+jsonString);
  }
  
  @Test
@@ -204,7 +213,7 @@ public class baseEntityTest {
  {
 	 Validation validation = new Validation("VLD_TEST","Test Validatoin","GRP_SELECTION_TEST",false,true);
 	 String jsonString = JsonUtils.set(validation);
-	 System.out.println("Json Validation  = "+jsonString);
+	 log.info("Json Validation  = "+jsonString);
  }
  
  

@@ -97,7 +97,7 @@ public class QuestionAnswerTest {
 			if (session != null) {
 				session.close();
 			}
-			System.out.println("Finished Hibernate Testing");
+			log.info("Finished Hibernate Testing");
 		}
 	}
 
@@ -120,7 +120,7 @@ public class QuestionAnswerTest {
 			tx = session.beginTransaction();
 			tx.setTimeout(30);
 
-			System.out.println(person);
+			log.info(person);
 
 			// Create a Question to match the attribute
 
@@ -163,7 +163,7 @@ public class QuestionAnswerTest {
 			tx.commit();
 			final String json = JsonUtils.set(askFirstname);
 			final Ask result = new JsonUtils().get(Ask.class, json);
-			System.out.println(result);
+			log.info(result);
 
 			// tx = session.beginTransaction();
 			// tx.setTimeout(30);
@@ -189,7 +189,7 @@ public class QuestionAnswerTest {
 			if (session != null) {
 				session.close();
 			}
-			System.out.println("Finished Hibernate Testing");
+			log.info("Finished Hibernate Testing");
 		}
 	}
 
@@ -226,7 +226,7 @@ public class QuestionAnswerTest {
 				session.save(ea.getAttribute());
 			}
 			session.save(person2);
-			System.out.println(person2);
+			log.info(person2);
 
 			// Create a Question to match the attribute
 
@@ -284,19 +284,19 @@ public class QuestionAnswerTest {
 			tx.commit();
 			final String json = JsonUtils.set(askFirstname2);
 			final Ask result = new JsonUtils().get(Ask.class, json);
-			System.out.println(result);
+			log.info(result);
 
 			// Now fetch questionName
 			Query query = session.createQuery("from Question where code = :code ");
 			query.setParameter("code", Question.getDefaultCodePrefix() + "NAME");
 			Question qNameQueried = (Question) query.getSingleResult();
-			System.out.println("Fetched qName by code = " + qNameQueried);
+			log.info("Fetched qName by code = " + qNameQueried);
 			Question qName = session.find(Question.class, questionName.getId());
-			System.out.println("Fetched qName by id = " + qName);
+			log.info("Fetched qName by id = " + qName);
 
 			// test recursive Questions
 			Question qName3 = session.find(Question.class, questionName2.getId());
-			System.out.println("Fetched recursive qName3 by id = " + qName3);
+			log.info("Fetched recursive qName3 by id = " + qName3);
 
 		} catch (RuntimeException | BadDataException e) {
 			try {
@@ -310,7 +310,7 @@ public class QuestionAnswerTest {
 			if (session != null) {
 				session.close();
 			}
-			System.out.println("Finished Hibernate Testing");
+			log.info("Finished Hibernate Testing");
 		}
 	}
 

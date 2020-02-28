@@ -1,7 +1,11 @@
 package life.genny.test;
 
 import com.google.gson.Gson;
+
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
+
+import java.lang.invoke.MethodHandles;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +28,13 @@ import life.genny.test.qwanda.util.JsonUtils;
 
 
 public class JsonGenerator {
+	
+	/**
+	 * Stores logger object.
+	 */
+	protected static final Logger log = org.apache.logging.log4j.LogManager
+			.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
+
 
   Person person;
   Attribute attributeFirstname = null;
@@ -117,8 +128,8 @@ public class JsonGenerator {
     new Gson();
     try {
       final String json = JsonUtils.set(src); // gson.toJson(src);
-      System.out.println("*** " + src.getClass().getSimpleName());
-      System.out.println(json);
+      log.info("*** " + src.getClass().getSimpleName());
+      log.info(json);
     } catch (final Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();

@@ -139,7 +139,7 @@ public class ClassTest {
 				
 				// test retrieval
 				Person fetchedEdison = session.find(Person.class, edison.getId());
-				System.out.println(fetchedEdison);
+				log.info(fetchedEdison);
 				
 				Rule rule1 = new Rule("RUL_RULE1","Test Rule 1","This is a bad format rule");
 				session.save(rule1);
@@ -151,8 +151,8 @@ public class ClassTest {
 				
 			}
 			
-			System.out.println(fetchedMazda);
-			System.out.println("RANGE TEST!!!!!!!!!!!!!!!!");
+			log.info(fetchedMazda);
+			log.info("RANGE TEST!!!!!!!!!!!!!!!!");
 			Attribute rangeAttribute = new AttributeDateRange("PRI_DATE_RANGE","LocalDate Range Test");
 			session.save(rangeAttribute);
 			
@@ -172,23 +172,23 @@ public class ClassTest {
 			if (myDateRange.isPresent()) {
 				Range<LocalDate> dr = myDateRange.get();
 				if (dr.contains(LocalDate.of(2018, 1, 20))) {
-					System.out.println("LocalDate Included!");
+					log.info("LocalDate Included!");
 				} 
 				if (!dr.contains(LocalDate.of(2017, 1, 20))) {
-					System.out.println("LocalDate NOT Included!");
+					log.info("LocalDate NOT Included!");
 				} 
 				Optional<EntityAttribute> ea = fetchedMazda2.findEntityAttribute("PRI_DATE_RANGE");
 				if (ea.isPresent()) {
 					String json = gson.toJson(ea.get());
-					System.out.println("JSON RANGE:"+json);
+					log.info("JSON RANGE:"+json);
 					
 					EntityAttribute recreatedRangeEA = gson.fromJson(json, EntityAttribute.class);
 //					Range<LocalDate> recreatedRange = gson.fromJson(json, new TypeToken<Range<LocalDate>>(){}.getType());
-					System.out.println("DEJSONED RANGE:"+recreatedRangeEA.getLoopValue());
+					log.info("DEJSONED RANGE:"+recreatedRangeEA.getLoopValue());
 				}
 			}
 			
-			System.out.println("RANGE TEST FINISHED "+fetchedRangeAttribute);
+			log.info("RANGE TEST FINISHED "+fetchedRangeAttribute);
 			tx.commit();
 
 		} catch (RuntimeException e) {
@@ -204,7 +204,7 @@ public class ClassTest {
 			if (session != null) {
 				session.close();
 			}
-			System.out.println("Finished Hibernate Testing");
+			log.info("Finished Hibernate Testing");
 		}
 	}
 }

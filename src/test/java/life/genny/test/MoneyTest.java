@@ -2,11 +2,13 @@ package life.genny.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.lang.invoke.MethodHandles;
 import java.math.BigDecimal;
 
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 
+import org.apache.logging.log4j.Logger;
 import org.javamoney.moneta.Money;
 import org.junit.Test;
 
@@ -19,6 +21,12 @@ import life.genny.test.qwanda.util.JsonUtils;
 
 public class MoneyTest {
 	
+	/**
+	 * Stores logger object.
+	 */
+	protected static final Logger log = org.apache.logging.log4j.LogManager
+			.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
+
 	
 private static final CurrencyUnit DEFAULT_CURRENCY_AUD = Monetary.getCurrency("AUD");
 
@@ -32,38 +40,38 @@ public void moneyTest()
 	
 	String moneyJson = JsonUtils.set(money);
 	
-	System.out.println(moneyJson);
+	log.info(moneyJson);
 	
 	GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Money.class, new MoneyDeserializer());
 	Gson gson = gsonBuilder.create();
 	
 	String moneyJson2 = gson.toJson(money);
-	System.out.println(moneyJson2);
+	log.info(moneyJson2);
 	
 	String test = "{\"amount\":12.34,\"currency\":\"AUD\"}";
 	
 	Money testMoney = gson.fromJson(test, Money.class);
 	assertEquals(testMoney,Money.of(12.34, "AUD"));
 	
-	System.out.println("Money = "+testMoney); 
+	log.info("Money = "+testMoney); 
 	
-	System.out.println(gson.toJson(Money.of(new BigDecimal("12.34"), AUD)));
-	System.out.println(gson.toJson(Money.of(new BigDecimal("3333.33"), AUD)));
-	System.out.println(gson.toJson(Money.of(new BigDecimal("33333.33"), AUD)));
-	System.out.println(gson.toJson(Money.of(new BigDecimal("333333.33"), AUD)));
-	System.out.println(gson.toJson(Money.of(new BigDecimal("3333333.33"), AUD)));
-	System.out.println("Money = "+gson.fromJson(gson.toJson(Money.of(new BigDecimal("33333.33"), AUD)), Money.class)); 
-	System.out.println("Money = "+gson.fromJson(gson.toJson(Money.of(new BigDecimal("333333.33"), AUD)), Money.class)); 
-	System.out.println("Money = "+gson.fromJson(gson.toJson(Money.of(new BigDecimal("3333333.33"), AUD)), Money.class)); 
+	log.info(gson.toJson(Money.of(new BigDecimal("12.34"), AUD)));
+	log.info(gson.toJson(Money.of(new BigDecimal("3333.33"), AUD)));
+	log.info(gson.toJson(Money.of(new BigDecimal("33333.33"), AUD)));
+	log.info(gson.toJson(Money.of(new BigDecimal("333333.33"), AUD)));
+	log.info(gson.toJson(Money.of(new BigDecimal("3333333.33"), AUD)));
+	log.info("Money = "+gson.fromJson(gson.toJson(Money.of(new BigDecimal("33333.33"), AUD)), Money.class)); 
+	log.info("Money = "+gson.fromJson(gson.toJson(Money.of(new BigDecimal("333333.33"), AUD)), Money.class)); 
+	log.info("Money = "+gson.fromJson(gson.toJson(Money.of(new BigDecimal("3333333.33"), AUD)), Money.class)); 
 }
 
 
 public Money calculateFeesMoney(Money answerPrice) {
 	
 	Money stringToMoney = Money.of(Integer.parseInt("1000"), DEFAULT_CURRENCY_AUD);
-	System.out.println("string to money ::"+stringToMoney);
+	log.info("string to money ::"+stringToMoney);
 	String stringvalue = String.valueOf(stringToMoney);
-	System.out.println("string value of money ::"+stringvalue);
+	log.info("string value of money ::"+stringvalue);
 	
 	
 	Money fees = Money.of(0, DEFAULT_CURRENCY_AUD);	

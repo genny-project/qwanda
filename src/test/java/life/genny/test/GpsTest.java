@@ -1,5 +1,8 @@
 package life.genny.test;
 
+import java.lang.invoke.MethodHandles;
+
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import com.google.gson.Gson;
@@ -9,6 +12,12 @@ import life.genny.qwanda.message.QDataGPSMessage;
 import life.genny.test.qwanda.util.JsonUtils;
 
 public class GpsTest {
+	/**
+	 * Stores logger object.
+	 */
+	protected static final Logger log = org.apache.logging.log4j.LogManager
+			.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
+
 	@Test
 	public void gpsTest() {
 		// {"coords":{"speed":-1,"longitude":151.211,"latitude":-33.8634,"accuracy":5,"heading":-1,"altitude":0,"altitudeAccuracy":-1},"timestamp":1510809896963.5588}
@@ -36,8 +45,8 @@ public class GpsTest {
 		new Gson();
 		try {
 			final String json = JsonUtils.set(src); // gson.toJson(src);
-			System.out.println("*** " + src.getClass().getSimpleName());
-			System.out.println(json);
+			log.info("*** " + src.getClass().getSimpleName());
+			log.info(json);
 		} catch (final Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

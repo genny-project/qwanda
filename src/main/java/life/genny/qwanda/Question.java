@@ -16,48 +16,26 @@
 
 package life.genny.qwanda;
 
-import java.io.Serializable;
-import java.lang.invoke.MethodHandles;
-import java.security.InvalidParameterException;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArrayList;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.google.gson.annotations.Expose;
+import life.genny.qwanda.attribute.Attribute;
+import life.genny.qwanda.exception.BadDataException;
+import org.apache.logging.log4j.Logger;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Cacheable;
-import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Index;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
-import org.apache.logging.log4j.Logger;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Type;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.google.gson.annotations.Expose;
-
-import life.genny.qwanda.attribute.Attribute;
-import life.genny.qwanda.exception.BadDataException;
+import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
+import java.security.InvalidParameterException;
+import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Question is the abstract base class for all questions managed in the Qwanda
@@ -475,7 +453,7 @@ public class Question extends CodedEntity implements Serializable {
 		if (mandatory == null)
 			throw new BadDataException("missing mandatory setting");
 
-		log.info("[" + this.getRealm() + "] Adding childQuestion..." + childQuestionCode + " to " + this.getCode());
+		log.trace("[" + this.getRealm() + "] Adding childQuestion..." + childQuestionCode + " to " + this.getCode());
 		final QuestionQuestion questionLink = new QuestionQuestion(this, childQuestionCode, weight, mandatory);
 		getChildQuestions().add(questionLink);
 		return questionLink;

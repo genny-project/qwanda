@@ -16,10 +16,13 @@
 
 package life.genny.qwanda.datatype;
 
-import java.io.Serializable;
-import java.lang.invoke.MethodHandles;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
+import life.genny.qwanda.converter.ValidationListConverter;
+import life.genny.qwanda.validation.Validation;
+import life.genny.qwanda.validation.ValidationList;
+import org.apache.logging.log4j.Logger;
+import org.javamoney.moneta.Money;
 
 import javax.money.Monetary;
 import javax.persistence.Column;
@@ -29,16 +32,10 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
-
-import org.apache.logging.log4j.Logger;
-import org.javamoney.moneta.Money;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.gson.annotations.Expose;
-
-import life.genny.qwanda.converter.ValidationListConverter;
-import life.genny.qwanda.validation.Validation;
-import life.genny.qwanda.validation.ValidationList;
+import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * DataType represents a distinct abstract Data Representation in the Qwanda
@@ -159,8 +156,8 @@ public class DataType implements Serializable {
 				setDttCode("DTT_TEXT");
 				break;
             default:
-                setDttCode("DTT_UNKNOWN");
-               // log.warn("Using default value for " + str);
+                setDttCode("DTT_TEXT");
+                log.warn("WARNING:Using default value DTT_TEXT for " + str + ", Set proper type if needed!");
                 break;
 		}
 

@@ -143,28 +143,15 @@ public class DataType implements Serializable {
 		} else {
 			type = strs[0];
 		}
-
-
-		switch(type){
-			case "BaseEntity": 
-				setDttCode("DTT_BASEENTITY");
-				break;
-			case "Boolean":
-				setDttCode("DTT_BOOLEAN");
-				break;
-			case "DTT_TEXT":
-				setDttCode("DTT_TEXT");
-				break;
-            default:
-                setDttCode("DTT_TEXT");
-                log.warn("WARNING:Using default value DTT_TEXT for " + str + ", Set proper type if needed!");
-                break;
+		if (str.contains("DTT")) {
+			setDttCode(str);
+		}else {
+			setDttCode("DTT_" + type.toUpperCase());
 		}
-
 	}
 
 	public DataType(final String className, final ValidationList aValidationList) {
-		this(className, aValidationList, "UNSET");
+		this(className, aValidationList, className);
 	}
 
 	public DataType(final Class clazz, final ValidationList aValidationList) {

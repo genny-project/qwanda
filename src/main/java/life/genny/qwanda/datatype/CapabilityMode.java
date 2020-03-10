@@ -7,7 +7,8 @@ public enum CapabilityMode implements Serializable {
 	VIEW("VIEW",1),
 	EDIT ("EDIT",2),
 	ADD ("ADD",3),
-	DELETE ("DELETE",4);
+	DELETE ("DELETE",4),
+	SELF("SELF",5);
 
 
 

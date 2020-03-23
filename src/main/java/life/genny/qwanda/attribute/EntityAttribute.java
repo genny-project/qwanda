@@ -74,11 +74,11 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
 
 	private static final long serialVersionUID = 1L;
-	@Expose
+	//@Expose
 	private String baseEntityCode;
 	@Expose
 	private String attributeCode;
-	@Expose 
+	//@Expose 
 	@Transient
 	private String attributeName;
 	@Expose

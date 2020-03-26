@@ -78,7 +78,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	private String baseEntityCode;
 	@Expose
 	private String attributeCode;
-	//@Expose 
+	@Expose 
 	@Transient
 	private String attributeName;
 	@Expose

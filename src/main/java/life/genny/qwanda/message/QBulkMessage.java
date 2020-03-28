@@ -31,21 +31,21 @@ public class QBulkMessage implements Serializable {
 		messages = new QMessage[0];
 	}
 	
-	public QBulkMessage(QMessage[] qMessages){
+	public <T extends QMessage> QBulkMessage(T[] qMessages){
 		this.messages = qMessages;
 	}
 	
-	public QBulkMessage(QMessage qMessage){
+	public <T extends QMessage> QBulkMessage(T qMessage){
 		messages = new QMessage[1];
 		this.messages[0] = qMessage;
 	}
 	
-	public QBulkMessage(List<QMessage> qMessages){
+	public <T extends QMessage> QBulkMessage(List<T> qMessages){
 		this.messages = new QMessage[qMessages.size()];
 		this.messages = qMessages.toArray(this.messages);
 	}
 
-	public void add(QMessage[] qMessageArray) {
+	public <T extends QMessage> void  add(T[] qMessageArray) {
 		int newSize = messages.length+qMessageArray.length;
 		    QMessage[] extended = new QMessage[newSize];
 
@@ -54,7 +54,7 @@ public class QBulkMessage implements Serializable {
 		    System.arraycopy(messages, 0, extended, 0, messages.length);
 		    setMessages(extended);
 	}
-	public void add(List<QMessage> qMessageList) {
+	public <T extends QMessage> void add(List<T> qMessageList) {
 		int newSize = messages.length+qMessageList.size();
 		    QMessage[] extended = new QMessage[newSize];
 
@@ -67,7 +67,7 @@ public class QBulkMessage implements Serializable {
 
 	}
 	
-	public void add(QDataBaseEntityMessage qMessage) {
+	public <T extends QMessage> void add(T qMessage) {
 		int newSize = messages.length+1;
 	    QMessage[] extended = new QMessage[newSize];
 
@@ -86,7 +86,7 @@ public class QBulkMessage implements Serializable {
 	/**
 	 * @param messages the messages to set
 	 */
-	public void setMessages(QMessage[] messages) {
+	public <T extends QMessage> void setMessages(T[] messages) {
 		this.messages = messages;
 	}
 	/**

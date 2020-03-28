@@ -43,6 +43,7 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 	
 	@Expose
 	private String sourceAddress;
+	
 
 	public String getMsg_type() {
 		return msg_type;

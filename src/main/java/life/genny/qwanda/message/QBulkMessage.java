@@ -21,42 +21,42 @@ public class QBulkMessage implements Serializable {
 
 	  
 	  @Expose
-	  private QMessage[] messages;
+	  private QDataBaseEntityMessage[] messages;
 	  
 	  @Expose
 	  private String[] recipientCodeArray;
 
 	
 	public QBulkMessage(){
-		messages = new QMessage[0];
+		messages = new QDataBaseEntityMessage[0];
 	}
 	
-	public <T extends QMessage> QBulkMessage(T[] qMessages){
+	public QBulkMessage(QDataBaseEntityMessage[] qMessages){
 		this.messages = qMessages;
 	}
 	
-	public <T extends QMessage> QBulkMessage(T qMessage){
-		messages = new QMessage[1];
+	public QBulkMessage(QDataBaseEntityMessage qMessage){
+		messages = new QDataBaseEntityMessage[1];
 		this.messages[0] = qMessage;
 	}
 	
-	public <T extends QMessage> QBulkMessage(List<T> qMessages){
-		this.messages = new QMessage[qMessages.size()];
+	public QBulkMessage(List<QDataBaseEntityMessage> qMessages){
+		this.messages = new QDataBaseEntityMessage[qMessages.size()];
 		this.messages = qMessages.toArray(this.messages);
 	}
 
-	public <T extends QMessage> void  add(T[] qMessageArray) {
+	public void add(QDataBaseEntityMessage[] qMessageArray) {
 		int newSize = messages.length+qMessageArray.length;
-		    QMessage[] extended = new QMessage[newSize];
+		    QDataBaseEntityMessage[] extended = new QDataBaseEntityMessage[newSize];
 
 		    System.arraycopy(qMessageArray, 0, extended, messages.length, qMessageArray.length);
 
 		    System.arraycopy(messages, 0, extended, 0, messages.length);
 		    setMessages(extended);
 	}
-	public <T extends QMessage> void add(List<T> qMessageList) {
+	public void add(List<QDataBaseEntityMessage> qMessageList) {
 		int newSize = messages.length+qMessageList.size();
-		    QMessage[] extended = new QMessage[newSize];
+		    QDataBaseEntityMessage[] extended = new QDataBaseEntityMessage[newSize];
 
 		   for (int index=messages.length;index<newSize;index++) {
 			   extended[index] = qMessageList.get(index-messages.length);
@@ -67,9 +67,9 @@ public class QBulkMessage implements Serializable {
 
 	}
 	
-	public <T extends QMessage> void add(T qMessage) {
+	public void add(QDataBaseEntityMessage qMessage) {
 		int newSize = messages.length+1;
-	    QMessage[] extended = new QMessage[newSize];
+	    QDataBaseEntityMessage[] extended = new QDataBaseEntityMessage[newSize];
 
 		 extended[newSize-1] = qMessage;
 
@@ -80,13 +80,13 @@ public class QBulkMessage implements Serializable {
 	/**
 	 * @return the messages
 	 */
-	public QMessage[] getMessages() {
+	public QDataBaseEntityMessage[] getMessages() {
 		return messages;
 	}
 	/**
 	 * @param messages the messages to set
 	 */
-	public <T extends QMessage> void setMessages(T[] messages) {
+	public void setMessages(QDataBaseEntityMessage[] messages) {
 		this.messages = messages;
 	}
 	/**

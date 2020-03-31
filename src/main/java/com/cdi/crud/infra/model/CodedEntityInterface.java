@@ -8,7 +8,7 @@ package com.cdi.crud.infra.model;
 public interface CodedEntityInterface extends CoreEntityInterface{
 
 
-    public <T extends CoreEntityInterface> T getCode();
+    publskljdfjalkjfljaslfjljlsjic <T extends CoreEntityInterface> T getCode();
 
 
 }

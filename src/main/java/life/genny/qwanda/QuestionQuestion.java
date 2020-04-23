@@ -483,6 +483,11 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 		return "SRC:"+getPk().getSourceCode()+" - "+getPk().getTargetCode()+" "+(this.getMandatory()?"MANDATORY":"OPTIONAL")+" "+(this.getReadonly()?"RO":"RW")+" "+(this.getFormTrigger()?"FT":"NFT")+" "+(this.getCreateOnTrigger()?"COT":"NCOT");
 	}
 
+	public String getSourceCode(){
+		return pk.getSourceCode();
+	}
 
-
+	public String getTarketCode() {
+		return pk.getTargetCode();
+	}
 }

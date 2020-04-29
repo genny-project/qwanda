@@ -95,7 +95,7 @@ public class Question extends CodedEntity implements Serializable {
 
 	@XmlTransient
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "attribute_id", nullable = true)
+	@JoinColumn(name = "attribute_id", nullable = false)
 	@Expose
 	private Attribute attribute;
 

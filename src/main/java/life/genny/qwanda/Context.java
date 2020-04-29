@@ -90,7 +90,7 @@ public class Context extends CoreEntity implements Serializable {
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@XmlTransient
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "attribute_id", nullable = false)
+	@JoinColumn(name = "baseentity_id", nullable = false)
 	private BaseEntity entity;
 
 	@Expose

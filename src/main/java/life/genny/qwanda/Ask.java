@@ -91,7 +91,7 @@ public class Ask extends CoreEntity implements Serializable {
 
 	@XmlTransient
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "question_id", nullable = true)
+	@JoinColumn(name = "question_id", nullable = false)
 	@Expose
 	private Question question;
 

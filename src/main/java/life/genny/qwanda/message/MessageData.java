@@ -27,6 +27,11 @@ public class MessageData implements Serializable {
 
 	@Expose
 	private String targetCode;
+	
+
+	
+	
+	
 
 	public String getCode() {
 		return code;
@@ -93,6 +98,11 @@ public class MessageData implements Serializable {
 	public void setTargetCode(String targetCode) {
 		this.targetCode = targetCode;
 	}
+
+	
+	
+	
+	
 
 	@Expose
 	private Long id;

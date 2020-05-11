@@ -110,6 +110,8 @@ public class QBulkMessage implements Serializable {
 
 	}
 	
+
+	
 	public void add(QDataBaseEntityMessage qMessage) {
 		int newSize = messages.length+1;
 	    QDataBaseEntityMessage[] extended = new QDataBaseEntityMessage[newSize];
@@ -128,6 +130,17 @@ public class QBulkMessage implements Serializable {
 
 	    System.arraycopy(messages, 0, extended, 0, messages.length);
 	    setAsks(extended);
+	}
+	
+	public void add(QBulkMessage qBulkMessage)
+	{
+		if ((qBulkMessage.getAsks() != null)&&(qBulkMessage.getAsks().length>0)) {
+			this.add(qBulkMessage.getAsks());			
+		}
+		
+		if ((qBulkMessage.getMessages() != null)&&(qBulkMessage.getMessages().length>0)) {
+			this.add(qBulkMessage.getMessages());			
+		}
 	}
 	/**
 	 * @return the messages

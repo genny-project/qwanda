@@ -78,9 +78,9 @@ public class QBulkMessage implements Serializable {
 		int newSize = messages.length+qMessageArray.length;
 		    QDataAskMessage[] extended = new QDataAskMessage[newSize];
 
-		    System.arraycopy(qMessageArray, 0, extended, messages.length, qMessageArray.length);
+		    System.arraycopy(qMessageArray, 0, extended, asks.length, qMessageArray.length);
 
-		    System.arraycopy(messages, 0, extended, 0, messages.length);
+		    System.arraycopy(asks, 0, extended, 0, asks.length);
 		    setAsks(extended);
 	}
 	
@@ -98,14 +98,14 @@ public class QBulkMessage implements Serializable {
 	}
 	
 	public void addAsks(List<QDataAskMessage> qAskList) {
-		int newSize = messages.length+qAskList.size();
+		int newSize = asks.length+qAskList.size();
 		    QDataAskMessage[] extended = new QDataAskMessage[newSize];
 
-		   for (int index=messages.length;index<newSize;index++) {
-			   extended[index] = qAskList.get(index-messages.length);
+		   for (int index=asks.length;index<newSize;index++) {
+			   extended[index] = qAskList.get(index-asks.length);
 		   }
 
-		    System.arraycopy(messages, 0, extended, 0, messages.length);
+		    System.arraycopy(asks, 0, extended, 0, asks.length);
 		    setAsks(extended);
 
 	}

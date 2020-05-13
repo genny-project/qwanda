@@ -299,6 +299,15 @@ public class QDataBaseEntityMessage extends QDataMessage implements Comparable<Q
 		 this.linkValue = linkValue;
 	 }
 
+	@Override
+	public String toString() {
+		return "QDataBaseEntityMessage [" + (parentCode != null ? "parentCode=" + parentCode + ", " : "")
+				+ (total != null ? "total=" + total + ", " : "")
+				+ (returnCount != null ? "returnCount=" + returnCount : "") 
+				+ (items != null ? "item count =" + items.length + ", " : " = 0")
+				+ "]";
+	}
+
 	 
 	 
 }

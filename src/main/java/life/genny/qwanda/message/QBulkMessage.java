@@ -23,7 +23,7 @@ public class QBulkMessage implements Serializable {
 	  @Expose
 	  private QDataBaseEntityMessage[] messages;
 	  
-	  @Expose
+	 // @Expose
 	  private QDataAskMessage[] asks;
 	  
 	  @Expose
@@ -32,24 +32,29 @@ public class QBulkMessage implements Serializable {
 	
 	public QBulkMessage(){
 		messages = new QDataBaseEntityMessage[0];
+		asks = new QDataAskMessage[0];
 	}
 	
 	public QBulkMessage(QDataBaseEntityMessage[] qMessages){
 		this.messages = qMessages;
+		asks = new QDataAskMessage[0];
 	}
 	
 	public QBulkMessage(QDataAskMessage[] qAskMessages){
 		this.asks = qAskMessages;
+		messages = new QDataBaseEntityMessage[0];
 	}
 	
 	public QBulkMessage(QDataBaseEntityMessage qMessage){
 		messages = new QDataBaseEntityMessage[1];
 		this.messages[0] = qMessage;
+		asks = new QDataAskMessage[0];
 	}
 	
 	public QBulkMessage(QDataAskMessage qAsk){
 		asks = new QDataAskMessage[1];
 		this.asks[0] = qAsk;
+		messages = new QDataBaseEntityMessage[0];
 	}
 	
 	public QBulkMessage(List<QDataBaseEntityMessage> qMessages){
@@ -65,7 +70,7 @@ public class QBulkMessage implements Serializable {
 	}
 
 	public void add(QDataBaseEntityMessage[] qMessageArray) {
-		int newSize = messages.length+qMessageArray.length;
+		int newSize = ((messages==null)?0:((messages.length)))+qMessageArray.length;
 		    QDataBaseEntityMessage[] extended = new QDataBaseEntityMessage[newSize];
 
 		    System.arraycopy(qMessageArray, 0, extended, messages.length, qMessageArray.length);
@@ -74,18 +79,18 @@ public class QBulkMessage implements Serializable {
 		    setMessages(extended);
 	}
 
-	public void add(QDataAskMessage[] qMessageArray) {
-		int newSize = asks.length+qMessageArray.length;
+	public void add(QDataAskMessage[] qAskArray) {
+		int newSize = ((asks==null)?0:((asks.length)))+qAskArray.length;
 		    QDataAskMessage[] extended = new QDataAskMessage[newSize];
 
-		    System.arraycopy(qMessageArray, 0, extended, asks.length, qMessageArray.length);
+		    System.arraycopy(qAskArray, 0, extended, asks.length, qAskArray.length);
 
 		    System.arraycopy(asks, 0, extended, 0, asks.length);
 		    setAsks(extended);
 	}
 	
 	public void add(List<QDataBaseEntityMessage> qMessageList) {
-		int newSize = messages.length+qMessageList.size();
+		int newSize = ((messages==null)?0:((messages.length)))+qMessageList.size();
 		    QDataBaseEntityMessage[] extended = new QDataBaseEntityMessage[newSize];
 
 		   for (int index=messages.length;index<newSize;index++) {
@@ -98,7 +103,8 @@ public class QBulkMessage implements Serializable {
 	}
 	
 	public void addAsks(List<QDataAskMessage> qAskList) {
-		int newSize = asks.length+qAskList.size();
+		int newSize = ((asks==null)?0:((asks.length)))+qAskList.size();
+
 		    QDataAskMessage[] extended = new QDataAskMessage[newSize];
 
 		   for (int index=asks.length;index<newSize;index++) {
@@ -113,7 +119,8 @@ public class QBulkMessage implements Serializable {
 
 	
 	public void add(QDataBaseEntityMessage qMessage) {
-		int newSize = messages.length+1;
+		int newSize = ((messages==null)?0:((messages.length)))+1;
+
 	    QDataBaseEntityMessage[] extended = new QDataBaseEntityMessage[newSize];
 
 		 extended[newSize-1] = qMessage;
@@ -123,7 +130,8 @@ public class QBulkMessage implements Serializable {
 	}
 
 	public void add(QDataAskMessage qMessage) {
-		int newSize = asks.length+1;
+
+		int newSize = ((asks==null)?0:((asks.length)))+1;
 	    QDataAskMessage[] extended = new QDataAskMessage[newSize];
 
 		 extended[newSize-1] = qMessage;
@@ -134,7 +142,7 @@ public class QBulkMessage implements Serializable {
 	
 	public void add(QBulkMessage qBulkMessage)
 	{
-		if ((qBulkMessage.getAsks() != null)&&(qBulkMessage.getAsks().length>0)) {
+		if ((qBulkMessage.getAsks() != null)) {
 			this.add(qBulkMessage.getAsks());			
 		}
 		
@@ -207,6 +215,14 @@ public class QBulkMessage implements Serializable {
 	public void setRecipientCodeArray(String[] recipientCodeArray) {
 		this.recipientCodeArray = recipientCodeArray;
 	}
+
+	@Override
+	public String toString() {
+		int messageCount = (messages == null) ? 0: messages.length;
+		int asksCount = (asks == null) ? 0: asks.length;
+		return "QBulkMessage [" + (data_type != null ? "data_type=" + data_type : "") +" QDataBaseEntityMsgs= "+ messageCount+" AskMsgs="+asksCount+ "]";
+	}
+	
 	
 	
 }

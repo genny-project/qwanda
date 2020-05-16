@@ -670,6 +670,25 @@ public <T> Optional<T> getLoopValue(final String attributeCode) {
 @JsonIgnore
 @Transient
 @XmlTransient
+public String getValueAsString(final String attributeCode) {
+	Optional<EntityAttribute> ea = this.findEntityAttribute(attributeCode);
+	String result = null;
+	if (ea.isPresent()) {
+		if (ea.get()!=null) {
+			if (ea.get().getValue()!=null) {
+				result = ea.get().getAsString();
+			}
+		}
+	} 
+	return result;
+
+}
+
+
+
+@JsonIgnore
+@Transient
+@XmlTransient
 public <T> T getValue(final String attributeCode,T defaultValue) {
 	Optional<T> result = getValue(attributeCode);
 	if (result.isPresent()) {

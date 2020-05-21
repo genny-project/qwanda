@@ -23,7 +23,7 @@ public class QBulkMessage implements Serializable {
 	  @Expose
 	  private QDataBaseEntityMessage[] messages;
 	  
-	 // @Expose
+	  @Expose
 	  private QDataAskMessage[] asks;
 	  
 	  @Expose

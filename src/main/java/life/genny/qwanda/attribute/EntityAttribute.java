@@ -934,39 +934,29 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@Transient
 	@XmlTransient
 	public  <T> T getLoopValue() {
-		if(getValueInteger() != null) {
-			return (T)  getValueInteger();
-		}
-
-		if( getValueString() != null) {
+		if (getValueString() != null) {
 			return  (T) getValueString();
-		}
-		if(getValueMoney() != null) {
+		} else if(getValueBoolean() != null) {
+			return  (T) getValueBoolean();
+		} else if(getValueDateTime() != null) {
+			return  (T) getValueDateTime();
+		} else if(getValueDouble() != null) {
+		    return  (T) getValueDouble();
+		} else if(getValueInteger() != null) {
+			return (T)  getValueInteger();
+		}else if(getValueDate() != null) {
+			return  (T) getValueDate();
+		} else if(getValueMoney() != null) {
 			//return  (T) ("{\"amount\":"+getValueMoney().getNumber()+",\"currency\":\""+getValueMoney().getCurrency().getCurrencyCode()+"\"}");
 			return (T) getValueMoney();
-		}
-		if(getValueDateTime() != null) {
-			return  (T) getValueDateTime();
-		}
-		if(getValueDate() != null) {
-			return  (T) getValueDate();
-		}
-		if(getValueTime() != null) {
+		} else if(getValueTime() != null) {
 			return  (T) getValueTime();
-		}
-		if(getValueLong() != null) {
+		} else if(getValueLong() != null) {
 		    return  (T) getValueLong();
-		}
-		if(getValueDouble() != null) {
-		    return  (T) getValueDouble();
-		}
-		if(getValueBoolean() != null) {
-			return  (T) getValueBoolean();
-		}
-		if (getValueDateRange() != null) {
+		}  else if (getValueDateRange() != null) {
 			return (T) getValueDateRange();
 		}
-		return  (T) getValueString();
+		return null;
 		
 	}
 	@Override

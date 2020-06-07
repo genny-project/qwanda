@@ -738,7 +738,9 @@ public <T> Optional<T> setValue(final Attribute attribute, T value, Double weigh
 
 	Optional<T> result = Optional.empty();
 	if (oldValue.isPresent()) {
-		result = Optional.of(oldValue.get().getLoopValue());
+		if (oldValue.get().getLoopValue() != null) {
+			result = Optional.of(oldValue.get().getLoopValue());
+		}
 		EntityAttribute ea = oldValue.get();
 		ea.setValue(value);
 		ea.setWeight(weight);

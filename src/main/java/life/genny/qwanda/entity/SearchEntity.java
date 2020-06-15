@@ -9,6 +9,7 @@ import life.genny.qwanda.attribute.AttributeInteger;
 import life.genny.qwanda.attribute.AttributeLong;
 import life.genny.qwanda.attribute.AttributeText;
 import life.genny.qwanda.exception.BadDataException;
+
 import life.genny.qwandautils.QwandaJsonUtils;
 
 
@@ -451,6 +452,7 @@ public class SearchEntity extends BaseEntity {
 
 	
 	
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -459,5 +461,16 @@ public class SearchEntity extends BaseEntity {
 		return QwandaJsonUtils.toJson(this);
 	}
 
-
+	public Integer getPageStart(Integer defaultPageSize)
+	{
+		Integer pageStart = getValue("SCH_PAGE_START", defaultPageSize);
+		return pageStart;
+	}
+	
+	public Integer getPageSize(Integer defaultPageSize)
+	{
+		Integer pageSize = getValue("SCH_PAGE_SIZE", defaultPageSize);
+		return pageSize;
+	}
+	
 }

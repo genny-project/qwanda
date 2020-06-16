@@ -53,9 +53,10 @@ import life.genny.qwanda.entity.BaseEntity;
 
 @Table(name = "baseentity_attribute" ,
 indexes = {
-        @Index(columnList = "attributeCode", name = "ba_idx"),
-        @Index(columnList = "baseEntityCode", name = "ba_idx"),
-        @Index(columnList = "realm", name = "ba_idx")
+		@Index(columnList = "baseEntityCode", name = "ba_idx"),
+		@Index(columnList = "attributeCode", name = "ba_idx"),
+		@Index(columnList = "valueString", name = "ba_idx"),
+        @Index(columnList = "valueBoolean", name = "ba_idx")
     },
 uniqueConstraints = @UniqueConstraint(columnNames = {"attributeCode","baseEntityCode","realm"})
 )

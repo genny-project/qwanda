@@ -18,7 +18,6 @@
  *     Byron Aguirre
  */
 
-
 package life.genny.qwanda;
 
 import java.io.Serializable;
@@ -60,25 +59,22 @@ import com.google.gson.annotations.Expose;
 import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 
 /**
- * gpsstep is the abstract base class for all gps steps
- * managed in the Qwanda library.
- * An GPS step object is used as a means of storing information
- * about a 2D location to another 2D location on Earth.  This
- * gps information includes:
+ * gpsstep is the abstract base class for all gps steps managed in the Qwanda
+ * library. An GPS step object is used as a means of storing information about a
+ * 2D location to another 2D location on Earth. This gps information includes:
  * <ul>
  * <li>start location
- * <li>end location
- * <
+ * <li>end location <
  * </ul>
  * <p>
  * 
  * <p>
  * 
  * 
- * @author      Adam Crow
- * @author      Byron Aguirre
- * @version     %I%, %G%
- * @since       1.0
+ * @author Adam Crow
+ * @author Byron Aguirre
+ * @version %I%, %G%
+ * @since 1.0
  */
 
 @Entity
@@ -86,67 +82,85 @@ import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 @XmlAccessorType(value = XmlAccessType.FIELD)
 @Table(name = "gps_step")
 
-public class GPSStep  implements Serializable {
+public class GPSStep implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
+	@Id
+	@GeneratedValue
+	private int id;
+
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@XmlTransient
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "gpsleg_id", nullable = false)
 	GPSLeg gpsLeg;
 
-
 	@Embedded
-	@AttributeOverrides({ @AttributeOverride(name = "latitude", column = @Column(name = "start_latitude")) ,
-			 @AttributeOverride(name = "longitude", column = @Column(name = "start_longitude")) })
+	@AttributeOverrides({ @AttributeOverride(name = "latitude", column = @Column(name = "start_latitude")),
+			@AttributeOverride(name = "longitude", column = @Column(name = "start_longitude")) })
 	@Valid
 	@Expose
 	GPSLocation start;
-	
+
 	@Embedded
-	@AttributeOverrides({ @AttributeOverride(name = "latitude", column = @Column(name = "end_latitude")) ,
-		 @AttributeOverride(name = "longitude", column = @Column(name = "end_longitude")) })
+	@AttributeOverrides({ @AttributeOverride(name = "latitude", column = @Column(name = "end_latitude")),
+			@AttributeOverride(name = "longitude", column = @Column(name = "end_longitude")) })
 	@Valid
 	@Expose
 	GPSLocation end;
-	
+
 	@Expose
 	Double distance_m;
-	
+
 	@Expose
 	Double duration_s;
-	
+
 	@Expose
 	String htmlInstruction;
-	
+
 	/**
-	  * Constructor.
-	  * 
-	  * @param none
-	  */
+	 * Constructor.
+	 * 
+	 * @param none
+	 */
 	@SuppressWarnings("unused")
-	private GPSStep()
-	{
+	private GPSStep() {
 		// dummy for hibernate
 	}
 
 	/**
-	  * Constructor.
-	  * 
-	  * @param targetCode The unique code for the target associated with this Answer
-	  * @param aCode The unique code for the attribute associated with this Answer
-	  * @param value The associated String value
-	  */
-	public GPSStep(final GPSLocation start, final GPSLocation end, final Double distance, final Double duration)
-	{
+	 * Constructor.
+	 * 
+	 * @param targetCode The unique code for the target associated with this Answer
+	 * @param aCode      The unique code for the attribute associated with this
+	 *                   Answer
+	 * @param value      The associated String value
+	 */
+	public GPSStep(final GPSLocation start, final GPSLocation end, final Double distance, final Double duration) {
 
 		this.start = start;
 		this.end = end;
 		this.distance_m = distance;
 		this.duration_s = duration;
+	}
+
+	
+	
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	/**
@@ -156,15 +170,12 @@ public class GPSStep  implements Serializable {
 		return start;
 	}
 
-
-
 	/**
 	 * @return the end
 	 */
 	public GPSLocation getEnd() {
 		return end;
 	}
-
 
 	/**
 	 * @return the distance
@@ -173,15 +184,12 @@ public class GPSStep  implements Serializable {
 		return distance_m;
 	}
 
-
-
 	/**
 	 * @return the duration
 	 */
 	public Double getDuration() {
 		return duration_s;
 	}
-
 
 	/**
 	 * @return the gpsLeg
@@ -211,7 +219,9 @@ public class GPSStep  implements Serializable {
 		this.htmlInstruction = htmlInstruction;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -220,7 +230,4 @@ public class GPSStep  implements Serializable {
 				+ ", htmlInstruction=" + htmlInstruction + "]";
 	}
 
-
-
-	
 }

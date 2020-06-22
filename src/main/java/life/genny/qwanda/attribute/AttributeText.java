@@ -71,7 +71,7 @@ public class AttributeText extends Attribute implements Serializable {
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private AttributeText()
+	public AttributeText()
 	{
 		super();
 		// dummy for hibernate

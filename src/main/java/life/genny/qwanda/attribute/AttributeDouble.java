@@ -71,7 +71,7 @@ public class AttributeDouble extends Attribute implements Serializable {
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private AttributeDouble()
+	public AttributeDouble()
 	{
 		super();
 		// dummy for hibernate

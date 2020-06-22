@@ -71,7 +71,7 @@ public class RuleSpreadsheet extends Rule implements Serializable {
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private RuleSpreadsheet()
+	public RuleSpreadsheet()
 	{
 		super();
 		// dummy for hibernate

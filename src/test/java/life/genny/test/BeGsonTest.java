@@ -35,7 +35,7 @@ public class BeGsonTest {
 	static GsonBuilder gsonBuilder = new GsonBuilder();
 
 	static public Gson gson = gsonBuilder.registerTypeAdapter(Money.class, new MoneyDeserializer())
-			.registerTypeAdapter(new TypeToken<Range<LocalDate>>(){}.getType(), new RangeDeserializer())
+			//.registerTypeAdapter(new TypeToken<Range<LocalDate>>(){}.getType(), new RangeDeserializer())
 			.registerTypeAdapter(LocalDateTime.class, new DateTimeDeserializer()).setPrettyPrinting()
 			.registerTypeAdapter(LocalDate.class, new LocalDateConverter()).excludeFieldsWithoutExposeAnnotation()
 			.create();
@@ -50,40 +50,40 @@ public class BeGsonTest {
 
 	}
 	
-	@Test
-	public void rangeTest()
-	{
-		Product mazdaCX5 = new Product("maxdacx5","Mazda CX-5");
-
-		Attribute rangeAttribute = new AttributeDateRange("PRI_DATE_RANGE","LocalDate Range Test");
-		
-		Range<LocalDate> dateRange = Range.closedOpen(LocalDate.of(2018, 1, 1), LocalDate.of(2018, 2, 20));
-		try {
-			mazdaCX5.addAttribute(rangeAttribute, 2.0, dateRange);
-		} catch (BadDataException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		Optional<Range<LocalDate>> myDateRange = mazdaCX5.getLoopValue("PRI_DATE_RANGE");
-		if (myDateRange.isPresent()) {
-			Range<LocalDate> dr = myDateRange.get();
-			if (dr.contains(LocalDate.of(2018, 1, 20))) {
-				log.info("LocalDate Included!");
-			} 
-			if (!dr.contains(LocalDate.of(2017, 1, 20))) {
-				log.info("LocalDate NOT Included!");
-			} 
-			Optional<EntityAttribute> ea = mazdaCX5.findEntityAttribute("PRI_DATE_RANGE");
-			if (ea.isPresent()) {
-				String json = gson.toJson(ea.get());
-				log.info("JSON RANGE:"+json);
-				
-				EntityAttribute recreatedRangeEA = gson.fromJson(json, EntityAttribute.class);
-//				Range<LocalDate> recreatedRange = gson.fromJson(json, new TypeToken<Range<LocalDate>>(){}.getType());
-				log.info("DEJSONED RANGE:"+recreatedRangeEA.getLoopValue());
-			}
-		}
-	}
+	//@Test
+//	public void rangeTest()
+//	{
+//		Product mazdaCX5 = new Product("maxdacx5","Mazda CX-5");
+//
+//		Attribute rangeAttribute = new AttributeDateRange("PRI_DATE_RANGE","LocalDate Range Test");
+//		
+//		Range<LocalDate> dateRange = Range.closedOpen(LocalDate.of(2018, 1, 1), LocalDate.of(2018, 2, 20));
+//		try {
+//			mazdaCX5.addAttribute(rangeAttribute, 2.0, dateRange);
+//		} catch (BadDataException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		Optional<Range<LocalDate>> myDateRange = mazdaCX5.getLoopValue("PRI_DATE_RANGE");
+//		if (myDateRange.isPresent()) {
+//			Range<LocalDate> dr = myDateRange.get();
+//			if (dr.contains(LocalDate.of(2018, 1, 20))) {
+//				log.info("LocalDate Included!");
+//			} 
+//			if (!dr.contains(LocalDate.of(2017, 1, 20))) {
+//				log.info("LocalDate NOT Included!");
+//			} 
+//			Optional<EntityAttribute> ea = mazdaCX5.findEntityAttribute("PRI_DATE_RANGE");
+//			if (ea.isPresent()) {
+//				String json = gson.toJson(ea.get());
+//				log.info("JSON RANGE:"+json);
+//				
+//				EntityAttribute recreatedRangeEA = gson.fromJson(json, EntityAttribute.class);
+////				Range<LocalDate> recreatedRange = gson.fromJson(json, new TypeToken<Range<LocalDate>>(){}.getType());
+//				log.info("DEJSONED RANGE:"+recreatedRangeEA.getLoopValue());
+//			}
+//		}
+//	}
 	
 }

@@ -84,7 +84,7 @@ public class Company extends BaseEntity implements Serializable, BaseEntityIntf 
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private Company()
+	public Company()
 	{
 		// dummy for hibernate
 	}

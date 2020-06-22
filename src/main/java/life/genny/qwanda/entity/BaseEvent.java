@@ -84,7 +84,7 @@ public class BaseEvent extends BaseEntity implements Serializable, BaseEntityInt
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private BaseEvent()
+	public BaseEvent()
 	{
 		super();
 		// dummy for hibernate

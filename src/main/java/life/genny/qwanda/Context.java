@@ -129,7 +129,7 @@ public class Context extends CoreEntity implements Serializable {
 	 * @param none
 	 */
 	@SuppressWarnings("unused")
-	private Context() {
+	public Context() {
 		// dummy for hibernate
 	}
 

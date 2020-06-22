@@ -73,7 +73,7 @@ public class AttributeLink extends Attribute implements Serializable {
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private AttributeLink()
+	public AttributeLink()
 	{
 		super();
 		// dummy for hibernate

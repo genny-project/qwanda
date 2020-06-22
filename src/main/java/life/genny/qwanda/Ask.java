@@ -149,7 +149,7 @@ public class Ask extends CoreEntity implements Serializable {
 	 * @param none
 	 */
 	@SuppressWarnings("unused")
-	private Ask() {
+	public Ask() {
 		// dummy for hibernate
 	}
 

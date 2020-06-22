@@ -68,7 +68,7 @@ public class RuleDrool extends Rule implements Serializable {
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private RuleDrool()
+	public RuleDrool()
 	{
 		super();
 		// dummy for hibernate

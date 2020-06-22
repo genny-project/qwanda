@@ -81,7 +81,7 @@ public class Person extends BaseEntity implements Serializable, BaseEntityIntf {
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private Person()
+	public Person()
 	{
 		// dummy for hibernate
 	}

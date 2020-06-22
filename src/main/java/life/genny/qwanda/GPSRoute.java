@@ -154,7 +154,7 @@ public class GPSRoute  implements Serializable {
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private GPSRoute()
+	public GPSRoute()
 	{
 		// dummy for hibernate
 	}

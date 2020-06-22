@@ -84,7 +84,7 @@ public class GPSLocation  implements  Serializable,Comparable<Object>  {
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private GPSLocation()
+	public GPSLocation()
 	{
 		// dummy for hibernate
 	}

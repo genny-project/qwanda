@@ -71,7 +71,7 @@ public class AttributeInteger extends Attribute implements Serializable {
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private AttributeInteger()
+	public AttributeInteger()
 	{
 		super();
 		// dummy for hibernate

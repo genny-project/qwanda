@@ -87,7 +87,7 @@ public class ContextList implements Serializable {
 	  * @param none
 	  */
 	
-	private ContextList()
+	public ContextList()
 	{
 		
 	}

@@ -73,7 +73,7 @@ public class AttributeDateRange extends Attribute implements Serializable {
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private AttributeDateRange()
+	public AttributeDateRange()
 	{
 		super();
 		// dummy for hibernate

@@ -81,7 +81,7 @@ public class AnswerList implements Serializable {
    * 
    * @param none
    */
-  private AnswerList() {}
+  public AnswerList() {}
 
   public AnswerList(final List<AnswerLink> answers) {
     this.answerList = answers;

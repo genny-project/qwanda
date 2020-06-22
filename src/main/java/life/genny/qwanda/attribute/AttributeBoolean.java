@@ -71,7 +71,7 @@ public class AttributeBoolean extends Attribute implements Serializable {
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private AttributeBoolean()
+	public AttributeBoolean()
 	{
 		super();
 		// dummy for hibernate

@@ -127,7 +127,7 @@ public class GPSStep implements Serializable {
 	 * @param none
 	 */
 	@SuppressWarnings("unused")
-	private GPSStep() {
+	public GPSStep() {
 		// dummy for hibernate
 	}
 

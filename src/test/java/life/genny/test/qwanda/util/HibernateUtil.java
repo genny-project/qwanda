@@ -94,7 +94,7 @@ public class HibernateUtil {
             		.addAnnotatedClass(java.util.HashSet.class)
             		.addAnnotatedClass(EntityEntity.class)
             		.addAnnotatedClass(EntityEntityId.class)
-            		.addAnnotatedClass(AttributeDateRange.class)
+            		//.addAnnotatedClass(AttributeDateRange.class)
             		.addAnnotatedClass(QPaymentsFee.class)
             	
             .addAnnotatedClass(AttributeList.class);

@@ -238,7 +238,7 @@ public class Answer implements Serializable {
 	 * @param none
 	 */
 	@SuppressWarnings("unused")
-	private Answer() {
+	public Answer() {
 		// dummy for hibernate
 	}
 

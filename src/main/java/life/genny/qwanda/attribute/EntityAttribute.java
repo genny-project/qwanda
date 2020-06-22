@@ -40,7 +40,6 @@ import org.hibernate.annotations.Type;
 import org.javamoney.moneta.Money;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.common.collect.Range;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
@@ -189,8 +188,8 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@Expose
 	private LocalDate valueDate;
 	
-	@Expose
-	private Range<LocalDate> valueDateRange;
+//	@Expose
+//	private Range<LocalDate> valueDateRange;
 
 	/**
 	 * Store the String value of the attribute for the baseEntity
@@ -481,19 +480,19 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 
 	
 	
-	/**
-	 * @return the valueDateRange
-	 */
-	public Range<LocalDate> getValueDateRange() {
-		return valueDateRange;
-	}
-
-	/**
-	 * @param valueDateRange the valueDateRange to set
-	 */
-	public void setValueDateRange(Range<LocalDate> valueDateRange) {
-		this.valueDateRange = valueDateRange;
-	}
+//	/**
+//	 * @return the valueDateRange
+//	 */
+//	public Range<LocalDate> getValueDateRange() {
+//		return valueDateRange;
+//	}
+//
+//	/**
+//	 * @param valueDateRange the valueDateRange to set
+//	 */
+//	public void setValueDateRange(Range<LocalDate> valueDateRange) {
+//		this.valueDateRange = valueDateRange;
+//	}
 
 	/**
 	 * @return the valueMoney
@@ -629,8 +628,8 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 		case "org.javamoney.moneta.Money":
 		case "Money":
 			return (T) getValueMoney();
-		case "range.LocalDate":
-			return (T) getValueDateRange();
+//		case "range.LocalDate":
+//			return (T) getValueDateRange();
 		case "java.lang.String":
 		default:
 			return (T) getValueString();
@@ -766,9 +765,9 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			case "Boolean":
 				setValueBoolean((Boolean) value);
 				break;
-			case "range.LocalDate":
-				setValueDateRange((Range<LocalDate>) value);
-				break;
+//			case "range.LocalDate":
+//				setValueDateRange((Range<LocalDate>) value);
+//				break;
 			case "java.lang.String":
 			default:
 				setValueString((String) value);
@@ -817,8 +816,8 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 				setValueDouble((Double) value);
 			else if (value instanceof Boolean)
 				setValueBoolean((Boolean) value);
-			else if (value instanceof Range<?>)
-				setValueDateRange((Range<LocalDate>) value);
+//			else if (value instanceof Range<?>)
+//				setValueDateRange((Range<LocalDate>) value);
 			else
 				setValueString((String) value);
  
@@ -954,8 +953,8 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			return  (T) getValueTime();
 		} else if(getValueLong() != null) {
 		    return  (T) getValueLong();
-		}  else if (getValueDateRange() != null) {
-			return (T) getValueDateRange();
+//		}  else if (getValueDateRange() != null) {
+//			return (T) getValueDateRange();
 		}
 		return null;
 		
@@ -1012,8 +1011,8 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 		case "org.javamoney.moneta.Money":
 		case "Money":
 			return new CompareToBuilder().append(this.getValueMoney(), myClass.getValueMoney()).toComparison();
-		case "range.LocalDate":
-			return new CompareToBuilder().append(this.getValueDateRange(), myClass.getValueDateRange()).toComparison();
+//		case "range.LocalDate":
+//			return new CompareToBuilder().append(this.getValueDateRange(), myClass.getValueDateRange()).toComparison();
 		case "java.lang.String":
 		default:
 			return new CompareToBuilder().append(this.getValueString(), myClass.getValueString()).toComparison();
@@ -1175,9 +1174,9 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			return (T) getValueMoney();
 		}
 		
-		if (getValueDateRange() != null) {
-			return (T) getValueDateRange();
-		}
+//		if (getValueDateRange() != null) {
+//			return (T) getValueDateRange();
+//		}
 		return (T) getValueString();
 
 	}
@@ -1232,9 +1231,9 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			return getValueString();
 		}
 		
-		if (getValueDateRange() != null) {
-			return getValueDateRange().toString();
-		}
+//		if (getValueDateRange() != null) {
+//			return getValueDateRange().toString();
+//		}
 
 		return getValueString();
 

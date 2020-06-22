@@ -8,8 +8,6 @@ import org.apache.logging.log4j.Logger;
 import org.javamoney.moneta.Money;
 import org.junit.Test;
 
-import com.google.common.collect.Range;
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -17,7 +15,6 @@ import life.genny.qwanda.Answer;
 import life.genny.qwanda.AnswerLink;
 import life.genny.qwanda.DateTimeDeserializer;
 import life.genny.qwanda.MoneyDeserializer;
-import life.genny.qwanda.RangeDeserializer;
 import life.genny.qwanda.attribute.Attribute;
 import life.genny.qwanda.attribute.AttributeDate;
 import life.genny.qwanda.attribute.AttributeDateTime;
@@ -34,7 +31,7 @@ public class AnswerTest {
 	static GsonBuilder gsonBuilder = new GsonBuilder();
 
 	static public Gson gson = gsonBuilder.registerTypeAdapter(Money.class, new MoneyDeserializer())
-			.registerTypeAdapter(new TypeToken<Range<LocalDate>>(){}.getType(), new RangeDeserializer())
+			//.registerTypeAdapter(new TypeToken<Range<LocalDate>>(){}.getType(), new RangeDeserializer())
 			.registerTypeAdapter(LocalDateTime.class, new DateTimeDeserializer()).setPrettyPrinting()
 			.registerTypeAdapter(LocalDate.class, new LocalDateConverter()).excludeFieldsWithoutExposeAnnotation()
 			.create();

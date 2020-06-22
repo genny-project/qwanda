@@ -73,7 +73,7 @@ public class AttributeMoney extends Attribute implements Serializable {
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private AttributeMoney()
+	public AttributeMoney()
 	{
 		super();
 		// dummy for hibernate

@@ -80,7 +80,7 @@ public class Group extends BaseEntity implements Serializable, BaseEntityIntf {
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private Group()
+	public Group()
 	{
 		// dummy for hibernate
 	}

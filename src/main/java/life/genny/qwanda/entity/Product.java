@@ -84,7 +84,7 @@ public class Product extends BaseEntity implements Serializable, BaseEntityIntf 
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private Product()
+	public Product()
 	{
 		// dummy for hibernate
 	}

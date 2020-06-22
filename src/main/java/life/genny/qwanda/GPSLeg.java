@@ -140,7 +140,7 @@ public class GPSLeg  implements Serializable {
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private GPSLeg()
+	public GPSLeg()
 	{
 		// dummy for hibernate
 	}

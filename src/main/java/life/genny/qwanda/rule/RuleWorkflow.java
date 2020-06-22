@@ -69,7 +69,7 @@ public class RuleWorkflow extends Rule implements Serializable {
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private RuleWorkflow()
+	public RuleWorkflow()
 	{
 		super();
 		// dummy for hibernate

@@ -111,7 +111,7 @@ public class GPSRouteStatus  implements Serializable {
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private GPSRouteStatus()
+	public GPSRouteStatus()
 	{
 		// dummy for hibernate
 	}

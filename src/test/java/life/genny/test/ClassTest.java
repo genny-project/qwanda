@@ -153,42 +153,42 @@ public class ClassTest {
 			
 			log.info(fetchedMazda);
 			log.info("RANGE TEST!!!!!!!!!!!!!!!!");
-			Attribute rangeAttribute = new AttributeDateRange("PRI_DATE_RANGE","LocalDate Range Test");
-			session.save(rangeAttribute);
-			
-			Attribute fetchedRangeAttribute = session.find(Attribute.class, rangeAttribute.getId());
-			Range<LocalDate> dateRange = Range.closedOpen(LocalDate.of(2018, 1, 1), LocalDate.of(2018, 2, 20));
-			try {
-				fetchedMazda.addAttribute(fetchedRangeAttribute, 2.0, dateRange);
-			} catch (BadDataException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			session.update(fetchedMazda);
+//			Attribute rangeAttribute = new AttributeDateRange("PRI_DATE_RANGE","LocalDate Range Test");
+//			session.save(rangeAttribute);
+//			
+//			Attribute fetchedRangeAttribute = session.find(Attribute.class, rangeAttribute.getId());
+//			Range<LocalDate> dateRange = Range.closedOpen(LocalDate.of(2018, 1, 1), LocalDate.of(2018, 2, 20));
+//			try {
+//				fetchedMazda.addAttribute(fetchedRangeAttribute, 2.0, dateRange);
+//			} catch (BadDataException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			session.update(fetchedMazda);
 			Product fetchedMazda2 = session.find(Product.class, mazdaCX5.getId());
 		
 			
-			Optional<Range<LocalDate>> myDateRange = fetchedMazda2.getLoopValue("PRI_DATE_RANGE");
-			if (myDateRange.isPresent()) {
-				Range<LocalDate> dr = myDateRange.get();
-				if (dr.contains(LocalDate.of(2018, 1, 20))) {
-					log.info("LocalDate Included!");
-				} 
-				if (!dr.contains(LocalDate.of(2017, 1, 20))) {
-					log.info("LocalDate NOT Included!");
-				} 
-				Optional<EntityAttribute> ea = fetchedMazda2.findEntityAttribute("PRI_DATE_RANGE");
-				if (ea.isPresent()) {
-					String json = gson.toJson(ea.get());
-					log.info("JSON RANGE:"+json);
-					
-					EntityAttribute recreatedRangeEA = gson.fromJson(json, EntityAttribute.class);
-//					Range<LocalDate> recreatedRange = gson.fromJson(json, new TypeToken<Range<LocalDate>>(){}.getType());
-					log.info("DEJSONED RANGE:"+recreatedRangeEA.getLoopValue());
-				}
-			}
+//			Optional<Range<LocalDate>> myDateRange = fetchedMazda2.getLoopValue("PRI_DATE_RANGE");
+//			if (myDateRange.isPresent()) {
+//				Range<LocalDate> dr = myDateRange.get();
+//				if (dr.contains(LocalDate.of(2018, 1, 20))) {
+//					log.info("LocalDate Included!");
+//				} 
+//				if (!dr.contains(LocalDate.of(2017, 1, 20))) {
+//					log.info("LocalDate NOT Included!");
+//				} 
+//				Optional<EntityAttribute> ea = fetchedMazda2.findEntityAttribute("PRI_DATE_RANGE");
+//				if (ea.isPresent()) {
+//					String json = gson.toJson(ea.get());
+//					log.info("JSON RANGE:"+json);
+//					
+//					EntityAttribute recreatedRangeEA = gson.fromJson(json, EntityAttribute.class);
+////					Range<LocalDate> recreatedRange = gson.fromJson(json, new TypeToken<Range<LocalDate>>(){}.getType());
+//					log.info("DEJSONED RANGE:"+recreatedRangeEA.getLoopValue());
+//				}
+//			}
 			
-			log.info("RANGE TEST FINISHED "+fetchedRangeAttribute);
+//			log.info("RANGE TEST FINISHED "+fetchedRangeAttribute);
 			tx.commit();
 
 		} catch (RuntimeException e) {

@@ -71,7 +71,7 @@ public class AttributeLong extends Attribute implements Serializable {
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private AttributeLong()
+	public AttributeLong()
 	{
 		super();
 		// dummy for hibernate

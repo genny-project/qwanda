@@ -201,7 +201,7 @@ public class GPS  implements Serializable {
 	  * @param none
 	  */
 	@SuppressWarnings("unused")
-	private GPS()
+	public GPS()
 	{
 		// dummy for hibernate
 	}

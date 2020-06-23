@@ -102,12 +102,12 @@
 	</repositories>
 
 	<dependencies>
-		<dependency>
+<!-- 		<dependency>
 			<groupId>org.javamoney</groupId>
 			<artifactId>moneta</artifactId>
 			<version>${version.moneta}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.zalando/jackson-datatype-money -->
+ -->		<!-- https://mvnrepository.com/artifact/org.zalando/jackson-datatype-money -->
 		<dependency>
 			<groupId>org.zalando</groupId>
 			<artifactId>jackson-datatype-money</artifactId>

@@ -146,6 +146,7 @@ public class SearchEntity extends BaseEntity {
 	
 	public static String convertFromSaveable(String value)
 	{
+		if (value != null) {
 		String name = value.replaceAll("_GT_", ">");
 		name = name.replaceAll("_LT_", "<");
 		name = name.replaceAll("_EQ_", "=");
@@ -153,6 +154,9 @@ public class SearchEntity extends BaseEntity {
 		name = name.replaceAll("_PLUS_", "+");
 		name = name.replaceAll("_MINUS_", "-");
 		return name;
+		} else {
+			return null;
+		}
 	}
 
 	/* Constructor to create SearchEntity with code and name */

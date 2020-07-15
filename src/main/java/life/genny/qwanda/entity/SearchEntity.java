@@ -108,10 +108,14 @@ public class SearchEntity extends BaseEntity {
 				String name = ea.getAttributeName();
 				name = name.replaceAll(">", "_GT_");
 				name = name.replaceAll("<", "_LT_");
+				name = name.replaceAll(">=", "_GTE_");
+				name = name.replaceAll("<=", "_LTE_");
 				name = name.replaceAll("=", "_EQ_");
 				name = name.replaceAll("&", "_AMP_");
 				name = name.replaceAll("+", "_PLUS_");
 				name = name.replaceAll("-", "_MINUS_");
+				name = name.replaceAll("&+", "_BPLUS_");
+				name = name.replaceAll("&0", "_BZERO_");
 				ea.setAttributeName(name);
 			}
 		}
@@ -123,11 +127,15 @@ public class SearchEntity extends BaseEntity {
 					|| (ea.getAttributeCode().startsWith("SCH_")))) {
 				String name = ea.getAttributeName();
 				name = name.replaceAll("_GT_", ">");
+				name = name.replaceAll("_GTE_", ">=");
 				name = name.replaceAll("_LT_", "<");
+				name = name.replaceAll("_LTE_", "<=");
 				name = name.replaceAll("_EQ_", "=");
 				name = name.replaceAll("_AMP_", "&");
 				name = name.replaceAll("_PLUS_", "+");
 				name = name.replaceAll("_MINUS_", "-");
+				name = name.replaceAll("_BPLUS_", "&+");
+				name = name.replaceAll("_BZERO_", "&0");
 				ea.setAttributeName(name);
 			}
 		}

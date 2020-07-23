@@ -132,7 +132,11 @@ public class Validation extends CodedEntity implements Serializable {
 	 * @param options the options to set
 	 */
 	public void setOptions(String options) {
-		this.options = options.replaceAll("\"", "'");
+		if (options != null) {
+			this.options = options.replaceAll("\"", "'");
+		} else {
+			this.options = options;
+		}
 	}
 
 	/**

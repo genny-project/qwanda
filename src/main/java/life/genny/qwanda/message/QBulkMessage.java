@@ -117,36 +117,36 @@ public class QBulkMessage implements Serializable {
 	}
 
 	public void add(QDataBaseEntityMessage qMessage) {
-		if (qMessage.getItems().length > 0) {
-			Set<QDataBaseEntityMessage> set = new HashSet<QDataBaseEntityMessage>(Arrays.asList(this.messages));
-			set.add(qMessage);
-			this.messages = new QDataBaseEntityMessage[set.size()];
-			set.toArray(this.messages);
-		}
-//		int newSize = ((messages==null)?0:((messages.length)))+1;
-//
-//	    QDataBaseEntityMessage[] extended = new QDataBaseEntityMessage[newSize];
-//
-//		 extended[newSize-1] = qMessage;
-//
-//	    System.arraycopy(messages, 0, extended, 0, messages.length);
-//	    setMessages(extended);
+//		if (qMessage.getItems().length > 0) {
+//			Set<QDataBaseEntityMessage> set = new HashSet<QDataBaseEntityMessage>(Arrays.asList(this.messages));
+//			set.add(qMessage);
+//			this.messages = new QDataBaseEntityMessage[set.size()];
+//			set.toArray(this.messages);
+//		}
+		int newSize = ((messages==null)?0:((messages.length)))+1;
+
+	    QDataBaseEntityMessage[] extended = new QDataBaseEntityMessage[newSize];
+
+		 extended[newSize-1] = qMessage;
+
+	    System.arraycopy(messages, 0, extended, 0, messages.length);
+	    setMessages(extended);
 	}
 
 	public void add(QDataAskMessage qMessage) {
-		if (qMessage.getItems().length > 0) {
-			Set<QDataAskMessage> set = new HashSet<QDataAskMessage>(Arrays.asList(this.asks));
-			set.add(qMessage);
-			this.asks = new QDataAskMessage[set.size()];
-			set.toArray(this.asks);
-		}
-//		int newSize = ((asks==null)?0:((asks.length)))+1;
-//	    QDataAskMessage[] extended = new QDataAskMessage[newSize];
-//
-//		 extended[newSize-1] = qMessage;
-//
-//	    System.arraycopy(asks, 0, extended, 0, asks.length);
-//	    setAsks(extended);
+//		if (qMessage.getItems().length > 0) {
+//			Set<QDataAskMessage> set = new HashSet<QDataAskMessage>(Arrays.asList(this.asks));
+//			set.add(qMessage);
+//			this.asks = new QDataAskMessage[set.size()];
+//			set.toArray(this.asks);
+//		}
+		int newSize = ((asks==null)?0:((asks.length)))+1;
+	    QDataAskMessage[] extended = new QDataAskMessage[newSize];
+
+		 extended[newSize-1] = qMessage;
+
+	    System.arraycopy(asks, 0, extended, 0, asks.length);
+	    setAsks(extended);
 	}
 
 	public void add(QBulkMessage qBulkMessage) {

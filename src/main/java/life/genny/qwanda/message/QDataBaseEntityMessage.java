@@ -84,14 +84,22 @@ public class QDataBaseEntityMessage extends QDataMessage implements Comparable<Q
 
 	public QDataBaseEntityMessage(final BaseEntity[] items) {
 		super(DATATYPE_BASEENTITY);
+		if ((items == null)||(items.length == 0)) {
+			setItems(new BaseEntity[0]);
+		} else {
+			setItems(items);
+		}
 		setItems(items);
 		setTotal(-1L);
 	}
 
 	public QDataBaseEntityMessage(final List<BaseEntity> items) {
 		super(DATATYPE_BASEENTITY);
-
-		setItems(items.toArray(new BaseEntity[0]));
+		if ((items == null)||(items.isEmpty())) {
+			setItems(new BaseEntity[0]);
+		} else {
+			setItems(items.toArray(new BaseEntity[0]));
+		}
 		setTotal(-1L);
 	}
 	
@@ -99,7 +107,11 @@ public class QDataBaseEntityMessage extends QDataMessage implements Comparable<Q
 			final String linkCode) {
 		super(DATATYPE_BASEENTITY);
 
-		setItems(items.toArray(new BaseEntity[0]));
+		if ((items == null)||(items.isEmpty())) {
+			setItems(new BaseEntity[0]);
+		} else {
+			setItems(items.toArray(new BaseEntity[0]));
+		}
 		this.linkCode = linkCode;
 		this.parentCode = parentCode;
 		setTotal(-1L);
@@ -108,7 +120,11 @@ public class QDataBaseEntityMessage extends QDataMessage implements Comparable<Q
 	public QDataBaseEntityMessage(final List<BaseEntity> items, final String parentCode,
         final String linkCode, final String linkValue) {
       super(DATATYPE_BASEENTITY);
-      setItems(items.toArray(new BaseEntity[0]));
+		if ((items == null)||(items.isEmpty())) {
+			setItems(new BaseEntity[0]);
+		} else {
+			setItems(items.toArray(new BaseEntity[0]));
+		}
       this.linkCode = linkCode;
       this.parentCode = parentCode;
       setTotal(-1L);
@@ -129,7 +145,11 @@ public class QDataBaseEntityMessage extends QDataMessage implements Comparable<Q
 	public QDataBaseEntityMessage(final BaseEntity[] items, final String parentCode,
 			final String linkCode, final Long total) {
 		super(DATATYPE_BASEENTITY); 
-		setItems(items);
+		if ((items == null)||(items.length == 0)) {
+			setItems(new BaseEntity[0]);
+		} else {
+			setItems(items);
+		}
 		this.linkCode = linkCode;
 		this.parentCode = parentCode;
 		setTotal(total);

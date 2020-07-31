@@ -19,11 +19,11 @@ public class QDataAskMessage extends QDataMessage implements Serializable {
 
 	public QDataAskMessage(Ask[] items) {
 		super(DATATYPE_ASK);
-		if ((items == null)||(items.length == 0)) {
-			setItems(new Ask[0]);
-		} else {
+//		if ((items == null)||(items.length == 0)) {
+//			setItems(new Ask[0]);
+//		} else {
 			setItems(items);
-		}
+//		}
 
 	}
 	
@@ -39,11 +39,11 @@ public class QDataAskMessage extends QDataMessage implements Serializable {
 	}
 
 	public void setItems(Ask[] asks) {
-		if ((items == null)||(items.length == 0)) {
-			this.items = new Ask[0];
-		} else {
+//		if ((items == null)||(items.length == 0)) {
+//			this.items = new Ask[0];
+//		} else {
 			this.items = asks;
-		}
+//		}
 
 	}
 

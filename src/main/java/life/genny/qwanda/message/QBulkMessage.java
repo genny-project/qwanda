@@ -117,12 +117,12 @@ public class QBulkMessage implements Serializable {
 	}
 
 	public void add(QDataBaseEntityMessage qMessage) {
-		if (qMessage.getItems().length > 0) {
+	//	if (qMessage.getItems().length > 0) {
 			Set<QDataBaseEntityMessage> set = new HashSet<QDataBaseEntityMessage>(Arrays.asList(this.messages));
 			set.add(qMessage);
 			this.messages = new QDataBaseEntityMessage[set.size()];
 			set.toArray(this.messages);
-		}
+	//	}
 		int newSize = ((messages==null)?0:((messages.length)))+1;
 
 //	    QDataBaseEntityMessage[] extended = new QDataBaseEntityMessage[newSize];

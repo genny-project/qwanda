@@ -368,11 +368,11 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
    * @param ea
    * @throws BadDataException
    */
-  public void addAttribute(final EntityAttribute ea) throws BadDataException {
+  public EntityAttribute addAttribute(final EntityAttribute ea) throws BadDataException {
     if (ea == null)
       throw new BadDataException("missing Attribute");
 
-    addAttribute(ea.getAttribute(), ea.getWeight(), ea.getValue());
+    return addAttribute(ea.getAttribute(), ea.getWeight(), ea.getValue());
   }
 
   /**
@@ -383,9 +383,9 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
    * @param weight
    * @throws BadDataException
    */
-  public void addAttribute(final Attribute attribute) throws BadDataException {
+  public EntityAttribute addAttribute(final Attribute attribute) throws BadDataException {
 
-    addAttribute(attribute, 1.0);
+    return addAttribute(attribute, 1.0);
   }
 
   /**
@@ -396,8 +396,8 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
    * @param weight
    * @throws BadDataException
    */
-  public void addAttribute(final Attribute attribute, final Double weight) throws BadDataException {
-    addAttribute(attribute, weight, null);
+  public EntityAttribute  addAttribute(final Attribute attribute, final Double weight) throws BadDataException {
+    return addAttribute(attribute, weight, null);
   }
 
   /**

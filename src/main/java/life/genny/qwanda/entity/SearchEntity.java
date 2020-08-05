@@ -195,7 +195,8 @@ public class SearchEntity extends BaseEntity {
 	public SearchEntity addColumn(final String attributeCode, final String columnName) {
 		AttributeText attributeColumn = new AttributeText("COL_" + attributeCode, columnName);
 		try {
-			addAttribute(attributeColumn, colIndex);
+			EntityAttribute ea = addAttribute(attributeColumn, colIndex);
+			ea.setIndex(colIndex.intValue());
 			colIndex += 1.0;
 		} catch (BadDataException e) {
 			log.error("Bad Column Initialisation");
@@ -210,7 +211,8 @@ public class SearchEntity extends BaseEntity {
 	public SearchEntity addAssociatedColumn(final String attributeCode, final String columnName) {
 		AttributeText attributeColumn = new AttributeText("CAL_" + attributeCode, columnName);
 		try {
-			addAttribute(attributeColumn, colIndex);
+			EntityAttribute ea = addAttribute(attributeColumn, colIndex);
+			ea.setIndex(colIndex.intValue());
 			colIndex += 1.0;
 		} catch (BadDataException e) {
 			log.error("Bad Associated Column Initialisation");

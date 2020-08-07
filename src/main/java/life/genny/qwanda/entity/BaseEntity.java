@@ -17,12 +17,7 @@
 package life.genny.qwanda.entity;
 
 import java.lang.invoke.MethodHandles;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.persistence.Cacheable;
@@ -133,7 +128,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
   @Cascade({CascadeType.MERGE,CascadeType.DELETE})
   @Expose
   /* Stores the links of BaseEntity to another BaseEntity */
-  private Set<EntityEntity> links = new HashSet<EntityEntity>(0);
+  private Set<EntityEntity> links = new LinkedHashSet<>();
 
   @Expose
   @Transient

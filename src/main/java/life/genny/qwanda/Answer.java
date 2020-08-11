@@ -300,6 +300,24 @@ public class Answer implements Serializable {
 	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final Double value) {
 		this(sourceCode,targetCode,attributeCode,value+"");
 	}
+	
+	/**
+	 * Constructor.
+	 * 
+	 * @param sourceCode
+	 *            The sourceCode associated with this Answer
+	 * @param targetCode
+	 *            The targetCode associated with this Answer
+	 * @param attributeCode
+	 *            The attributeCode associated with this Answer
+	 * @param value
+	 *            The associated String value
+	 */
+	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final Double value, final Boolean changeEvent, final Boolean inferred) {
+		this(sourceCode,targetCode,attributeCode,value+"");
+		this.changeEvent = changeEvent;
+		this.inferred = inferred;
+	}
 	/**
 	 * Constructor.
 	 * 

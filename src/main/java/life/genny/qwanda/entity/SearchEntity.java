@@ -532,6 +532,17 @@ public class SearchEntity extends BaseEntity {
 		return this;
 	}
 
+	public SearchEntity setDisplayMode(final String displayMode) {
+		AttributeText attribute = new AttributeText("SCH_DISPLAY_MODE", "DisplayMode");
+		try {
+			addAttribute(attribute, 1.0, displayMode);
+		} catch (BadDataException e) {
+			log.error("Bad Display Mode");
+		}
+
+		return this;
+	}
+
 	/*
 	 * This method allows to set thewildcard of the results data to be sent
 	 * 

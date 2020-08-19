@@ -119,6 +119,9 @@ public class Question extends CodedEntity implements Serializable {
 	@Expose
 	private String placeholder = "";
 
+	@Expose
+	private String directions = "";
+
 	@Type(type = "text")
 	@Expose
 	private String html;
@@ -200,6 +203,20 @@ public class Question extends CodedEntity implements Serializable {
 		this.mandatory = mandatory;
 		this.html = html;
 		this.placeholder = placeholder;
+	}
+
+	public Question(final String aCode, final String aName, final Attribute aAttribute, final Boolean mandatory,
+					final String html, final String placeholder, final  String directions) {
+		super(aCode, aName);
+		if (aAttribute == null) {
+			throw new InvalidParameterException("Attribute must not be null");
+		}
+		this.attribute = aAttribute;
+		this.attributeCode = aAttribute.getCode();
+		this.mandatory = mandatory;
+		this.html = html;
+		this.placeholder = placeholder;
+		this.directions = directions;
 	}
 
 	/**
@@ -376,6 +393,20 @@ public class Question extends CodedEntity implements Serializable {
 	 */
 	public void setMandatory(Boolean mandatory) {
 		this.mandatory = mandatory;
+	}
+
+	/**
+	 * @return the directions
+	 */
+	public String getDirections() {
+		return directions;
+	}
+
+	/**
+	 * @param directions the directions to set
+	 */
+	public void setDirections(String directions) {
+		this.directions = directions;
 	}
 
 	/**

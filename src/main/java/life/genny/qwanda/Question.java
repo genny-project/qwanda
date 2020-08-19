@@ -119,6 +119,9 @@ public class Question extends CodedEntity implements Serializable {
 	@Expose
 	private String placeholder = "";
 
+	@Expose
+	private String directions = "";
+
 	@Type(type = "text")
 	@Expose
 	private String html;
@@ -376,6 +379,20 @@ public class Question extends CodedEntity implements Serializable {
 	 */
 	public void setMandatory(Boolean mandatory) {
 		this.mandatory = mandatory;
+	}
+
+	/**
+	 * @return the directions
+	 */
+	public String getDirections() {
+		return directions;
+	}
+
+	/**
+	 * @param directions the directions to set
+	 */
+	public void setDirections(String directions) {
+		this.directions = directions;
 	}
 
 	/**

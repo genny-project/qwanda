@@ -205,20 +205,6 @@ public class Question extends CodedEntity implements Serializable {
 		this.placeholder = placeholder;
 	}
 
-	public Question(final String aCode, final String aName, final Attribute aAttribute, final Boolean mandatory,
-					final String html, final String placeholder, final  String directions) {
-		super(aCode, aName);
-		if (aAttribute == null) {
-			throw new InvalidParameterException("Attribute must not be null");
-		}
-		this.attribute = aAttribute;
-		this.attributeCode = aAttribute.getCode();
-		this.mandatory = mandatory;
-		this.html = html;
-		this.placeholder = placeholder;
-		this.directions = directions;
-	}
-
 	/**
 	 * Constructor.
 	 * 

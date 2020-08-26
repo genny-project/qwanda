@@ -24,6 +24,7 @@ public class SearchEntity extends BaseEntity {
 
 	Double colIndex = 1.0;
 	Double sortIndex = 1.0;
+	Double actionIndex = 1.0;
 
 	/*
 	 * This Sort Enum is used to sort the search results in either Ascending and
@@ -198,6 +199,37 @@ public class SearchEntity extends BaseEntity {
 			EntityAttribute ea = addAttribute(attributeColumn, colIndex);
 			ea.setIndex(colIndex.intValue());
 			colIndex += 1.0;
+		} catch (BadDataException e) {
+			log.error("Bad Column Initialisation");
+		}
+		return this;
+	}
+
+		/*
+	 * This method allows to add the action attributes to the SearchEntity that is required
+	 * in the result BaseEntities
+	 */
+	public SearchEntity addAction(final String attributeCode, final String columnName) {
+		AttributeText attributeColumn = new AttributeText("ACT_" + attributeCode, columnName);
+		try {
+			EntityAttribute ea = addAttribute(attributeColumn, actionIndex);
+			ea.setIndex(actionIndex.intValue());
+			actionIndex += 1.0;
+		} catch (BadDataException e) {
+			log.error("Bad Column Initialisation");
+		}
+		return this;
+	}
+
+		/*
+	 * This method allows to add the action attributes to the SearchEntity that is required
+	 * in the result BaseEntities
+	 */
+	public SearchEntity addDefaultAction(final String attributeCode, final String columnName) {
+		AttributeText attributeColumn = new AttributeText("ACT_" + attributeCode, columnName);
+		try {
+			EntityAttribute ea = addAttribute(attributeColumn, 0.0);
+			ea.setIndex(0);
 		} catch (BadDataException e) {
 			log.error("Bad Column Initialisation");
 		}

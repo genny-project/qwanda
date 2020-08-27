@@ -418,6 +418,27 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 		}
 		return entityAttribute;
 	}
+	/**
+	 * addAttributeOmitCheck This adds an attribute and associated weight to the baseEntity.
+	 * This method will NOT check and update any existing attributes. Use with Caution.
+	 * 
+	 * @param attribute
+	 * @param weight
+	 * @param value     (of type String, LocalDateTime, Long, Integer, Boolean
+	 * @throws BadDataException
+	 */
+	public EntityAttribute addAttributeOmitCheck(final Attribute attribute, final Double weight, final Object value)
+			throws BadDataException {
+		if (attribute == null)
+			throw new BadDataException("missing Attribute");
+		if (weight == null)
+			throw new BadDataException("missing weight");
+
+		final EntityAttribute entityAttribute = new EntityAttribute(this, attribute, weight, value);
+		getBaseEntityAttributes().add(entityAttribute);
+		
+		return entityAttribute;
+	}
 
 	/**
 	 * removeAttribute This removes an attribute and associated weight from the

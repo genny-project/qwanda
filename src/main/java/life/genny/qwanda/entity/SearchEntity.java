@@ -376,40 +376,19 @@ public class SearchEntity extends BaseEntity {
 	/*
 	 * This method allows to set a filter without checking if the the attribute already exists. Use Carefully.
 	 * 
-	 * @param attributeCode - the attributeCode which holds String value where we
+	 * @param attributeCode - the attributeCode which holds integer value where we
 	 * apply the filter
 	 * 
-	 * @param filterType - type of the string filter
+	 * @param filterType - type of the filter
 	 * 
 	 * @param value - filter against (search for) this value
 	 */
-	public SearchEntity addFilterOmitCheck(final String attributeCode, final StringFilter filterType, final String value) {
-		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
+	public SearchEntity addFilterOmitCheck(final String attributeCode, final Filter filterType, final Integer value) {
+		AttributeInteger attribute = new AttributeInteger(attributeCode, filterType.toString());
 		try {
 			addAttributeOmitCheck(attribute, 1.0, value);
 		} catch (BadDataException e) {
-			log.error("Bad String in Extra Filter Initialisation");
-		}
-
-		return this;
-	}
-
-	/*
-	 * This method allows to set a filter without checking if the the attribute already exists. Use Carefully.
-	 * 
-	 * @param attributeCode - the attributeCode which holds String value where we
-	 * apply the filter
-	 * 
-	 * @param filterType - type of the string filter
-	 * 
-	 * @param value - filter against (search for) this value
-	 */
-	public SearchEntity addFilterOmitCheck(final String attributeCode, final StringFilter filterType, final Integer value) {
-		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
-		try {
-			addAttributeOmitCheck(attribute, 1.0, value);
-		} catch (BadDataException e) {
-			log.error("Bad String in Extra Filter Initialisation");
+			log.error("Bad Integer Filter Initialisation in Omit Check");
 		}
 
 		return this;

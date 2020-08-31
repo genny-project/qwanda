@@ -99,7 +99,10 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 	  
 	  @Expose 
 	  private Boolean createOnTrigger;
-	  
+
+	@Expose
+	private String dependency;
+
 	public QuestionQuestion() {
 	}
 
@@ -489,5 +492,13 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 
 	public String getTarketCode() {
 		return pk.getTargetCode();
+	}
+
+	public String getDependency() {
+		return dependency;
+	}
+
+	public void setDependency(String dependency) {
+		this.dependency = dependency;
 	}
 }

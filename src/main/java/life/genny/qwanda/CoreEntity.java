@@ -259,6 +259,7 @@ public abstract class CoreEntity implements CoreEntityInterface, CreatedIntf, Se
 	public void autocreateCreated() {
 		if (getCreated() == null)
 			setCreated(LocalDateTime.now(ZoneId.of("Z")));
+		autocreateUpdate();
 	}
 
 	@Transient

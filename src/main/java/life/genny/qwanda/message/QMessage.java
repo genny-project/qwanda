@@ -43,6 +43,12 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 	
 	@Expose
 	private String sourceAddress;
+
+	@Expose
+	private String sourceCode;
+
+	@Expose
+	private String targetCode;
 	
 
 	public String getMsg_type() {
@@ -124,6 +130,22 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 
 	public void setSourceAddress(String sourceAddress) {
 		this.sourceAddress = sourceAddress;
+	}
+
+	public String getSourceCode() {
+		return sourceCode;
+	}
+
+	public void setSourceCode(String sourceCode) {
+		this.sourceCode = sourceCode;
+	}
+
+	public String getTargetCode() {
+		return targetCode;
+	}
+
+	public void setTargetCode(String targetCode) {
+		this.targetCode = targetCode;
 	}
 
 	

@@ -269,6 +269,15 @@ public class SearchEntity extends BaseEntity {
 		return this;
 	}
 
+	public SearchEntity addSortAttribute( final String attributeCode, final String aName) {
+		AttributeText attributeSort = new AttributeText("ATTRSRT_" + attributeCode, aName);
+		try {
+			addAttribute(attributeSort, 1.0);
+		} catch (BadDataException e) {
+			log.error("Bad Sort Initialisation");
+		}
+		return this;
+	}
 	/*
 	 * This method allows to set the filter for the integer value in the search
 	 * 

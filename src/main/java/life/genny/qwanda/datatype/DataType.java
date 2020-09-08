@@ -91,6 +91,18 @@ public class DataType implements Serializable {
 	@Expose
 	private String inputmask;
 
+	public String getComponent() {
+		return component;
+	}
+
+	public void setComponent(String component) {
+		this.component = component;
+	}
+
+	@Expose
+	private String component;
+
+
 	/**
 	 * A fieldlist that stores the validations for this object.
 	 * <p>
@@ -128,6 +140,16 @@ public class DataType implements Serializable {
 		setValidationList(aValidationList.getValidationList());
 		setTypeName(name);
 		setInputmask(inputmask);
+	}
+
+	public DataType(final String className, final ValidationList aValidationList, final String name,
+					final String inputmask, final  String component) {
+		setDttCodeFromClassName(className);
+		setClassName(className);
+		setValidationList(aValidationList.getValidationList());
+		setTypeName(name);
+		setInputmask(inputmask);
+		setComponent(component);
 	}
 
 	public DataType(final String className, final ValidationList aValidationList, final String name) {

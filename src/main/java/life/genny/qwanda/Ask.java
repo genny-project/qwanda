@@ -143,6 +143,17 @@ public class Ask extends CoreEntity implements Serializable {
 	@Expose
 	private ContextList contextList;
 
+	public String getDependency() {
+		return dependency;
+	}
+
+	public void setDependency(String dependency) {
+		this.dependency = dependency;
+	}
+
+	@Expose
+	private String dependency = null;
+
 	/**
 	 * Constructor.
 	 * 

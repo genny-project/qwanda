@@ -270,6 +270,15 @@ public class SearchEntity extends BaseEntity {
 		return this;
 	}
 
+	public SearchEntity addSortAttribute( final String attributeCode, final String aName) {
+		AttributeText attributeSort = new AttributeText("ATTRSRT_" + attributeCode, aName);
+		try {
+			addAttribute(attributeSort, 1.0);
+		} catch (BadDataException e) {
+			log.error("Bad Sort Initialisation");
+		}
+		return this;
+	}
 	/*
 	 * This method allows to add grouping by a specific attribute.
 	 * all BEs who's value corresponding to this attribute will be grouped together.

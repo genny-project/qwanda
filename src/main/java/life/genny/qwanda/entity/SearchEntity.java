@@ -25,6 +25,7 @@ public class SearchEntity extends BaseEntity {
 	Double colIndex = 1.0;
 	Double sortIndex = 1.0;
 	Double actionIndex = 1.0;
+	Double groupIndex = 1.0;
 
 	/*
 	 * This Sort Enum is used to sort the search results in either Ascending and
@@ -264,6 +265,23 @@ public class SearchEntity extends BaseEntity {
 
 		} catch (BadDataException e) {
 			log.error("Bad Sort Initialisation");
+		}
+
+		return this;
+	}
+
+	/*
+	 * This method allows to add grouping by a specific attribute.
+	 * all BEs who's value corresponding to this attribute will be grouped together.
+	 */
+	public SearchEntity addGroupBy(final String groupBy) {
+		AttributeText attribute = new AttributeText("GPB_" + groupBy, "GroupBy");
+		try {
+			addAttribute(attribute, groupIndex, groupBy);
+			groupIndex += 1.0;
+
+		} catch (BadDataException e) {
+			log.error("Bad Group By Initialisation");
 		}
 
 		return this;

@@ -793,4 +793,57 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 		}
 		return result;
 	}
+	
+	
+
+	@Transient
+	public void forcePrivate(final Attribute attribute, final Boolean state) {
+		forcePrivate(attribute.getCode(),state);
+	}
+	
+
+	@Transient
+	public void forceInferred(final Attribute attribute, final Boolean state) {
+		forceInferred(attribute.getCode(),state);
+	}
+
+
+	@Transient
+	public void forceReadonly(final Attribute attribute, final Boolean state) {
+		forceReadonly(attribute.getCode(),state);
+	}
+
+
+	@Transient
+	public void forcePrivate(String attributeCode, Boolean state)
+	{
+		Optional<EntityAttribute> optEa = this.findEntityAttribute(attributeCode);
+		if (optEa.isPresent()) {
+			EntityAttribute ea = optEa.get();
+			ea.setPrivacyFlag(state);
+		} 
+	}
+	
+
+	@Transient
+	public void forceInferred(final String attributeCode, final Boolean state)
+	{
+		Optional<EntityAttribute> optEa = this.findEntityAttribute(attributeCode);
+		if (optEa.isPresent()) {
+			EntityAttribute ea = optEa.get();
+			ea.setInferred(state);
+		} 
+	}
+	
+
+	@Transient
+	public void forceReadonly(final String attributeCode, final Boolean state)
+	{
+		Optional<EntityAttribute> optEa = this.findEntityAttribute(attributeCode);
+		if (optEa.isPresent()) {
+			EntityAttribute ea = optEa.get();
+			ea.setReadonly(state);
+		} 
+	}
+	
 }

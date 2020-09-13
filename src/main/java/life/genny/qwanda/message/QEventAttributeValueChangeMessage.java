@@ -1,5 +1,7 @@
 package life.genny.qwanda.message;
 
+import java.util.Objects;
+
 import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
@@ -124,6 +126,20 @@ public class QEventAttributeValueChangeMessage extends QEventMessage {
 	 */
 	public void setBe(BaseEntity be) {
 		this.be = be;
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(answer, be, ea, oldValue);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof QEventAttributeValueChangeMessage))
+			return false;
+		QEventAttributeValueChangeMessage other = (QEventAttributeValueChangeMessage) obj;
+		return Objects.equals(this.answer, other.answer);
 	}
 
 	

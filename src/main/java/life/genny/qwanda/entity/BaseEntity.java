@@ -139,6 +139,12 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	@Cascade({ CascadeType.MERGE, CascadeType.DELETE })
 	private Set<AnswerLink> answers = new HashSet<AnswerLink>(0);
 
+	
+	
+	@XmlTransient
+	@Transient
+	private Boolean fromCache = false;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -845,5 +851,20 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 			ea.setReadonly(state);
 		} 
 	}
+
+	/**
+	 * @return the fromCache
+	 */
+	public Boolean getFromCache() {
+		return fromCache;
+	}
+
+	/**
+	 * @param fromCache the fromCache to set
+	 */
+	public void setFromCache(Boolean fromCache) {
+		this.fromCache = fromCache;
+	}
+	
 	
 }

@@ -87,7 +87,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	private String realm;
 	
 	@Expose
-	@Transient
 	private Boolean empty = true;
 	
 	@Expose

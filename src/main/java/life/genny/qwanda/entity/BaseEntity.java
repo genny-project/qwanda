@@ -144,7 +144,19 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	@XmlTransient
 	@Transient
 	private Boolean fromCache = false;
-	
+
+	@Transient
+	private Boolean empty = true;
+
+	public Boolean getEmpty() {
+		return empty;
+	}
+
+	public void setEmpty(Boolean empty) {
+		this.empty = empty;
+	}
+
+
 	/**
 	 * Constructor.
 	 * 

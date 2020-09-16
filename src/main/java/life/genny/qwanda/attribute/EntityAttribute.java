@@ -88,7 +88,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	private String realm;
 	
 	@Expose
-	@Column(name = "isEmpty")
+	@Column(name = "isEmpty", nullable = false)
 	@ColumnDefault("true")
 	private Boolean empty = true;
 	

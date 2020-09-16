@@ -665,8 +665,12 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 		Optional<T> result = Optional.empty();
 		if (ea.isPresent()) {
 			if (ea.get() != null) {
-				if (ea.get().getValue() != null) {
-					result = Optional.of(ea.get().getValue());
+				try {
+					if (ea.get().getValue() != null) {
+						result = Optional.of(ea.get().getValue());
+					}
+				}  catch (NullPointerException ex)  {
+				    log.error("null pointer exception, attribute code:" + attributeCode);
 				}
 			}
 		}

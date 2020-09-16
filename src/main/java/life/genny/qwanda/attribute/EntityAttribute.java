@@ -1365,8 +1365,8 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	 * @param empty the empty to set
 	 */
 	public void setEmpty(Boolean empty) {
-		this.empty = empty;
-		if (empty) {
+		this.empty = empty == null || empty;
+		if (empty != null && empty) {
 			valueString = null;
 			valueBoolean = null;
 			valueDateTime = null;

@@ -36,6 +36,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
 import org.javamoney.moneta.Money;
 
@@ -88,6 +89,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	
 	@Expose
 	@Column(name = "isEmpty")
+	@ColumnDefault("true")
 	private Boolean empty = true;
 	
 	@Expose

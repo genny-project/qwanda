@@ -145,17 +145,6 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	@Transient
 	private Boolean fromCache = false;
 
-	@Expose
-	private Boolean empty = true;
-
-	public Boolean getEmpty() {
-		return empty;
-	}
-
-	public void setEmpty(Boolean empty) {
-		this.empty = empty;
-	}
-
 	/**
 	 * Constructor.
 	 * 

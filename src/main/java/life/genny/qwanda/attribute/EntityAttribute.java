@@ -59,7 +59,7 @@ indexes = {
     },
 uniqueConstraints = @UniqueConstraint(columnNames = {"attributeCode","baseEntityCode","realm"})
 )
-@AssociationOverrides({ @AssociationOverride(name = "pk.baseEntity", joinColumns = @JoinColumn(name = "BASEENTITY_ID")),
+@AssociationOverrides({ @AssociationOverride(name = "pk.baseEntity", joinColumns = @JoinColumn(name = "BASEENTITY_ID", referencedColumnName = "id")),
 		@AssociationOverride(name = "pk.attribute", joinColumns = @JoinColumn(name = "ATTRIBUTE_ID")) }
 		)
 
@@ -87,6 +87,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	private String realm;
 	
 	@Expose
+	@Column(name = "isEmpty")
 	private Boolean empty = true;
 	
 	@Expose

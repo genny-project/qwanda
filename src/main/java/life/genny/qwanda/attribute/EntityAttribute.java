@@ -36,7 +36,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
 import org.javamoney.moneta.Money;
 
@@ -60,7 +59,7 @@ indexes = {
     },
 uniqueConstraints = @UniqueConstraint(columnNames = {"attributeCode","baseEntityCode","realm"})
 )
-@AssociationOverrides({ @AssociationOverride(name = "pk.baseEntity", joinColumns = @JoinColumn(name = "BASEENTITY_ID", referencedColumnName = "id")),
+@AssociationOverrides({ @AssociationOverride(name = "pk.baseEntity", joinColumns = @JoinColumn(name = "BASEENTITY_ID")),
 		@AssociationOverride(name = "pk.attribute", joinColumns = @JoinColumn(name = "ATTRIBUTE_ID")) }
 		)
 
@@ -86,11 +85,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	private Boolean readonly = false;
 	
 	private String realm;
-	
-	@Expose
-	@Column(name = "isEmpty", nullable = false)
-	@ColumnDefault("true")
-	private Boolean empty = true;
 	
 	@Expose
 	@Transient
@@ -391,10 +385,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	 */
 	public void setValueDouble(final Double valueDouble) {
 		this.valueDouble = valueDouble;
-		if (valueDouble == null) {
-			this.empty = true;
-		}
-
 	}
 
 	/**
@@ -410,10 +400,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	 */
 	public void setValueInteger(final Integer valueInteger) {
 		this.valueInteger = valueInteger;
-		if (valueInteger == null) {
-			this.empty = true;
-		}
-
 	}
 
 	/**
@@ -429,10 +415,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	 */
 	public void setValueLong(final Long valueLong) {
 		this.valueLong = valueLong;
-		if (valueLong == null) {
-			this.empty = true;
-		}
-
 	}
 
 	public LocalDate getValueDate() {
@@ -441,10 +423,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 
 	public void setValueDate(LocalDate valueDate) {
 		this.valueDate = valueDate;
-		if (valueDate == null) {
-			this.empty = true;
-		}
-
 	}
 
 	/**
@@ -460,10 +438,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	 */
 	public void setValueDateTime(final LocalDateTime valueDateTime) {
 		this.valueDateTime = valueDateTime;
-		if (valueDateTime == null) {
-			this.empty = true;
-		}
-
 	}
 
 	/**
@@ -479,10 +453,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	 */
 	public void setValueTime(LocalTime valueTime) {
 		this.valueTime = valueTime;
-		if (valueTime == null) {
-			this.empty = true;
-		}
-
 	}
 
 	/**
@@ -498,9 +468,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	 */
 	public void setValueString(final String valueString) {
 		this.valueString = valueString;
-		if (valueString == null) {
-			this.empty = true;
-		}
 	}
 
 	public Boolean getValueBoolean() {
@@ -509,10 +476,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 
 	public void setValueBoolean(Boolean valueBoolean) {
 		this.valueBoolean = valueBoolean;
-		if (valueBoolean == null) {
-			this.empty = true;
-		}
-
 	}
 
 	
@@ -636,9 +599,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@Transient
 	@XmlTransient
 	public <T> T getValue() {
-		if (empty) {
-			return null;
-		}
 		if ((getPk()==null)||(getPk().attribute==null)) {
 			return getLoopValue();
 		}
@@ -697,13 +657,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			setLoopValue(value);
 			return;
 		}
-		if (value == null) {
-			setEmpty(true);
-			return;
-		} else {
-			setEmpty(false);
-		}
-
 		if (value instanceof String) {
 			String result = (String) value;
 			try {
@@ -845,12 +798,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 			log.error("Trying to set the value of a readonly EntityAttribute! "+this.getBaseEntityCode()+":"+this.attributeCode);
 			return; 
 		}
-		if (value == null) {
-			this.empty = true;
-		} else {
-			setEmpty(false);
-		}
-
 
 
 			if (value instanceof Money)
@@ -883,11 +830,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@Transient
 	@XmlTransient
 	public String getAsString() {
-		if (empty) {
-			return null;
-		} 
-
-
 		if ((getPk()==null)||(getPk().attribute==null)) {
 			return getAsLoopString();
 		}
@@ -943,10 +885,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@Transient
 	@XmlTransient
 	public String getAsLoopString() {
-		if (empty) {
-			return null;
-		}
-
 		String ret = "";
 		if( getValueString() != null) {
 			return getValueString();
@@ -996,9 +934,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@Transient
 	@XmlTransient
 	public  <T> T getLoopValue() {
-		if (empty) {
-			return null;
-		}
 		if (getValueString() != null) {
 			return  (T) getValueString();
 		} else if(getValueBoolean() != null) {
@@ -1051,9 +986,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	public int compareTo(Object o) {
 		EntityAttribute myClass = (EntityAttribute) o;
 		final String dataType = getPk().getAttribute().getDataType().getClassName();
-		if (empty) {
-			return -1; // always less
-		}
 		switch (dataType) {
 		case "java.lang.Integer":
 		case "Integer":
@@ -1198,7 +1130,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@Override
 	public String toString() {
 		return "attributeCode=" + attributeCode + ", value="
-				+ (empty?"empty":getObjectAsString()) + ", weight=" + weight + ", inferred=" + inferred + "] be="+this.getBaseEntityCode();
+				+ getObjectAsString() + ", weight=" + weight + ", inferred=" + inferred + "] be="+this.getBaseEntityCode();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -1207,10 +1139,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@XmlTransient
 	public <T> T getObject() {
 
-		if (empty) {
-			return null;
-		}
-		
 		if (getValueInteger() != null) {
 			return (T) getValueInteger();
 		}
@@ -1257,9 +1185,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@Transient
 	@XmlTransient
 	public String getObjectAsString() {
-		if (empty) {
-			return null;
-		}
 
 		if (getValueInteger() != null) {
 			return "" + getValueInteger();
@@ -1354,31 +1279,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	 */
 	public void setRealm(String realm) {
 		this.realm = realm;
-	}
-
-	/**
-	 * @return the empty
-	 */
-	public Boolean getEmpty() {
-		return empty;
-	}
-
-	/**
-	 * @param empty the empty to set
-	 */
-	public void setEmpty(Boolean empty) {
-		this.empty = empty == null || empty;
-		if (this.empty) {
-			valueString = null;
-			valueBoolean = null;
-			valueDateTime = null;
-			valueDate = null;
-			valueTime = null;
-			valueMoney = null;
-			valueInteger = null;
-			valueDouble = null;
-			valueLong = null;
-		}
 	}
 
 	

@@ -48,7 +48,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.Type;
@@ -141,7 +140,7 @@ public class Answer implements Serializable {
 	 */
 	@NotNull
 	@Type(type = "text")
-	@Column(name = "value", updatable = true, nullable = true)
+	@Column(name = "value", updatable = true, nullable = false)
 	@Expose
 	private String value;
 
@@ -232,9 +231,6 @@ public class Answer implements Serializable {
 	private String dataType = null;
 	
 	private String realm;
-	
-	@Expose
-	private Boolean empty=true;
 	
 	/**
 	 * Constructor.
@@ -597,9 +593,6 @@ public class Answer implements Serializable {
 	 * @return the value
 	 */
 	public String getValue() {
-		if (this.empty) {
-			value = null;
-		}
 		return value;
 	}
 
@@ -609,9 +602,6 @@ public class Answer implements Serializable {
 	 */
 	public void setValue(final String value) {
 		this.value = value;
-		if (value == null) {
-			this.empty = true;
-		}
 	}
 
 	/**
@@ -811,28 +801,6 @@ public class Answer implements Serializable {
 	 */
 	public void setRealm(String realm) {
 		this.realm = realm;
-	}
-
-	
-	
-	/**
-	 * @return the empty
-	 */
-	public Boolean getEmpty() {
-		if (StringUtils.isBlank(value)) {
-			value = null;
-			empty = true;			
-		}
-		return empty;
-	}
-
-	/**
-	 * @param empty the empty to set
-	 */
-	public void setEmpty(Boolean empty) {
-		this.empty = empty;
-		// clear all values
-		this.value = null;
 	}
 
 	/*

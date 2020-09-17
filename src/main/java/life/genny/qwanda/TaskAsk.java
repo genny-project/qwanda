@@ -126,9 +126,6 @@ public class TaskAsk implements Serializable {
 	 */
 	public void setValue(String value) {
 		this.value = value;
-		if (value == null) {
-			answered = false;
-		}
 	}
 
 	@Override

@@ -36,6 +36,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
 import org.javamoney.moneta.Money;
 
@@ -59,7 +60,7 @@ indexes = {
     },
 uniqueConstraints = @UniqueConstraint(columnNames = {"attributeCode","baseEntityCode","realm"})
 )
-@AssociationOverrides({ @AssociationOverride(name = "pk.baseEntity", joinColumns = @JoinColumn(name = "BASEENTITY_ID")),
+@AssociationOverrides({ @AssociationOverride(name = "pk.baseEntity", joinColumns = @JoinColumn(name = "BASEENTITY_ID", referencedColumnName = "id")),
 		@AssociationOverride(name = "pk.attribute", joinColumns = @JoinColumn(name = "ATTRIBUTE_ID")) }
 		)
 
@@ -87,7 +88,8 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	private String realm;
 	
 	@Expose
-	@Transient
+	@Column(name = "isEmpty", nullable = false)
+	@ColumnDefault("true")
 	private Boolean empty = true;
 	
 	@Expose
@@ -1365,8 +1367,8 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	 * @param empty the empty to set
 	 */
 	public void setEmpty(Boolean empty) {
-		this.empty = empty;
-		if (empty) {
+		this.empty = empty == null || empty;
+		if (empty != null && empty) {
 			valueString = null;
 			valueBoolean = null;
 			valueDateTime = null;

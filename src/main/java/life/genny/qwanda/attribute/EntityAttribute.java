@@ -274,9 +274,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 		}
 		setWeight(weight);
 		// Assume that Attribute Validation has been performed
-		if (value != null) {
-			setValue(value);
-		}
+		setValue(value);
 	}
 
 	@JsonIgnore

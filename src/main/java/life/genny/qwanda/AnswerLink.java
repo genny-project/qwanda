@@ -230,41 +230,33 @@ public class AnswerLink implements java.io.Serializable {
 			List<String> beCodeList = new CopyOnWriteArrayList<String>();
 			beCodeList.add(answer.getValue());
 			setValueBaseEntityCodeList(beCodeList);
-			setValue(className);
 			break;
 		case "java.lang.Integer":
 		case "Integer":
 			String result = answer.getValue();
 			if (!StringUtils.isBlank(result)) {
-
-			final Integer integer = Integer.parseInt(result);
-			setValueInteger(integer);
+				final Integer integer = Integer.parseInt(result);
+				setValueInteger(integer);
 			} else {
 				setValueInteger(0);
-
 			}
-			setValue(className);
 			break;
 		case "java.time.LocalDateTime":
 		case "LocalDateTime":
 			result = answer.getValue();
 			if (!StringUtils.isBlank(result)) {
-
-			formatStrings = Arrays.asList("yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd HH:mm",
-					"yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-			for (String formatString : formatStrings) {
-				try {
-					Date olddate = new SimpleDateFormat(formatString).parse(result);
-					final LocalDateTime dateTime = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-					setValueDateTime(dateTime);
-					break;
-				} catch (java.text.ParseException e) {
-					continue;
+				formatStrings = Arrays.asList("yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd HH:mm",
+						"yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+				for (String formatString : formatStrings) {
+					try {
+						Date olddate = new SimpleDateFormat(formatString).parse(result);
+						final LocalDateTime dateTime = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+						setValueDateTime(dateTime);
+						break;
+					} catch (java.text.ParseException e) {
+					}
 				}
-
 			}
-			}
-			setValue(className);
 			break;
 		case "java.time.LocalTime":
 		case "LocalTime":
@@ -279,13 +271,9 @@ public class AnswerLink implements java.io.Serializable {
 				} catch (java.text.ParseException e) {
 					continue;
 				}
-
 				break;
-
 			}
-			setValue(className);
 			break;
-
 		case "java.time.LocalDate":
 		case "LocalDate":
 			result = answer.getValue();
@@ -301,73 +289,61 @@ public class AnswerLink implements java.io.Serializable {
 					} catch (java.text.ParseException e) {
 						continue;
 					}
-
 					break;
-
 				}
 			}
-			setValue(className);
 			break;
 		case "java.lang.Long":
 		case "Long":
 			result = answer.getValue();
 			if (!StringUtils.isBlank(result)) {
-
-			final Long l = Long.parseLong(result);
-			setValueLong(l);
+				final Long l = Long.parseLong(result);
+				setValueLong(l);
 			} else {
 				setValueLong(0L);
 			}
-			setValue(className);
 			break;
 		case "java.lang.Double":
 		case "Double":
 			result = answer.getValue();
 			if (!StringUtils.isBlank(result)) {
-
-			Double d = null;
-			try {
-				d = Double.parseDouble(result);
-			} catch (NumberFormatException e) {
-				log.error("Bad double coversion for "+answer.getAttributeCode()+" for value="+answer.getValue());
-				d = 0.0;
-			}
-			setValueDouble(d);
+				Double d = null;
+				try {
+					d = Double.parseDouble(result);
+				} catch (NumberFormatException e) {
+					log.error("Bad double coversion for "+answer.getAttributeCode()+" for value="+answer.getValue());
+					d = 0.0;
+				}
+				setValueDouble(d);
 			} else {
 				setValueDouble(0.0);
 			}
-			setValue(className);
 			break;
 		case "java.lang.Boolean":
 		case "Boolean":
 			result = answer.getValue();
 			if (!StringUtils.isBlank(result)) {
-
-			final Boolean b = Boolean.parseBoolean(result);
-			setValueBoolean(b);
+				final Boolean b = Boolean.parseBoolean(result);
+				setValueBoolean(b);
 			}
-			setValue(className);
 			break;
 		case "org.javamoney.moneta.Money":
 		case "Money":
 			result = answer.getValue();
 			if (!StringUtils.isBlank(result)) {
-			GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Money.class, new MoneyDeserializer());
-			Gson gson = gsonBuilder.create();
-			Money money = gson.fromJson(result, Money.class);
-			setValueMoney(money);
+				GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Money.class, new MoneyDeserializer());
+				Gson gson = gsonBuilder.create();
+				Money money = gson.fromJson(result, Money.class);
+				setValueMoney(money);
 			} else {
 				setValueMoney(Money.zero(null));
 			}
-			setValue(className);
 			break;
 		case "java.lang.String":
 		default:
 			setValueString(answer.getValue());
-			setValue(className);
 			break;
 		}
-
 	}
 
 	// @JsonIgnore
@@ -814,7 +790,6 @@ public class AnswerLink implements java.io.Serializable {
 		case "LocalTime":
 			setValueTime((LocalTime) value);
 			break;
-
 		case "java.time.LocalDate":
 		case "LocalDate":
 			setValueDate((LocalDate) value);

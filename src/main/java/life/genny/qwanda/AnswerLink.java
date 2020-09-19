@@ -213,6 +213,7 @@ public class AnswerLink implements java.io.Serializable {
 		}
 		setWeight(weight);
 		setAnswer(answer);
+
 	}
 
 	@JsonIgnore
@@ -223,14 +224,12 @@ public class AnswerLink implements java.io.Serializable {
 		this.setInferred(answer.getInferred());
 		
 		List<String> formatStrings = null;
-		String className = this.getAttribute().getDataType().getClassName();
 
-		switch (className) {
+		switch (this.getAttribute().getDataType().getClassName()) {
 		case "life.genny.qwanda.entity":
 			List<String> beCodeList = new CopyOnWriteArrayList<String>();
 			beCodeList.add(answer.getValue());
 			setValueBaseEntityCodeList(beCodeList);
-			setValue(className);
 			break;
 		case "java.lang.Integer":
 		case "Integer":
@@ -243,7 +242,7 @@ public class AnswerLink implements java.io.Serializable {
 				setValueInteger(0);
 
 			}
-			//setValue(className);
+
 			break;
 		case "java.time.LocalDateTime":
 		case "LocalDateTime":
@@ -263,8 +262,9 @@ public class AnswerLink implements java.io.Serializable {
 				}
 
 			}
-			}
-			//setValue(className);
+
+			} 
+
 			break;
 		case "java.time.LocalTime":
 		case "LocalTime":
@@ -283,7 +283,7 @@ public class AnswerLink implements java.io.Serializable {
 				break;
 
 			}
-			//setValue(className);
+
 			break;
 
 		case "java.time.LocalDate":
@@ -306,7 +306,7 @@ public class AnswerLink implements java.io.Serializable {
 
 				}
 			}
-			//setValue(className);
+
 			break;
 		case "java.lang.Long":
 		case "Long":
@@ -318,7 +318,7 @@ public class AnswerLink implements java.io.Serializable {
 			} else {
 				setValueLong(0L);
 			}
-			//setValue(className);
+
 			break;
 		case "java.lang.Double":
 		case "Double":
@@ -336,7 +336,7 @@ public class AnswerLink implements java.io.Serializable {
 			} else {
 				setValueDouble(0.0);
 			}
-		//	setValue(className);
+
 			break;
 		case "java.lang.Boolean":
 		case "Boolean":
@@ -345,8 +345,9 @@ public class AnswerLink implements java.io.Serializable {
 
 			final Boolean b = Boolean.parseBoolean(result);
 			setValueBoolean(b);
-			}
-			//setValue(className);
+
+			} 
+
 			break;
 		case "org.javamoney.moneta.Money":
 		case "Money":
@@ -359,12 +360,12 @@ public class AnswerLink implements java.io.Serializable {
 			} else {
 				setValueMoney(Money.zero(null));
 			}
-			//setValue(className);
+
 			break;
 		case "java.lang.String":
 		default:
 			setValueString(answer.getValue());
-			//setValue(className);
+
 			break;
 		}
 

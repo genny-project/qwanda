@@ -243,7 +243,7 @@ public class AnswerLink implements java.io.Serializable {
 				setValueInteger(0);
 
 			}
-			setValue(className);
+			//setValue(className);
 			break;
 		case "java.time.LocalDateTime":
 		case "LocalDateTime":
@@ -264,7 +264,7 @@ public class AnswerLink implements java.io.Serializable {
 
 			}
 			}
-			setValue(className);
+			//setValue(className);
 			break;
 		case "java.time.LocalTime":
 		case "LocalTime":
@@ -283,7 +283,7 @@ public class AnswerLink implements java.io.Serializable {
 				break;
 
 			}
-			setValue(className);
+			//setValue(className);
 			break;
 
 		case "java.time.LocalDate":
@@ -306,7 +306,7 @@ public class AnswerLink implements java.io.Serializable {
 
 				}
 			}
-			setValue(className);
+			//setValue(className);
 			break;
 		case "java.lang.Long":
 		case "Long":
@@ -318,7 +318,7 @@ public class AnswerLink implements java.io.Serializable {
 			} else {
 				setValueLong(0L);
 			}
-			setValue(className);
+			//setValue(className);
 			break;
 		case "java.lang.Double":
 		case "Double":
@@ -336,7 +336,7 @@ public class AnswerLink implements java.io.Serializable {
 			} else {
 				setValueDouble(0.0);
 			}
-			setValue(className);
+		//	setValue(className);
 			break;
 		case "java.lang.Boolean":
 		case "Boolean":
@@ -346,7 +346,7 @@ public class AnswerLink implements java.io.Serializable {
 			final Boolean b = Boolean.parseBoolean(result);
 			setValueBoolean(b);
 			}
-			setValue(className);
+			//setValue(className);
 			break;
 		case "org.javamoney.moneta.Money":
 		case "Money":
@@ -359,12 +359,12 @@ public class AnswerLink implements java.io.Serializable {
 			} else {
 				setValueMoney(Money.zero(null));
 			}
-			setValue(className);
+			//setValue(className);
 			break;
 		case "java.lang.String":
 		default:
 			setValueString(answer.getValue());
-			setValue(className);
+			//setValue(className);
 			break;
 		}
 
@@ -804,7 +804,14 @@ public class AnswerLink implements java.io.Serializable {
 			break;
 		case "java.lang.Integer":
 		case "Integer":
-			setValueInteger((Integer) value);
+			Integer i = null;
+			if (value instanceof String) {
+				log.info("ANSWERLINK["+((String)value)+"]");
+				i = Integer.parseInt((String)value);
+				setValueInteger(i);
+			} else {
+				setValueInteger((Integer) value);
+			}
 			break;
 		case "java.time.LocalDateTime":
 		case "LocalDateTime":

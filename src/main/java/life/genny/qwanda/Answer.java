@@ -803,6 +803,12 @@ public class Answer implements Serializable {
 		this.realm = realm;
 	}
 
+	
+	public String getUniqueCode()
+	{
+		return getSourceCode() + ":" + getTargetCode() + ":" + getAttributeCode();
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 

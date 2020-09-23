@@ -601,7 +601,11 @@ public class Answer implements Serializable {
 	 *            the value to set
 	 */
 	public void setValue(final String value) {
-		this.value = value;
+		if (value!=null) {
+			this.value = value.trim();
+		} else {
+			this.value = null;
+		}
 	}
 
 	/**

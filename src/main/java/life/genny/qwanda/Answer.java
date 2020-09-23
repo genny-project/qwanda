@@ -604,7 +604,7 @@ public class Answer implements Serializable {
 		if (value!=null) {
 			this.value = value.trim();
 		} else {
-			this.value = null;
+			this.value = "";
 		}
 	}
 

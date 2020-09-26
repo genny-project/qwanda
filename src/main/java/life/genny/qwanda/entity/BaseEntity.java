@@ -107,6 +107,13 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 			.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
 
 	private static final String DEFAULT_CODE_PREFIX = "BAS_";
+	
+	public static final String PRI_NAME = "PRI_NAME";
+	public static final String PRI_IMAGE_URL = "PRI_IMAGE_URL";
+	public static final String PRI_PHONE = "PRI_PHONE";
+	public static final String PRI_ADDRESS_FULL = "PRI_ADDRESS_FULL";
+	public static final String PRI_EMAIL = "PRI_EMAIL";
+	
 
 	@XmlTransient
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.baseEntity")
@@ -139,12 +146,10 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	@Cascade({ CascadeType.MERGE, CascadeType.DELETE })
 	private Set<AnswerLink> answers = new HashSet<AnswerLink>(0);
 
-	
-	
 	@XmlTransient
 	@Transient
 	private Boolean fromCache = false;
-	
+
 	/**
 	 * Constructor.
 	 * 
@@ -424,9 +429,11 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 		}
 		return entityAttribute;
 	}
+
 	/**
-	 * addAttributeOmitCheck This adds an attribute and associated weight to the baseEntity.
-	 * This method will NOT check and update any existing attributes. Use with Caution.
+	 * addAttributeOmitCheck This adds an attribute and associated weight to the
+	 * baseEntity. This method will NOT check and update any existing attributes.
+	 * Use with Caution.
 	 * 
 	 * @param attribute
 	 * @param weight
@@ -442,7 +449,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
 		final EntityAttribute entityAttribute = new EntityAttribute(this, attribute, weight, value);
 		getBaseEntityAttributes().add(entityAttribute);
-		
+
 		return entityAttribute;
 	}
 
@@ -799,57 +806,47 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 		}
 		return result;
 	}
-	
-	
 
 	@Transient
 	public void forcePrivate(final Attribute attribute, final Boolean state) {
-		forcePrivate(attribute.getCode(),state);
+		forcePrivate(attribute.getCode(), state);
 	}
-	
 
 	@Transient
 	public void forceInferred(final Attribute attribute, final Boolean state) {
-		forceInferred(attribute.getCode(),state);
+		forceInferred(attribute.getCode(), state);
 	}
-
 
 	@Transient
 	public void forceReadonly(final Attribute attribute, final Boolean state) {
-		forceReadonly(attribute.getCode(),state);
+		forceReadonly(attribute.getCode(), state);
 	}
 
-
 	@Transient
-	public void forcePrivate(String attributeCode, Boolean state)
-	{
+	public void forcePrivate(String attributeCode, Boolean state) {
 		Optional<EntityAttribute> optEa = this.findEntityAttribute(attributeCode);
 		if (optEa.isPresent()) {
 			EntityAttribute ea = optEa.get();
 			ea.setPrivacyFlag(state);
-		} 
+		}
 	}
-	
 
 	@Transient
-	public void forceInferred(final String attributeCode, final Boolean state)
-	{
+	public void forceInferred(final String attributeCode, final Boolean state) {
 		Optional<EntityAttribute> optEa = this.findEntityAttribute(attributeCode);
 		if (optEa.isPresent()) {
 			EntityAttribute ea = optEa.get();
 			ea.setInferred(state);
-		} 
+		}
 	}
-	
 
 	@Transient
-	public void forceReadonly(final String attributeCode, final Boolean state)
-	{
+	public void forceReadonly(final String attributeCode, final Boolean state) {
 		Optional<EntityAttribute> optEa = this.findEntityAttribute(attributeCode);
 		if (optEa.isPresent()) {
 			EntityAttribute ea = optEa.get();
 			ea.setReadonly(state);
-		} 
+		}
 	}
 
 	/**
@@ -865,6 +862,48 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	public void setFromCache(Boolean fromCache) {
 		this.fromCache = fromCache;
 	}
+
+	@Transient
+	public String[] getPushCodes() {
+		// go through all the links
+		Set<String> codes = new HashSet<String>();
+		if ((this.baseEntityAttributes != null) && (!this.baseEntityAttributes.isEmpty())) {
+			for (EntityAttribute ea : this.baseEntityAttributes) {
+				if (ea.getAttributeCode().startsWith("LNK_")) {
+					String value = ea.getValueString();
+					if (value != null) {
+						if (value.startsWith("[")) {
+							value = value.substring(2, value.length() - 2);
+						}
+						codes.add(value);
+					}
+				}
+			}
+			codes.add(this.getCode());
+		}
+
+		return codes.toArray(new String[0]);
+	}
 	
-	
+	@Transient
+	public Optional<EntityAttribute> getHighestEA(final String prefix) {
+		// go through all the EA
+		Optional<EntityAttribute> highest = Optional.empty();
+		Double weight = -1000.0;
+		
+		if ((this.baseEntityAttributes != null) && (!this.baseEntityAttributes.isEmpty())) {
+			for (EntityAttribute ea : this.baseEntityAttributes) {
+				if (ea.getAttributeCode().startsWith(prefix)) {
+					if (ea.getWeight() > weight) {
+						highest = Optional.of(ea);
+						weight = ea.getWeight();
+					}
+				
+				}
+			}
+		
+		}
+
+		return highest;
+	}
 }

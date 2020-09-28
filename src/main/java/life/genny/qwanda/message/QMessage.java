@@ -49,6 +49,9 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 
 	@Expose
 	private String targetCode;
+
+	@Expose
+	private String message;
 	
 
 	public String getMsg_type() {
@@ -147,6 +150,15 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 	public void setTargetCode(String targetCode) {
 		this.targetCode = targetCode;
 	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}	
+	
 
 	
 	

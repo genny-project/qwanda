@@ -91,6 +91,12 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@XmlTransient
 	private Integer index=0;  // used to assist with ordering 
 
+	@Expose
+	@XmlTransient
+	@Transient
+	private String feedback = null;
+
+	
 	/**
 	 * @return the baseEntityCode
 	 */
@@ -553,6 +559,23 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	 */
 	public void setReadonly(Boolean readonly) {
 		this.readonly = readonly;
+	}
+
+	
+	
+	
+	/**
+	 * @return the feedback
+	 */
+	public String getFeedback() {
+		return feedback;
+	}
+
+	/**
+	 * @param feedback the feedback to set
+	 */
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
 	}
 
 	@PreUpdate

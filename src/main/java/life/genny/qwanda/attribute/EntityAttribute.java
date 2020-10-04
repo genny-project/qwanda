@@ -92,7 +92,6 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	private Integer index=0;  // used to assist with ordering 
 
 	@Expose
-	@XmlTransient
 	@Transient
 	private String feedback = null;
 

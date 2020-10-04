@@ -865,21 +865,31 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
 	@Transient
 	public String[] getPushCodes() {
+		return getPushCodes(new String[0]);
+	}
+
+	@Transient
+	public String[] getPushCodes(String... initialCodes) {
 		// go through all the links
 		Set<String> codes = new HashSet<String>();
+		codes.addAll(new HashSet<>(Arrays.asList(initialCodes)));
 		if ((this.baseEntityAttributes != null) && (!this.baseEntityAttributes.isEmpty())) {
 			for (EntityAttribute ea : this.baseEntityAttributes) {
-				if (ea.getAttributeCode().startsWith("LNK_")) {
+			//	if (ea.getAttributeCode().startsWith("LNK_")) {
 					String value = ea.getValueString();
 					if (value != null) {
 						if (value.startsWith("[")) {
 							value = value.substring(2, value.length() - 2);
 						}
-						codes.add(value);
+						if (value.startsWith("PER")||(value.startsWith("CPY"))) {
+							codes.add(value);
+						}
 					}
 				}
+			//}
+			if (this.getCode().startsWith("PER")||(this.getCode().startsWith("CPY"))) {
+				codes.add(this.getCode());
 			}
-			codes.add(this.getCode());
 		}
 
 		return codes.toArray(new String[0]);

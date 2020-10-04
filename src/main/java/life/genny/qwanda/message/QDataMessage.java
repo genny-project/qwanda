@@ -31,8 +31,7 @@ public abstract class QDataMessage extends QMessage implements QDataMessageIntf 
   private Object shouldDeleteLinkedBaseEntities;
   @Expose
   private String aliasCode;
-  @Expose
-  private String[] recipientCodeArray;
+
 
 
 
@@ -82,22 +81,6 @@ public abstract class QDataMessage extends QMessage implements QDataMessageIntf 
   }
 
 
-
-/**
- * @return the recipientCodeArray
- */
-public String[] getRecipientCodeArray() {
-	return recipientCodeArray;
-}
-
-
-
-/**
- * @param recipientCodeArray the recipientCodeArray to set
- */
-public void setRecipientCodeArray(String[] recipientCodeArray) {
-	this.recipientCodeArray = recipientCodeArray;
-}
 
 
 

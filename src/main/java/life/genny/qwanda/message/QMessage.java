@@ -53,6 +53,9 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 	@Expose
 	private String message;
 	
+	@Expose
+	 private String[] recipientCodeArray;
+	
 
 	public String getMsg_type() {
 		return msg_type;
@@ -157,6 +160,20 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	/**
+	 * @return the recipientCodeArray
+	 */
+	public String[] getRecipientCodeArray() {
+		return recipientCodeArray;
+	}
+
+	/**
+	 * @param recipientCodeArray the recipientCodeArray to set
+	 */
+	public void setRecipientCodeArray(String[] recipientCodeArray) {
+		this.recipientCodeArray = recipientCodeArray;
 	}	
 	
 

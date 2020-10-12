@@ -242,7 +242,7 @@ public class SearchEntity extends BaseEntity {
 	 * This method allows to add the linked searchcodes to the SearchEntity as required
 	 */
 	public SearchEntity addLinkedSearch(final String attributeCode, final String columnName) {
-		AttributeText attributeColumn = new AttributeText("SBE_" + attributeCode, columnName);
+		AttributeText attributeColumn = new AttributeText(attributeCode, columnName);
 		try {
 			EntityAttribute ea = addAttribute(attributeColumn, searchIndex);
 			ea.setIndex(searchIndex.intValue());

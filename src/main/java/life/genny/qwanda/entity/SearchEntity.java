@@ -257,10 +257,11 @@ public class SearchEntity extends BaseEntity {
 	 * This method allows to add the associated attributes to the SearchEntity that
 	 * is required in the result BaseEntities
 	 */
-	public SearchEntity addAssociatedColumn(final String attributeCode, final String columnName) {
+	public SearchEntity addAssociatedColumn(final String attributeCode, final String columnName, final String associatedLinkedBaseEntityCodeAttribute) {
 		AttributeText attributeColumn = new AttributeText("CAL_" + attributeCode, columnName);
 		try {
 			EntityAttribute ea = addAttribute(attributeColumn, colIndex);
+			ea.setValue(associatedLinkedBaseEntityCodeAttribute);
 			ea.setIndex(colIndex.intValue());
 			colIndex += 1.0;
 		} catch (BadDataException e) {

@@ -241,8 +241,8 @@ public class QSearchEntityMessage extends QDataBaseEntityMessage  {
     	 * BaseEntities
     	 */
 
-        public Builder column(final String linkCode, final LinkType linkType, final String attributeCode, final String columnName) {
-        	this.searchEntity.addAssociatedColumn(linkCode+"@"+linkType.toString()+"@"+attributeCode, columnName);      	
+        public Builder column(final String linkCode, final LinkType linkType, final String attributeCode, final String columnName, final String associatedLinkedBaseEntityCodeAttribute) {
+        	this.searchEntity.addAssociatedColumn(linkCode+"@"+linkType.toString()+"@"+attributeCode, columnName,associatedLinkedBaseEntityCodeAttribute);      	
             return this;  //By returning the builder each time, we can create a fluent interface.
         }
 

@@ -23,7 +23,7 @@ public class SearchEntity extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	Double colIndex = 1.0;
-	Double sortIndex = 1.0;
+	Double sortIndex = 0.0;
 	Double actionIndex = 1.0;
 	Double groupIndex = 1.0;
 	Double searchIndex = 1.0;

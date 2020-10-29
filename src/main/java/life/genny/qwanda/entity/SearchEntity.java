@@ -1,7 +1,12 @@
 package life.genny.qwanda.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+
+import com.google.gson.annotations.Expose;
+
 import life.genny.qwanda.attribute.AttributeBoolean;
 import life.genny.qwanda.attribute.AttributeDateTime;
 import life.genny.qwanda.attribute.AttributeDouble;
@@ -22,11 +27,17 @@ public class SearchEntity extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Expose
 	Double colIndex = 1.0;
-	Double sortIndex = 0.0;
+
+	@Expose
 	Double actionIndex = 1.0;
+	
+	Double sortIndex = 0.0;
 	Double groupIndex = 1.0;
 	Double searchIndex = 1.0;
+
+	
 
 	/*
 	 * This Sort Enum is used to sort the search results in either Ascending and
@@ -677,6 +688,46 @@ public class SearchEntity extends BaseEntity {
 	public Integer getPageSize(Integer defaultPageSize) {
 		Integer pageSize = getValue("SCH_PAGE_SIZE", defaultPageSize);
 		return pageSize;
+	}
+
+	public Double getColIndex() {
+		return colIndex;
+	}
+
+	public void setColIndex(Double colIndex) {
+		this.colIndex = colIndex;
+	}
+
+	public Double getSortIndex() {
+		return sortIndex;
+	}
+
+	public void setSortIndex(Double sortIndex) {
+		this.sortIndex = sortIndex;
+	}
+
+	public Double getActionIndex() {
+		return actionIndex;
+	}
+
+	public void setActionIndex(Double actionIndex) {
+		this.actionIndex = actionIndex;
+	}
+
+	public Double getGroupIndex() {
+		return groupIndex;
+	}
+
+	public void setGroupIndex(Double groupIndex) {
+		this.groupIndex = groupIndex;
+	}
+
+	public Double getSearchIndex() {
+		return searchIndex;
+	}
+
+	public void setSearchIndex(Double searchIndex) {
+		this.searchIndex = searchIndex;
 	}
 
 }

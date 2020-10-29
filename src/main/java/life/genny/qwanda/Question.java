@@ -126,6 +126,18 @@ public class Question extends CodedEntity implements Serializable {
 	@Expose
 	private String html;
 
+	@Expose
+	private String helper = "";
+
+	public String getHelper() {
+		return helper;
+	}
+
+	public void setHelper(String helper) {
+		this.helper = helper;
+	}
+
+
 	/**
 	 * Constructor.
 	 * 

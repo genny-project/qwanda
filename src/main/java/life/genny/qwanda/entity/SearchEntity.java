@@ -27,12 +27,7 @@ public class SearchEntity extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Expose
-	Double colIndex = 1.0;
 
-	@Expose
-	Double actionIndex = 1.0;
-	
 	Double sortIndex = 0.0;
 	Double groupIndex = 1.0;
 	Double searchIndex = 1.0;
@@ -690,13 +685,6 @@ public class SearchEntity extends BaseEntity {
 		return pageSize;
 	}
 
-	public Double getColIndex() {
-		return colIndex;
-	}
-
-	public void setColIndex(Double colIndex) {
-		this.colIndex = colIndex;
-	}
 
 	public Double getSortIndex() {
 		return sortIndex;
@@ -706,13 +694,7 @@ public class SearchEntity extends BaseEntity {
 		this.sortIndex = sortIndex;
 	}
 
-	public Double getActionIndex() {
-		return actionIndex;
-	}
 
-	public void setActionIndex(Double actionIndex) {
-		this.actionIndex = actionIndex;
-	}
 
 	public Double getGroupIndex() {
 		return groupIndex;

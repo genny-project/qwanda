@@ -89,6 +89,29 @@ public abstract class CodedEntity extends CoreEntity {
 	@Expose
 	private Integer index;
 
+	@Expose
+    protected Double colIndex = 1.0;
+
+	@Expose
+	protected Double actionIndex = 1.0;
+
+	public Double getColIndex() {
+		return colIndex;
+	}
+
+	public void setColIndex(Double colIndex) {
+		this.colIndex = colIndex;
+	}
+
+	public Double getActionIndex() {
+		return actionIndex;
+	}
+
+	public void setActionIndex(Double actionIndex) {
+		this.actionIndex = actionIndex;
+	}
+
+
 	/**
 	 * Constructor.
 	 * 

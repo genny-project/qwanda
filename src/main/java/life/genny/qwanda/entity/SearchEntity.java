@@ -8,6 +8,7 @@ import java.util.UUID;
 import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.attribute.AttributeBoolean;
+import life.genny.qwanda.attribute.AttributeDate;
 import life.genny.qwanda.attribute.AttributeDateTime;
 import life.genny.qwanda.attribute.AttributeDouble;
 import life.genny.qwanda.attribute.AttributeInteger;
@@ -26,6 +27,7 @@ public class SearchEntity extends BaseEntity {
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final String DEFAULT_PAGETYPE = EPageType.DEFAULT.toString();
 
 	Double colIndex = 1.0;
 
@@ -190,6 +192,7 @@ public class SearchEntity extends BaseEntity {
 		setPageStart(0);
 		setPageSize(20);
 		setTitle(name);
+		setPageType(DEFAULT_PAGETYPE);
 	}
 
 	/* Constructor to create SearchEntity passing BaseEntity */
@@ -668,6 +671,59 @@ public class SearchEntity extends BaseEntity {
 		return this;
 	}
 
+	/*
+	 * This method allows to set the type of range data that the search relates to. This is important for pagination that needs to page across 
+	 * data spans such as Months, days, weeks, years, etc.
+	 * 
+	 * @param pageStart - start of the page number
+	 */
+	public SearchEntity setPageType(final EPageType pageType) {
+		AttributeText attributePageStart = new AttributeText("SCH_PAGE_TYPE", "PageType");
+		try {
+			addAttribute(attributePageStart, 3.0, pageType.toString());
+			if (!EPageType.DEFAULT.equals(pageType)) {
+				switch (pageType.getCategory()) {
+				case DATE:
+					// Now set a default PageIndexDate
+					AttributeDate pageDate = new AttributeDate("SCH_PAGE_DATE", "Page Date");
+					try {
+						addAttribute(pageDate, 1.0, LocalDateTime.now());
+					} catch (BadDataException e) {
+						log.error("Bad Wildcard ");
+					}
+					
+					break;
+				case DATETIME:
+					// Now set a default PageIndexDate
+					AttributeDateTime pageDateTime = new AttributeDateTime("SCH_PAGE_DATETIME", "Page DateTime");
+					try {
+						addAttribute(pageDateTime, 1.0, LocalDateTime.now());
+					} catch (BadDataException e) {
+						log.error("Bad Wildcard ");
+					}
+					
+					break;
+
+				case GROUP:
+					AttributeText pageText = new AttributeText("SCH_PAGE_TEXT", "Page Text");
+					try {
+						addAttribute(pageText, 1.0, "");
+					} catch (BadDataException e) {
+						log.error("Bad Wildcard ");
+					}
+					
+
+					break;
+				default:
+				}
+			}
+		} catch (BadDataException e) {
+			log.error("Bad Page Start ");
+		}
+
+		return this;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 

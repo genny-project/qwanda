@@ -677,6 +677,11 @@ public class SearchEntity extends BaseEntity {
 	 * 
 	 * @param pageStart - start of the page number
 	 */
+	
+	public SearchEntity setPageType(final String pageType) {
+		return setPageType(EPageType.valueOf(pageType));
+	}
+	
 	public SearchEntity setPageType(final EPageType pageType) {
 		AttributeText attributePageStart = new AttributeText("SCH_PAGE_TYPE", "PageType");
 		try {

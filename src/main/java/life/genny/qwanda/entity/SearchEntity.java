@@ -789,4 +789,13 @@ public class SearchEntity extends BaseEntity {
 		this.searchIndex = searchIndex;
 	}
 
+	/*
+	* This method allows to remove the attributes from the SearchEntity 
+	*/
+	public SearchEntity removeColumn(final String attributeCode) {
+		removeAttribute("COL_" + attributeCode);
+		return this;
+	}
+
+
 }

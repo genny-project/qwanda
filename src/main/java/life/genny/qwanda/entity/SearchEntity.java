@@ -798,4 +798,37 @@ public class SearchEntity extends BaseEntity {
 	}
 
 
+	/*
+	 * This method allows to set the total number of the results (BaseEntites) 
+	 * from the search
+	 * 
+	 * @param totalResults - total results from the search
+	 */
+	public SearchEntity setTotalResults(final Integer totalResults) {
+		AttributeInteger attributeTotalResults = new AttributeInteger("PRI_TOTAL_RESULTS", "Total Results");
+		try {
+			addAttribute(attributeTotalResults, 3.0, totalResults);
+		} catch (BadDataException e) {
+			log.error("Bad Total Results");
+		}
+
+		return this;
+	}
+
+	/*
+	 * This method allows to set the page index of the search
+	 * 
+	 * @param totalResults - page index of the search
+	 */
+	public SearchEntity setPageIndex(final Integer pageIndex) {
+		AttributeInteger attributePageIndex = new AttributeInteger("PRI_INDEX", "Page Index");
+		try {
+			addAttribute(attributePageIndex, 3.0, pageIndex);
+		} catch (BadDataException e) {
+			log.error("Bad Page Index");
+		}
+
+		return this;
+	}
+
 }

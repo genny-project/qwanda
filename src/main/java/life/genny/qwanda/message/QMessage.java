@@ -55,6 +55,9 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 
 	@Expose
 	private String message;
+
+	@Expose
+	private Boolean redirect;
 	
 	@Expose
 	 private String[] recipientCodeArray;
@@ -171,6 +174,14 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public Boolean getRedirect() {
+		return redirect;
+	}
+
+	public void setRedirect(Boolean redirect) {
+		this.redirect = redirect;
 	}
 
 	/**

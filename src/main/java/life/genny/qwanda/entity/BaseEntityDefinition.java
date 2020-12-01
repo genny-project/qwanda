@@ -35,6 +35,7 @@ public class BaseEntityDefinition extends BaseEntity {
 		STATIC_FIXED,    // Never changes, supply values directly e.g. TRUE, FALSE,    1,2,3,4
 		STATIC_SEARCH,   // return all from a dynamic search and send them all e.g. host company rep
 		SEARCH,           //  return pagination list from search using initial search chars
+		GROUP,           // return list from baseentitys link to this group code
 	}
 
 	/* Constructor to create BaseEntityDefinition with code and name */
@@ -46,6 +47,7 @@ public class BaseEntityDefinition extends BaseEntity {
 	public BaseEntityDefinition(final String code, final String baseEntityName, final String prefix) {
 		super(code, baseEntityName);
 		AttributeText prefixAttribute = new AttributeText("PRI_PREFIX", "Prefix"); 
+		AttributeText mandateAttribute = new AttributeText("PRI_MANDATED", "Mandated"); 
 
 		EntityAttribute ea = new EntityAttribute();
 		ea.setAttribute(prefixAttribute);
@@ -54,6 +56,11 @@ public class BaseEntityDefinition extends BaseEntity {
 		
 		this.getBaseEntityAttributes().add(ea);
 	
+		EntityAttribute eb = new EntityAttribute();
+		eb.setAttribute(mandateAttribute);
+		
+		this.getBaseEntityAttributes().add(eb);
+
 	}
 
 
@@ -97,16 +104,16 @@ public class BaseEntityDefinition extends BaseEntity {
 	 * This method allows to add the attributes to the BaseEntityDefinition that is required
 	 * in the result BaseEntities
 	 */
-	public BaseEntityDefinition addLookup(final Attribute attribute, final String searchEntityCode, final ELookupType lookupType ) {
+	public BaseEntityDefinition addLookup(final String attributeCode, final String searchEntityCode, final ELookupType lookupType ) {
 		// Check if parent Attribute already in list
-		Optional<EntityAttribute> optParent = this.findEntityAttribute("LOO_"+attribute.getCode());
+		Optional<EntityAttribute> optParent = this.findEntityAttribute("LOO_"+attributeCode);
 		EntityAttribute parent = null;
 		if (optParent.isPresent()) {
 			parent = optParent.get();
 			parent.setAttributeName(lookupType.toString());
 		} else {
 			parent = new EntityAttribute();
-			AttributeText depAttribute = new AttributeText("LOO_" + attribute.getCode(), lookupType.toString()); // no parental dependency for the parent initially
+			AttributeText depAttribute = new AttributeText("LOO_" + attributeCode, lookupType.toString()); // no parental dependency for the parent initially
 			parent.setAttribute(depAttribute);
 			this.getBaseEntityAttributes().add(parent);
 		}
@@ -115,6 +122,31 @@ public class BaseEntityDefinition extends BaseEntity {
 		return this;
 	}
 
+	/*
+	 * This method allows to add the mandated attributes to the BaseEntityDefinition that is required
+	 * in the result BaseEntities
+	 */
+	public BaseEntityDefinition addMandate(final Attribute attribute ) {
+		// Check if parent Attribute already in list
+		Optional<EntityAttribute> optParent = this.findEntityAttribute("PRI_MANDATED");
+		EntityAttribute parent = null;
+		if (optParent.isPresent()) {
+			parent = optParent.get();
+			String mandates = parent.getValueString();
+			mandates += ","+attribute.getCode();
+			parent.setValue(mandates);
+		} else {
+			AttributeText mandateAttribute = new AttributeText("PRI_MANDATED", "Mandated"); 
+
+			EntityAttribute eb = new EntityAttribute();
+			eb.setAttribute(mandateAttribute);		
+			eb.setValue(attribute.getCode());
+			this.getBaseEntityAttributes().add(eb);
+
+		}
+		
+		return this;
+	}
 		/*
 	 * This method allows to add the action attributes to the BaseEntityDefinition that is required
 	 * in the result BaseEntities

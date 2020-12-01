@@ -126,21 +126,21 @@ public class BaseEntityDefinition extends BaseEntity {
 	 * This method allows to add the mandated attributes to the BaseEntityDefinition that is required
 	 * in the result BaseEntities
 	 */
-	public BaseEntityDefinition addMandate(final Attribute attribute ) {
+	public BaseEntityDefinition mandateAttribute(final String attributeCode ) {
 		// Check if parent Attribute already in list
 		Optional<EntityAttribute> optParent = this.findEntityAttribute("PRI_MANDATED");
 		EntityAttribute parent = null;
 		if (optParent.isPresent()) {
 			parent = optParent.get();
 			String mandates = parent.getValueString();
-			mandates += ","+attribute.getCode();
+			mandates += ","+attributeCode;
 			parent.setValue(mandates);
 		} else {
 			AttributeText mandateAttribute = new AttributeText("PRI_MANDATED", "Mandated"); 
 
 			EntityAttribute eb = new EntityAttribute();
 			eb.setAttribute(mandateAttribute);		
-			eb.setValue(attribute.getCode());
+			eb.setValue(attributeCode);
 			this.getBaseEntityAttributes().add(eb);
 
 		}

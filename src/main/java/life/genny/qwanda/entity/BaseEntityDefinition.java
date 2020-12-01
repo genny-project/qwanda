@@ -49,8 +49,9 @@ public class BaseEntityDefinition extends BaseEntity {
 
 		EntityAttribute ea = new EntityAttribute();
 		ea.setAttribute(prefixAttribute);
-		ea.setReadonly(true);
 		ea.setValue(prefix);
+		ea.setReadonly(true);
+		
 		this.getBaseEntityAttributes().add(ea);
 	
 	}

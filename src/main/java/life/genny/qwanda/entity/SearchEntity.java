@@ -219,6 +219,25 @@ public class SearchEntity extends BaseEntity {
 		return this;
 	}
 
+	/*
+	 * This method allows to add the attributes to the SearchEntity that is required
+	 * in the result BaseEntities
+	 * 
+	 * Additionally, you can pass the name of the icon to be shown.
+	 */
+	public SearchEntity addColumn(final String attributeCode, final String columnName, final String iconName) {
+		AttributeText attributeColumn = new AttributeText("COL_" + attributeCode, columnName);
+		try {
+			EntityAttribute ea = addAttribute(attributeColumn, colIndex);
+			ea.setIndex(colIndex.intValue());
+			ea.setIcon(iconName);
+			colIndex += 1.0;
+		} catch (BadDataException e) {
+			log.error("Bad Column Initialisation");
+		}
+		return this;
+	}
+
 		/*
 	 * This method allows to add the action attributes to the SearchEntity that is required
 	 * in the result BaseEntities
@@ -424,27 +443,6 @@ public class SearchEntity extends BaseEntity {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
 			log.error("Bad String Filter Initialisation");
-		}
-
-		return this;
-	}
-
-	/*
-	 * This method allows to set a filter without checking if the the attribute already exists. Use Carefully.
-	 * 
-	 * @param attributeCode - the attributeCode which holds integer value where we
-	 * apply the filter
-	 * 
-	 * @param filterType - type of the filter
-	 * 
-	 * @param value - filter against (search for) this value
-	 */
-	public SearchEntity addFilterOmitCheck(final String attributeCode, final Filter filterType, final Integer value) {
-		AttributeInteger attribute = new AttributeInteger(attributeCode, filterType.toString());
-		try {
-			addAttributeOmitCheck(attribute, 1.0, value);
-		} catch (BadDataException e) {
-			log.error("Bad Integer Filter Initialisation in Omit Check");
 		}
 
 		return this;

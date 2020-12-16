@@ -36,22 +36,27 @@ public class QScheduleMessage implements Serializable {
 
 		@Expose
 		public String channel;
+		
+		@Expose
+		public String code;
 
 
 	
 	public QScheduleMessage()
 	{}
 	
-	public QScheduleMessage(final String jsonMessage, final String sourceCode, final String channel, final String cron, final String realm)
+	public QScheduleMessage(final String code,final String jsonMessage, final String sourceCode, final String channel, final String cron, final String realm)
 	{
+		this.code = code;
 		this.cron = cron;
 		this.jsonMessage = jsonMessage;
 		this.channel = channel;
 		this.sourceCode = sourceCode;
 	}
 	
-	public QScheduleMessage(final String jsonMessage, final String sourceCode, final String channel, final LocalDateTime triggertime, final String realm)
+	public QScheduleMessage(final String code,final String jsonMessage, final String sourceCode, final String channel, final LocalDateTime triggertime, final String realm)
 	{
+		this.code = code;
 		this.triggertime = triggertime;
 		this.jsonMessage = jsonMessage;
 		this.channel = channel;

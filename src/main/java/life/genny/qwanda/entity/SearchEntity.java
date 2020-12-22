@@ -32,12 +32,11 @@ public class SearchEntity extends BaseEntity {
 	Double colIndex = 1.0;
 
 	Double actionIndex = 1.0;
-	
+	Double searchActionIndex = 1.0;
+
 	Double sortIndex = 0.0;
 	Double groupIndex = 1.0;
 	Double searchIndex = 1.0;
-
-	
 
 	/*
 	 * This Sort Enum is used to sort the search results in either Ascending and
@@ -154,9 +153,8 @@ public class SearchEntity extends BaseEntity {
 			}
 		}
 	}
-	
-	public static String convertToSaveable(String value)
-	{
+
+	public static String convertToSaveable(String value) {
 		String name = value.replaceAll("\\>", "_GT_");
 		name = name.replaceAll("\\<", "_LT_");
 		name = name.replaceAll("\\=", "_EQ_");
@@ -165,17 +163,16 @@ public class SearchEntity extends BaseEntity {
 		name = name.replaceAll("\\-", "_MINUS_");
 		return name;
 	}
-	
-	public static String convertFromSaveable(String value)
-	{
+
+	public static String convertFromSaveable(String value) {
 		if (value != null) {
-		String name = value.replaceAll("_GT_", ">");
-		name = name.replaceAll("_LT_", "<");
-		name = name.replaceAll("_EQ_", "=");
-		name = name.replaceAll("_AMP_", "&");
-		name = name.replaceAll("_PLUS_", "+");
-		name = name.replaceAll("_MINUS_", "-");
-		return name;
+			String name = value.replaceAll("_GT_", ">");
+			name = name.replaceAll("_LT_", "<");
+			name = name.replaceAll("_EQ_", "=");
+			name = name.replaceAll("_AMP_", "&");
+			name = name.replaceAll("_PLUS_", "+");
+			name = name.replaceAll("_MINUS_", "-");
+			return name;
 		} else {
 			return null;
 		}
@@ -239,8 +236,8 @@ public class SearchEntity extends BaseEntity {
 	}
 
 		/*
-	 * This method allows to add the action attributes to the SearchEntity that is required
-	 * in the result BaseEntities
+	 * This method allows to add the action attributes to the SearchEntity that is
+	 * required in the result BaseEntities
 	 */
 	public SearchEntity addAction(final String attributeCode, final String columnName) {
 		AttributeText attributeColumn = new AttributeText("ACT_" + attributeCode, columnName);
@@ -254,9 +251,9 @@ public class SearchEntity extends BaseEntity {
 		return this;
 	}
 
-		/*
-	 * This method allows to add the action attributes to the SearchEntity that is required
-	 * in the result BaseEntities
+	/*
+	 * This method allows to add the action attributes to the SearchEntity that is
+	 * required in the result BaseEntities
 	 */
 	public SearchEntity addDefaultAction(final String attributeCode, final String columnName) {
 		AttributeText attributeColumn = new AttributeText("ACT_" + attributeCode, columnName);
@@ -270,7 +267,39 @@ public class SearchEntity extends BaseEntity {
 	}
 
 	/*
-	 * This method allows to add the linked searchcodes to the SearchEntity as required
+	 * This method allows to add the search action attributes to the SearchEntity
+	 * not each result BaseEntities
+	 */
+	public SearchEntity addSearchAction(final String attributeCode, final String columnName) {
+		AttributeText attributeColumn = new AttributeText("SCH_ACT_" + attributeCode, columnName);
+		try {
+			EntityAttribute ea = addAttribute(attributeColumn, searchActionIndex);
+			ea.setIndex(searchActionIndex.intValue());
+			searchActionIndex += 1.0;
+		} catch (BadDataException e) {
+			log.error("Bad Column Initialisation");
+		}
+		return this;
+	}
+
+	/*
+	 * This method allows to add the default search action attributes to the
+	 * SearchEntity not each result BaseEntities
+	 */
+	public SearchEntity addDefaultSearchAction(final String attributeCode, final String columnName) {
+		AttributeText attributeColumn = new AttributeText("SCH_ACT_" + attributeCode, columnName);
+		try {
+			EntityAttribute ea = addAttribute(attributeColumn, 0.0);
+			ea.setIndex(0);
+		} catch (BadDataException e) {
+			log.error("Bad Column Initialisation");
+		}
+		return this;
+	}
+
+	/*
+	 * This method allows to add the linked searchcodes to the SearchEntity as
+	 * required
 	 */
 	public SearchEntity addLinkedSearch(final String attributeCode, final String columnName) {
 		AttributeText attributeColumn = new AttributeText(attributeCode, columnName);
@@ -288,7 +317,8 @@ public class SearchEntity extends BaseEntity {
 	 * This method allows to add the associated attributes to the SearchEntity that
 	 * is required in the result BaseEntities
 	 */
-	public SearchEntity addAssociatedColumn(final String attributeCode, final String columnName, final String associatedLinkedBaseEntityCodeAttribute) {
+	public SearchEntity addAssociatedColumn(final String attributeCode, final String columnName,
+			final String associatedLinkedBaseEntityCodeAttribute) {
 		AttributeText attributeColumn = new AttributeText("CAL_" + attributeCode, columnName);
 		try {
 			EntityAttribute ea = addAttribute(attributeColumn, colIndex);
@@ -318,7 +348,7 @@ public class SearchEntity extends BaseEntity {
 		return this;
 	}
 
-	public SearchEntity addSortAttribute( final String attributeCode, final String aName) {
+	public SearchEntity addSortAttribute(final String attributeCode, final String aName) {
 		AttributeText attributeSort = new AttributeText("ATTRSRT_" + attributeCode, aName);
 		try {
 			addAttribute(attributeSort, 1.0);
@@ -327,9 +357,10 @@ public class SearchEntity extends BaseEntity {
 		}
 		return this;
 	}
+
 	/*
-	 * This method allows to add grouping by a specific attribute.
-	 * all BEs who's value corresponding to this attribute will be grouped together.
+	 * This method allows to add grouping by a specific attribute. all BEs who's
+	 * value corresponding to this attribute will be grouped together.
 	 */
 	public SearchEntity addGroupBy(final String groupBy) {
 		AttributeText attribute = new AttributeText("GPB_" + groupBy, "GroupBy");
@@ -670,54 +701,54 @@ public class SearchEntity extends BaseEntity {
 	}
 
 	/*
-	 * This method allows to set the type of range data that the search relates to. This is important for pagination that needs to page across 
-	 * data spans such as Months, days, weeks, years, etc.
+	 * This method allows to set the type of range data that the search relates to.
+	 * This is important for pagination that needs to page across data spans such as
+	 * Months, days, weeks, years, etc.
 	 * 
 	 * @param pageStart - start of the page number
 	 */
-	
+
 	public SearchEntity setPageType(final String pageType) {
 		return setPageType(EPageType.valueOf(pageType));
 	}
-	
+
 	public SearchEntity setPageType(final EPageType pageType) {
 		AttributeText attributePageStart = new AttributeText("SCH_PAGE_TYPE", "PageType");
 		try {
 			addAttribute(attributePageStart, 3.0, pageType.toString());
 			if (!EPageType.DEFAULT.equals(pageType)) {
 				switch (pageType.getCategory()) {
-				case DATE:
-					// Now set a default PageIndexDate
-					AttributeDate pageDate = new AttributeDate("SCH_PAGE_DATE", "Page Date");
-					try {
-						addAttribute(pageDate, 1.0, LocalDateTime.now());
-					} catch (BadDataException e) {
-						log.error("Bad Wildcard ");
-					}
-					
-					break;
-				case DATETIME:
-					// Now set a default PageIndexDate
-					AttributeDateTime pageDateTime = new AttributeDateTime("SCH_PAGE_DATETIME", "Page DateTime");
-					try {
-						addAttribute(pageDateTime, 1.0, LocalDateTime.now());
-					} catch (BadDataException e) {
-						log.error("Bad Wildcard ");
-					}
-					
-					break;
+					case DATE:
+						// Now set a default PageIndexDate
+						AttributeDate pageDate = new AttributeDate("SCH_PAGE_DATE", "Page Date");
+						try {
+							addAttribute(pageDate, 1.0, LocalDateTime.now());
+						} catch (BadDataException e) {
+							log.error("Bad Wildcard ");
+						}
 
-				case GROUP:
-					AttributeText pageText = new AttributeText("SCH_PAGE_TEXT", "Page Text");
-					try {
-						addAttribute(pageText, 1.0, "");
-					} catch (BadDataException e) {
-						log.error("Bad Wildcard ");
-					}
-					
+						break;
+					case DATETIME:
+						// Now set a default PageIndexDate
+						AttributeDateTime pageDateTime = new AttributeDateTime("SCH_PAGE_DATETIME", "Page DateTime");
+						try {
+							addAttribute(pageDateTime, 1.0, LocalDateTime.now());
+						} catch (BadDataException e) {
+							log.error("Bad Wildcard ");
+						}
 
-					break;
-				default:
+						break;
+
+					case GROUP:
+						AttributeText pageText = new AttributeText("SCH_PAGE_TEXT", "Page Text");
+						try {
+							addAttribute(pageText, 1.0, "");
+						} catch (BadDataException e) {
+							log.error("Bad Wildcard ");
+						}
+
+						break;
+					default:
 				}
 			}
 		} catch (BadDataException e) {
@@ -726,7 +757,7 @@ public class SearchEntity extends BaseEntity {
 
 		return this;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -771,6 +802,14 @@ public class SearchEntity extends BaseEntity {
 		this.actionIndex = actionIndex;
 	}
 
+	public Double getSearchActionIndex() {
+		return searchActionIndex;
+	}
+
+	public void setSearchActionIndex(Double searchActionIndex) {
+		this.searchActionIndex = searchActionIndex;
+	}
+
 	public Double getGroupIndex() {
 		return groupIndex;
 	}
@@ -788,17 +827,16 @@ public class SearchEntity extends BaseEntity {
 	}
 
 	/*
-	* This method allows to remove the attributes from the SearchEntity 
-	*/
+	 * This method allows to remove the attributes from the SearchEntity
+	 */
 	public SearchEntity removeColumn(final String attributeCode) {
 		removeAttribute("COL_" + attributeCode);
 		return this;
 	}
 
-
 	/*
-	 * This method allows to set the total number of the results (BaseEntites) 
-	 * from the search
+	 * This method allows to set the total number of the results (BaseEntites) from
+	 * the search
 	 * 
 	 * @param totalResults - total results from the search
 	 */

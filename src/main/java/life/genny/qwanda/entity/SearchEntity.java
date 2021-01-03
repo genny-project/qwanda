@@ -576,7 +576,7 @@ public class SearchEntity extends BaseEntity {
 	 */
     
 	public SearchEntity addAnd(final String attributeCode, final Filter filterType, final Integer value) {
-		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
+		AttributeInteger attribute = new AttributeInteger(attributeCode, filterType.toString());
         Integer count = countOrOccurrences(attributeCode) + 1;
         for (int i = 0; i < count; i++) {
             attribute.setCode("AND_"+attribute.getCode());
@@ -602,7 +602,7 @@ public class SearchEntity extends BaseEntity {
 	 */
     
 	public SearchEntity addAnd(final String attributeCode, final Filter filterType, final Long value) {
-		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
+		AttributeLong attribute = new AttributeLong(attributeCode, filterType.toString());
         Integer count = countOrOccurrences(attributeCode) + 1;
         for (int i = 0; i < count; i++) {
             attribute.setCode("AND_"+attribute.getCode());
@@ -628,7 +628,7 @@ public class SearchEntity extends BaseEntity {
 	 */
     
 	public SearchEntity addAnd(final String attributeCode, final Filter filterType, final LocalDateTime value) {
-		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
+		AttributeDateTime attribute = new AttributeDateTime(attributeCode, filterType.toString());
         Integer count = countOrOccurrences(attributeCode) + 1;
         for (int i = 0; i < count; i++) {
             attribute.setCode("AND_"+attribute.getCode());

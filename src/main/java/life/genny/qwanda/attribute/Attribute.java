@@ -116,6 +116,8 @@ public class Attribute extends CodedEntity implements Serializable {
 	@Expose
 	private String defaultValue;
 	
+    @Expose
+    private String icon;
 
 	
 	/**
@@ -254,6 +256,12 @@ public class Attribute extends CodedEntity implements Serializable {
 		return "Attribute:"+getCode()+"(" + getDataType()+") ";
 	}*/
 	
-	
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public String getIcon() {
+        return this.icon;
+    }
 
 }

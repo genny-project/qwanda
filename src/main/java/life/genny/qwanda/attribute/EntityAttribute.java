@@ -226,6 +226,12 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	@Expose
 	private Boolean privacyFlag = false;
 
+	/**
+	 * Store the icon name for this attribute , i.e. Don't display
+	 */
+	@Expose
+	private String icon;
+
 	// @Version
 	// private Long version = 1L;
 
@@ -1301,6 +1307,20 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	 */
 	public void setRealm(String realm) {
 		this.realm = realm;
+	}
+
+	/**
+	 * @param icon the name of the icon to display
+	 */
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	/**
+	 * @return the icon
+	 */
+	public String getIcon() {
+		return icon;
 	}
 
 	

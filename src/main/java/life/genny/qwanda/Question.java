@@ -129,6 +129,9 @@ public class Question extends CodedEntity implements Serializable {
 	@Expose
 	private String helper = "";
 
+	@Expose
+	private String icon;
+
 	public String getHelper() {
 		return helper;
 	}
@@ -579,6 +582,20 @@ public class Question extends CodedEntity implements Serializable {
 	 */
 	public void setReadonly(Boolean readonly) {
 		this.readonly = readonly;
+	} 
+
+	/**
+	 * @return the icon
+	 */
+	public String getIcon() {
+		return icon;
 	}
+
+	/**
+	 * @param readonly the readonly to set
+	 */
+	public void setIcon(String icon) {
+		this.icon = icon;
+	} 
 
 }

@@ -387,7 +387,7 @@ public class SearchEntity extends BaseEntity {
 	 */
 	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final Integer value) {
 		AttributeInteger attribute = new AttributeInteger(attributeCode, filterType.toString());
-        attribute.setCode(generateANDFilterCode(attributeCode));
+		attribute.setCode(generateANDFilterCode(attributeCode));
 		try {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
@@ -409,7 +409,7 @@ public class SearchEntity extends BaseEntity {
 	 */
 	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final Long value) {
 		AttributeLong attribute = new AttributeLong(attributeCode, filterType.toString());
-        attribute.setCode(generateANDFilterCode(attributeCode));
+		attribute.setCode(generateANDFilterCode(attributeCode));
 		try {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
@@ -432,7 +432,7 @@ public class SearchEntity extends BaseEntity {
 	 */
 	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final LocalDateTime value) {
 		AttributeDateTime attribute = new AttributeDateTime(attributeCode, filterType.toString());
-        attribute.setCode(generateANDFilterCode(attributeCode));
+		attribute.setCode(generateANDFilterCode(attributeCode));
 		try {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
@@ -473,7 +473,7 @@ public class SearchEntity extends BaseEntity {
 	 */
 	public SearchEntity addFilter(final String attributeCode, final StringFilter filterType, final String value) {
 		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
-        attribute.setCode(generateANDFilterCode(attributeCode));
+		attribute.setCode(generateANDFilterCode(attributeCode));
 		try {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
@@ -484,7 +484,6 @@ public class SearchEntity extends BaseEntity {
 	}
 
 	/*
-<<<<<<< HEAD
 	 * This method allows to set an OR filter for an attribute
 	 * 
 	 * @param attributeCode - the attributeCode which holds String value where we
@@ -497,7 +496,7 @@ public class SearchEntity extends BaseEntity {
     
 	public SearchEntity addOr(final String attributeCode, final Filter filterType, final Integer value) {
 		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
-        attribute.setCode(generateORFilterCode(attributeCode));
+		attribute.setCode(generateORFilterCode(attributeCode));
 		try {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
@@ -520,7 +519,7 @@ public class SearchEntity extends BaseEntity {
     
 	public SearchEntity addOr(final String attributeCode, final Filter filterType, final Long value) {
 		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
-        attribute.setCode(generateORFilterCode(attributeCode));
+		attribute.setCode(generateORFilterCode(attributeCode));
 		try {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
@@ -543,7 +542,7 @@ public class SearchEntity extends BaseEntity {
     
 	public SearchEntity addOr(final String attributeCode, final Filter filterType, final LocalDateTime value) {
 		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
-        attribute.setCode(generateORFilterCode(attributeCode));
+		attribute.setCode(generateORFilterCode(attributeCode));
 		try {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
@@ -566,7 +565,7 @@ public class SearchEntity extends BaseEntity {
     
 	public SearchEntity addOr(final String attributeCode, final StringFilter filterType, final String value) {
 		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
-        attribute.setCode(generateORFilterCode(attributeCode));
+		attribute.setCode(generateORFilterCode(attributeCode));
 		try {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {

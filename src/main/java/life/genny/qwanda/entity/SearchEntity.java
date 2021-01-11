@@ -495,7 +495,7 @@ public class SearchEntity extends BaseEntity {
 	 */
     
 	public SearchEntity addOr(final String attributeCode, final Filter filterType, final Integer value) {
-		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
+		AttributeInteger attribute = new AttributeInteger(attributeCode, filterType.toString());
 		attribute.setCode(generateORFilterCode(attributeCode));
 		try {
 			addAttribute(attribute, 1.0, value);
@@ -518,7 +518,7 @@ public class SearchEntity extends BaseEntity {
 	 */
     
 	public SearchEntity addOr(final String attributeCode, final Filter filterType, final Long value) {
-		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
+		AttributeLong attribute = new AttributeLong(attributeCode, filterType.toString());
 		attribute.setCode(generateORFilterCode(attributeCode));
 		try {
 			addAttribute(attribute, 1.0, value);
@@ -541,7 +541,7 @@ public class SearchEntity extends BaseEntity {
 	 */
     
 	public SearchEntity addOr(final String attributeCode, final Filter filterType, final LocalDateTime value) {
-		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
+		AttributeDateTime attribute = new AttributeDateTime(attributeCode, filterType.toString());
 		attribute.setCode(generateORFilterCode(attributeCode));
 		try {
 			addAttribute(attribute, 1.0, value);
@@ -1004,7 +1004,7 @@ public class SearchEntity extends BaseEntity {
         }
         if (count > 0) {
             for (int i = 0; i < count; i++) {
-                newCode = "OR_"+attributeCode;
+                newCode = "OR_"+newCode;
             }
         }
         return newCode;
@@ -1029,7 +1029,7 @@ public class SearchEntity extends BaseEntity {
         }
         if (count > 0) {
             for (int i = 0; i < count; i++) {
-                newCode = "AND_"+attributeCode;
+                newCode = "AND_"+newCode;
             }
         }
         return newCode;

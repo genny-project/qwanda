@@ -387,7 +387,14 @@ public class SearchEntity extends BaseEntity {
 	 */
 	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final Integer value) {
 		AttributeInteger attribute = new AttributeInteger(attributeCode, filterType.toString());
-		attribute.setCode(generateANDFilterCode(attributeCode));
+		Integer count = countOccurrences(attributeCode, "AND");
+
+		if (count != -1) {
+			for (int i = 0; i <= count; i++) {
+				attribute.setCode("AND_"+attribute.getCode());
+			}
+		}
+
 		try {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
@@ -409,7 +416,14 @@ public class SearchEntity extends BaseEntity {
 	 */
 	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final Long value) {
 		AttributeLong attribute = new AttributeLong(attributeCode, filterType.toString());
-		attribute.setCode(generateANDFilterCode(attributeCode));
+		Integer count = countOccurrences(attributeCode, "AND");
+
+		if (count != -1) {
+			for (int i = 0; i <= count; i++) {
+				attribute.setCode("AND_"+attribute.getCode());
+			}
+		}
+
 		try {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
@@ -432,7 +446,14 @@ public class SearchEntity extends BaseEntity {
 	 */
 	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final LocalDateTime value) {
 		AttributeDateTime attribute = new AttributeDateTime(attributeCode, filterType.toString());
-		attribute.setCode(generateANDFilterCode(attributeCode));
+		Integer count = countOccurrences(attributeCode, "AND");
+
+		if (count != -1) {
+			for (int i = 0; i <= count; i++) {
+				attribute.setCode("AND_"+attribute.getCode());
+			}
+		}
+
 		try {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
@@ -473,7 +494,14 @@ public class SearchEntity extends BaseEntity {
 	 */
 	public SearchEntity addFilter(final String attributeCode, final StringFilter filterType, final String value) {
 		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
-		attribute.setCode(generateANDFilterCode(attributeCode));
+		Integer count = countOccurrences(attributeCode, "AND");
+
+		if (count != -1) {
+			for (int i = 0; i <= count; i++) {
+				attribute.setCode("AND_"+attribute.getCode());
+			}
+		}
+
 		try {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
@@ -496,7 +524,12 @@ public class SearchEntity extends BaseEntity {
     
 	public SearchEntity addOr(final String attributeCode, final Filter filterType, final Integer value) {
 		AttributeInteger attribute = new AttributeInteger(attributeCode, filterType.toString());
-		attribute.setCode(generateORFilterCode(attributeCode));
+		Integer count = countOccurrences(attributeCode, "OR") + 1;
+
+		for (int i = 0; i < count; i++) {
+			attribute.setCode("OR_"+attribute.getCode());
+		}
+
 		try {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
@@ -519,7 +552,12 @@ public class SearchEntity extends BaseEntity {
     
 	public SearchEntity addOr(final String attributeCode, final Filter filterType, final Long value) {
 		AttributeLong attribute = new AttributeLong(attributeCode, filterType.toString());
-		attribute.setCode(generateORFilterCode(attributeCode));
+		Integer count = countOccurrences(attributeCode, "OR") + 1;
+
+		for (int i = 0; i < count; i++) {
+			attribute.setCode("OR_"+attribute.getCode());
+		}
+
 		try {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
@@ -542,7 +580,12 @@ public class SearchEntity extends BaseEntity {
     
 	public SearchEntity addOr(final String attributeCode, final Filter filterType, final LocalDateTime value) {
 		AttributeDateTime attribute = new AttributeDateTime(attributeCode, filterType.toString());
-		attribute.setCode(generateORFilterCode(attributeCode));
+		Integer count = countOccurrences(attributeCode, "OR") + 1;
+
+		for (int i = 0; i < count; i++) {
+			attribute.setCode("OR_"+attribute.getCode());
+		}
+
 		try {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
@@ -565,7 +608,12 @@ public class SearchEntity extends BaseEntity {
     
 	public SearchEntity addOr(final String attributeCode, final StringFilter filterType, final String value) {
 		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
-		attribute.setCode(generateORFilterCode(attributeCode));
+		Integer count = countOccurrences(attributeCode, "OR") + 1;
+
+		for (int i = 0; i < count; i++) {
+			attribute.setCode("OR_"+attribute.getCode());
+		}
+
 		try {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
@@ -986,53 +1034,22 @@ public class SearchEntity extends BaseEntity {
 	}
 
 	/*
-	 * This method helps generate a new code for OR related queries 
-     * if the attribute already exists in the SBE
+	 * This method helps calculate the index of an OR filter
 	 * 
 	 * @param attributeCode - the attributeCode for which to count
+	 * @param prefix - prefix to count occurences of
 	 */
-	public String generateORFilterCode(final String attributeCode) {
-        String newCode = attributeCode;
-        Integer count = 0;
+	public Integer countOccurrences(final String attributeCode, final String prefix) {
+        Integer count = -1;
         for (EntityAttribute ea : this.getBaseEntityAttributes()) {
             if (ea.getAttributeCode().endsWith(attributeCode)) {
-                Integer occurs = ( ea.getAttributeCode().split("OR_", -1).length ) - 1;
+                Integer occurs = ( ea.getAttributeCode().split(prefix+"_", -1).length ) - 1;
                 if (occurs > count) {
                     count = occurs;
                 }
             }
         }
-        if (count > 0) {
-            for (int i = 0; i < count; i++) {
-                newCode = "OR_"+newCode;
-            }
-        }
-        return newCode;
-	}
-
-	/*
-	 * This method helps generate a new code for AND related queries 
-     * if the attribute already exists in the SBE
-	 * 
-	 * @param attributeCode - the attributeCode on which to focus
-	 */
-	public String generateANDFilterCode(final String attributeCode) {
-        String newCode = attributeCode;
-        Integer count = 0;
-        for (EntityAttribute ea : this.getBaseEntityAttributes()) {
-            if (ea.getAttributeCode().endsWith(attributeCode)) {
-                Integer occurs = ( ea.getAttributeCode().split("AND_", -1).length ) - 1;
-                if (occurs > count) {
-                    count = occurs;
-                }
-            }
-        }
-        if (count > 0) {
-            for (int i = 0; i < count; i++) {
-                newCode = "AND_"+newCode;
-            }
-        }
-        return newCode;
+		return count;
 	}
 
 }

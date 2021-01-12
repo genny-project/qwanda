@@ -624,28 +624,6 @@ public class SearchEntity extends BaseEntity {
 	}
     
 	/*
-	 * This method allows to set a filter without checking if the the attribute
-	 * already exists. Use Carefully.
-	 * 
-	 * @param attributeCode - the attributeCode which holds integer value where we
-	 * apply the filter
-	 * 
-	 * @param filterType - type of the filter
-	 * 
-	 * @param value - filter against (search for) this value
-	 */
-	public SearchEntity addFilterOmitCheck(final String attributeCode, final Filter filterType, final Integer value) {
-		AttributeInteger attribute = new AttributeInteger(attributeCode, filterType.toString());
-		try {
-			addAttributeOmitCheck(attribute, 1.0, value);
-		} catch (BadDataException e) {
-			log.error("Bad Integer Filter Initialisation in Omit Check");
-		}
-
-		return this;
-	}
-
-	/*
 	 * This method allows to set the LinkWeight to the resulted BaseEntities to its
 	 * parent
 	 * 

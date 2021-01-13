@@ -103,6 +103,9 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 	@Expose
 	private String dependency;
 
+    @Expose
+    private String icon;
+
 	public QuestionQuestion() {
 	}
 
@@ -501,4 +504,13 @@ public class QuestionQuestion implements java.io.Serializable, Comparable<Object
 	public void setDependency(String dependency) {
 		this.dependency = dependency;
 	}
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public String getIcon() {
+        return this.icon;
+    }
+
 }

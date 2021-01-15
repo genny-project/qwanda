@@ -387,13 +387,6 @@ public class SearchEntity extends BaseEntity {
 	 */
 	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final Integer value) {
 		AttributeInteger attribute = new AttributeInteger(attributeCode, filterType.toString());
-		Integer count = countOccurrences(attributeCode, "AND");
-
-		if (count != -1) {
-			for (int i = 0; i <= count; i++) {
-				attribute.setCode("AND_"+attribute.getCode());
-			}
-		}
 
 		try {
 			addAttribute(attribute, 1.0, value);
@@ -416,13 +409,6 @@ public class SearchEntity extends BaseEntity {
 	 */
 	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final Long value) {
 		AttributeLong attribute = new AttributeLong(attributeCode, filterType.toString());
-		Integer count = countOccurrences(attributeCode, "AND");
-
-		if (count != -1) {
-			for (int i = 0; i <= count; i++) {
-				attribute.setCode("AND_"+attribute.getCode());
-			}
-		}
 
 		try {
 			addAttribute(attribute, 1.0, value);
@@ -446,18 +432,11 @@ public class SearchEntity extends BaseEntity {
 	 */
 	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final LocalDateTime value) {
 		AttributeDateTime attribute = new AttributeDateTime(attributeCode, filterType.toString());
-		Integer count = countOccurrences(attributeCode, "AND");
-
-		if (count != -1) {
-			for (int i = 0; i <= count; i++) {
-				attribute.setCode("AND_"+attribute.getCode());
-			}
-		}
 
 		try {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
-			log.error("Bad Double Filter Initialisation");
+			log.error("Bad DateTime Filter Initialisation");
 		}
 
 		return this;
@@ -494,13 +473,6 @@ public class SearchEntity extends BaseEntity {
 	 */
 	public SearchEntity addFilter(final String attributeCode, final StringFilter filterType, final String value) {
 		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
-		Integer count = countOccurrences(attributeCode, "AND");
-
-		if (count != -1) {
-			for (int i = 0; i <= count; i++) {
-				attribute.setCode("AND_"+attribute.getCode());
-			}
-		}
 
 		try {
 			addAttribute(attribute, 1.0, value);
@@ -623,6 +595,117 @@ public class SearchEntity extends BaseEntity {
 		return this;
 	}
     
+	/*
+	 * This method allows to set an AND filter for an attribute
+	 * 
+	 * @param attributeCode - the attributeCode which holds String value where we
+	 * apply the filter
+	 * 
+	 * @param filterType - type of the filter
+	 * 
+	 * @param value - filter against (search for) this value
+	 */
+    
+	public SearchEntity addAnd(final String attributeCode, final Filter filterType, final Integer value) {
+		AttributeInteger attribute = new AttributeInteger(attributeCode, filterType.toString());
+		Integer count = countOccurrences(attributeCode, "AND") + 1;
+
+		for (int i = 0; i < count; i++) {
+			attribute.setCode("AND_"+attribute.getCode());
+		}
+
+		try {
+			addAttribute(attribute, 1.0, value);
+		} catch (BadDataException e) {
+			log.error("Bad AND Integer Filter Initialisation");
+		}
+
+		return this;
+	}
+    
+	/*
+	 * This method allows to set an AND filter for an attribute
+	 * 
+	 * @param attributeCode - the attributeCode which holds String value where we
+	 * apply the filter
+	 * 
+	 * @param filterType - type of the filter
+	 * 
+	 * @param value - filter against (search for) this value
+	 */
+    
+	public SearchEntity addAnd(final String attributeCode, final Filter filterType, final Long value) {
+		AttributeLong attribute = new AttributeLong(attributeCode, filterType.toString());
+		Integer count = countOccurrences(attributeCode, "AND") + 1;
+
+		for (int i = 0; i < count; i++) {
+			attribute.setCode("AND_"+attribute.getCode());
+		}
+
+		try {
+			addAttribute(attribute, 1.0, value);
+		} catch (BadDataException e) {
+			log.error("Bad AND Long Filter Initialisation");
+		}
+
+		return this;
+	}
+
+	/*
+	 * This method allows to set an AND filter for an attribute
+	 * 
+	 * @param attributeCode - the attributeCode which holds String value where we
+	 * apply the filter
+	 * 
+	 * @param filterType - type of the filter
+	 * 
+	 * @param value - filter against (search for) this value
+	 */
+    
+	public SearchEntity addAnd(final String attributeCode, final Filter filterType, final LocalDateTime value) {
+		AttributeDateTime attribute = new AttributeDateTime(attributeCode, filterType.toString());
+		Integer count = countOccurrences(attributeCode, "AND") + 1;
+
+		for (int i = 0; i < count; i++) {
+			attribute.setCode("AND_"+attribute.getCode());
+		}
+
+		try {
+			addAttribute(attribute, 1.0, value);
+		} catch (BadDataException e) {
+			log.error("Bad AND LocalDateTime Filter Initialisation");
+		}
+
+		return this;
+	}
+
+	/*
+	 * This method allows to set an AND filter for an attribute
+	 * 
+	 * @param attributeCode - the attributeCode which holds String value where we
+	 * apply the filter
+	 * 
+	 * @param filterType - type of the string filter
+	 * 
+	 * @param value - filter against (search for) this value
+	 */
+    
+	public SearchEntity addAnd(final String attributeCode, final StringFilter filterType, final String value) {
+		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
+		Integer count = countOccurrences(attributeCode, "AND") + 1;
+
+		for (int i = 0; i < count; i++) {
+			attribute.setCode("AND_"+attribute.getCode());
+		}
+
+		try {
+			addAttribute(attribute, 1.0, value);
+		} catch (BadDataException e) {
+			log.error("Bad AND String Filter Initialisation");
+		}
+
+		return this;
+	}
 	/*
 	 * This method allows to set the LinkWeight to the resulted BaseEntities to its
 	 * parent

@@ -319,7 +319,7 @@ public class SearchEntity extends BaseEntity {
 	 */
 	public SearchEntity addAssociatedColumn(final String attributeCode, final String columnName,
 			final String associatedLinkedBaseEntityCodeAttribute) {
-		AttributeText attributeColumn = new AttributeText("CAL_" + attributeCode, columnName);
+		AttributeText attributeColumn = new AttributeText("CAL_" + attributeCode.toUpperCase()+"__"+associatedLinkedBaseEntityCodeAttribute.toUpperCase(), columnName);
 		try {
 			EntityAttribute ea = addAttribute(attributeColumn, colIndex);
 			ea.setValue(associatedLinkedBaseEntityCodeAttribute);

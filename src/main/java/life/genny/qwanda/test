@@ -1,0 +1,128 @@
+
+***Message template (good for email and html) e.g. MSG_WELCOME_INTERN.PRI_MSG ***
+
+Hi {{RECIPIENT.PRI_FIRSTNAME}},
+
+This is a message to you regarding your internship at {{COMPANY.PRI_NAME}}.
+
+You will be required to meet your supervisor {{SUPERVISOR.PRI_NAME:''}} at their location ..
+
+{{COMPANY.PRI_ADDRESS}}
+
+{{COMPANY.PRI_LOGO}}
+
+at {{APPOINTMENT.PRI_START_DATETIME:This 9am Monday }}
+
+Your internship - {{INTERNSHIP.PRI_NAME:Internship}}
+
+Congratulations!
+
+{{SENDER.PRI_NAME:''}}
+Internmatch.io
+
+***Message - short - template (optional) useful for SMS and popup (toast)  MSG_WELCOME_INTERN.PRI_MSG_SHORT ***
+
+Internship {{INTERNSHIP.PRI_NAME}} for {{RECIPIENT.PRI_NAME}}. Meet {{SUPERVISOR.PRI_NAME}} at {{APPOINTMENT.PRI_START_DATETIME}}.
+
+*** ContextList ****
+
+RECIPIENT : PER_765765sdf7657s6d5f (Mandatory)
+SENDER : PER_87987sad9fsadf
+APPOINTMENT : APT_876876asd8f76asd8f76asd
+COMPANY: CPY_765765765d876td8675
+SUPERVISOR: PER_57856ads87f6sa87df6
+INTERNSHIP: BEG_76576a5d765fasd
+
+**** In the message the attributes are
+
+Code : MSG_WELCOME_INTERN
+Name : Welcome Intern (shown in table)
+PRI_ContextCodes: ['RECIPIENT','SENDER','COMPANY','INTERNSHIP']
+PRI_OptionalContextCodes: ['APPOINTMENT','SUPERVISOR']
+PRI_SEND_DATETIME: (if blank then send immediately)  -> use Shleemy to schedule the message , there will also be codes that indicate when this message should be sent .. 
+PRI_SEND_MODE: IMMEDIATELY, UTC, RECIPIENT_DATETIME,SENDER_DATETIME,    RECIPIENT_START_WORKDAY, RECIPIENT_END_WORKDAY, RECEIPIENT_START_WORKWEEK, 
+    
+PRI_MEDIA : EMAIL,SMS   (if SMS, then add a 'SEND YES TO CONFIRM' at end of text)
+PRI_RECEIVED_CHECK: TRUE  (send confirmation event message if true)
+
+
+*** check for all mandatory contexts , error if not there *****
+
+*** Media Types ****
+
+Email (you will get in the PRJ_PROJECT be the PRI_EMAIL_SERVER, PRI_EMAIL_USERNAME etc)
+Toast (Send message to frontend)
+SMS (Twilio)
+MMS (Twilio)
+iMessage (Sends to Firebase and sends through to iPhone devices)
+Android Message (Sends to Firebase and sends through to Android devices)
+SendGrid (external twilio bulk mail service)
+Twilio Voice (Send a voice message to a recipient)
+Twilio Voice Conferencing - Establish a voice conference between recipients
+Twilio or Sam Video Conferencing
+Fax (Unlikely)
+Mailchimp (Optional)
+MailGun (Optional)
+Real letter (https://www.postalmethods.com/postal-api/) (Optional)
+
+
+
+General messagesq project
+(0) lives in gennyq
+
+(1) Add extension quarkus-genny (adds the keycloak, the infinispan and qwanda libs)
+
+(2) Add an api that permits external services to send messages
+(3) Add a Message listener that listens for 'message' message (stored in Vertx buffer)
+(4) Add Kafka listener 
+
+(5) Get Project baseentity to be able to access all the various API keys etc, usernames
+(6) Add Email testing (Add a built in Mail server to test)
+(7) Add Mock SMS etc
+
+(8) Test sending scheduled messages that come in
+
+
+
+**** Reschedule example ****
+PRI_SEND_DATETIME 2020-01-04T11:00:00.000 
+PRI_SEND_MODE IMMEDIATELY
+
+----> Send Immediately (ignore DATETIME)
+
+PRI_SEND_DATETIME 2020-01-04T11:00:00.000 
+PRI_SEND_MODE UTC
+
+----> Check if UTC has passed. If already passed then send Immediately
+----> If not passed then wrap in Shleemy message "QScheduleMessage" and send to Shleemy
+
+
+PRI_SEND_DATETIME 2020-01-04T11:00:00.000 
+PRI_SEND_MODE RECIPIENT_DATETIME
+
+----> Find Recipient Timezone
+----> Convert DateTime from Receipient Timezone to UTC
+----> Check if UTC has passed. If already passed then send Immediately
+----> If not passed then wrap in Shleemy message "QScheduleMessage" and send to Shleemy using UTC
+
+
+PRI_SEND_DATETIME 2020-01-04T11:00:00.000 
+PRI_SEND_MODE SENDER_DATETIME
+
+----> Find Sender Timezone
+----> Convert DateTime from RSender Timezone to UTC
+----> Check if UTC has passed. If already passed then send Immediately
+----> If not passed then wrap in Shleemy message "QScheduleMessage" and send to Shleemy using UTC
+
+PRI_SEND_DATETIME 2020-01-04T11:00:00.000 
+PRI_SEND_MODE RECIPIENT_START_WORKDAY
+
+----> Find Recipient Timezone
+----> Ignore the send datetime 
+----> Determine the next receipient start workday (e.g. 9am the following day their timezone) and convert to UTC
+----> UTC will not yet have passed. 
+----> Then wrap in Shleemy message "QScheduleMessage" and send to Shleemy using UTC
+
+
+
+

@@ -298,6 +298,21 @@ public class SearchEntity extends BaseEntity {
 	}
 
 	/*
+	 * This method allows to add the row action attribute to the
+	 * each result BaseEntities
+	 */
+	public SearchEntity addRowAction(final String attributeCode, final String columnName) {
+		AttributeText attributeColumn = new AttributeText("ROW_ACT_" + attributeCode, columnName);
+		try {
+			EntityAttribute ea = addAttribute(attributeColumn, 0.0);
+			ea.setIndex(0);
+		} catch (BadDataException e) {
+			log.error("Bad Column Initialisation");
+		}
+		return this;
+	}
+
+	/*
 	 * This method allows to add the linked searchcodes to the SearchEntity as
 	 * required
 	 */

@@ -771,6 +771,22 @@ public class SearchEntity extends BaseEntity {
 		return this;
 	}
 
+		/*
+	 * This method allows to set the parentCode of the SearchEntity
+	 * 
+	 * @param title - parentCode
+	 */
+	public SearchEntity setParentCode(final String parentCode) {
+		AttributeText attributeTitle = new AttributeText("SCH_PARENT_CODE", "Parent Code");
+		try {
+			addAttribute(attributeTitle, 5.0, parentCode);
+		} catch (BadDataException e) {
+			log.error("Bad Title ");
+		}
+
+		return this;
+	}
+
 	/*
 	 * This method allows to set the start/begining number of the range(page) of the
 	 * results data to be sent

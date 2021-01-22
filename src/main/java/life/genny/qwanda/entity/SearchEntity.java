@@ -779,7 +779,7 @@ public class SearchEntity extends BaseEntity {
 	public SearchEntity setParentCode(final String parentCode) {
 		AttributeText attributeTitle = new AttributeText("SCH_PARENT_CODE", "Parent Code");
 		try {
-			addAttribute(attributeTitle, 5.0, parentCode);
+			addAttribute(attributeTitle, 1.0, parentCode);
 		} catch (BadDataException e) {
 			log.error("Bad Title ");
 		}

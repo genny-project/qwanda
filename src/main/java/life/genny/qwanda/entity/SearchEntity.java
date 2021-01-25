@@ -298,6 +298,21 @@ public class SearchEntity extends BaseEntity {
 	}
 
 	/*
+	 * This method allows to add the row action attribute to the
+	 * each result BaseEntities
+	 */
+	public SearchEntity addRowAction(final String attributeCode, final String columnName) {
+		AttributeText attributeColumn = new AttributeText("ROW_ACT_" + attributeCode, columnName);
+		try {
+			EntityAttribute ea = addAttribute(attributeColumn, 0.0);
+			ea.setIndex(0);
+		} catch (BadDataException e) {
+			log.error("Bad Column Initialisation");
+		}
+		return this;
+	}
+
+	/*
 	 * This method allows to add the linked searchcodes to the SearchEntity as
 	 * required
 	 */
@@ -749,6 +764,22 @@ public class SearchEntity extends BaseEntity {
 		AttributeText attributeTitle = new AttributeText("SCH_TITLE", "Title");
 		try {
 			addAttribute(attributeTitle, 5.0, title);
+		} catch (BadDataException e) {
+			log.error("Bad Title ");
+		}
+
+		return this;
+	}
+
+		/*
+	 * This method allows to set the parentCode of the SearchEntity
+	 * 
+	 * @param title - parentCode
+	 */
+	public SearchEntity setParentCode(final String parentCode) {
+		AttributeText attributeTitle = new AttributeText("SCH_PARENT_CODE", "Parent Code");
+		try {
+			addAttribute(attributeTitle, 1.0, parentCode);
 		} catch (BadDataException e) {
 			log.error("Bad Title ");
 		}

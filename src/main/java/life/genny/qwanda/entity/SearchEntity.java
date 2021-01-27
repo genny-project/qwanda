@@ -65,9 +65,19 @@ public class SearchEntity extends BaseEntity {
 				return SearchEntity.convertToSaveable("=");
 			}
 		},
+		NOT_EQUAL {
+			public String toString() {
+				return SearchEntity.convertToSaveable("!=");
+			}
+		},
 		LIKE {
 			public String toString() {
 				return "LIKE";
+			}
+		},
+		NOT_LIKE {
+			public String toString() {
+				return "NOT LIKE";
 			}
 		}
 	}
@@ -80,6 +90,11 @@ public class SearchEntity extends BaseEntity {
 		EQUALS {
 			public String toString() {
 				return SearchEntity.convertToSaveable("=");
+			}
+		},
+		NOT_EQUALS {
+			public String toString() {
+				return SearchEntity.convertToSaveable("!=");
 			}
 		},
 		GREATER_THAN {
@@ -161,6 +176,7 @@ public class SearchEntity extends BaseEntity {
 		name = name.replaceAll("\\&", "_AMP_");
 		name = name.replaceAll("\\+", "_PLUS_");
 		name = name.replaceAll("\\-", "_MINUS_");
+		name = name.replaceAll("\\!", "_NOT_");
 		return name;
 	}
 
@@ -172,6 +188,7 @@ public class SearchEntity extends BaseEntity {
 			name = name.replaceAll("_AMP_", "&");
 			name = name.replaceAll("_PLUS_", "+");
 			name = name.replaceAll("_MINUS_", "-");
+			name = name.replaceAll("_NOT_", "!");
 			return name;
 		} else {
 			return null;

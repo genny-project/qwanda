@@ -176,6 +176,7 @@ public class SearchEntity extends BaseEntity {
 		name = name.replaceAll("\\&", "_AMP_");
 		name = name.replaceAll("\\+", "_PLUS_");
 		name = name.replaceAll("\\-", "_MINUS_");
+		name = name.replaceAll("\\!", "_NOT_");
 		return name;
 	}
 
@@ -187,6 +188,7 @@ public class SearchEntity extends BaseEntity {
 			name = name.replaceAll("_AMP_", "&");
 			name = name.replaceAll("_PLUS_", "+");
 			name = name.replaceAll("_MINUS_", "-");
+			name = name.replaceAll("_NOT_", "!");
 			return name;
 		} else {
 			return null;

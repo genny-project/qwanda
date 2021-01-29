@@ -51,6 +51,9 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 	private String targetCode;
 
 	@Expose
+	private String attributeCode;
+
+	@Expose
 	private String questionCode;
 
 	@Expose
@@ -196,7 +199,15 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 	 */
 	public void setRecipientCodeArray(String[] recipientCodeArray) {
 		this.recipientCodeArray = recipientCodeArray;
-	}	
+	}
+
+	public String getAttributeCode() {
+		return attributeCode;
+	}
+
+	public void setAttributeCode(String attributeCode) {
+		this.attributeCode = attributeCode;
+	}
 	
 
 	

@@ -692,8 +692,8 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 					setValueString(result);
 				} else if (getAttribute().getDataType().getClassName()
 						.equalsIgnoreCase(LocalDateTime.class.getCanonicalName())) {
-					List<String> formatStrings = Arrays.asList("yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss",
-							"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+					List<String> formatStrings = Arrays.asList("yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd HH:mm:ss",
+							"yyyy-MM-dd'T'HH:mm:ss.SSSZ","yyyy-MM-dd HH:mm:ss.SSSZ");
 					for (String formatString : formatStrings) {
 						try {
 							Date olddate = new SimpleDateFormat(formatString).parse(result);
@@ -719,8 +719,8 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 						olddate = DateUtils.parseDate(result, "M/y", "yyyy-MM-dd", "yyyy/MM/dd",
 								"yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 					} catch (java.text.ParseException e) {
-						olddate = DateUtils.parseDate(result, "yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss",
-								"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+						olddate = DateUtils.parseDate(result, "yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd HH:mm:ss",
+								"yyyy-MM-dd'T'HH:mm:ss.SSSZ","yyyy-MM-dd HH:mm:ss.SSSZ");
 					}
 					final LocalDate date = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 					setValueDate(date);

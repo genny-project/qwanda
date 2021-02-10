@@ -492,7 +492,7 @@ public class SearchEntity extends BaseEntity {
 		try {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
-			log.error("Bad DateTime Filter Initialisation");
+			log.error("Bad Date Filter Initialisation");
 		}
 
 		return this;
@@ -630,6 +630,34 @@ public class SearchEntity extends BaseEntity {
 	 * @param attributeCode - the attributeCode which holds String value where we
 	 * apply the filter
 	 * 
+	 * @param filterType - type of the filter
+	 * 
+	 * @param value - filter against (search for) this value
+	 */
+    
+	public SearchEntity addOr(final String attributeCode, final Filter filterType, final LocalDate value) {
+		AttributeDate attribute = new AttributeDate(attributeCode, filterType.toString());
+		Integer count = countOccurrences(attributeCode, "OR") + 1;
+
+		for (int i = 0; i < count; i++) {
+			attribute.setCode("OR_"+attribute.getCode());
+		}
+
+		try {
+			addAttribute(attribute, 1.0, value);
+		} catch (BadDataException e) {
+			log.error("Bad OR LocalDate Filter Initialisation");
+		}
+
+		return this;
+	}
+
+	/*
+	 * This method allows to set an OR filter for an attribute
+	 * 
+	 * @param attributeCode - the attributeCode which holds String value where we
+	 * apply the filter
+	 * 
 	 * @param filterType - type of the string filter
 	 * 
 	 * @param value - filter against (search for) this value
@@ -731,6 +759,34 @@ public class SearchEntity extends BaseEntity {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
 			log.error("Bad AND LocalDateTime Filter Initialisation");
+		}
+
+		return this;
+	}
+
+	/*
+	 * This method allows to set an AND filter for an attribute
+	 * 
+	 * @param attributeCode - the attributeCode which holds String value where we
+	 * apply the filter
+	 * 
+	 * @param filterType - type of the filter
+	 * 
+	 * @param value - filter against (search for) this value
+	 */
+    
+	public SearchEntity addAnd(final String attributeCode, final Filter filterType, final LocalDate value) {
+		AttributeDate attribute = new AttributeDate(attributeCode, filterType.toString());
+		Integer count = countOccurrences(attributeCode, "AND") + 1;
+
+		for (int i = 0; i < count; i++) {
+			attribute.setCode("AND_"+attribute.getCode());
+		}
+
+		try {
+			addAttribute(attribute, 1.0, value);
+		} catch (BadDataException e) {
+			log.error("Bad AND LocalDate Filter Initialisation");
 		}
 
 		return this;

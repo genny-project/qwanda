@@ -250,7 +250,7 @@ public class AnswerLink implements java.io.Serializable {
 			if (!StringUtils.isBlank(result)) {
 
 			formatStrings = Arrays.asList("yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd HH:mm",
-					"yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+					"yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss.SSSZ", "yyyy-MM-dd HH:mm:ss.SSSZ");
 			for (String formatString : formatStrings) {
 				try {
 					Date olddate = new SimpleDateFormat(formatString).parse(result);
@@ -290,8 +290,8 @@ public class AnswerLink implements java.io.Serializable {
 		case "LocalDate":
 			result = answer.getValue();
 			if (!StringUtils.isBlank(result)) {
-				formatStrings = Arrays.asList("yyyy-MM-dd", "M/y", "yyyy/MM/dd", "yyyy-MM-dd'T'HH:mm:ss",
-						"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+				formatStrings = Arrays.asList("yyyy-MM-dd", "M/y", "yyyy/MM/dd", "yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd HH:mm:ss",
+						"yyyy-MM-dd'T'HH:mm:ss.SSSZ","yyyy-MM-dd HH:mm:ss.SSSZ");
 				for (String formatString : formatStrings) {
 					Date olddate;
 					try {

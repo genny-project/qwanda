@@ -1,6 +1,7 @@
 package life.genny.qwanda.entity;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -473,6 +474,30 @@ public class SearchEntity extends BaseEntity {
 
 		return this;
 	}
+
+	/*
+	 * This method allows to set the filter for the LocalDate value in the
+	 * search
+	 * 
+	 * @param attributeCode - the attributeCode which holds LocalDate value
+	 * where we apply the filter
+	 * 
+	 * @param filterType - type of the filter
+	 * 
+	 * @param value - filter against (search for) this value
+	 */
+	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final LocalDate value) {
+		AttributeDate attribute = new AttributeDate(attributeCode, filterType.toString());
+
+		try {
+			addAttribute(attribute, 1.0, value);
+		} catch (BadDataException e) {
+			log.error("Bad DateTime Filter Initialisation");
+		}
+
+		return this;
+	}
+
 
 	/*
 	 * This method allows to set the filter for the Boolean value in the search

@@ -453,6 +453,28 @@ public class SearchEntity extends BaseEntity {
 	}
 
 	/*
+	 * This method allows to set the filter for the Double value in the search
+	 * 
+	 * @param attributeCode - the attributeCode which holds long value where we
+	 * apply the filter
+	 * 
+	 * @param filterType - type of the filter
+	 * 
+	 * @param value - filter against (search for) this value
+	 */
+	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final Double value) {
+		AttributeDouble attribute = new AttributeDouble(attributeCode, filterType.toString());
+
+		try {
+			addAttribute(attribute, 1.0, value);
+		} catch (BadDataException e) {
+			log.error("Bad Double Filter Initialisation");
+		}
+
+		return this;
+	}
+
+	/*
 	 * This method allows to set the filter for the LocalDateTime value in the
 	 * search
 	 * 
@@ -607,6 +629,34 @@ public class SearchEntity extends BaseEntity {
 	 * @param value - filter against (search for) this value
 	 */
     
+	public SearchEntity addOr(final String attributeCode, final Filter filterType, final Double value) {
+		AttributeDouble attribute = new AttributeDouble(attributeCode, filterType.toString());
+		Integer count = countOccurrences(attributeCode, "OR") + 1;
+
+		for (int i = 0; i < count; i++) {
+			attribute.setCode("OR_"+attribute.getCode());
+		}
+
+		try {
+			addAttribute(attribute, 1.0, value);
+		} catch (BadDataException e) {
+			log.error("Bad OR Double Filter Initialisation");
+		}
+
+		return this;
+	}
+
+	/*
+	 * This method allows to set an OR filter for an attribute
+	 * 
+	 * @param attributeCode - the attributeCode which holds String value where we
+	 * apply the filter
+	 * 
+	 * @param filterType - type of the filter
+	 * 
+	 * @param value - filter against (search for) this value
+	 */
+    
 	public SearchEntity addOr(final String attributeCode, final Filter filterType, final LocalDateTime value) {
 		AttributeDateTime attribute = new AttributeDateTime(attributeCode, filterType.toString());
 		Integer count = countOccurrences(attributeCode, "OR") + 1;
@@ -731,6 +781,34 @@ public class SearchEntity extends BaseEntity {
 			addAttribute(attribute, 1.0, value);
 		} catch (BadDataException e) {
 			log.error("Bad AND Long Filter Initialisation");
+		}
+
+		return this;
+	}
+
+	/*
+	 * This method allows to set an AND filter for an attribute
+	 * 
+	 * @param attributeCode - the attributeCode which holds String value where we
+	 * apply the filter
+	 * 
+	 * @param filterType - type of the filter
+	 * 
+	 * @param value - filter against (search for) this value
+	 */
+    
+	public SearchEntity addAnd(final String attributeCode, final Filter filterType, final Double value) {
+		AttributeDouble attribute = new AttributeDouble(attributeCode, filterType.toString());
+		Integer count = countOccurrences(attributeCode, "AND") + 1;
+
+		for (int i = 0; i < count; i++) {
+			attribute.setCode("AND_"+attribute.getCode());
+		}
+
+		try {
+			addAttribute(attribute, 1.0, value);
+		} catch (BadDataException e) {
+			log.error("Bad AND Double Filter Initialisation");
 		}
 
 		return this;

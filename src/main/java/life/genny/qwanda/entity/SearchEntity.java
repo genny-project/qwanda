@@ -608,7 +608,8 @@ public class SearchEntity extends BaseEntity {
 		}
 
 		try {
-			addAttribute(attribute, 1.0, value);
+			addAttribute(attribute, filterIndex, value);
+			filterIndex += 1.0;
 		} catch (BadDataException e) {
 			log.error("Bad OR Integer Filter Initialisation");
 		}
@@ -636,7 +637,8 @@ public class SearchEntity extends BaseEntity {
 		}
 
 		try {
-			addAttribute(attribute, 1.0, value);
+			addAttribute(attribute, filterIndex, value);
+			filterIndex += 1.0;
 		} catch (BadDataException e) {
 			log.error("Bad OR Long Filter Initialisation");
 		}
@@ -664,7 +666,8 @@ public class SearchEntity extends BaseEntity {
 		}
 
 		try {
-			addAttribute(attribute, 1.0, value);
+			addAttribute(attribute, filterIndex, value);
+			filterIndex += 1.0;
 		} catch (BadDataException e) {
 			log.error("Bad OR Double Filter Initialisation");
 		}
@@ -692,7 +695,8 @@ public class SearchEntity extends BaseEntity {
 		}
 
 		try {
-			addAttribute(attribute, 1.0, value);
+			addAttribute(attribute, filterIndex, value);
+			filterIndex += 1.0;
 		} catch (BadDataException e) {
 			log.error("Bad OR LocalDateTime Filter Initialisation");
 		}
@@ -720,7 +724,8 @@ public class SearchEntity extends BaseEntity {
 		}
 
 		try {
-			addAttribute(attribute, 1.0, value);
+			addAttribute(attribute, filterIndex, value);
+			filterIndex += 1.0;
 		} catch (BadDataException e) {
 			log.error("Bad OR LocalDate Filter Initialisation");
 		}
@@ -748,7 +753,8 @@ public class SearchEntity extends BaseEntity {
 		}
 
 		try {
-			addAttribute(attribute, 1.0, value);
+			addAttribute(attribute, filterIndex, value);
+			filterIndex += 1.0;
 		} catch (BadDataException e) {
 			log.error("Bad OR String Filter Initialisation");
 		}
@@ -776,7 +782,8 @@ public class SearchEntity extends BaseEntity {
 		}
 
 		try {
-			addAttribute(attribute, 1.0, value);
+			addAttribute(attribute, filterIndex, value);
+			filterIndex += 1.0;
 		} catch (BadDataException e) {
 			log.error("Bad AND Integer Filter Initialisation");
 		}
@@ -804,7 +811,8 @@ public class SearchEntity extends BaseEntity {
 		}
 
 		try {
-			addAttribute(attribute, 1.0, value);
+			addAttribute(attribute, filterIndex, value);
+			filterIndex += 1.0;
 		} catch (BadDataException e) {
 			log.error("Bad AND Long Filter Initialisation");
 		}
@@ -832,7 +840,8 @@ public class SearchEntity extends BaseEntity {
 		}
 
 		try {
-			addAttribute(attribute, 1.0, value);
+			addAttribute(attribute, filterIndex, value);
+			filterIndex += 1.0;
 		} catch (BadDataException e) {
 			log.error("Bad AND Double Filter Initialisation");
 		}
@@ -860,7 +869,8 @@ public class SearchEntity extends BaseEntity {
 		}
 
 		try {
-			addAttribute(attribute, 1.0, value);
+			addAttribute(attribute, filterIndex, value);
+			filterIndex += 1.0;
 		} catch (BadDataException e) {
 			log.error("Bad AND LocalDateTime Filter Initialisation");
 		}
@@ -888,7 +898,8 @@ public class SearchEntity extends BaseEntity {
 		}
 
 		try {
-			addAttribute(attribute, 1.0, value);
+			addAttribute(attribute, filterIndex, value);
+			filterIndex += 1.0;
 		} catch (BadDataException e) {
 			log.error("Bad AND LocalDate Filter Initialisation");
 		}
@@ -916,7 +927,8 @@ public class SearchEntity extends BaseEntity {
 		}
 
 		try {
-			addAttribute(attribute, 1.0, value);
+			addAttribute(attribute, filterIndex, value);
+			filterIndex += 1.0;
 		} catch (BadDataException e) {
 			log.error("Bad AND String Filter Initialisation");
 		}

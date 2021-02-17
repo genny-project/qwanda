@@ -34,6 +34,7 @@ public class SearchEntity extends BaseEntity {
 
 	Double actionIndex = 1.0;
 	Double searchActionIndex = 1.0;
+	Double combinedSearchIndex = 1.0;
 
 	Double sortIndex = 0.0;
 	Double groupIndex = 1.0;
@@ -342,6 +343,23 @@ public class SearchEntity extends BaseEntity {
 			searchIndex += 1.0;
 		} catch (BadDataException e) {
 			log.error("Bad Column Initialisation");
+		}
+		return this;
+	}
+
+	/*
+	 * This method allows to add the combined searches to the SearchEntity.
+	 * This will combine the results with the two searches
+	 * NOTE: has only been implemented for counts so far
+	 */
+	public SearchEntity addCombinedSearch(final String attributeCode, final String columnName) {
+		AttributeText attributeColumn = new AttributeText("CMB_"+attributeCode, columnName);
+		try {
+			EntityAttribute ea = addAttribute(attributeColumn, searchIndex);
+			ea.setIndex(combinedSearchIndex.intValue());
+			combinedSearchIndex += 1.0;
+		} catch (BadDataException e) {
+			log.error("Bad Combined Search Initialisation");
 		}
 		return this;
 	}

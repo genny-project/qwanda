@@ -1153,6 +1153,23 @@ public class SearchEntity extends BaseEntity {
 		return this;
 	}
 
+	/**
+	* This method allows users to set the dropdown target.
+	* Used to pass information about the entity concerning a dropdown.
+	* @param dropdownTarget A code, or other information about the target
+	* entity of a dropdown.
+	 */
+	public SearchEntity setDropdownTarget(final String dropdownTarget) {
+		AttributeText attribute = new AttributeText("SCH_DROPDOWN_TARGET", "Dropdown Target");
+		try {
+			addAttribute(attribute, 1.0, dropdownTarget);
+		} catch (BadDataException e) {
+			log.error("Bad Dropdown Target");
+		}
+
+		return this;
+	}
+
 	/*
 	 * This method allows to set thewildcard of the results data to be sent
 	 * 

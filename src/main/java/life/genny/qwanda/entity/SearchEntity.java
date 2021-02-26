@@ -1375,4 +1375,25 @@ public class SearchEntity extends BaseEntity {
 		return count;
 	}
 
+	public Double getMaximumFilterWeight() {
+
+		Double maxWeight = 0.0;
+		for (EntityAttribute ea : getBaseEntityAttributes()) {
+			if (ea.getAttributeCode().startsWith("PRI_") || ea.getAttributeCode().startsWith("LNK_") ||
+				ea.getAttributeCode().startsWith("AND_") || ea.getAttributeCode().startsWith("OR_")) {
+				if (ea.getWeight() > maxWeight) {
+					maxWeight = ea.getWeight();
+				}
+			}
+		}
+		return maxWeight;
+	}
+
+	public void setFilterIndex(Double filterIndex) {
+			this.filterIndex = filterIndex;
+	}
+
+	public Double getFilterIndex() {
+			return this.filterIndex;
+	}
 }

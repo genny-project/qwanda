@@ -37,6 +37,7 @@ public class SearchEntity extends BaseEntity {
 	Double searchActionIndex = 1.0;
 
 	Double sortIndex = 0.0;
+	Double flcIndex = 1.0;
 	Double groupIndex = 1.0;
 	Double searchIndex = 1.0;
 	Double combinedSearchIndex = 1.0;
@@ -407,6 +408,25 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Sort Initialisation");
 		}
+		return this;
+	}
+
+	/**
+	* This Method allows specifying columns that can be further filtered on by the user
+	* @param attributeCode The code of the attribute
+	* @param fName The name given to the filter column
+	* @return SearchEntity the updated search base entity
+	 */
+	public SearchEntity addFilterableColumn(final String attributeCode, final String fName) {
+		AttributeText attributeFLC = new AttributeText("FLC_" + attributeCode, fName);
+		try {
+			addAttribute(attributeFLC, flcIndex);
+			flcIndex += 1.0;
+
+		} catch (BadDataException e) {
+			log.error("Bad Filterable Column Initialisation");
+		}
+
 		return this;
 	}
 
@@ -1281,6 +1301,14 @@ public class SearchEntity extends BaseEntity {
 
 	public void setSortIndex(Double sortIndex) {
 		this.sortIndex = sortIndex;
+	}
+
+	public Double getFLCIndex() {
+		return flcIndex;
+	}
+
+	public void setFLCIndex(Double flcIndex) {
+		this.flcIndex = flcIndex;
 	}
 
 	public Double getActionIndex() {

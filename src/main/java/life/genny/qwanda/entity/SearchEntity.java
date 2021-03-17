@@ -1303,6 +1303,14 @@ public class SearchEntity extends BaseEntity {
 		this.sortIndex = sortIndex;
 	}
 
+	public Double getFLCIndex() {
+		return flcIndex;
+	}
+
+	public void setFLCIndex(Double flcIndex) {
+		this.flcIndex = flcIndex;
+	}
+
 	public Double getActionIndex() {
 		return actionIndex;
 	}

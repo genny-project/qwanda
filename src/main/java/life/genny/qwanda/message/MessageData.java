@@ -56,6 +56,14 @@ public class MessageData implements Serializable {
 	public void setValue(String value) {
 		this.value = value;
 	}
+	
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
 
 	/**
 	 * @return the parentCode
@@ -108,6 +116,8 @@ public class MessageData implements Serializable {
 	private Long id;
 	@Expose
 	private String value;
+	@Expose
+	private String content;
 
 	public MessageData(String code) {
 		this.code = code;

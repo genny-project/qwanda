@@ -798,7 +798,12 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 //				break;
 			case "java.lang.String":
 			default:
+				if (value instanceof Boolean) {
+					log.error("Value is boolean being saved to String. DataType = "+this.getAttribute().getDataType().getClassName()+" and attributecode="+this.getAttributeCode());
+					setValueBoolean((Boolean)value);
+				} else {
 				setValueString((String) value);
+				}
 				break;
 			}
 		}

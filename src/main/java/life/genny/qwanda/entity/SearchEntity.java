@@ -1174,6 +1174,23 @@ public class SearchEntity extends BaseEntity {
 	}
 
 	/**
+	* Set the validation attribute.
+	* The search will then look to this attribute to find its validation state.
+	* @param validationAttribute
+	* @return SearchEntity the updated search
+	 */
+	public SearchEntity setValidationAttribute(final String validationAttribute) {
+		AttributeText attribute = new AttributeText("SCH_VALIDATION_ATTRIBUTE", "ValidationAttribute");
+		try {
+			addAttribute(attribute, 1.0, validationAttribute);
+		} catch (BadDataException e) {
+			log.error("Bad Validation Attribute");
+		}
+
+		return this;
+	}
+
+	/**
 	* This method allows users to set the dropdown target.
 	* Used to pass information about the entity concerning a dropdown.
 	* @param dropdownTarget A code, or other information about the target

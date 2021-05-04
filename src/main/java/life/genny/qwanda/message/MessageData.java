@@ -28,6 +28,9 @@ public class MessageData implements Serializable {
 	@Expose
 	private String targetCode;
 	
+	@Expose
+	private String sourceCode;
+	
 
 	
 	
@@ -105,6 +108,20 @@ public class MessageData implements Serializable {
 	 */
 	public void setTargetCode(String targetCode) {
 		this.targetCode = targetCode;
+	}
+	
+	/**
+	 * @return the targetCode
+	 */
+	public String getSourceCode() {
+		return sourceCode;
+	}
+
+	/**
+	 * @param targetCode the targetCode to set
+	 */
+	public void getSourceCode(String sourceCode) {
+		this.sourceCode = sourceCode;
 	}
 
 	

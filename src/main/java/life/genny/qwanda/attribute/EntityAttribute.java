@@ -227,6 +227,12 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	private Boolean privacyFlag = false;
 
 	/**
+	 * Store the confirmation of this attribute , i.e. Don't display
+	 */
+	@Expose
+	private Boolean confirmationFlag = false;
+
+	/**
 	 * Store the icon name for this attribute , i.e. Don't display
 	 */
 	@Expose
@@ -1328,5 +1334,12 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 		return icon;
 	}
 
+	public Boolean getConfirmationFlag() {
+		return confirmationFlag;
+	}
+
+	public void setConfirmationFlag(Boolean confirmationFlag) {
+		this.confirmationFlag = confirmationFlag;
+	}
 	
 }

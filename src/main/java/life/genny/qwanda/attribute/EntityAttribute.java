@@ -227,7 +227,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	private Boolean privacyFlag = false;
 
 	/**
-	 * Store the confirmation of this attribute , i.e. Don't display
+	 * Store the confirmation
 	 */
 	@Expose
 	private Boolean confirmationFlag = false;

@@ -264,11 +264,7 @@ public class SearchEntity extends BaseEntity {
 		return this.addAction(attributeCode, columnName, false);
 	}
 
-	/*
-	 * This method allows to add the action attributes to the SearchEntity that is
-	 * required in the result BaseEntities
-	 */
-	public SearchEntity addAction(final String attributeCode, final String columnName, final Boolean confirmationFlag)) {
+	public SearchEntity addAction(final String attributeCode, final String columnName, Boolean confirmationFlag) {
 		AttributeText attributeColumn = new AttributeText("ACT_" + attributeCode, columnName);
 		try {
 			EntityAttribute ea = addAttribute(attributeColumn, actionIndex);
@@ -1177,23 +1173,6 @@ public class SearchEntity extends BaseEntity {
 			addAttribute(attribute, 1.0, displayMode);
 		} catch (BadDataException e) {
 			log.error("Bad Display Mode");
-		}
-
-		return this;
-	}
-
-	/**
-	* Set the validation attribute.
-	* The search will then look to this attribute to find its validation state.
-	* @param validationAttribute
-	* @return SearchEntity the updated search
-	 */
-	public SearchEntity setValidationAttribute(final String validationAttribute) {
-		AttributeText attribute = new AttributeText("SCH_VALIDATION_ATTRIBUTE", "ValidationAttribute");
-		try {
-			addAttribute(attribute, 1.0, validationAttribute);
-		} catch (BadDataException e) {
-			log.error("Bad Validation Attribute");
 		}
 
 		return this;

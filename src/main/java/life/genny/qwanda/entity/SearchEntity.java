@@ -261,10 +261,15 @@ public class SearchEntity extends BaseEntity {
 	 * required in the result BaseEntities
 	 */
 	public SearchEntity addAction(final String attributeCode, final String columnName) {
+		return this.addAction(attributeCode, columnName, false);
+	}
+
+	public SearchEntity addAction(final String attributeCode, final String columnName, Boolean confirmationFlag) {
 		AttributeText attributeColumn = new AttributeText("ACT_" + attributeCode, columnName);
 		try {
 			EntityAttribute ea = addAttribute(attributeColumn, actionIndex);
 			ea.setIndex(actionIndex.intValue());
+			ea.setConfirmationFlag(confirmationFlag);
 			actionIndex += 1.0;
 		} catch (BadDataException e) {
 			log.error("Bad Column Initialisation");

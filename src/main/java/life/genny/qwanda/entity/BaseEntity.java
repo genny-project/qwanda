@@ -18,6 +18,7 @@ package life.genny.qwanda.entity;
 
 import java.lang.invoke.MethodHandles;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import javax.persistence.Cacheable;
@@ -150,6 +151,12 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	@Transient
 	private Boolean fromCache = false;
 
+	@JsonIgnore
+	@XmlTransient
+	@Transient
+	private Map<String,EntityAttribute> attributeMap = null;
+	
+	
 	/**
 	 * Constructor.
 	 * 
@@ -315,7 +322,9 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	 * @returns Optional<EntityAttribute>
 	 */
 	public Optional<EntityAttribute> findEntityAttribute(final String attributeCode) {
-
+		if (attributeMap != null) {
+			return Optional.ofNullable(attributeMap.get(attributeCode));
+		}
 		Optional<EntityAttribute> foundEntity = null;
 
 		try {
@@ -916,4 +925,22 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 
 		return highest;
 	}
+	
+	
+	@Transient
+	public void setFastAttributes(Boolean fastMode)
+	{
+		if (fastMode) {
+			attributeMap = new ConcurrentHashMap<String,EntityAttribute>();
+		// Grab all the entityAttributes and create a fast HashMap lookup
+		for (EntityAttribute ea : this.baseEntityAttributes) {
+			attributeMap.put(ea.getAttributeCode(), ea);
+		}
+		} else {
+			attributeMap = null;
+		}
+
+	}
+	
+	
 }

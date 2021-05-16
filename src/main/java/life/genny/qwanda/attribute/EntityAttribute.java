@@ -75,11 +75,14 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 
 	private static final long serialVersionUID = 1L;
 	@Expose
+	@Column
 	private String baseEntityCode;
 	@Expose
+	@Column
 	private String attributeCode;
 	@Expose 
 	@Transient
+	@Column
 	private String attributeName;
 	@Expose
 	private Boolean readonly = false;
@@ -153,23 +156,27 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	 * Store the Double value of the attribute for the baseEntity
 	 */
 	@Expose
+	@Column
 	private Double valueDouble;
 
 	/**
 	 * Store the Boolean value of the attribute for the baseEntity
 	 */
 	@Expose
+	@Column
 	private Boolean valueBoolean;
 	/**
 	 * Store the Integer value of the attribute for the baseEntity
 	 */
 	@Expose
+	@Column
 	private Integer valueInteger;
 
 	/**
 	 * Store the Long value of the attribute for the baseEntity
 	 */
 	@Expose
+	@Column
 	private Long valueLong;
 
 	/**
@@ -177,6 +184,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	 */
 //	@XmlJavaTypeAdapter(LocalTimeAdapter.class)
 	@Expose
+	@Column
 	private LocalTime valueTime;
 
 	/**
@@ -184,6 +192,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	 */
 //	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	@Expose
+	@Column
 	private LocalDateTime valueDateTime;
 
 	/**
@@ -191,6 +200,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	 */
 //	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	@Expose
+	@Column
 	private LocalDate valueDate;
 	
 //	@Expose
@@ -201,6 +211,7 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	 */
 	@Type(type = "text")
 	@Expose
+	@Column
 	private String valueString;
 
 	@Column(name = "money", length = 128)

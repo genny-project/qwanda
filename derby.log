@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Sat May 15 11:29:11 AEST 2021:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0179-6da4-3efa-000014208e00 
+on database directory /Users/jasper/projects/genny/qwanda/target/demoDB with class loader ClassRealm[plugin>com.querydsl:querydsl-maven-plugin:4.1.2, parent: org.eclipse.osgi.internal.loader.EquinoxClassLoader@6269b6e0[org.eclipse.m2e.maven.runtime:1.16.0.20200610-1735(id=61)]] 
+Loaded from file:/Users/jasper/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
+java.vendor=GraalVM Community
+java.runtime.version=11.0.10+8-jvmci-21.0-b06
+user.dir=/Users/jasper/projects/genny/qwanda
+os.name=Mac OS X
+os.arch=x86_64
+os.version=10.15.7
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

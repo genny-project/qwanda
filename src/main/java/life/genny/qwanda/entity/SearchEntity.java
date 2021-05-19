@@ -1,6 +1,7 @@
 package life.genny.qwanda.entity;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import life.genny.qwanda.attribute.AttributeDouble;
 import life.genny.qwanda.attribute.AttributeInteger;
 import life.genny.qwanda.attribute.AttributeLong;
 import life.genny.qwanda.attribute.AttributeText;
+import life.genny.qwanda.attribute.AttributeTime;
 import life.genny.qwanda.attribute.EntityAttribute;
 import life.genny.qwanda.exception.BadDataException;
 
@@ -133,6 +135,41 @@ public class SearchEntity extends BaseEntity {
 		}
 	}
 
+	static public SearchEntity.Filter convertOperatorToFilter(final String operator) {
+			SearchEntity.Filter ret = null;
+				switch (operator) {
+				case ">": ret =  SearchEntity.Filter.GREATER_THAN; break;
+				case "<": ret =  SearchEntity.Filter.LESS_THAN; break;
+				case ">=": ret =  SearchEntity.Filter.GREATER_THAN_AND_EQUAL; break;
+				case "<=": ret =  SearchEntity.Filter.LESS_THAN_AND_EQUAL; break;
+				case "<>":
+				case "!=": ret =  SearchEntity.Filter.NOT_EQUALS;break;
+				default:
+					ret = SearchEntity.Filter.EQUALS;
+				}
+				return ret;
+				
+		
+		
+	}
+	
+	static public SearchEntity.StringFilter convertOperatorToStringFilter(final String operator) {
+		SearchEntity.StringFilter ret = null;
+			switch (operator) {
+			case "LIKE": ret =  SearchEntity.StringFilter.LIKE; break;
+			case "NOT LIKE": ret =  SearchEntity.StringFilter.NOT_LIKE; break;
+			case "<>":
+			case "!=": ret =  SearchEntity.StringFilter.NOT_EQUAL;break;
+			default:
+				ret = SearchEntity.StringFilter.EQUAL;
+			}
+			return ret;
+			
+	
+	
+}
+	
+	
 	public void convertBEToSaveable() {
 		for (EntityAttribute ea : this.getBaseEntityAttributes()) {
 			if (!((ea.getAttributeCode().startsWith("COL_")) || (ea.getAttributeCode().startsWith("CAL_"))
@@ -558,6 +595,30 @@ public class SearchEntity extends BaseEntity {
 	 */
 	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final LocalDate value) {
 		AttributeDate attribute = new AttributeDate(attributeCode, filterType.toString());
+
+		try {
+			addAttribute(attribute, filterIndex, value);
+			filterIndex += 1.0;
+		} catch (BadDataException e) {
+			log.error("Bad Date Filter Initialisation");
+		}
+
+		return this;
+	}
+
+	/*
+	 * This method allows to set the filter for the LocalDate value in the
+	 * search
+	 * 
+	 * @param attributeCode - the attributeCode which holds LocalDate value
+	 * where we apply the filter
+	 * 
+	 * @param filterType - type of the filter
+	 * 
+	 * @param value - filter against (search for) this value
+	 */
+	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final LocalTime value) {
+		AttributeTime attribute = new AttributeTime(attributeCode, filterType.toString());
 
 		try {
 			addAttribute(attribute, filterIndex, value);

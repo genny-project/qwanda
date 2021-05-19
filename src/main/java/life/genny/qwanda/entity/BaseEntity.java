@@ -272,6 +272,9 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	public boolean containsEntityAttribute(final String attributeCode) {
 		boolean ret = false;
 
+		if (attributeMap != null) {
+			return attributeMap.containsKey(attributeCode);
+		}
 		// Check if this code exists in the baseEntityAttributes
 		if (getBaseEntityAttributes().parallelStream().anyMatch(ti -> ti.getAttributeCode().equals(attributeCode))) {
 			ret = true;
@@ -480,6 +483,10 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 				removed = true;
 				break;
 			}
+		}
+		
+		if (attributeMap != null) {
+			attributeMap.remove(attributeCode);
 		}
 
 		return removed;

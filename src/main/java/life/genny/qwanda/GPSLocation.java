@@ -29,6 +29,8 @@ import javax.validation.constraints.NotNull;
 
 import com.google.gson.annotations.Expose;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 /**
  * gpslocation is the abstract base class for all gps location
  * managed in the Qwanda library.
@@ -51,6 +53,7 @@ import com.google.gson.annotations.Expose;
  */
 
 @Embeddable
+@QueryExclude
 public class GPSLocation  implements  Serializable,Comparable<Object>  {
 	/**
 	 * 

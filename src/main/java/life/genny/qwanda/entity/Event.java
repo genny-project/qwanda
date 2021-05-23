@@ -35,6 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 /**
  * Group is the  base class for a Group
  * managed in the Qwanda library.
@@ -60,6 +62,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @SuppressWarnings("serial")
 @Entity
+@QueryExclude
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
 

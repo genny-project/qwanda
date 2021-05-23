@@ -59,6 +59,8 @@ import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 /**
  * gpsRoute is the  base class for all gps ROutes
  * managed in the Qwanda library.
@@ -91,6 +93,7 @@ import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 @XmlAccessorType(value = XmlAccessType.FIELD)
 @Table(name = "route")
 @Entity
+@QueryExclude
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 @Inheritance(strategy = InheritanceType.JOINED)
 

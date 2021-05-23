@@ -35,6 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 /**
  * Company is the  base class for a Company
  * managed in the Qwanda library.
@@ -62,6 +64,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @SuppressWarnings("serial")
 @Entity
+@QueryExclude
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
 

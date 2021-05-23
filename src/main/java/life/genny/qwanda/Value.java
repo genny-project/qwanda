@@ -18,7 +18,10 @@ import com.google.gson.annotations.Expose;
 import life.genny.qwanda.converter.MoneyConverter;
 import life.genny.qwanda.datatype.DataType;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 @Embeddable
+@QueryExclude
 public class Value implements java.io.Serializable {
 
 

@@ -33,6 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import life.genny.qwanda.datatype.DataType;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 /**
  * AttributeDouble class handles LocalDouble based attributes.
  * This information adds:
@@ -53,6 +55,7 @@ import life.genny.qwanda.datatype.DataType;
 
 @SuppressWarnings("serial")
 @Entity
+@QueryExclude
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
 

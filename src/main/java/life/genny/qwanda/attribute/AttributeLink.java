@@ -34,6 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import life.genny.qwanda.datatype.DataType;
 import life.genny.qwanda.entity.BaseEntity;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 /**
  * AttributeLink class is the main link type between BaseEntitys.
  * This information adds:
@@ -54,6 +56,7 @@ import life.genny.qwanda.entity.BaseEntity;
 
 @SuppressWarnings("serial")
 @Entity
+@QueryExclude
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
 

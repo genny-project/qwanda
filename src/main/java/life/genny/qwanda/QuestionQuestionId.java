@@ -13,7 +13,10 @@ import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.entity.EntityEntityId;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 @Embeddable
+@QueryExclude
 public class QuestionQuestionId implements java.io.Serializable {
 
 	/**

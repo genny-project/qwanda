@@ -37,6 +37,8 @@ import java.security.InvalidParameterException;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 /**
  * Question is the abstract base class for all questions managed in the Qwanda
  * library. A Question object is used as a means of requesting information from
@@ -70,6 +72,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 		@Index(columnList = "realm", name = "code_idx") }, uniqueConstraints = @UniqueConstraint(columnNames = { "code",
 				"realm" }))
 @Entity
+@QueryExclude
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 @Inheritance(strategy = InheritanceType.JOINED)
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)

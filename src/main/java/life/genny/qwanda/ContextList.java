@@ -38,6 +38,9 @@ import org.hibernate.annotations.FetchMode;
 
 import com.google.gson.annotations.Expose;
 
+import com.querydsl.core.annotations.QueryExclude;
+
+
 /**
  * ContextList represents a set of Contexts in the Qwanda library.
  * The Contexts in the list can be applied to a passed value.
@@ -59,6 +62,7 @@ import com.google.gson.annotations.Expose;
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
 @Embeddable
+@QueryExclude
 public class ContextList implements Serializable {
 	
 	/**

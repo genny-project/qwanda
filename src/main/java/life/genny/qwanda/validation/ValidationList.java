@@ -33,6 +33,8 @@ import javax.xml.bind.annotation.XmlTransient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 
 /**
  * ValidationList represents a set of Validations the Qwanda library. The validations in the list
@@ -53,6 +55,7 @@ import com.google.gson.annotations.Expose;
 
 
 @XmlRootElement
+@QueryExclude
 @XmlAccessorType(value = XmlAccessType.FIELD)
 @Embeddable
 public class ValidationList implements Serializable {

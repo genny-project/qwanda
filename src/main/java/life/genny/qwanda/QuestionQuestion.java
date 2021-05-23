@@ -31,10 +31,12 @@ import life.genny.qwanda.entity.EntityEntity;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
+import com.querydsl.core.annotations.QueryExclude;
 
 
 
 @Entity
+@QueryExclude
 @Table(name = "question_question", uniqueConstraints = @UniqueConstraint(columnNames= {"sourceCode","targetCode", "realm"}),
 indexes = {
 		 @Index(columnList = "sourceCode", name = "source_idx"),

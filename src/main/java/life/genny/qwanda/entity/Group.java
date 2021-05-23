@@ -33,6 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 /**
  * Group is the  base class for a Group
  * managed in the Qwanda library.
@@ -58,6 +60,7 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 @Entity
+@QueryExclude
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
 

@@ -85,7 +85,28 @@ public class SearchEntity extends BaseEntity {
 			public String toString() {
 				return "NOT LIKE";
 			}
+		},
+		RLIKE {
+			public String toString() {
+				return "RLIKE";
+			}
+		},
+		NOT_RLIKE {
+			public String toString() {
+				return "NOT RLIKE";
+			}
+		},
+		REGEXP {
+			public String toString() {
+				return "REGEXP";
+			}
+		},
+		NOT_REGEXP {
+			public String toString() {
+				return "NOT REGEXP";
+			}
 		}
+
 	}
 
 	/*
@@ -156,6 +177,10 @@ public class SearchEntity extends BaseEntity {
 	static public SearchEntity.StringFilter convertOperatorToStringFilter(final String operator) {
 		SearchEntity.StringFilter ret = null;
 			switch (operator) {
+			case "REGEXP": ret =  SearchEntity.StringFilter.REGEXP; break;
+			case "NOT REGEXP": ret =  SearchEntity.StringFilter.NOT_REGEXP; break;
+			case "RLIKE": ret =  SearchEntity.StringFilter.RLIKE; break;
+			case "NOT RLIKE": ret =  SearchEntity.StringFilter.NOT_RLIKE; break;
 			case "LIKE": ret =  SearchEntity.StringFilter.LIKE; break;
 			case "NOT LIKE": ret =  SearchEntity.StringFilter.NOT_LIKE; break;
 			case "<>":

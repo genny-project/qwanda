@@ -46,6 +46,9 @@ import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.exception.BadDataException;
 
+import com.querydsl.core.annotations.QueryExclude;
+
+
 /**
  * Ask represents the presentation of a Question to a source entity. A Question
  * object is refered to as a means of requesting information from a source about
@@ -80,6 +83,7 @@ import life.genny.qwanda.exception.BadDataException;
 				"realm" }))
 
 @Entity
+@QueryExclude
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 @Inheritance(strategy = InheritanceType.JOINED)
 

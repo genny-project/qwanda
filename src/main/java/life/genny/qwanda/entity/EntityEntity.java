@@ -70,6 +70,7 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
         
 	})
 	@Expose
+	@Column
 	private Link link ;
 	
 	private String realm;
@@ -80,6 +81,7 @@ public class EntityEntity implements java.io.Serializable, Comparable<Object> {
   private static final long serialVersionUID = 1L;
 
   @EmbeddedId
+	@Column
   private EntityEntityId pk = new EntityEntityId();
 
  

@@ -53,6 +53,8 @@ import javax.xml.bind.annotation.XmlTransient;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.gson.annotations.Expose;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 /**
  * gpsleg is the abstract base class for all gps legs
  * managed in the Qwanda library.
@@ -80,6 +82,7 @@ import com.google.gson.annotations.Expose;
 @XmlAccessorType(value = XmlAccessType.FIELD)
 @Table(name = "gps")
 @Entity
+@QueryExclude
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 @Inheritance(strategy = InheritanceType.JOINED)
 

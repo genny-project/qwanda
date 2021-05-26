@@ -17,6 +17,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.google.gson.annotations.Expose;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 import life.genny.qwanda.CodedEntity;
 
 @SuppressWarnings("deprecation")
@@ -24,6 +26,7 @@ import life.genny.qwanda.CodedEntity;
 @XmlAccessorType(value = XmlAccessType.FIELD)
 @Table(name = "template", uniqueConstraints = @UniqueConstraint(columnNames = {"code", "realm"}))
 @Entity
+@QueryExclude
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class QBaseMSGMessageTemplate  extends CodedEntity implements Serializable{

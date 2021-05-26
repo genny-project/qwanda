@@ -22,7 +22,10 @@ import org.javamoney.moneta.spi.MoneyUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 @Embeddable
+@QueryExclude
 public class GMoney implements Serializable {
 	/**
 	 * 

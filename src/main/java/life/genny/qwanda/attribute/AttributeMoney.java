@@ -35,6 +35,8 @@ import org.javamoney.moneta.Money;
 
 import life.genny.qwanda.datatype.DataType;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 /**
  * AttributeMoney class handles LocalDate based attributes.
  * This information adds:
@@ -55,6 +57,7 @@ import life.genny.qwanda.datatype.DataType;
 
 @SuppressWarnings("serial")
 @Entity
+@QueryExclude
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
 

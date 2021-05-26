@@ -51,6 +51,8 @@ import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 /**
  * gps is the abstract base class for all gps
  * managed in the Qwanda library.
@@ -78,6 +80,7 @@ import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 @XmlAccessorType(value = XmlAccessType.FIELD)
 @Table(name = "gps")
 @Entity
+@QueryExclude
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 @Inheritance(strategy = InheritanceType.JOINED)
 

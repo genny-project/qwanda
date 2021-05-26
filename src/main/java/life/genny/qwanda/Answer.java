@@ -52,6 +52,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.Type;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
 
@@ -96,6 +98,7 @@ indexes = {
 //uniqueConstraints = @UniqueConstraint(columnNames = {"sourcecode","targetcode","attributecode", "realm"})
 )
 @Entity
+@QueryExclude
 @Immutable
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 //@Cacheable

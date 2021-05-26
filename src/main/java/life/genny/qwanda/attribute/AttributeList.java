@@ -36,6 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 /**
  * AttributeList represents a set of Attributes in the Qwanda library.
  * The attributes in the list can be applied to a passed value.
@@ -57,6 +59,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
 @Embeddable
+@QueryExclude
 public class AttributeList implements Serializable {
 	
 	/**

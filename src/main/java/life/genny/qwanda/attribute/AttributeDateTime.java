@@ -34,6 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import life.genny.qwanda.datatype.DataType;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 /**
  * AttributeDateTime class handles LocalDateTime based attributes.
  * This information adds:
@@ -54,6 +56,7 @@ import life.genny.qwanda.datatype.DataType;
 
 @SuppressWarnings("serial")
 @Entity
+@QueryExclude
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
 

@@ -32,6 +32,8 @@ import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import life.genny.qwanda.CodedEntity;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 /**
  * Rule represents a distinct abstract Rule managed in the Qwanda library. An rule may be used
  * directly in processing meaning for an event using inference and induction This rule information
@@ -58,6 +60,7 @@ import life.genny.qwanda.CodedEntity;
 @XmlAccessorType(value = XmlAccessType.FIELD)
 @Table(name = "rule", uniqueConstraints = @UniqueConstraint(columnNames = "code"))
 @Entity
+@QueryExclude
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 
 

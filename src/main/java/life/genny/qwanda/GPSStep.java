@@ -58,6 +58,8 @@ import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.datatype.LocalDateTimeAdapter;
 
+import com.querydsl.core.annotations.QueryExclude;
+
 /**
  * gpsstep is the abstract base class for all gps steps managed in the Qwanda
  * library. An GPS step object is used as a means of storing information about a
@@ -78,6 +80,7 @@ import life.genny.qwanda.datatype.LocalDateTimeAdapter;
  */
 
 @Entity
+@QueryExclude
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
 @Table(name = "gps_step")

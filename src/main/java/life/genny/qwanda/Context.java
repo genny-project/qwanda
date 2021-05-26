@@ -45,6 +45,9 @@ import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.entity.BaseEntity;
 
+import com.querydsl.core.annotations.QueryExclude;
+
+
 /**
  * Context is the class for all entity contexts managed in the Qwanda library. A
  * Context object is used as a means of supplying information about a question
@@ -78,6 +81,7 @@ indexes = {
     },
 uniqueConstraints = @UniqueConstraint(columnNames = {"id", "realm"}))
 @Entity
+@QueryExclude
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 @Inheritance(strategy = InheritanceType.JOINED)
 

@@ -33,6 +33,9 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.querydsl.core.annotations.QueryExclude;
+
+
 /**
  * AnswerList represents a set of Answers in the Qwanda library. The answers in the list can be
  * applied to a passed value.
@@ -54,6 +57,7 @@ import org.hibernate.annotations.FetchMode;
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
 @Embeddable
+@QueryExclude
 public class AnswerList implements Serializable {
 
   /**

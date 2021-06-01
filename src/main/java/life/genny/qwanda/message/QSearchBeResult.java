@@ -24,6 +24,13 @@ public class QSearchBeResult implements Serializable {
 		this.codes = codes.toArray(new String[0]);
 		this.total = total;
 	}
+
+	/**
+	 * @param total
+	 */
+	public QSearchBeResult(Long total) {
+		this.total = total;
+	}
 	/**
 	 * @return the codes
 	 */

@@ -157,6 +157,13 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	private Map<String,EntityAttribute> attributeMap = null;
 	
 	
+	
+	public Map<String, EntityAttribute> getAttributeMap() {
+		return attributeMap;
+	}
+
+	
+
 	/**
 	 * Constructor.
 	 * 
@@ -325,12 +332,15 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	 * @returns Optional<EntityAttribute>
 	 */
 	public Optional<EntityAttribute> findEntityAttribute(final String attributeCode) {
+		log.info("Hmmm which path in getValue are we taking");
 		if (attributeMap != null) {
+			log.info("We are in the quick map part of getValue");
 			return Optional.ofNullable(attributeMap.get(attributeCode));
 		}
 		Optional<EntityAttribute> foundEntity = null;
 
 		try {
+			log.info("We are in the long filter part of getValue");
 			foundEntity = getBaseEntityAttributes().stream().filter(x -> (x.getAttributeCode().equals(attributeCode)))
 					.findFirst();
 		} catch (Exception e) {

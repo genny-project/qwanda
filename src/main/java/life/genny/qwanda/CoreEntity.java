@@ -133,6 +133,10 @@ public abstract class CoreEntity implements CoreEntityInterface, CreatedIntf, Se
 	@Expose
 	private String realm = DEFAULT_REALM;
 
+	
+	
+	
+	
 	/**
 	 * Constructor.
 	 * 

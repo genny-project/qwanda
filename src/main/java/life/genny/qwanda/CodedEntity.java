@@ -73,7 +73,7 @@ public abstract class CodedEntity extends CoreEntity {
 	static public final String REGEX_CODE = "[A-Z]{3}\\_[A-Z0-9\\.\\-\\@\\_]*";
 
 	/**
-	 * A field that stores the unique code name of the attribute.
+	 * A field that stores the unique code name of the entity.
 	 * <p>
 	 * p Note that the prefix of the attribute can specify the source. e.g.
 	 * FBK_BIRTHDATE indicates that the attribute represents the facebook value
@@ -89,6 +89,10 @@ public abstract class CodedEntity extends CoreEntity {
 	@Expose
 	private Integer index;
 
+	// TODO, this probably should not be exposed once we have hibernate/infinispan in place
+	@Expose
+	private EEntityStatus status = EEntityStatus.ACTIVE;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -191,6 +195,23 @@ public abstract class CodedEntity extends CoreEntity {
 	 */
 	public void setIndex(Integer index) {
 		this.index = index;
+	}
+
+	
+	
+	
+	/**
+	 * @return the status
+	 */
+	public EEntityStatus getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(EEntityStatus status) {
+		this.status = status;
 	}
 
 	public boolean hasCode() {

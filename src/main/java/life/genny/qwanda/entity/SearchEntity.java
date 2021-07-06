@@ -437,8 +437,8 @@ public class SearchEntity extends BaseEntity {
 	 * This method allows to add the associated attributes to the SearchEntity that
 	 * is required in the result BaseEntities
 	 */
-	public SearchEntity addAssociatedColumn(final String attributeCode, final String columnName,
-			final String associatedLinkedBaseEntityCodeAttribute) {
+	public SearchEntity addAssociatedColumn(final String attributeCode, final String associatedLinkedBaseEntityCodeAttribute,
+			final String columnName) {
 		AttributeText attributeColumn = new AttributeText("COL__" + attributeCode.toUpperCase()+"__"+associatedLinkedBaseEntityCodeAttribute.toUpperCase(), columnName);
 		try {
 			EntityAttribute ea = addAttribute(attributeColumn, colIndex);
@@ -449,6 +449,14 @@ public class SearchEntity extends BaseEntity {
 			log.error("Bad Associated Column Initialisation");
 		}
 		return this;
+	}
+
+	/*
+	 * This method allows double nested associated columns
+	 */
+	public SearchEntity addAssociatedColumn(final String attributeCode, String nestedAttributeCode,
+			final String associatedLinkedBaseEntityCodeAttribute, final String columnName) {
+		return addAssociatedColumn(attributeCode + "__" + nestedAttributeCode, columnName, associatedLinkedBaseEntityCodeAttribute);
 	}
 
 	/*

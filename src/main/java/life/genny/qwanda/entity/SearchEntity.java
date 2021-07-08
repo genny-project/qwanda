@@ -456,7 +456,7 @@ public class SearchEntity extends BaseEntity {
 	 */
 	public SearchEntity addAssociatedColumn(final String attributeCode, String nestedAttributeCode,
 			final String associatedLinkedBaseEntityCodeAttribute, final String columnName) {
-		return addAssociatedColumn(attributeCode + "__" + nestedAttributeCode, columnName, associatedLinkedBaseEntityCodeAttribute);
+		return addAssociatedColumn(attributeCode + "__" + nestedAttributeCode, associatedLinkedBaseEntityCodeAttribute, columnName);
 	}
 
 	/*

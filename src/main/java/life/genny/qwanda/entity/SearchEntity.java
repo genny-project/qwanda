@@ -452,11 +452,19 @@ public class SearchEntity extends BaseEntity {
 	}
 
 	/*
-	 * This method allows double nested associated columns
+	 * This method allows nested associated columns
 	 */
 	public SearchEntity addAssociatedColumn(final String attributeCode, String nestedAttributeCode,
 			final String associatedLinkedBaseEntityCodeAttribute, final String columnName) {
 		return addAssociatedColumn(attributeCode + "__" + nestedAttributeCode, associatedLinkedBaseEntityCodeAttribute, columnName);
+	}
+
+	/*
+	 * This method allows double nested associated columns
+	 */
+	public SearchEntity addAssociatedColumn(final String attributeCode, String nestedAttributeCode, String doubleNestedAttributeCode,
+			final String associatedLinkedBaseEntityCodeAttribute, final String columnName) {
+		return addAssociatedColumn(attributeCode + "__" + nestedAttributeCode + "__" + doubleNestedAttributeCode, associatedLinkedBaseEntityCodeAttribute, columnName);
 	}
 
 	/*

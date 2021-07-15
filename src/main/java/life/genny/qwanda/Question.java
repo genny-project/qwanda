@@ -344,7 +344,7 @@ public class Question extends CodedEntity implements Serializable {
 	/**
 	 * @param attributeCode the attributeCode to set
 	 */
-	private void setAttributeCode(final String attributeCode) {
+	public void setAttributeCode(final String attributeCode) {
 		this.attributeCode = attributeCode;
 	}
 

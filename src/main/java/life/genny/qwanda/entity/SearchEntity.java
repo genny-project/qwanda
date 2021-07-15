@@ -516,6 +516,7 @@ public class SearchEntity extends BaseEntity {
 	/*
 	 * This method allows to add grouping by a specific attribute. all BEs who's
 	 * value corresponding to this attribute will be grouped together.
+	 * NOTE: not implemented yet
 	 */
 	public SearchEntity addGroupBy(final String groupBy) {
 		AttributeText attribute = new AttributeText("GPB_" + groupBy, "GroupBy");

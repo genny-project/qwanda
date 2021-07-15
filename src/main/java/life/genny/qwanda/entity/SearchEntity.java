@@ -1281,6 +1281,17 @@ public class SearchEntity extends BaseEntity {
 		return this;
 	}
 
+	public SearchEntity setSearchQuestionCode(final String questionCode) {
+		AttributeText attribute = new AttributeText("SCH_QUESTION_CODE", "Question Code");
+		try {
+			addAttribute(attribute, 1.0, questionCode);
+		} catch (BadDataException e) {
+			log.error("Bad Question Code!");
+		}
+
+		return this;
+	}
+
 	/**
 	* Set the validation attribute.
 	* The search will then look to this attribute to find its validation state.

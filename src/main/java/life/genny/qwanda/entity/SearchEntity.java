@@ -43,6 +43,7 @@ public class SearchEntity extends BaseEntity {
 	Double groupIndex = 1.0;
 	Double searchIndex = 1.0;
 	Double combinedSearchIndex = 1.0;
+	Double aliasIndex = 1.0;
 
 	/*
 	 * This Sort Enum is used to sort the search results in either Ascending and
@@ -526,6 +527,19 @@ public class SearchEntity extends BaseEntity {
 
 		} catch (BadDataException e) {
 			log.error("Bad Group By Initialisation");
+		}
+
+		return this;
+	}
+
+	public SearchEntity addAlias(final String attributeCode, final String alias) {
+		AttributeText attribute = new AttributeText("ALS_" + attributeCode, alias);
+		try {
+			addAttribute(attribute, aliasIndex);
+			aliasIndex += 1.0;
+
+		} catch (BadDataException e) {
+			log.error("Bad Alias Initialisation");
 		}
 
 		return this;

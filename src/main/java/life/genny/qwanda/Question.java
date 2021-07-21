@@ -302,7 +302,7 @@ public class Question extends CodedEntity implements Serializable {
 	/**
 	 * @param attribute the attribute to set
 	 */
-	private void setAttribute(final Attribute attribute) {
+	public void setAttribute(final Attribute attribute) {
 		this.attribute = attribute;
 	}
 

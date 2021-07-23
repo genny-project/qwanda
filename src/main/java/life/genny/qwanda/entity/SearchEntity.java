@@ -405,14 +405,26 @@ public class SearchEntity extends BaseEntity {
 	 * This method allows to add the linked searchcodes to the SearchEntity as
 	 * required
 	 */
-	public SearchEntity addLinkedSearch(final String attributeCode, final String columnName) {
-		AttributeText attributeColumn = new AttributeText(attributeCode, columnName);
+	public SearchEntity addLinkedSearch(final String searchCode, final String columnName) {
+		AttributeText attributeColumn = new AttributeText(searchCode, columnName);
 		try {
 			EntityAttribute ea = addAttribute(attributeColumn, searchIndex);
 			ea.setIndex(searchIndex.intValue());
 			searchIndex += 1.0;
 		} catch (BadDataException e) {
-			log.error("Bad Column Initialisation");
+			log.error("Bad Linked Search Initialisation");
+		}
+		return this;
+	}
+
+	public SearchEntity addLinkedSearch(final String searchCode, final String association, final String columnName) {
+		AttributeText attributeColumn = new AttributeText(searchCode+"."+association, columnName);
+		try {
+			EntityAttribute ea = addAttribute(attributeColumn, searchIndex);
+			ea.setIndex(searchIndex.intValue());
+			searchIndex += 1.0;
+		} catch (BadDataException e) {
+			log.error("Bad Linked Search Initialisation");
 		}
 		return this;
 	}

@@ -18,6 +18,7 @@ import life.genny.qwanda.attribute.AttributeLong;
 import life.genny.qwanda.attribute.AttributeText;
 import life.genny.qwanda.attribute.AttributeTime;
 import life.genny.qwanda.attribute.EntityAttribute;
+import life.genny.qwanda.EEntityStatus;
 import life.genny.qwanda.exception.BadDataException;
 
 import life.genny.qwandautils.QwandaJsonUtils;
@@ -1366,6 +1367,23 @@ public class SearchEntity extends BaseEntity {
 			addAttribute(attributeWildcard, 1.0, wildcard);
 		} catch (BadDataException e) {
 			log.error("Bad Wildcard ");
+		}
+
+		return this;
+	}
+
+	/*
+	 * This method allows to set the status of the result BEs
+	 * 
+	 * @param wildcard - the widlcard
+	 */
+	public SearchEntity setSearchStatus(EEntityStatus status) {
+
+		AttributeInteger attributeStatus = new AttributeInteger("SCH_STATUS", "Status");
+		try {
+			addAttribute(attributeStatus, 1.0, status.ordinal());
+		} catch (BadDataException e) {
+			log.error("Bad Search Status");
 		}
 
 		return this;

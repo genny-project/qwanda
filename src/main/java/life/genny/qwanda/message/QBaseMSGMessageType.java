@@ -4,5 +4,6 @@ public enum QBaseMSGMessageType {
 	SMS,
 	EMAIL,
 	TOAST,
-	VOICE;
+	VOICE,
+	SENDGRID;
 }

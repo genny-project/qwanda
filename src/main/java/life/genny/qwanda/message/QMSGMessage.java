@@ -9,7 +9,7 @@ public class QMSGMessage extends QMessage {
 	private static final String MESSAGE_TYPE = "MSG_MESSAGE";
 		
 	@Expose
-	private String template_code;
+	private String templateCode;
 	@Expose
 	private String[] msgMessageData;
 	@Expose
@@ -30,13 +30,13 @@ public class QMSGMessage extends QMessage {
 		this.msgMessageData = msgMessageData;
 	}*/
 
-	public String getTemplate_code() {
-		return template_code;
+	public String getTemplateCode() {
+		return templateCode;
 	}
 
 
-	public void setTemplate_code(String template_code) {
-		this.template_code = template_code;
+	public void setTemplate_code(String templateCode) {
+		this.templateCode = templateCode;
 	}
 
 	public String[] getMsgMessageData() {
@@ -76,15 +76,15 @@ public class QMSGMessage extends QMessage {
 
 	@Override
 	public String toString() {
-		return "QMSGMessage [template_code=" + template_code + ", msgMessageData=" + Arrays.toString(msgMessageData)
+		return "QMSGMessage [templateCode=" + templateCode + ", msgMessageData=" + Arrays.toString(msgMessageData)
 				+ ", msgMessageType=" + msgMessageType + "]";
 	}
 
 
-	public QMSGMessage(String msg_type, String template_code, String[] msgMessageData,
+	public QMSGMessage(String msg_type, String templateCode, String[] msgMessageData,
 			QBaseMSGMessageType msgMessageType, String[] attachments) {
 		super(msg_type);
-		this.template_code = template_code;
+		this.templateCode = templateCode;
 		this.msgMessageData = msgMessageData;
 		this.msgMessageType = msgMessageType;
 		this.attachments = attachments;

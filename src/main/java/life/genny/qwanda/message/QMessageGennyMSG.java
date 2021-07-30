@@ -16,10 +16,10 @@ public class QMessageGennyMSG extends QMessage {
 	private static final String MESSAGE_TYPE = "MSG_MESSAGE";
 	
 	@Expose
-	private String template_code;
+	private String templateCode;
 	
 	@Expose
-	private QBaseMSGMessageType msgMessageType;
+	private QBaseMSGMessageType[] messageTypeArr;
 	
 	@Expose
 	private String[] recipientArr;
@@ -33,31 +33,31 @@ public class QMessageGennyMSG extends QMessage {
 	@Expose
 	private String[] to;
 	/**
-	 * @return the template_code
+	 * @return the templateCode
 	 */
-	public String getTemplate_code() {
-		return template_code;
+	public String getTemplateCode() {
+		return templateCode;
 	}
 
 	/**
-	 * @param template_code the template_code to set
+	 * @param templateCode the templateCode to set
 	 */
-	public void setTemplate_code(String template_code) {
-		this.template_code = template_code;
+	public void setTemplate_code(String templateCode) {
+		this.templateCode = templateCode;
 	}
 
 	/**
-	 * @return the msgMessageType
+	 * @return the messageTypeArr
 	 */
-	public QBaseMSGMessageType getMsgMessageType() {
-		return msgMessageType;
+	public QBaseMSGMessageType[] getMessageTypeArr() {
+		return messageTypeArr;
 	}
 
 	/**
-	 * @param msgMessageType the msgMessageType to set
+	 * @param messageTypeArr the messageTypeArr to set
 	 */
-	public void setMsgMessageType(QBaseMSGMessageType msgMessageType) {
-		this.msgMessageType = msgMessageType;
+	public void setMessageTypeArr(QBaseMSGMessageType[] messageTypeArr) {
+		this.messageTypeArr = messageTypeArr;
 	}
 
 	/**
@@ -116,19 +116,19 @@ public class QMessageGennyMSG extends QMessage {
 		this.to = to;
 	}
 
-	public QMessageGennyMSG(String msg_type, QBaseMSGMessageType messageType, String templateCode, Map<String, String> contextMap, String[] recipientArr) {
+	public QMessageGennyMSG(String msg_type, QBaseMSGMessageType[] messageType, String templateCode, Map<String, String> contextMap, String[] recipientArr) {
 		super(msg_type);
-		this.template_code = templateCode;
-		this.msgMessageType = messageType;
+		this.templateCode = templateCode;
+		this.messageTypeArr = messageType;
 		this.messageContextMap = contextMap;
 		this.recipientArr = recipientArr;
 	}
 	
 	
-	public QMessageGennyMSG(String msg_type, QBaseMSGMessageType messageType, String templateCode, Map<String, String> contextMap, String[] recipientArr, List<QBaseMSGAttachment> attachmentList) {
+	public QMessageGennyMSG(String msg_type, QBaseMSGMessageType[] messageType, String templateCode, Map<String, String> contextMap, String[] recipientArr, List<QBaseMSGAttachment> attachmentList) {
 		super(msg_type);
-		this.template_code = templateCode;
-		this.msgMessageType = messageType;
+		this.templateCode = templateCode;
+		this.messageTypeArr = messageType;
 		this.messageContextMap = contextMap;
 		this.recipientArr = recipientArr;
 		this.attachmentList = attachmentList;
@@ -136,11 +136,11 @@ public class QMessageGennyMSG extends QMessage {
 	
 	
 
-	public QMessageGennyMSG(String msg_type, String template_code, QBaseMSGMessageType msgMessageType,
+	public QMessageGennyMSG(String msg_type, String templateCode, QBaseMSGMessageType[] messageTypeArr,
 			Map<String, String> messageContextMap, List<QBaseMSGAttachment> attachmentList, String[] to) {
 		super(msg_type);
-		this.template_code = template_code;
-		this.msgMessageType = msgMessageType;
+		this.templateCode = templateCode;
+		this.messageTypeArr = messageTypeArr;
 		this.messageContextMap = messageContextMap;
 		this.attachmentList = attachmentList;
 		this.to = to;
@@ -148,11 +148,11 @@ public class QMessageGennyMSG extends QMessage {
 	
 	
 
-	public QMessageGennyMSG(String msg_type, String template_code, QBaseMSGMessageType msgMessageType,
+	public QMessageGennyMSG(String msg_type, String templateCode, QBaseMSGMessageType[] messageTypeArr,
 			Map<String, String> messageContextMap, String[] to) {
 		super(msg_type);
-		this.template_code = template_code;
-		this.msgMessageType = msgMessageType;
+		this.templateCode = templateCode;
+		this.messageTypeArr = messageTypeArr;
 		this.messageContextMap = messageContextMap;
 		this.to = to;
 	}
@@ -162,7 +162,7 @@ public class QMessageGennyMSG extends QMessage {
 	 */
 	@Override
 	public String toString() {
-		return "QMessageGennyMSG [template_code=" + template_code + ", msgMessageType=" + msgMessageType
+		return "QMessageGennyMSG [templateCode=" + templateCode + ", messageTypeArr=" + messageTypeArr
 				+ ", recipientArr=" + Arrays.toString(recipientArr) + ", messageContextMap=" + messageContextMap
 				+ ", attachmentList=" + attachmentList + ", to=" + Arrays.toString(to) + "]";
 	}

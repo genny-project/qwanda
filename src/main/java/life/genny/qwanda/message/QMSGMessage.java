@@ -35,7 +35,7 @@ public class QMSGMessage extends QMessage {
 	}
 
 
-	public void setTemplate_code(String templateCode) {
+	public void setTemplateCode(String templateCode) {
 		this.templateCode = templateCode;
 	}
 

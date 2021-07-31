@@ -3,8 +3,12 @@ package life.genny.qwanda.message;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 import com.google.gson.annotations.Expose;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import life.genny.qwanda.entity.BaseEntity;
 
 public class QMessageGennyMSG extends QMessage {
 	
@@ -116,6 +120,13 @@ public class QMessageGennyMSG extends QMessage {
 		this.to = to;
 	}
 
+	public QMessageGennyMSG() {
+		super("COM_MSG");
+		this.messageTypeArr = new QBaseMSGMessageType[0];
+		this.messageContextMap = new HashMap<String, String>();
+		this.recipientArr = new String[0];
+	}
+
 	public QMessageGennyMSG(String msg_type, QBaseMSGMessageType[] messageType, String templateCode, Map<String, String> contextMap, String[] recipientArr) {
 		super(msg_type);
 		this.templateCode = templateCode;
@@ -155,6 +166,32 @@ public class QMessageGennyMSG extends QMessage {
 		this.messageTypeArr = messageTypeArr;
 		this.messageContextMap = messageContextMap;
 		this.to = to;
+	}
+
+	public void addMessageType(QBaseMSGMessageType messageType) {
+		
+		List<QBaseMSGMessageType> list = this.getMessageTypeArr() != null ? new CopyOnWriteArrayList<>(Arrays.asList(this.getMessageTypeArr())) : new CopyOnWriteArrayList<>();
+		list.add(messageType);
+		this.setMessageTypeArr(list.toArray(new QBaseMSGMessageType[0]));
+	}
+
+	public void addRecipient(BaseEntity recipient) {
+		addRecipient("[\""+recipient.getCode()+"\"]");
+	}
+
+	public void addContext(String key, Object value) {
+		if (value.getClass().equals(BaseEntity.class)) {
+			this.messageContextMap.put(key, ((BaseEntity) value).getCode());
+		} else {
+			this.messageContextMap.put(key, value.toString());
+		}
+	}
+
+	public void addRecipient(String recipient) {
+		
+		List<String> list = this.getRecipientArr() != null ? new CopyOnWriteArrayList<>(Arrays.asList(this.getRecipientArr())) : new CopyOnWriteArrayList<>();
+		list.add(recipient);
+		this.setRecipientArr(list.toArray(new String[0]));
 	}
 
 	/* (non-Javadoc)

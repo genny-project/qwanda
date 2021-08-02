@@ -127,6 +127,21 @@ public class QMessageGennyMSG extends QMessage {
 		this.recipientArr = new String[0];
 	}
 
+	public QMessageGennyMSG(String templateCode) {
+		super("COM_MSG");
+		this.templateCode = templateCode;
+		this.messageTypeArr = new QBaseMSGMessageType[0];
+		this.messageContextMap = new HashMap<String, String>();
+		this.recipientArr = new String[0];
+	}
+
+	public QMessageGennyMSG(QBaseMSGMessageType messageType) {
+		super("COM_MSG");
+		this.messageTypeArr = new QBaseMSGMessageType[]{ messageType };
+		this.messageContextMap = new HashMap<String, String>();
+		this.recipientArr = new String[0];
+	}
+
 	public QMessageGennyMSG(String msg_type, QBaseMSGMessageType[] messageType, String templateCode, Map<String, String> contextMap, String[] recipientArr) {
 		super(msg_type);
 		this.templateCode = templateCode;

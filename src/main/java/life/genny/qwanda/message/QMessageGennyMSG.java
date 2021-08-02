@@ -46,7 +46,7 @@ public class QMessageGennyMSG extends QMessage {
 	/**
 	 * @param templateCode the templateCode to set
 	 */
-	public void setTemplate_code(String templateCode) {
+	public void setTemplateCode(String templateCode) {
 		this.templateCode = templateCode;
 	}
 

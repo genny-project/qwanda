@@ -6,5 +6,6 @@ public enum QBaseMSGMessageType {
 	EMAIL,
 	TOAST,
 	VOICE,
-	SENDGRID;
+	SENDGRID,
+	SLACK;
 }

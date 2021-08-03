@@ -282,7 +282,7 @@ public class Answer implements Serializable {
 	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final String value) {
 		this.sourceCode = sourceCode;
 		this.targetCode = targetCode;
-		this.attributeCode = attributeCode;
+		this.attributeCode = attributeCode.trim();
 		this.setValue(value);
 		autocreateCreated();
 		checkInputs();

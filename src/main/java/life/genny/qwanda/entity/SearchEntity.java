@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.Optional;
 
 import com.google.gson.annotations.Expose;
 
@@ -250,7 +251,8 @@ public class SearchEntity extends BaseEntity {
 
 	public static String convertFromSaveable(String value) {
 		if (value != null) {
-			String name = value.replaceAll("_GT_", ">");
+			String name = value;
+			name = name.replaceAll("_GT_", ">");
 			name = name.replaceAll("_LT_", "<");
 			name = name.replaceAll("_EQ_", "=");
 			name = name.replaceAll("_AMP_", "&");
@@ -568,8 +570,14 @@ public class SearchEntity extends BaseEntity {
 	 * 
 	 * @param value - filter against (search for) this value
 	 */
-	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final Integer value) {
+	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final Integer value, String... conditions) {
 		AttributeInteger attribute = new AttributeInteger(attributeCode, filterType.toString());
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
 
 		try {
 			addAttribute(attribute, filterIndex, value);
@@ -591,8 +599,14 @@ public class SearchEntity extends BaseEntity {
 	 * 
 	 * @param value - filter against (search for) this value
 	 */
-	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final Long value) {
+	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final Long value, String... conditions) {
 		AttributeLong attribute = new AttributeLong(attributeCode, filterType.toString());
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
 
 		try {
 			addAttribute(attribute, filterIndex, value);
@@ -614,8 +628,14 @@ public class SearchEntity extends BaseEntity {
 	 * 
 	 * @param value - filter against (search for) this value
 	 */
-	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final Double value) {
+	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final Double value, String... conditions) {
 		AttributeDouble attribute = new AttributeDouble(attributeCode, filterType.toString());
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
 
 		try {
 			addAttribute(attribute, filterIndex, value);
@@ -638,8 +658,14 @@ public class SearchEntity extends BaseEntity {
 	 * 
 	 * @param value - filter against (search for) this value
 	 */
-	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final LocalDateTime value) {
+	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final LocalDateTime value, String... conditions) {
 		AttributeDateTime attribute = new AttributeDateTime(attributeCode, filterType.toString());
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
 
 		try {
 			addAttribute(attribute, filterIndex, value);
@@ -662,8 +688,14 @@ public class SearchEntity extends BaseEntity {
 	 * 
 	 * @param value - filter against (search for) this value
 	 */
-	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final LocalDate value) {
+	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final LocalDate value, String... conditions) {
 		AttributeDate attribute = new AttributeDate(attributeCode, filterType.toString());
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
 
 		try {
 			addAttribute(attribute, filterIndex, value);
@@ -686,8 +718,14 @@ public class SearchEntity extends BaseEntity {
 	 * 
 	 * @param value - filter against (search for) this value
 	 */
-	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final LocalTime value) {
+	public SearchEntity addFilter(final String attributeCode, final Filter filterType, final LocalTime value, String... conditions) {
 		AttributeTime attribute = new AttributeTime(attributeCode, filterType.toString());
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
 
 		try {
 			addAttribute(attribute, filterIndex, value);
@@ -708,8 +746,15 @@ public class SearchEntity extends BaseEntity {
 	 * 
 	 * @param value - filter against (search for) this value
 	 */
-	public SearchEntity addFilter(final String attributeCode, final Boolean value) {
+	public SearchEntity addFilter(final String attributeCode, final Boolean value, String... conditions) {
 		AttributeBoolean attribute = new AttributeBoolean(attributeCode, "=");
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
+
 		try {
 			addAttribute(attribute, filterIndex, value);
 			filterIndex += 1.0;
@@ -730,14 +775,50 @@ public class SearchEntity extends BaseEntity {
 	 * 
 	 * @param value - filter against (search for) this value
 	 */
-	public SearchEntity addFilter(final String attributeCode, final StringFilter filterType, final String value) {
+	public SearchEntity addFilter(final String attributeCode, final StringFilter filterType, final String value, String... conditions) {
 		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
 
 		try {
 			addAttribute(attribute, filterIndex, value);
 			filterIndex += 1.0;
 		} catch (BadDataException e) {
 			log.error("Bad String Filter Initialisation");
+		}
+		
+		return this;
+	}
+
+	/*
+	 * This method allows to set the filter for the LocalDate value in the
+	 * search
+	 * 
+	 * @param attributeCode - the attributeCode which holds LocalDate value
+	 * where we apply the filter
+	 * 
+	 * @param filterType - type of the filter
+	 * 
+	 * @param value - filter against (search for) this value
+	 */
+	public SearchEntity addFilterAsString(final String attributeCode, final Filter filterType, final String value, String... conditions) {
+		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
+
+		try {
+			addAttribute(attribute, filterIndex, value);
+			filterIndex += 1.0;
+		} catch (BadDataException e) {
+			log.error("Bad Filter As String Filter Initialisation");
 		}
 
 		return this;
@@ -754,9 +835,15 @@ public class SearchEntity extends BaseEntity {
 	 * @param value - filter against (search for) this value
 	 */
     
-	public SearchEntity addOr(final String attributeCode, final Filter filterType, final Integer value) {
+	public SearchEntity addOr(final String attributeCode, final Filter filterType, final Integer value, String... conditions) {
 		AttributeInteger attribute = new AttributeInteger(attributeCode, filterType.toString());
 		Integer count = countOccurrences(attributeCode, "OR") + 1;
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
 
 		for (int i = 0; i < count; i++) {
 			attribute.setCode("OR_"+attribute.getCode());
@@ -783,9 +870,15 @@ public class SearchEntity extends BaseEntity {
 	 * @param value - filter against (search for) this value
 	 */
     
-	public SearchEntity addOr(final String attributeCode, final Filter filterType, final Long value) {
+	public SearchEntity addOr(final String attributeCode, final Filter filterType, final Long value, String... conditions) {
 		AttributeLong attribute = new AttributeLong(attributeCode, filterType.toString());
 		Integer count = countOccurrences(attributeCode, "OR") + 1;
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
 
 		for (int i = 0; i < count; i++) {
 			attribute.setCode("OR_"+attribute.getCode());
@@ -812,9 +905,15 @@ public class SearchEntity extends BaseEntity {
 	 * @param value - filter against (search for) this value
 	 */
     
-	public SearchEntity addOr(final String attributeCode, final Filter filterType, final Double value) {
+	public SearchEntity addOr(final String attributeCode, final Filter filterType, final Double value, String... conditions) {
 		AttributeDouble attribute = new AttributeDouble(attributeCode, filterType.toString());
 		Integer count = countOccurrences(attributeCode, "OR") + 1;
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
 
 		for (int i = 0; i < count; i++) {
 			attribute.setCode("OR_"+attribute.getCode());
@@ -841,9 +940,15 @@ public class SearchEntity extends BaseEntity {
 	 * @param value - filter against (search for) this value
 	 */
     
-	public SearchEntity addOr(final String attributeCode, final Filter filterType, final LocalDateTime value) {
+	public SearchEntity addOr(final String attributeCode, final Filter filterType, final LocalDateTime value, String... conditions) {
 		AttributeDateTime attribute = new AttributeDateTime(attributeCode, filterType.toString());
 		Integer count = countOccurrences(attributeCode, "OR") + 1;
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
 
 		for (int i = 0; i < count; i++) {
 			attribute.setCode("OR_"+attribute.getCode());
@@ -870,9 +975,15 @@ public class SearchEntity extends BaseEntity {
 	 * @param value - filter against (search for) this value
 	 */
     
-	public SearchEntity addOr(final String attributeCode, final Filter filterType, final LocalDate value) {
+	public SearchEntity addOr(final String attributeCode, final Filter filterType, final LocalDate value, String... conditions) {
 		AttributeDate attribute = new AttributeDate(attributeCode, filterType.toString());
 		Integer count = countOccurrences(attributeCode, "OR") + 1;
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
 
 		for (int i = 0; i < count; i++) {
 			attribute.setCode("OR_"+attribute.getCode());
@@ -899,9 +1010,15 @@ public class SearchEntity extends BaseEntity {
 	 * @param value - filter against (search for) this value
 	 */
     
-	public SearchEntity addOr(final String attributeCode, final StringFilter filterType, final String value) {
+	public SearchEntity addOr(final String attributeCode, final StringFilter filterType, final String value, String... conditions) {
 		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
 		Integer count = countOccurrences(attributeCode, "OR") + 1;
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
 
 		for (int i = 0; i < count; i++) {
 			attribute.setCode("OR_"+attribute.getCode());
@@ -928,9 +1045,15 @@ public class SearchEntity extends BaseEntity {
 	 * @param value - filter against (search for) this value
 	 */
     
-	public SearchEntity addAnd(final String attributeCode, final Filter filterType, final Integer value) {
+	public SearchEntity addAnd(final String attributeCode, final Filter filterType, final Integer value, String... conditions) {
 		AttributeInteger attribute = new AttributeInteger(attributeCode, filterType.toString());
 		Integer count = countOccurrences(attributeCode, "AND") + 1;
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
 
 		for (int i = 0; i < count; i++) {
 			attribute.setCode("AND_"+attribute.getCode());
@@ -957,9 +1080,15 @@ public class SearchEntity extends BaseEntity {
 	 * @param value - filter against (search for) this value
 	 */
     
-	public SearchEntity addAnd(final String attributeCode, final Filter filterType, final Long value) {
+	public SearchEntity addAnd(final String attributeCode, final Filter filterType, final Long value, String... conditions) {
 		AttributeLong attribute = new AttributeLong(attributeCode, filterType.toString());
 		Integer count = countOccurrences(attributeCode, "AND") + 1;
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
 
 		for (int i = 0; i < count; i++) {
 			attribute.setCode("AND_"+attribute.getCode());
@@ -986,9 +1115,15 @@ public class SearchEntity extends BaseEntity {
 	 * @param value - filter against (search for) this value
 	 */
     
-	public SearchEntity addAnd(final String attributeCode, final Filter filterType, final Double value) {
+	public SearchEntity addAnd(final String attributeCode, final Filter filterType, final Double value, String... conditions) {
 		AttributeDouble attribute = new AttributeDouble(attributeCode, filterType.toString());
 		Integer count = countOccurrences(attributeCode, "AND") + 1;
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
 
 		for (int i = 0; i < count; i++) {
 			attribute.setCode("AND_"+attribute.getCode());
@@ -1015,9 +1150,15 @@ public class SearchEntity extends BaseEntity {
 	 * @param value - filter against (search for) this value
 	 */
     
-	public SearchEntity addAnd(final String attributeCode, final Filter filterType, final LocalDateTime value) {
+	public SearchEntity addAnd(final String attributeCode, final Filter filterType, final LocalDateTime value, String... conditions) {
 		AttributeDateTime attribute = new AttributeDateTime(attributeCode, filterType.toString());
 		Integer count = countOccurrences(attributeCode, "AND") + 1;
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
 
 		for (int i = 0; i < count; i++) {
 			attribute.setCode("AND_"+attribute.getCode());
@@ -1044,9 +1185,15 @@ public class SearchEntity extends BaseEntity {
 	 * @param value - filter against (search for) this value
 	 */
     
-	public SearchEntity addAnd(final String attributeCode, final Filter filterType, final LocalDate value) {
+	public SearchEntity addAnd(final String attributeCode, final Filter filterType, final LocalDate value, String... conditions) {
 		AttributeDate attribute = new AttributeDate(attributeCode, filterType.toString());
 		Integer count = countOccurrences(attributeCode, "AND") + 1;
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
 
 		for (int i = 0; i < count; i++) {
 			attribute.setCode("AND_"+attribute.getCode());
@@ -1073,9 +1220,15 @@ public class SearchEntity extends BaseEntity {
 	 * @param value - filter against (search for) this value
 	 */
     
-	public SearchEntity addAnd(final String attributeCode, final StringFilter filterType, final String value) {
+	public SearchEntity addAnd(final String attributeCode, final StringFilter filterType, final String value, String... conditions) {
 		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
 		Integer count = countOccurrences(attributeCode, "AND") + 1;
+
+		if (conditions.length > 0) {
+			for (String cnd : conditions) {
+				addConditional(attributeCode, cnd);
+			}
+		}
 
 		for (int i = 0; i < count; i++) {
 			attribute.setCode("AND_"+attribute.getCode());
@@ -1088,6 +1241,24 @@ public class SearchEntity extends BaseEntity {
 			log.error("Bad AND String Filter Initialisation");
 		}
 
+		return this;
+	}
+
+	public SearchEntity addConditional(String attributeCode, String condition) {
+
+		Optional<EntityAttribute> existing = findEntityAttribute("CND_"+attributeCode);
+		if (existing.isPresent()) {
+			existing.get().setValue(existing.get().getValue().toString() + ":::" + condition);
+		} else {
+			AttributeText attribute = new AttributeText("CND_"+attributeCode, "CND_"+attributeCode);
+			try {
+				log.info("Adding a CND = " + attributeCode);
+				addAttribute(attribute, 1.0, condition);
+				filterIndex += 1.0;
+			} catch (BadDataException e) {
+				log.error("Bad Conditional Initialisation");
+			}
+		}
 		return this;
 	}
 	/*

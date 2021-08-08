@@ -755,6 +755,7 @@ public class SearchEntity extends BaseEntity {
 			}
 		}
 
+
 		try {
 			addAttribute(attribute, filterIndex, value);
 			filterIndex += 1.0;
@@ -804,7 +805,7 @@ public class SearchEntity extends BaseEntity {
 	 * @param filterType - type of the filter
 	 * 
 	 * @param value - filter against (search for) this value
-	 */
+
 	public SearchEntity addFilterAsString(final String attributeCode, final Filter filterType, final String value, String... conditions) {
 		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
 
@@ -813,6 +814,7 @@ public class SearchEntity extends BaseEntity {
 				addConditional(attributeCode, cnd);
 			}
 		}
+
 
 		try {
 			addAttribute(attribute, filterIndex, value);

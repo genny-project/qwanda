@@ -795,6 +795,19 @@ public class SearchEntity extends BaseEntity {
 		return this;
 	}
 
+	public SearchEntity addFilterAsString(final String attributeCode, final Filter filterType, final String value) {
+		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
+
+		try {
+			addAttribute(attribute, filterIndex, value);
+			filterIndex += 1.0;
+		} catch (BadDataException e) {
+			log.error("Bad Filter As String Filter Initialisation");
+		}
+
+		return this;
+	}
+
 	/*
 	 * This method allows to set the filter for the LocalDate value in the
 	 * search

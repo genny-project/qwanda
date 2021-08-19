@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import life.genny.qwanda.entity.BaseEntity;
+
 public class QSearchBeResult implements Serializable {
 	/**
 	 * 
@@ -13,7 +15,11 @@ public class QSearchBeResult implements Serializable {
 	private static final long serialVersionUID = 1L;
 	String[] codes;
 	Long total;
-	
+
+	// Added 19/08/2021
+	// Users may want to just return the Entities instead of 
+	// A list of codes
+	BaseEntity[] entities;
 	
 	
 	/**
@@ -54,6 +60,14 @@ public class QSearchBeResult implements Serializable {
 	 */
 	public void setTotal(Long total) {
 		this.total = total;
+	}
+
+	public void setEntities(BaseEntity[] entities) {
+		this.entities = entities;
+	}
+
+	public BaseEntity[] getEntities() {
+		return entities;
 	}
 	
 	

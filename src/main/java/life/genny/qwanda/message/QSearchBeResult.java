@@ -19,6 +19,7 @@ public class QSearchBeResult implements Serializable {
 	// Added 19/08/2021
 	// Users may want to just return the Entities instead of 
 	// A list of codes
+	@Expose
 	BaseEntity[] entities;
 	
 	

@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.google.gson.annotations.Expose;
+
 import life.genny.qwanda.entity.BaseEntity;
 
 public class QSearchBeResult implements Serializable {

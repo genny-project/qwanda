@@ -42,7 +42,7 @@ public class QwandaJsonUtils {
 	                      item = (T)gson.fromJson(json, clazz);
 	                	}
 	                } catch (Exception e) {
-//	                	     log.error("The JSON file received is  :::  "+json);;
+	                	 log.error("The JSON file received is  :::  "+json);;
 	                     log.error("Bad Deserialisation for "+clazz.getSimpleName());
 	                }
 	        }
@@ -58,7 +58,7 @@ public class QwandaJsonUtils {
 	                      item = (T)gson.fromJson(json, clazz);
 
 	                } catch (Exception e) {
-//	                	     log.error("The JSON file received is  :::  "+json);;
+	                	 log.error("The JSON file received is  :::  "+json);;
 	                     log.error("Bad Deserialisation for "+clazz.getTypeName());
 	                }
 	        }

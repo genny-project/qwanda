@@ -1435,6 +1435,25 @@ public class SearchEntity extends BaseEntity {
 	}
 
 	/*
+	 * This method allows to set the cachable of the result BEs for initial page
+	 * 
+	 * @param cachable - true or false. true means cache the result for subsequent lookup
+	 */
+	public SearchEntity setCachable(Boolean cachable) {
+
+		AttributeBoolean attributeCachable = new AttributeBoolean("SCH_CACHABLE", "Cachable");
+		try {
+			addAttribute(attributeCachable, 1.0, cachable);
+		} catch (BadDataException e) {
+			log.error("Bad Search cachable");
+		}
+
+		return this;
+	}
+
+	
+	
+	/*
 	 * This method allows to set the type of range data that the search relates to.
 	 * This is important for pagination that needs to page across data spans such as
 	 * Months, days, weeks, years, etc.

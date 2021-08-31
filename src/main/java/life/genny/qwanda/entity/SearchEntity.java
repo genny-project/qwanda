@@ -1447,7 +1447,7 @@ public class SearchEntity extends BaseEntity {
 		} catch (BadDataException e) {
 			log.error("Bad Search cachable");
 		}
-
+		this.setFromCache(cachable);
 		return this;
 	}
 

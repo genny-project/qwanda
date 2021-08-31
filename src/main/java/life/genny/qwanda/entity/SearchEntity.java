@@ -1433,6 +1433,23 @@ public class SearchEntity extends BaseEntity {
 
 		return this;
 	}
+	
+	/*
+	 * This method allows to set the status of the result BEs
+	 * 
+	 * @param wildcard - the widlcard
+	 */
+	public SearchEntity setCachable(Boolean cachable) {
+
+		AttributeBoolean attributeCachable = new AttributeBoolean("SCH_CACHABLE", "Cachable");
+		try {
+			addAttribute(attributeCachable, 1.0, cachable);
+		} catch (BadDataException e) {
+			log.error("Bad Search cachable");
+		}
+
+		return this;
+	}
 
 	/*
 	 * This method allows to set the type of range data that the search relates to.

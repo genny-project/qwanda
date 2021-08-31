@@ -1435,9 +1435,9 @@ public class SearchEntity extends BaseEntity {
 	}
 	
 	/*
-	 * This method allows to set the status of the result BEs
+	 * This method allows to set the cachable of the result BEs for initial page
 	 * 
-	 * @param wildcard - the widlcard
+	 * @param cachable - true or false. true means cache the result for subsequent lookup
 	 */
 	public SearchEntity setCachable(Boolean cachable) {
 

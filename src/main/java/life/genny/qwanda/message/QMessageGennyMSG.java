@@ -1,5 +1,7 @@
 package life.genny.qwanda.message;
 
+import java.lang.invoke.MethodHandles;
+import org.apache.logging.log4j.Logger;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +13,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import life.genny.qwanda.entity.BaseEntity;
 
 public class QMessageGennyMSG extends QMessage {
+
+	protected static final Logger log = org.apache.logging.log4j.LogManager
+			.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
 	
 	/**
 	 * 
@@ -190,23 +195,45 @@ public class QMessageGennyMSG extends QMessage {
 		this.setMessageTypeArr(list.toArray(new QBaseMSGMessageType[0]));
 	}
 
+	public void setRecipient(String recipient) {
+		this.recipientArr = new String[0];
+		addRecipient(recipient);
+	}
+
+	public void setRecipient(BaseEntity recipient) {
+		this.recipientArr = new String[0];
+		addRecipient(recipient);
+	}
+
 	public void addRecipient(BaseEntity recipient) {
-		addRecipient("[\""+recipient.getCode()+"\"]");
+		if (recipient == null) {
+			log.warn("RECIPIENT BE passed is NULL");
+		} else {
+			addRecipient("[\""+recipient.getCode()+"\"]");
+		}
 	}
 
 	public void addContext(String key, Object value) {
-		if (value.getClass().equals(BaseEntity.class)) {
-			this.messageContextMap.put(key, ((BaseEntity) value).getCode());
+		if (value == null) {
+			log.warn(key + " passed is NULL");
 		} else {
-			this.messageContextMap.put(key, value.toString());
+			if (value.getClass().equals(BaseEntity.class)) {
+				this.messageContextMap.put(key, ((BaseEntity) value).getCode());
+			} else {
+				this.messageContextMap.put(key, value.toString());
+			}
 		}
 	}
 
 	public void addRecipient(String recipient) {
 		
-		List<String> list = this.getRecipientArr() != null ? new CopyOnWriteArrayList<>(Arrays.asList(this.getRecipientArr())) : new CopyOnWriteArrayList<>();
-		list.add(recipient);
-		this.setRecipientArr(list.toArray(new String[0]));
+		if (recipient == null) {
+			log.warn("RECIPIENT passed is NULL");
+		} else {
+			List<String> list = this.getRecipientArr() != null ? new CopyOnWriteArrayList<>(Arrays.asList(this.getRecipientArr())) : new CopyOnWriteArrayList<>();
+			list.add(recipient);
+			this.setRecipientArr(list.toArray(new String[0]));
+		}
 	}
 
 	/* (non-Javadoc)

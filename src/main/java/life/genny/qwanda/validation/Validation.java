@@ -121,6 +121,11 @@ public class Validation extends CodedEntity implements Serializable {
 	@Expose
 	private String options;
 	
+	@Column(name = "errormsg", length = 280, updatable = true, nullable = true)
+	@Expose
+	private String errormsg;
+	
+	
 	/**
 	 * @return the options
 	 */
@@ -133,6 +138,15 @@ public class Validation extends CodedEntity implements Serializable {
 	 */
 	public void setOptions(String options) {
 		this.options = options;
+	}
+	
+	
+	public String getErrormsg() {
+		return errormsg;
+	}
+
+	public void setErrormsg(String errormsg) {
+		this.errormsg = errormsg;
 	}
 
 	/**

@@ -2,3 +2,4 @@
 
    mvn clean install -DskipTests=true
 mvn eclipse:eclipse
+#Core

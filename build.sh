@@ -1,5 +1,4 @@
 #!/bin/bash
 
-   mvn clean install -DskipTests=true
+mvn clean install -DskipTests=true
 mvn eclipse:eclipse
-#test

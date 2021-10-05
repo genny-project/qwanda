@@ -19,3 +19,5 @@ Qwanda.srctrlbm
 Qwanda.srctrldb
 Qwanda.srctrlprj
 /sourcetrail_depoendencies/
+.idea/
+*.iml

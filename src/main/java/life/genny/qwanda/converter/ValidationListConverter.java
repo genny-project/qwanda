@@ -107,7 +107,14 @@ public class ValidationListConverter implements AttributeConverter<List<Validati
 		List<String> strings = new CopyOnWriteArrayList<String>();
 		if (!StringUtils.isBlank(joined)) {
 			if (joined.startsWith("{")||joined.startsWith("[")) {
-			strings = new Gson().fromJson(joined, new TypeToken<List<String>>(){}.getType());
+				try {
+					strings = new Gson().fromJson(joined, new TypeToken<List<String>>() {
+					}.getType());
+				} catch (Exception ex) {
+					log.error("Error:" + ex.getMessage());
+					ex.printStackTrace();
+					throw ex;
+				}
 			} else {
 				strings.add(joined); // single , non json Validation
 			}

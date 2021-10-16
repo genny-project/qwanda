@@ -269,7 +269,7 @@ public class DataType implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "DType(" + className + ")";
+		return "DataType(" + className + " component: "+this.component+", inputmask:"+this.inputmask+")";
 	}
 
 	static public DataType getInstance(final String className) {

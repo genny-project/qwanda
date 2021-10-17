@@ -23,23 +23,6 @@ package life.genny.qwanda;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Embeddable;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
-import com.google.gson.annotations.Expose;
-
-import com.querydsl.core.annotations.QueryExclude;
-
 
 /**
  * ContextList represents a set of Contexts in the Qwanda library.
@@ -59,10 +42,6 @@ import com.querydsl.core.annotations.QueryExclude;
  */
 
 
-@XmlRootElement
-@XmlAccessorType(value = XmlAccessType.FIELD)
-@Embeddable
-@QueryExclude
 public class ContextList implements Serializable {
 	
 	/**
@@ -75,12 +54,7 @@ public class ContextList implements Serializable {
 	<p>
 	*/
 
-//	@JsonInclude(Include.NON_NULL)
-	@XmlTransient
-	@OneToMany( cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	@Fetch(value = FetchMode.SUBSELECT)
-	@JoinColumn(name = "list_id", referencedColumnName = "id")
-	@Expose
+
 	private List<Context> contexts;
 
  

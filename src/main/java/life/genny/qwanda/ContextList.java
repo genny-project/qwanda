@@ -22,7 +22,6 @@ package life.genny.qwanda;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
@@ -75,7 +74,8 @@ public class ContextList implements Serializable {
 	<p>
 	*/
 
-//	@JsonInclude(Include.NON_NULL)
+
+//  @JsonInclude(Include.NON_NULL)
 	@XmlTransient
 	@OneToMany( cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)

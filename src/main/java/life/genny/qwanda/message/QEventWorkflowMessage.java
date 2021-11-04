@@ -10,4 +10,10 @@ public class QEventWorkflowMessage extends QEventMessage {
 		super(EVENT_TYPE_WORKFLOW, fieldCode);
 	}
 
+	@Override
+	public String toString() {
+		return "QEventWorkflowMessage{" +
+				"data=" + data +
+				'}';
+	}
 }

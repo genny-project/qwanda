@@ -1405,7 +1405,7 @@ public class SearchEntity extends BaseEntity {
 	 */
 	public SearchEntity setWildcard(String wildcard) {
 		// only allow characters
-		wildcard = wildcard.replaceAll(("[^A-Za-z0-9 ]"), "");
+		// wildcard = wildcard.replaceAll(("[^A-Za-z0-9 ]"), "");
 
 		AttributeText attributeWildcard = new AttributeText("SCH_WILDCARD", "Wildcard");
 		try {

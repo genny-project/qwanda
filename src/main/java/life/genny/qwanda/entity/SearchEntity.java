@@ -1135,6 +1135,30 @@ public class SearchEntity extends BaseEntity {
 		}
 		return this;
 	}
+
+	public SearchEntity addWhitelist(String attributeCode) {
+		AttributeText attribute = new AttributeText("WTL_" + attributeCode, attributeCode);
+
+		try {
+			addAttribute(attribute, filterIndex, attributeCode);
+		} catch (BadDataException e) {
+			log.error("Bad Whitelist Filter Initialisation");
+		}
+		
+		return this;
+	}
+
+	public SearchEntity addBlacklist(String attributeCode) {
+		AttributeText attribute = new AttributeText("BKL_" + attributeCode, attributeCode);
+
+		try {
+			addAttribute(attribute, filterIndex, attributeCode);
+		} catch (BadDataException e) {
+			log.error("Bad Whitelist Filter Initialisation");
+		}
+		
+		return this;
+	}
 	/*
 	 * This method allows to set the LinkWeight to the resulted BaseEntities to its
 	 * parent

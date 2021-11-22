@@ -1423,19 +1423,34 @@ public class SearchEntity extends BaseEntity {
 	}
 
 	/*
-	 * This method allows to set thewildcard of the results data to be sent
+	 * This method allows to set the wildcard of the results data to be sent
 	 * 
 	 * @param wildcard - the widlcard
 	 */
 	public SearchEntity setWildcard(String wildcard) {
-		// only allow characters
-		// wildcard = wildcard.replaceAll(("[^A-Za-z0-9 ]"), "");
 
 		AttributeText attributeWildcard = new AttributeText("SCH_WILDCARD", "Wildcard");
 		try {
 			addAttribute(attributeWildcard, 1.0, wildcard);
 		} catch (BadDataException e) {
-			log.error("Bad Wildcard ");
+			log.error("Bad Wildcard!");
+		}
+
+		return this;
+	}
+
+	/*
+	 * This method allows to set the wildcard depth level for associated wildcards
+	 * 
+	 * @param depth - the widlcard depth level
+	 */
+	public SearchEntity setWildcardDepth(Integer depth) {
+
+		AttributeInteger attributeWildcard = new AttributeInteger("SCH_WILDCARD_DEPTH", "Wildcard");
+		try {
+			addAttribute(attributeWildcard, 1.0, depth);
+		} catch (BadDataException e) {
+			log.error("Bad Wildcard Depth!");
 		}
 
 		return this;

@@ -1,4 +1,5 @@
 package life.genny.qwanda.message;
+import life.genny.qwanda.utils.OutputParam;
 
 public class QEventWorkflowMessage extends QEventMessage {
 	
@@ -6,8 +7,15 @@ public class QEventWorkflowMessage extends QEventMessage {
 
 	private static final String EVENT_TYPE_WORKFLOW = "WF";
 
-	public QEventWorkflowMessage(String fieldCode) {
+	OutputParam outputParam;
+
+	public QEventWorkflowMessage(String fieldCode, OutputParam outputParam) {
 		super(EVENT_TYPE_WORKFLOW, fieldCode);
+		this.outputParam = outputParam;
+	}
+
+	public OutputParam getOutputParam() {
+		return outputParam;
 	}
 
 	@Override
@@ -16,4 +24,6 @@ public class QEventWorkflowMessage extends QEventMessage {
 				"data=" + data +
 				'}';
 	}
+
+
 }

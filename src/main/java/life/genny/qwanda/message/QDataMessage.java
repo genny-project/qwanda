@@ -1,5 +1,6 @@
 package life.genny.qwanda.message;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.Expose;
 
 public abstract class QDataMessage extends QMessage implements QDataMessageIntf {
@@ -22,14 +23,19 @@ public abstract class QDataMessage extends QMessage implements QDataMessageIntf 
    */
   private static final String MESSAGE_TYPE = "DATA_MSG";
   @Expose
+  @JsonProperty
   private String data_type;
   @Expose
+  @JsonProperty
   private Boolean delete = false;
   @Expose
+  @JsonProperty
   private Boolean replace = false;
   @Expose
+  @JsonProperty
   private Object shouldDeleteLinkedBaseEntities;
   @Expose
+  @JsonProperty
   private String aliasCode;
 
 

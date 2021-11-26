@@ -6,7 +6,12 @@ import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.Expose;
+
 public class GennyItem {
+	@JsonProperty
+	@Expose
 	List<AttributeCodeValueString> b2bdata = new ArrayList<>();
 	
 	public GennyItem()

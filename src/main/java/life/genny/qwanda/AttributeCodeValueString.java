@@ -1,8 +1,21 @@
 package life.genny.qwanda;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.Expose;
+
 public class AttributeCodeValueString {
+	@JsonProperty
+	@Expose
 	public String attributeCode;
+	
+	@JsonProperty
+	@Expose
 	public String value;
+	
+	public AttributeCodeValueString()
+	{
+		
+	}
 	
 	public AttributeCodeValueString(final String attributeCode, final String value)
 	{

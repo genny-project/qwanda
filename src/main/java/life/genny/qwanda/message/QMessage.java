@@ -3,6 +3,7 @@ package life.genny.qwanda.message;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.Expose;
 
 public abstract class QMessage implements Serializable, QMessageIntf {
@@ -27,42 +28,55 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 	}
 
 	@Expose
+	@JsonProperty
 	private String msg_type;
 
 	@Expose
+	@JsonProperty
 	private String token;
 
 	@Expose
+	@JsonProperty
 	private String option = MsgOption.EXEC.toString();
 
 	@Expose
+	@JsonProperty
 	private String triggerCode; // This can be used to trigger any option
 
 	@Expose
+	@JsonProperty
 	private List<String> targetCodes;
 	
 	@Expose
+	@JsonProperty
 	private String sourceAddress;
 
 	@Expose
+	@JsonProperty
 	private String sourceCode;
 
 	@Expose
+	@JsonProperty
 	private String targetCode;
 
 	@Expose
+	@JsonProperty
 	private String attributeCode;
 
 	@Expose
+	@JsonProperty
 	private String questionCode;
 
 	@Expose
+	@JsonProperty
 	private String message;
 
 	@Expose
+	@JsonProperty
 	private Boolean redirect;
 	
 	@Expose
+	@JsonProperty
 	 private String[] recipientCodeArray;
 	
 

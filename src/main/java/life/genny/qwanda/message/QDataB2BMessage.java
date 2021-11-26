@@ -1,5 +1,6 @@
 package life.genny.qwanda.message;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.Expose;
 
 import life.genny.qwanda.GennyItem;
@@ -10,6 +11,7 @@ public class QDataB2BMessage extends QDataMessage {
 	private static final long serialVersionUID = 1L;
 
 	 @Expose
+	 @JsonProperty
 	  private GennyItem[] items;
 	  private static final String DATATYPE_ITEM = GennyItem.class.getSimpleName();
 

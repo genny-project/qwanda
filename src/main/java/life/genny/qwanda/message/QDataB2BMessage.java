@@ -1,8 +1,11 @@
 package life.genny.qwanda.message;
 
+import java.util.Optional;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.Expose;
 
+import life.genny.qwanda.AttributeCodeValueString;
 import life.genny.qwanda.GennyItem;
 
 public class QDataB2BMessage extends QDataMessage {
@@ -34,4 +37,19 @@ public class QDataB2BMessage extends QDataMessage {
 	    this.items = items;
 	  }
 	
+	  public String getValue(final String attributeCode) {
+		  AttributeCodeValueString value = null;
+		  if ((items != null) && (items.length>0) ) {
+			for (GennyItem item : items) {
+				Optional<AttributeCodeValueString> acvs = item.get(attributeCode);
+					
+				if (acvs.isPresent()) {
+					// break out upon first match
+					return acvs.get().getValue();
+				}
+			}
+		  }
+		  return null;
+	  }
+	  
 }

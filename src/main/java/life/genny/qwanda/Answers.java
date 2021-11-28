@@ -46,5 +46,8 @@ public class Answers implements Serializable {
 		return "Answers [answers=" + answers + "]";
 	}
 	
-	
+	public Integer getCount()
+	{
+		return getAnswers().size();
+	}
 }

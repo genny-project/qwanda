@@ -50,4 +50,18 @@ public class Answers implements Serializable {
 	{
 		return getAnswers().size();
 	}
+	
+	public String getValue(final String attributeCode) 
+	{
+		String ret = null;
+		if (!getAnswers().isEmpty()) {
+			for (Answer ans : getAnswers()) {
+				if (ans.getAttributeCode().equals(attributeCode)) {
+					return ans.getValue();
+				}
+			}
+		}
+		return ret;
+	}
+	
 }

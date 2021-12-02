@@ -1,4 +1,5 @@
 package life.genny.qwanda.message;
+import com.google.gson.annotations.Expose;
 import life.genny.qwanda.utils.OutputParam;
 
 public class QEventWorkflowMessage extends QEventMessage {
@@ -7,6 +8,7 @@ public class QEventWorkflowMessage extends QEventMessage {
 
 	private static final String EVENT_TYPE_WORKFLOW = "WF";
 
+	@Expose
 	OutputParam outputParam;
 
 	public QEventWorkflowMessage(String fieldCode, OutputParam outputParam) {

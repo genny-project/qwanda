@@ -13,7 +13,7 @@ public class MessageData implements Serializable {
 
 	@Override
 	public String toString() {
-		return " MessageData [code=" + code + "   " + id + "]";
+		return " MessageData [code=" + code + " id= " + id + "]";
 	}
 
 	@Expose

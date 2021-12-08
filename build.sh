@@ -1,4 +1,4 @@
 #!/bin/bash
-mvnw generate-sources
+./mvnw generate-sources
 mvn clean install -DskipTests=true
 mvn eclipse:eclipse

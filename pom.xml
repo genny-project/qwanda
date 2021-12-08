@@ -70,11 +70,11 @@
 	<distributionManagement>
 		<repository>
 			<id>life.genny</id>
-            <url>https://nexus.outcome-hub.com/repository/life.genny/</url>
+            <url>https://nexus.gada.io/repository/life.genny/</url>
 		</repository>
 		<snapshotRepository>
 			<id>nexus-snapshots</id>
-            <url>https://nexus.outcome-hub.com/repository/snapshots/</url>
+            <url>https://nexus.gada.io/repository/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
@@ -100,7 +100,7 @@
 		</repository>
 		<repository>
 			<id>life.genny</id>
-            <url>https://nexus.outcome-hub.com/repository/life.genny/</url>
+            <url>https://nexus.gada.io/repository/life.genny/</url>
 		</repository>
 	</repositories>
 

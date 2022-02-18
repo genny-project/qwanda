@@ -21,3 +21,4 @@ Qwanda.srctrlprj
 /sourcetrail_depoendencies/
 .idea/
 *.iml
+.mvn/

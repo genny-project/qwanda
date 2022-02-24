@@ -74,6 +74,10 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 	@Expose
 	@JsonProperty
 	private Boolean redirect;
+
+	@Expose
+	@JsonProperty
+	private String bridgeId;
 	
 	@Expose
 	@JsonProperty
@@ -223,7 +227,12 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 		this.attributeCode = attributeCode;
 	}
 	
-
+	public String getBridgeId() {
+		return bridgeId;
+	}
 	
+	public void setBridgeId(String bridgeId) {
+		this.bridgeId = bridgeId;
+	}
 	
 }

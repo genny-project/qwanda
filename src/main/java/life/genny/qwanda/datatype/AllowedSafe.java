@@ -16,7 +16,7 @@ public class AllowedSafe implements Serializable {
 	public final CapabilityMode[] modes;
 	public final boolean validCode;
 	
-	public AllowedSafe(final String capCode, final boolean validCode, final CapabilityMode... modes)
+	public AllowedSafe(final String capCode, final CapabilityMode... modes)
 	{
 		this.code = capCode.toUpperCase();
 		this.modes = modes;

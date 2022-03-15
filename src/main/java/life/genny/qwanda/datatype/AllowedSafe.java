@@ -21,9 +21,9 @@ public class AllowedSafe implements Serializable {
 	
 	public AllowedSafe(final String capCode, final CapabilityMode... modes)
 	{
-		this.code = capCode.toUpperCase();
+		this.code = capCode;
 		this.modes = Arrays.asList(modes);
-		this.validCode = isValidCode(capCode);
+		this.validCode = isValidCode(code);
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class AllowedSafe implements Serializable {
 		if (!(obj instanceof AllowedSafe))
 			return false;
 		AllowedSafe other = (AllowedSafe) obj;
-		return Objects.equals(code, other.code) && modes == other.modes;
+		return Objects.equals(code, other.code) && modes.equals(other.modes);
 	}
 	
 	public static boolean isValidCode(String capCode) {

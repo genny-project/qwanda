@@ -61,4 +61,8 @@ public class AllowedSafe implements Serializable {
 	private String getModesAsString() {
 		return modes.stream().map((mode) -> mode.name()).collect(Collectors.joining(","));
 	}
+
+	public static AllowedSafe fromAllowed(Allowed allowed) {
+		return new AllowedSafe(allowed.code, allowed.mode);
+	}
 }

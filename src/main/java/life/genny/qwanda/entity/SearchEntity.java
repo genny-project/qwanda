@@ -967,7 +967,7 @@ public class SearchEntity extends BaseEntity {
 			addAttribute(attribute, filterIndex, value);
 			filterIndex += 1.0;
 		} catch (BadDataException e) {
-			log.error("Bad OR String Filter Initialisation");
+			log.error("Bad OR Boolean Filter Initialisation");
 		}
 
 		return this;

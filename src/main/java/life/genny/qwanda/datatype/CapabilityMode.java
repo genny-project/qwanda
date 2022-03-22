@@ -1,8 +1,6 @@
 package life.genny.qwanda.datatype;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public enum CapabilityMode implements Serializable {
 	NONE ("NONE",0),
@@ -15,7 +13,7 @@ public enum CapabilityMode implements Serializable {
 
 
 	private final String name;
-	public final Integer priority;
+	private final Integer priority;
 
 	private CapabilityMode(String s,Integer p) {
 		name = s;
@@ -46,27 +44,5 @@ public enum CapabilityMode implements Serializable {
         }
         return null;
  
-	}
-
-	public static CapabilityMode getMode(final int order) {
-        for (CapabilityMode mode : CapabilityMode.values()) {
-            if (mode.priority == order) {
-                return mode;
-            }
-        }
-        return null;
-	}
-
-	public static List<CapabilityMode> getLesserModes(final CapabilityMode mode) {
-		return getLesserModes(mode.priority);
-	}
-
-	public static List<CapabilityMode> getLesserModes(final int order) {
-		List<CapabilityMode> modes = new ArrayList<>();
-		for(int i = order - 1; i >= 0; i--) {
-			modes.add(getMode(i));
-		}
-
-		return modes;
 	}
 }

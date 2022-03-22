@@ -49,11 +49,12 @@ public class AllowedSafe implements Serializable {
 	public static boolean isValidCode(String capCode) {
 		if(!capCode.startsWith(CAP_CODE_PREFIX))
 			return false;
-		String[] components = capCode.split("_");
-		if(components.length < 3) {
-			log.error("Missing OWN or OTHER in " + capCode);
-			return false;
-		}
+		// TODO: Put this back in when it is more firmed up
+		// String[] components = capCode.split("_");
+		// if(components.length < 3) {
+		// 	log.error("Missing OWN or OTHER in " + capCode);
+		// 	return false;
+		// }
 
 		return true;
 	}

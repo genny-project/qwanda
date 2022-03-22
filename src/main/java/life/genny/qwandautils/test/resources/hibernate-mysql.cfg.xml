@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+
+        <!-- Database connection settings -->
+        <!--  Set up a local MYSQL server running on port 3308 with associated auth -->
+	 	<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3308/testdb?useSSL=false&amp;failOverReadOnly=false&amp;autoReconnect=true&amp;includeInnodbStatusInDeadlockExceptions=true&amp;includeThreadDumpInDeadlockExceptions=true&amp;includeThreadNamesAsStatementComment=true</property>
+		<property name="hibernate.connection.username">testuser</property>
+		<property name="hibernate.connection.password">password</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        
+        
+       <property name="hibernate.default_schema">PUBLIC</property>
+
+        <!-- JDBC connection pool (use the built-in) -->
+        <property name="connection.pool_size">1</property>
+
+ 
+        <!-- Disable the second-level cache  -->
+        <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
+
+        <!-- Echo all executed SQL to stdout -->
+        <property name="show_sql">true</property>
+
+        <!-- Drop and re-create the database schema on startup -->
+        <property name="hbm2ddl.auto">create-drop</property>
+        
+ 
+
+       <event type="save-update">
+         <listener class="SaveOrUpdateDateListener"/>
+      	</event>
+      	
+    </session-factory>
+
+</hibernate-configuration>
+
+

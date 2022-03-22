@@ -945,18 +945,16 @@ public class SearchEntity extends BaseEntity {
 	}
 
 	/*
-	 * This method allows to set an OR filter for an attribute
+	 * This method allows to set an OR filter with Boolean value for an attribute
 	 *
 	 * @param attributeCode - the attributeCode which holds String value where we
 	 * apply the filter
 	 *
-	 * @param filterType - type of the string filter
-	 *
 	 * @param value - filter against (search for) this value
 	 */
 
-	public SearchEntity addOr(final String attributeCode, final StringFilter filterType, final Boolean value) {
-		AttributeText attribute = new AttributeText(attributeCode, filterType.toString());
+	public SearchEntity addOr(final String attributeCode, final Boolean value) {
+		AttributeText attribute = new AttributeText(attributeCode, "=");
 		Integer count = countOccurrences(attributeCode, "OR") + 1;
 
 		for (int i = 0; i < count; i++) {

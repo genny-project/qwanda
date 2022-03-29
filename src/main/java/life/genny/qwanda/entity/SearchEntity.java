@@ -5,6 +5,8 @@ import java.time.LocalTime;
 import java.time.LocalDate;
 import java.util.*;
 
+import com.google.gson.annotations.Expose;
+
 import life.genny.qwanda.attribute.AttributeBoolean;
 import life.genny.qwanda.attribute.AttributeDate;
 import life.genny.qwanda.attribute.AttributeDateTime;
@@ -158,26 +160,17 @@ public class SearchEntity extends BaseEntity {
     static public SearchEntity.Filter convertOperatorToFilter(final String operator) {
         SearchEntity.Filter ret = null;
         switch (operator) {
-            case ">":
-                ret = SearchEntity.Filter.GREATER_THAN;
-                break;
-            case "<":
-                ret = SearchEntity.Filter.LESS_THAN;
-                break;
-            case ">=":
-                ret = SearchEntity.Filter.GREATER_THAN_AND_EQUAL;
-                break;
-            case "<=":
-                ret = SearchEntity.Filter.LESS_THAN_AND_EQUAL;
-                break;
+            case ">": ret =  SearchEntity.Filter.GREATER_THAN; break;
+            case "<": ret =  SearchEntity.Filter.LESS_THAN; break;
+            case ">=": ret =  SearchEntity.Filter.GREATER_THAN_AND_EQUAL; break;
+            case "<=": ret =  SearchEntity.Filter.LESS_THAN_AND_EQUAL; break;
             case "<>":
-            case "!=":
-                ret = SearchEntity.Filter.NOT_EQUALS;
-                break;
+            case "!=": ret =  SearchEntity.Filter.NOT_EQUALS;break;
             default:
                 ret = SearchEntity.Filter.EQUALS;
         }
         return ret;
+
 
 
     }
@@ -185,32 +178,19 @@ public class SearchEntity extends BaseEntity {
     static public SearchEntity.StringFilter convertOperatorToStringFilter(final String operator) {
         SearchEntity.StringFilter ret = null;
         switch (operator) {
-            case "REGEXP":
-                ret = SearchEntity.StringFilter.REGEXP;
-                break;
-            case "NOT REGEXP":
-                ret = SearchEntity.StringFilter.NOT_REGEXP;
-                break;
-            case "RLIKE":
-                ret = SearchEntity.StringFilter.RLIKE;
-                break;
-            case "NOT RLIKE":
-                ret = SearchEntity.StringFilter.NOT_RLIKE;
-                break;
-            case "LIKE":
-                ret = SearchEntity.StringFilter.LIKE;
-                break;
-            case "NOT LIKE":
-                ret = SearchEntity.StringFilter.NOT_LIKE;
-                break;
+            case "REGEXP": ret =  SearchEntity.StringFilter.REGEXP; break;
+            case "NOT REGEXP": ret =  SearchEntity.StringFilter.NOT_REGEXP; break;
+            case "RLIKE": ret =  SearchEntity.StringFilter.RLIKE; break;
+            case "NOT RLIKE": ret =  SearchEntity.StringFilter.NOT_RLIKE; break;
+            case "LIKE": ret =  SearchEntity.StringFilter.LIKE; break;
+            case "NOT LIKE": ret =  SearchEntity.StringFilter.NOT_LIKE; break;
             case "<>":
-            case "!=":
-                ret = SearchEntity.StringFilter.NOT_EQUAL;
-                break;
+            case "!=": ret =  SearchEntity.StringFilter.NOT_EQUAL;break;
             default:
                 ret = SearchEntity.StringFilter.EQUAL;
         }
         return ret;
+
 
 
     }
@@ -319,20 +299,6 @@ public class SearchEntity extends BaseEntity {
             log.error("Bad Column Initialisation");
         }
         return this;
-    }
-
-    /*
-     * This method helps you format the search data
-     */
-    public SearchEntity addFormatter(final String attributeCode, String formatKey, String formatValue) {
-        Map<String, String> format = new HashMap<>();
-        format.put(formatKey, formatValue);
-        this.formatters.put(attributeCode, format);
-        return this;
-    }
-
-    public Map<String, Map<String, String>> getFormatters(){
-        return this.formatters;
     }
 
     /*
@@ -453,7 +419,7 @@ public class SearchEntity extends BaseEntity {
     }
 
     public SearchEntity addLinkedSearch(final String searchCode, final String association, final String columnName) {
-        AttributeText attributeColumn = new AttributeText(searchCode + "." + association, columnName);
+        AttributeText attributeColumn = new AttributeText(searchCode+"."+association, columnName);
         try {
             EntityAttribute ea = addAttribute(attributeColumn, searchIndex);
             ea.setIndex(searchIndex.intValue());
@@ -470,7 +436,7 @@ public class SearchEntity extends BaseEntity {
      * NOTE: has only been implemented for counts so far
      */
     public SearchEntity addCombinedSearch(final String attributeCode, final String columnName) {
-        AttributeText attributeColumn = new AttributeText("CMB_" + attributeCode, columnName);
+        AttributeText attributeColumn = new AttributeText("CMB_"+attributeCode, columnName);
         try {
             EntityAttribute ea = addAttribute(attributeColumn, searchIndex);
             ea.setIndex(combinedSearchIndex.intValue());
@@ -487,7 +453,7 @@ public class SearchEntity extends BaseEntity {
      */
     public SearchEntity addAssociatedColumn(final String attributeCode, final String associatedLinkedBaseEntityCodeAttribute,
                                             final String columnName) {
-        AttributeText attributeColumn = new AttributeText("COL__" + attributeCode.toUpperCase() + "__" + associatedLinkedBaseEntityCodeAttribute.toUpperCase(), columnName);
+        AttributeText attributeColumn = new AttributeText("COL__" + attributeCode.toUpperCase()+"__"+associatedLinkedBaseEntityCodeAttribute.toUpperCase(), columnName);
         try {
             EntityAttribute ea = addAttribute(attributeColumn, colIndex);
             ea.setValue(associatedLinkedBaseEntityCodeAttribute);
@@ -544,9 +510,8 @@ public class SearchEntity extends BaseEntity {
 
     /**
      * This Method allows specifying columns that can be further filtered on by the user
-     *
      * @param attributeCode The code of the attribute
-     * @param fName         The name given to the filter column
+     * @param fName The name given to the filter column
      * @return SearchEntity the updated search base entity
      */
     public SearchEntity addFilterableColumn(final String attributeCode, final String fName) {
@@ -819,7 +784,7 @@ public class SearchEntity extends BaseEntity {
         Integer count = countOccurrences(attributeCode, "OR") + 1;
 
         for (int i = 0; i < count; i++) {
-            attribute.setCode("OR_" + attribute.getCode());
+            attribute.setCode("OR_"+attribute.getCode());
         }
 
         try {
@@ -848,7 +813,7 @@ public class SearchEntity extends BaseEntity {
         Integer count = countOccurrences(attributeCode, "OR") + 1;
 
         for (int i = 0; i < count; i++) {
-            attribute.setCode("OR_" + attribute.getCode());
+            attribute.setCode("OR_"+attribute.getCode());
         }
 
         try {
@@ -877,7 +842,7 @@ public class SearchEntity extends BaseEntity {
         Integer count = countOccurrences(attributeCode, "OR") + 1;
 
         for (int i = 0; i < count; i++) {
-            attribute.setCode("OR_" + attribute.getCode());
+            attribute.setCode("OR_"+attribute.getCode());
         }
 
         try {
@@ -906,7 +871,7 @@ public class SearchEntity extends BaseEntity {
         Integer count = countOccurrences(attributeCode, "OR") + 1;
 
         for (int i = 0; i < count; i++) {
-            attribute.setCode("OR_" + attribute.getCode());
+            attribute.setCode("OR_"+attribute.getCode());
         }
 
         try {
@@ -935,7 +900,7 @@ public class SearchEntity extends BaseEntity {
         Integer count = countOccurrences(attributeCode, "OR") + 1;
 
         for (int i = 0; i < count; i++) {
-            attribute.setCode("OR_" + attribute.getCode());
+            attribute.setCode("OR_"+attribute.getCode());
         }
 
         try {
@@ -964,7 +929,7 @@ public class SearchEntity extends BaseEntity {
         Integer count = countOccurrences(attributeCode, "OR") + 1;
 
         for (int i = 0; i < count; i++) {
-            attribute.setCode("OR_" + attribute.getCode());
+            attribute.setCode("OR_"+attribute.getCode());
         }
 
         try {
@@ -972,6 +937,33 @@ public class SearchEntity extends BaseEntity {
             filterIndex += 1.0;
         } catch (BadDataException e) {
             log.error("Bad OR String Filter Initialisation");
+        }
+
+        return this;
+    }
+
+    /*
+     * This method allows to set an OR filter with Boolean value for an attribute
+     *
+     * @param attributeCode - the attributeCode which holds String value where we
+     * apply the filter
+     *
+     * @param value - filter against (search for) this value
+     */
+
+    public SearchEntity addOr(final String attributeCode, final Boolean value) {
+        AttributeText attribute = new AttributeText(attributeCode, StringFilter.EQUAL.toString());
+        Integer count = countOccurrences(attributeCode, "OR") + 1;
+
+        for (int i = 0; i < count; i++) {
+            attribute.setCode("OR_"+attribute.getCode());
+        }
+
+        try {
+            addAttribute(attribute, filterIndex, value);
+            filterIndex += 1.0;
+        } catch (BadDataException e) {
+            log.error("Bad OR Boolean Filter Initialisation");
         }
 
         return this;
@@ -993,7 +985,7 @@ public class SearchEntity extends BaseEntity {
         Integer count = countOccurrences(attributeCode, "AND") + 1;
 
         for (int i = 0; i < count; i++) {
-            attribute.setCode("AND_" + attribute.getCode());
+            attribute.setCode("AND_"+attribute.getCode());
         }
 
         try {
@@ -1022,7 +1014,7 @@ public class SearchEntity extends BaseEntity {
         Integer count = countOccurrences(attributeCode, "AND") + 1;
 
         for (int i = 0; i < count; i++) {
-            attribute.setCode("AND_" + attribute.getCode());
+            attribute.setCode("AND_"+attribute.getCode());
         }
 
         try {
@@ -1051,7 +1043,7 @@ public class SearchEntity extends BaseEntity {
         Integer count = countOccurrences(attributeCode, "AND") + 1;
 
         for (int i = 0; i < count; i++) {
-            attribute.setCode("AND_" + attribute.getCode());
+            attribute.setCode("AND_"+attribute.getCode());
         }
 
         try {
@@ -1080,7 +1072,7 @@ public class SearchEntity extends BaseEntity {
         Integer count = countOccurrences(attributeCode, "AND") + 1;
 
         for (int i = 0; i < count; i++) {
-            attribute.setCode("AND_" + attribute.getCode());
+            attribute.setCode("AND_"+attribute.getCode());
         }
 
         try {
@@ -1109,7 +1101,7 @@ public class SearchEntity extends BaseEntity {
         Integer count = countOccurrences(attributeCode, "AND") + 1;
 
         for (int i = 0; i < count; i++) {
-            attribute.setCode("AND_" + attribute.getCode());
+            attribute.setCode("AND_"+attribute.getCode());
         }
 
         try {
@@ -1138,7 +1130,7 @@ public class SearchEntity extends BaseEntity {
         Integer count = countOccurrences(attributeCode, "AND") + 1;
 
         for (int i = 0; i < count; i++) {
-            attribute.setCode("AND_" + attribute.getCode());
+            attribute.setCode("AND_"+attribute.getCode());
         }
 
         try {
@@ -1153,11 +1145,11 @@ public class SearchEntity extends BaseEntity {
 
     public SearchEntity addConditional(String attributeCode, String condition) {
 
-        Optional<EntityAttribute> existing = findEntityAttribute("CND_" + attributeCode);
+        Optional<EntityAttribute> existing = findEntityAttribute("CND_"+attributeCode);
         if (existing.isPresent()) {
             existing.get().setValue(existing.get().getValue().toString() + ":::" + condition);
         } else {
-            AttributeText attribute = new AttributeText("CND_" + attributeCode, "CND_" + attributeCode);
+            AttributeText attribute = new AttributeText("CND_"+attributeCode, "CND_"+attributeCode);
             try {
                 log.info("Adding a CND = " + attributeCode);
                 addAttribute(attribute, 1.0, condition);
@@ -1192,7 +1184,6 @@ public class SearchEntity extends BaseEntity {
 
         return this;
     }
-
     /*
      * This method allows to set the LinkWeight to the resulted BaseEntities to its
      * parent
@@ -1425,7 +1416,6 @@ public class SearchEntity extends BaseEntity {
     /**
      * Set the validation attribute.
      * The search will then look to this attribute to find its validation state.
-     *
      * @param validationAttribute
      * @return SearchEntity the updated search
      */
@@ -1443,9 +1433,8 @@ public class SearchEntity extends BaseEntity {
     /**
      * This method allows users to set the dropdown target.
      * Used to pass information about the entity concerning a dropdown.
-     *
      * @param dropdownTarget A code, or other information about the target
-     *                       entity of a dropdown.
+     * entity of a dropdown.
      */
     public SearchEntity setDropdownTarget(final String dropdownTarget) {
         AttributeText attribute = new AttributeText("SCH_DROPDOWN_TARGET", "Dropdown Target");
@@ -1711,7 +1700,7 @@ public class SearchEntity extends BaseEntity {
         Integer count = -1;
         for (EntityAttribute ea : this.getBaseEntityAttributes()) {
             if (ea.getAttributeCode().endsWith(attributeCode)) {
-                Integer occurs = (ea.getAttributeCode().split(prefix + "_", -1).length) - 1;
+                Integer occurs = ( ea.getAttributeCode().split(prefix+"_", -1).length ) - 1;
                 if (occurs > count) {
                     count = occurs;
                 }
@@ -1740,5 +1729,19 @@ public class SearchEntity extends BaseEntity {
 
     public Double getFilterIndex() {
         return this.filterIndex;
+    }
+
+    /*
+     * This method helps you format the search data
+     */
+    public SearchEntity addFormatter(final String attributeCode, String formatKey, String formatValue) {
+        Map<String, String> format = new HashMap<>();
+        format.put(formatKey, formatValue);
+        this.formatters.put(attributeCode, format);
+        return this;
+    }
+
+    public Map<String, Map<String, String>> getFormatters(){
+        return this.formatters;
     }
 }

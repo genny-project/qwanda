@@ -43,7 +43,7 @@ public class SearchEntity extends BaseEntity {
     Double searchIndex = 1.0;
     Double combinedSearchIndex = 1.0;
     Double aliasIndex = 1.0;
-    Map<String, Map<String, String>> formatters = new HashMap<>();
+    public Map<String, Map<String, String>> formatters = new HashMap<>();
 
     /*
      * This Sort Enum is used to sort the search results in either Ascending and
@@ -1739,6 +1739,10 @@ public class SearchEntity extends BaseEntity {
         format.put(formatKey, formatValue);
         this.formatters.put(attributeCode, format);
         return this;
+    }
+
+    public void setFormatters(Map<String, Map<String, String>> formatters){
+        this.formatters = formatters;
     }
 
     public Map<String, Map<String, String>> getFormatters(){

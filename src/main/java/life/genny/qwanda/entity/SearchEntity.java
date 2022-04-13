@@ -43,6 +43,7 @@ public class SearchEntity extends BaseEntity {
     Double searchIndex = 1.0;
     Double combinedSearchIndex = 1.0;
     Double aliasIndex = 1.0;
+    @Expose
     public Map<String, Map<String, String>> formatters = new HashMap<>();
 
     /*

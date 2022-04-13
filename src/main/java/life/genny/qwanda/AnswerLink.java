@@ -159,6 +159,7 @@ public class AnswerLink implements java.io.Serializable {
 	private String sourceCode;
 	private Long askId;
 	private String attributeCode; // original answer
+	private String processId;
 
 	public AnswerLink() {
 	}
@@ -439,6 +440,16 @@ public class AnswerLink implements java.io.Serializable {
 	 */
 	public void setAskId(final Long askId) {
 		this.askId = askId;
+	}
+
+
+	
+	public String getProcessId() {
+		return processId;
+	}
+
+	public void setProcessId(String processId) {
+		this.processId = processId;
 	}
 
 	/**

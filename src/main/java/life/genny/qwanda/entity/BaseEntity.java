@@ -108,13 +108,12 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 			.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
 
 	private static final String DEFAULT_CODE_PREFIX = "BAS_";
-	
+
 	public static final String PRI_NAME = "PRI_NAME";
 	public static final String PRI_IMAGE_URL = "PRI_IMAGE_URL";
 	public static final String PRI_PHONE = "PRI_PHONE";
 	public static final String PRI_ADDRESS_FULL = "PRI_ADDRESS_FULL";
 	public static final String PRI_EMAIL = "PRI_EMAIL";
-	
 
 	@XmlTransient
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.baseEntity")
@@ -154,15 +153,11 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	@JsonIgnore
 	@XmlTransient
 	@Transient
-	private Map<String,EntityAttribute> attributeMap = null;
-	
-	
-	
+	private Map<String, EntityAttribute> attributeMap = null;
+
 	public Map<String, EntityAttribute> getAttributeMap() {
 		return attributeMap;
 	}
-
-	
 
 	/**
 	 * Constructor.
@@ -332,23 +327,27 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	 * @returns Optional<EntityAttribute>
 	 */
 	public Optional<EntityAttribute> findEntityAttribute(final String attributeCode) {
-		//log.info("Hmmm which path in getValue are we taking, attributeCode:" + attributeCode);
+		// log.info("Hmmm which path in getValue are we taking, attributeCode:" +
+		// attributeCode);
 		if (attributeMap != null) {
-			//log.info("We are in the quick map part of getValue, attributeCode:" + attributeCode);
+			// log.info("We are in the quick map part of getValue, attributeCode:" +
+			// attributeCode);
 			return Optional.ofNullable(attributeMap.get(attributeCode));
 		}
 		Optional<EntityAttribute> foundEntity = null;
 
 		try {
-			//log.info("We are in the long filter part of getValue, attributeCode:" + attributeCode);
+			// log.info("We are in the long filter part of getValue, attributeCode:" +
+			// attributeCode);
 			foundEntity = getBaseEntityAttributes().stream().filter(x -> (x.getAttributeCode().equals(attributeCode)))
 					.findFirst();
 		} catch (Exception e) {
 			log.error("Error in fetching attribute value");
 		}
 
-//    Optional.of(getBaseEntityAttributes().stream()
-//            .filter(x -> (x.getAttribute().getCode().equals(attributeCode))).findFirst().get());
+		// Optional.of(getBaseEntityAttributes().stream()
+		// .filter(x ->
+		// (x.getAttribute().getCode().equals(attributeCode))).findFirst().get());
 
 		return foundEntity;
 	}
@@ -494,7 +493,7 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 				break;
 			}
 		}
-		
+
 		if (attributeMap != null) {
 			attributeMap.remove(attributeCode);
 		}
@@ -594,6 +593,10 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 		if (answer.getAskId() != null) {
 			answerLink.setAskId(answer.getAskId());
 		}
+
+		if (answer.getProcessId() != null) {
+			answerLink.setProcessId(answer.getProcessId());
+		}
 		// Set<AnswerLink> answerLinkSet = new HashSet<AnswerLink>();
 		// answerLinkSet.addAll(answer.getAsk().getAnswerList().getAnswerList());
 		// getAnswers().add(answerLink);
@@ -620,11 +623,11 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
-//  @Override
-//  public String toString() {
-//    return "BE:" + ":" + super.toString() + " EAs:"
-//        + baseEntityAttributes;
-//  }
+	// @Override
+	// public String toString() {
+	// return "BE:" + ":" + super.toString() + " EAs:"
+	// + baseEntityAttributes;
+	// }
 
 	@Transient
 	@XmlTransient
@@ -901,32 +904,32 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 		codes.addAll(new HashSet<>(Arrays.asList(initialCodes)));
 		if ((this.baseEntityAttributes != null) && (!this.baseEntityAttributes.isEmpty())) {
 			for (EntityAttribute ea : this.baseEntityAttributes) {
-			//	if (ea.getAttributeCode().startsWith("LNK_")) {
-					String value = ea.getValueString();
-					if (value != null) {
-						if (value.startsWith("[")) {
-							value = value.substring(2, value.length() - 2);
-						}
-						if (value.startsWith("PER")||(value.startsWith("CPY"))) {
-							codes.add(value);
-						}
+				// if (ea.getAttributeCode().startsWith("LNK_")) {
+				String value = ea.getValueString();
+				if (value != null) {
+					if (value.startsWith("[")) {
+						value = value.substring(2, value.length() - 2);
+					}
+					if (value.startsWith("PER") || (value.startsWith("CPY"))) {
+						codes.add(value);
 					}
 				}
-			//}
-			if (this.getCode().startsWith("PER")||(this.getCode().startsWith("CPY"))) {
+			}
+			// }
+			if (this.getCode().startsWith("PER") || (this.getCode().startsWith("CPY"))) {
 				codes.add(this.getCode());
 			}
 		}
 
 		return codes.toArray(new String[0]);
 	}
-	
+
 	@Transient
 	public Optional<EntityAttribute> getHighestEA(final String prefix) {
 		// go through all the EA
 		Optional<EntityAttribute> highest = Optional.empty();
 		Double weight = -1000.0;
-		
+
 		if ((this.baseEntityAttributes != null) && (!this.baseEntityAttributes.isEmpty())) {
 			for (EntityAttribute ea : this.baseEntityAttributes) {
 				if (ea.getAttributeCode().startsWith(prefix)) {
@@ -934,30 +937,27 @@ public class BaseEntity extends CodedEntity implements BaseEntityIntf {
 						highest = Optional.of(ea);
 						weight = ea.getWeight();
 					}
-				
+
 				}
 			}
-		
+
 		}
 
 		return highest;
 	}
-	
-	
+
 	@Transient
-	public void setFastAttributes(Boolean fastMode)
-	{
+	public void setFastAttributes(Boolean fastMode) {
 		if (fastMode) {
-			attributeMap = new ConcurrentHashMap<String,EntityAttribute>();
-		// Grab all the entityAttributes and create a fast HashMap lookup
-		for (EntityAttribute ea : this.baseEntityAttributes) {
-			attributeMap.put(ea.getAttributeCode(), ea);
-		}
+			attributeMap = new ConcurrentHashMap<String, EntityAttribute>();
+			// Grab all the entityAttributes and create a fast HashMap lookup
+			for (EntityAttribute ea : this.baseEntityAttributes) {
+				attributeMap.put(ea.getAttributeCode(), ea);
+			}
 		} else {
 			attributeMap = null;
 		}
 
 	}
-	
-	
+
 }

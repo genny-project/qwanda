@@ -228,6 +228,9 @@ public class Answer implements Serializable {
 	@Expose
 	private Boolean changeEvent = false;
 
+	@Expose
+	private String processId;
+
 	@Transient
 	@Expose
 	// Provide a clue to any new attribute type that may be needed if the attribute does not exist yet, e.g. java.util.Double
@@ -796,6 +799,14 @@ public class Answer implements Serializable {
 
 	
 	
+	public String getProcessId() {
+		return processId;
+	}
+
+	public void setProcessId(String processId) {
+		this.processId = processId;
+	}
+
 	/**
 	 * @return the realm
 	 */

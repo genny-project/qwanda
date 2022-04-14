@@ -22,7 +22,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -258,13 +260,15 @@ public class Answer implements Serializable {
 	 *            The associated String value
 	 */
 	public Answer(final BaseEntity source, final BaseEntity target, final Attribute attribute, final String value) {
-		this.sourceCode = source.getCode();
-		this.targetCode = target.getCode();
-		this.attributeCode = attribute.getCode();
-		this.attribute = attribute;
-		this.setValue(value);
-		autocreateCreated();
-		checkInputs();
+		this(source.getCode(), target.getCode(), attribute.getCode(), value);
+	}
+
+	public Answer(final BaseEntity source, final BaseEntity target, final Attribute attribute, final List<String> value) {
+		this(source, target, attribute, Arrays.toString(value.toArray()));
+	}
+
+	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final List<String> value) {
+		this(sourceCode, targetCode, attributeCode, Arrays.toString(value.toArray()));
 	}
 
 	/**

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.Expose;
 
 
@@ -23,6 +23,7 @@ public class QScheduleMessage implements Serializable {
 		public String cron;
 		
 		@Expose
+		@JsonProperty("trigger")
 		public LocalDateTime triggertime;
 		
 		@Expose

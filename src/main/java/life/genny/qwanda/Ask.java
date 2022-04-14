@@ -48,7 +48,6 @@ import life.genny.qwanda.exception.BadDataException;
 
 import com.querydsl.core.annotations.QueryExclude;
 
-
 /**
  * Ask represents the presentation of a Question to a source entity. A Question
  * object is refered to as a means of requesting information from a source about
@@ -128,7 +127,7 @@ public class Ask extends CoreEntity implements Serializable {
 
 	@Expose
 	private Boolean formTrigger = false;
-	
+
 	@Expose
 	private Boolean createOnTrigger = false;
 
@@ -146,6 +145,10 @@ public class Ask extends CoreEntity implements Serializable {
 	@JsonInclude(Include.NON_NULL)
 	@Expose
 	private ContextList contextList;
+
+	@Expose
+	@Transient
+	private String processId = "no-id";
 
 	/**
 	 * Constructor.
@@ -260,7 +263,7 @@ public class Ask extends CoreEntity implements Serializable {
 
 		this.sourceCode = aSourceCode;
 		this.targetCode = aTargetCode;
-		this.attributeCode = aQuestion.getAttributeCode();		
+		this.attributeCode = aQuestion.getAttributeCode();
 		contextList = new ContextList(new CopyOnWriteArrayList<Context>());
 		this.mandatory = aMandatory;
 		this.weight = weight;
@@ -311,6 +314,14 @@ public class Ask extends CoreEntity implements Serializable {
 	 */
 	public void setContextList(final ContextList contextList) {
 		this.contextList = contextList;
+	}
+
+	public String getProcessId() {
+		return processId;
+	}
+
+	public void setProcessId(String processId) {
+		this.processId = processId;
 	}
 
 	/**
@@ -513,8 +524,6 @@ public class Ask extends CoreEntity implements Serializable {
 		this.formTrigger = formTrigger;
 	}
 
-	
-	
 	/**
 	 * @return the createOnTrigger
 	 */
@@ -538,7 +547,7 @@ public class Ask extends CoreEntity implements Serializable {
 		if (this.formTrigger) {
 			return true;
 		} else {
-			if ((this.childAsks!=null)&&(this.childAsks.length > 0)) {
+			if ((this.childAsks != null) && (this.childAsks.length > 0)) {
 				for (Ask childAsk : this.childAsks) {
 					return childAsk.hasTriggerQuestion();
 				}
@@ -546,7 +555,7 @@ public class Ask extends CoreEntity implements Serializable {
 		}
 		return false;
 	}
-	
+
 	public static Ask clone(Ask ask) {
 		Ask newAsk = new Ask();
 		newAsk.sourceCode = ask.getSourceCode();
@@ -562,15 +571,13 @@ public class Ask extends CoreEntity implements Serializable {
 		newAsk.parentId = ask.getParentId();
 		newAsk.formTrigger = ask.getFormTrigger();
 		newAsk.createOnTrigger = ask.getCreateOnTrigger();
-		if(ask.getChildAsks() != null && ask.getChildAsks().length > 0){
+		if (ask.getChildAsks() != null && ask.getChildAsks().length > 0) {
 			newAsk.childAsks = ask.getChildAsks();
 		}
-		if(ask.getContextList() != null ){
+		if (ask.getContextList() != null) {
 			newAsk.contextList = ask.getContextList();
 		}
 		return newAsk;
 	}
 
-
-	
 }

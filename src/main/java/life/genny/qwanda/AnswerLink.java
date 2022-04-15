@@ -222,82 +222,70 @@ public class AnswerLink implements java.io.Serializable {
 		this.setExpired(answer.getExpired());
 		this.setRefused(answer.getRefused());
 		this.setInferred(answer.getInferred());
-		
+
 		List<String> formatStrings = null;
 
+		if (this.getAttribute() == null) {
+			log.error("attribute is NULl in setAnswer");
+		} else {
+			if (this.getAttribute().getDataType() == null) {
+				log.error("attribute " + this.getAttribute().getCode() + " -> DATA_TYPE is NULl in setAnswer");
+			}
+		}
+
 		switch (this.getAttribute().getDataType().getClassName()) {
-		case "life.genny.qwanda.entity":
-			List<String> beCodeList = new CopyOnWriteArrayList<String>();
-			beCodeList.add(answer.getValue());
-			setValueBaseEntityCodeList(beCodeList);
-			break;
-		case "java.lang.Integer":
-		case "Integer":
-			String result = answer.getValue();
-			if (!StringUtils.isBlank(result)) {
+			case "life.genny.qwanda.entity":
+				List<String> beCodeList = new CopyOnWriteArrayList<String>();
+				beCodeList.add(answer.getValue());
+				setValueBaseEntityCodeList(beCodeList);
+				break;
+			case "java.lang.Integer":
+			case "Integer":
+				String result = answer.getValue();
+				if (!StringUtils.isBlank(result)) {
 
-			final Integer integer = Integer.parseInt(result);
-			setValueInteger(integer);
-			} else {
-				setValueInteger(0);
+					final Integer integer = Integer.parseInt(result);
+					setValueInteger(integer);
+				} else {
+					setValueInteger(0);
 
-			}
-
-			break;
-		case "java.time.LocalDateTime":
-		case "LocalDateTime":
-			result = answer.getValue();
-			if (!StringUtils.isBlank(result)) {
-
-			formatStrings = Arrays.asList("yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd HH:mm",
-					"yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss.SSSZ", "yyyy-MM-dd HH:mm:ss.SSSZ");
-			for (String formatString : formatStrings) {
-				try {
-					Date olddate = new SimpleDateFormat(formatString).parse(result);
-					final LocalDateTime dateTime = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-					setValueDateTime(dateTime);
-					break;
-				} catch (java.text.ParseException e) {
-					continue;
-				}
-
-			}
-
-			} 
-
-			break;
-		case "java.time.LocalTime":
-		case "LocalTime":
-			result = answer.getValue();
-			formatStrings = Arrays.asList("HH:mm", "HH:mm:ss", "HH:mm:ss.SSSZ");
-			for (String formatString : formatStrings) {
-				Date olddate;
-				try {
-					olddate = new SimpleDateFormat(formatString).parse(result);
-					final LocalTime dateTime = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
-					setValueTime(dateTime);
-				} catch (java.text.ParseException e) {
-					continue;
 				}
 
 				break;
+			case "java.time.LocalDateTime":
+			case "LocalDateTime":
+				result = answer.getValue();
+				if (!StringUtils.isBlank(result)) {
 
-			}
+					formatStrings = Arrays.asList("yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd HH:mm",
+							"yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+							"yyyy-MM-dd HH:mm:ss.SSSZ");
+					for (String formatString : formatStrings) {
+						try {
+							Date olddate = new SimpleDateFormat(formatString).parse(result);
+							final LocalDateTime dateTime = olddate.toInstant().atZone(ZoneId.systemDefault())
+									.toLocalDateTime();
+							setValueDateTime(dateTime);
+							break;
+						} catch (java.text.ParseException e) {
+							continue;
+						}
 
-			break;
+					}
 
-		case "java.time.LocalDate":
-		case "LocalDate":
-			result = answer.getValue();
-			if (!StringUtils.isBlank(result)) {
-				formatStrings = Arrays.asList("yyyy-MM-dd", "M/y", "yyyy/MM/dd", "yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd HH:mm:ss",
-						"yyyy-MM-dd'T'HH:mm:ss.SSSZ","yyyy-MM-dd HH:mm:ss.SSSZ");
+				}
+
+				break;
+			case "java.time.LocalTime":
+			case "LocalTime":
+				result = answer.getValue();
+				formatStrings = Arrays.asList("HH:mm", "HH:mm:ss", "HH:mm:ss.SSSZ");
 				for (String formatString : formatStrings) {
 					Date olddate;
 					try {
 						olddate = new SimpleDateFormat(formatString).parse(result);
-						final LocalDate dateTime = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-						setValueDate(dateTime);
+						final LocalTime dateTime = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
+						setValueTime(dateTime);
 					} catch (java.text.ParseException e) {
 						continue;
 					}
@@ -305,68 +293,93 @@ public class AnswerLink implements java.io.Serializable {
 					break;
 
 				}
-			}
 
-			break;
-		case "java.lang.Long":
-		case "Long":
-			result = answer.getValue();
-			if (!StringUtils.isBlank(result)) {
+				break;
 
-			final Long l = Long.parseLong(result);
-			setValueLong(l);
-			} else {
-				setValueLong(0L);
-			}
+			case "java.time.LocalDate":
+			case "LocalDate":
+				result = answer.getValue();
+				if (!StringUtils.isBlank(result)) {
+					formatStrings = Arrays.asList("yyyy-MM-dd", "M/y", "yyyy/MM/dd", "yyyy-MM-dd'T'HH:mm:ss",
+							"yyyy-MM-dd HH:mm:ss",
+							"yyyy-MM-dd'T'HH:mm:ss.SSSZ", "yyyy-MM-dd HH:mm:ss.SSSZ");
+					for (String formatString : formatStrings) {
+						Date olddate;
+						try {
+							olddate = new SimpleDateFormat(formatString).parse(result);
+							final LocalDate dateTime = olddate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+							setValueDate(dateTime);
+						} catch (java.text.ParseException e) {
+							continue;
+						}
 
-			break;
-		case "java.lang.Double":
-		case "Double":
-			result = answer.getValue();
-			if (!StringUtils.isBlank(result)) {
+						break;
 
-			Double d = null;
-			try {
-				d = Double.parseDouble(result);
-			} catch (NumberFormatException e) {
-				log.error("Bad double coversion for "+answer.getAttributeCode()+" for value="+answer.getValue());
-				d = 0.0;
-			}
-			setValueDouble(d);
-			} else {
-				setValueDouble(0.0);
-			}
+					}
+				}
 
-			break;
-		case "java.lang.Boolean":
-		case "Boolean":
-			result = answer.getValue();
-			if (!StringUtils.isBlank(result)) {
+				break;
+			case "java.lang.Long":
+			case "Long":
+				result = answer.getValue();
+				if (!StringUtils.isBlank(result)) {
 
-			final Boolean b = Boolean.parseBoolean(result);
-			setValueBoolean(b);
+					final Long l = Long.parseLong(result);
+					setValueLong(l);
+				} else {
+					setValueLong(0L);
+				}
 
-			} 
+				break;
+			case "java.lang.Double":
+			case "Double":
+				result = answer.getValue();
+				if (!StringUtils.isBlank(result)) {
 
-			break;
-		case "org.javamoney.moneta.Money":
-		case "Money":
-			result = answer.getValue();
-			if (!StringUtils.isBlank(result)) {
-			GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Money.class, new MoneyDeserializer());
-			Gson gson = gsonBuilder.create();
-			Money money = gson.fromJson(result, Money.class);
-			setValueMoney(money);
-			} else {
-				setValueMoney(Money.zero(null));
-			}
+					Double d = null;
+					try {
+						d = Double.parseDouble(result);
+					} catch (NumberFormatException e) {
+						log.error("Bad double coversion for " + answer.getAttributeCode() + " for value="
+								+ answer.getValue());
+						d = 0.0;
+					}
+					setValueDouble(d);
+				} else {
+					setValueDouble(0.0);
+				}
 
-			break;
-		case "java.lang.String":
-		default:
-			setValueString(answer.getValue());
+				break;
+			case "java.lang.Boolean":
+			case "Boolean":
+				result = answer.getValue();
+				if (!StringUtils.isBlank(result)) {
 
-			break;
+					final Boolean b = Boolean.parseBoolean(result);
+					setValueBoolean(b);
+
+				}
+
+				break;
+			case "org.javamoney.moneta.Money":
+			case "Money":
+				result = answer.getValue();
+				if (!StringUtils.isBlank(result)) {
+					GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Money.class,
+							new MoneyDeserializer());
+					Gson gson = gsonBuilder.create();
+					Money money = gson.fromJson(result, Money.class);
+					setValueMoney(money);
+				} else {
+					setValueMoney(Money.zero(null));
+				}
+
+				break;
+			case "java.lang.String":
+			default:
+				setValueString(answer.getValue());
+
+				break;
 		}
 
 	}
@@ -761,35 +774,35 @@ public class AnswerLink implements java.io.Serializable {
 	public <T> T getValue() {
 		final String dataType = getAttribute().getDataType().getClassName();
 		switch (dataType) {
-		case "life.genny.qwanda.entity":
-			return (T) getValueBaseEntityCodeList();
-		case "java.lang.Integer":
-		case "Integer":
-			return (T) getValueInteger();
-		case "java.time.LocalDateTime":
-		case "LocalDateTime":
-			return (T) getValueDateTime();
-		case "java.time.LocalDate":
-		case "LocalDate":
-			return (T) getValueDate();
-		case "java.time.LocalTime":
-		case "LocalTime":
-			return (T) getValueTime();
-		case "java.lang.Long":
-		case "Long":
-			return (T) getValueLong();
-		case "java.lang.Double":
-		case "Double":
-			return (T) getValueDouble();
-		case "java.lang.Boolean":
-		case "Boolean":
-			return (T) getValueBoolean();
-		case "org.javamoney.moneta.Money":
-		case "Money":
-			return (T) getValueMoney();
-		case "java.lang.String":
-		default:
-			return (T) getValueString();
+			case "life.genny.qwanda.entity":
+				return (T) getValueBaseEntityCodeList();
+			case "java.lang.Integer":
+			case "Integer":
+				return (T) getValueInteger();
+			case "java.time.LocalDateTime":
+			case "LocalDateTime":
+				return (T) getValueDateTime();
+			case "java.time.LocalDate":
+			case "LocalDate":
+				return (T) getValueDate();
+			case "java.time.LocalTime":
+			case "LocalTime":
+				return (T) getValueTime();
+			case "java.lang.Long":
+			case "Long":
+				return (T) getValueLong();
+			case "java.lang.Double":
+			case "Double":
+				return (T) getValueDouble();
+			case "java.lang.Boolean":
+			case "Boolean":
+				return (T) getValueBoolean();
+			case "org.javamoney.moneta.Money":
+			case "Money":
+				return (T) getValueMoney();
+			case "java.lang.String":
+			default:
+				return (T) getValueString();
 		}
 
 	}
@@ -800,53 +813,53 @@ public class AnswerLink implements java.io.Serializable {
 	@XmlTransient
 	public <T> void setValue(final Object value) {
 		switch (this.pk.getAttribute().getDataType().getClassName()) {
-		case "life.genny.qwanda.entity":
-			setValueBaseEntityCodeList((List<String>) value);
-			break;
-		case "java.lang.Integer":
-		case "Integer":
-			Integer i = null;
-			if (value instanceof String) {
-				log.info("ANSWERLINK["+((String)value)+"]");
-				i = Integer.parseInt((String)value);
-				setValueInteger(i);
-			} else {
-				setValueInteger((Integer) value);
-			}
-			break;
-		case "java.time.LocalDateTime":
-		case "LocalDateTime":
-			setValueDateTime((LocalDateTime) value);
-			break;
-		case "java.time.LocalTime":
-		case "LocalTime":
-			setValueTime((LocalTime) value);
-			break;
+			case "life.genny.qwanda.entity":
+				setValueBaseEntityCodeList((List<String>) value);
+				break;
+			case "java.lang.Integer":
+			case "Integer":
+				Integer i = null;
+				if (value instanceof String) {
+					log.info("ANSWERLINK[" + ((String) value) + "]");
+					i = Integer.parseInt((String) value);
+					setValueInteger(i);
+				} else {
+					setValueInteger((Integer) value);
+				}
+				break;
+			case "java.time.LocalDateTime":
+			case "LocalDateTime":
+				setValueDateTime((LocalDateTime) value);
+				break;
+			case "java.time.LocalTime":
+			case "LocalTime":
+				setValueTime((LocalTime) value);
+				break;
 
-		case "java.time.LocalDate":
-		case "LocalDate":
-			setValueDate((LocalDate) value);
-			break;
-		case "java.lang.Long":
-		case "Long":
-			setValueLong((Long) value);
-			break;
-		case "java.lang.Double":
-		case "Double":
-			setValueDouble((Double) value);
-			break;
-		case "java.lang.Boolean":
-		case "Boolean":
-			setValueBoolean((Boolean) value);
-			break;
-		case "org.javamoney.moneta.Money":
-		case "Money":
-			setValueMoney((Money) value);
-			break;
-		case "java.lang.String":
-		default:
-			setValueString((String) value);
-			break;
+			case "java.time.LocalDate":
+			case "LocalDate":
+				setValueDate((LocalDate) value);
+				break;
+			case "java.lang.Long":
+			case "Long":
+				setValueLong((Long) value);
+				break;
+			case "java.lang.Double":
+			case "Double":
+				setValueDouble((Double) value);
+				break;
+			case "java.lang.Boolean":
+			case "Boolean":
+				setValueBoolean((Boolean) value);
+				break;
+			case "org.javamoney.moneta.Money":
+			case "Money":
+				setValueMoney((Money) value);
+				break;
+			case "java.lang.String":
+			default:
+				setValueString((String) value);
+				break;
 		}
 
 	}

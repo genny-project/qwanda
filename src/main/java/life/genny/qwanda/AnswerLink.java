@@ -227,6 +227,7 @@ public class AnswerLink implements java.io.Serializable {
 
 		if (this.getAttribute() == null) {
 			log.error("attribute is NULl in setAnswer");
+			log.error("Attribute code: " + answer.getAttributeCode());
 		} else {
 			if (this.getAttribute().getDataType() == null) {
 				log.error("attribute " + this.getAttribute().getCode() + " -> DATA_TYPE is NULl in setAnswer");

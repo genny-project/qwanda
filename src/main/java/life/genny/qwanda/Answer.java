@@ -261,12 +261,14 @@ public class Answer implements Serializable {
 	 */
 	public Answer(final BaseEntity source, final BaseEntity target, final Attribute attribute, final String value) {
 		this(source.getCode(), target.getCode(), attribute.getCode(), value);
+		this.attribute = attribute;
 	}
 
 	public Answer(final BaseEntity source, final BaseEntity target, final Attribute attribute, final List<String> value) {
 		this(source, target, attribute, Arrays.toString(value.toArray()));
 	}
 
+	@Deprecated
 	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final List<String> value) {
 		this(sourceCode, targetCode, attributeCode, Arrays.toString(value.toArray()));
 	}
@@ -283,6 +285,7 @@ public class Answer implements Serializable {
 	 * @param value
 	 *            The associated String value
 	 */
+	@Deprecated
 	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final String value) {
 		this.sourceCode = sourceCode;
 		this.targetCode = targetCode;
@@ -304,6 +307,7 @@ public class Answer implements Serializable {
 	 * @param value
 	 *            The associated Double value
 	 */
+	@Deprecated
 	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final Double value) {
 		this(sourceCode,targetCode,attributeCode,value+"");
 	}
@@ -320,6 +324,7 @@ public class Answer implements Serializable {
 	 * @param value
 	 *            The associated String value
 	 */
+	@Deprecated
 	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final Double value, final Boolean changeEvent, final Boolean inferred) {
 		this(sourceCode,targetCode,attributeCode,value+"");
 		this.changeEvent = changeEvent;
@@ -337,6 +342,7 @@ public class Answer implements Serializable {
 	 * @param value
 	 *            The associated Long value
 	 */
+	@Deprecated
 	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final Long value) {
 		this(sourceCode,targetCode,attributeCode,value+"");
 	}
@@ -353,6 +359,7 @@ public class Answer implements Serializable {
 	 * @param value
 	 *            The associated LocalDateTime value
 	 */
+	@Deprecated
 	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final LocalDateTime value) {
 		this(sourceCode,targetCode,attributeCode,value.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 	}
@@ -369,6 +376,7 @@ public class Answer implements Serializable {
 	 * @param value
 	 *            The associated LocalDate value
 	 */
+	@Deprecated
 	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final LocalDate value) {
 		this(sourceCode,targetCode,attributeCode,value.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 	}
@@ -385,6 +393,7 @@ public class Answer implements Serializable {
 	 * @param value
 	 *            The associated LocalTime value
 	 */
+	@Deprecated
 	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final LocalTime value) {
 		this(sourceCode,targetCode,attributeCode,value.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
 	}
@@ -401,6 +410,7 @@ public class Answer implements Serializable {
 	 * @param value
 	 *            The associated  Integer value
 	 */
+	@Deprecated
 	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final Integer value) {
 		this(sourceCode,targetCode,attributeCode,value+"");
 	}
@@ -417,6 +427,7 @@ public class Answer implements Serializable {
 	 * @param value
 	 *            The associated  Boolean value
 	 */
+	@Deprecated
 	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final Boolean value) {
 		this(sourceCode,targetCode,attributeCode,value?"TRUE":"FALSE");
 	
@@ -433,6 +444,7 @@ public class Answer implements Serializable {
 	 * @param value
 	 *            The associated String value
 	 */
+	@Deprecated
 	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final String value, final Boolean changeEvent, final Boolean inferred) {
 		this.sourceCode = sourceCode;
 		this.targetCode = targetCode;
@@ -455,6 +467,7 @@ public class Answer implements Serializable {
 	 * @param value
 	 *            The associated String value
 	 */
+	@Deprecated
 	public Answer(final String sourceCode, final String targetCode, final String attributeCode, final String value, final Boolean changeEvent) {
 		this(sourceCode,targetCode,attributeCode, value, changeEvent,false);
 	}
@@ -470,6 +483,7 @@ public class Answer implements Serializable {
 	 * @param value
 	 *            The associated String value
 	 */
+	@Deprecated
 	public Answer(final BaseEntity source, final BaseEntity target, final String attributeCode, final String value) {
 		this.sourceCode = source.getCode();
 		this.targetCode = target.getCode();

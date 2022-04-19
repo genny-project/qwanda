@@ -23,7 +23,7 @@ public class QScheduleMessage implements Serializable {
 		public String cron;
 		
 		@Expose
-		@JsonProperty("trigger")
+		@JsonProperty("triggerTime")
 		public LocalDateTime triggertime;
 		
 		@Expose

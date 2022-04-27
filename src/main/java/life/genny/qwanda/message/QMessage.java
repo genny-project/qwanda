@@ -111,6 +111,7 @@ public abstract class QMessage implements Serializable, QMessageIntf {
 	/**
 	 * @param token the token to set
 	 */
+	@Deprecated
 	public void setToken(String token) {
 		this.token = token;
 	}

@@ -134,6 +134,12 @@ public class QBulkMessage implements Serializable {
 	}
 
 	public void add(QDataAskMessage qMessage) {
+		if (qMessage == null) {
+			return;
+		}
+		if (qMessage.getItems() == null) {
+			return;
+		}
 		if (qMessage.getItems().length > 0) {
 			Set<QDataAskMessage> set = new HashSet<QDataAskMessage>(Arrays.asList(this.asks));
 			set.add(qMessage);

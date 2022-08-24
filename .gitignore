@@ -22,3 +22,4 @@ Qwanda.srctrlprj
 .idea/
 *.iml
 .mvn/
+.DS_Store

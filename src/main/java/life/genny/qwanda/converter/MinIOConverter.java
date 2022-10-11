@@ -1,5 +1,6 @@
 package life.genny.qwanda.converter;
 
+import life.genny.qwanda.constant.MinIOConstant;
 import life.genny.qwanda.constant.QwandaConstant;
 import life.genny.qwanda.util.minio.Minio;
 import org.jboss.logging.Logger;
@@ -10,7 +11,7 @@ import javax.persistence.Converter;
 @Converter
 public class MinIOConverter implements AttributeConverter<String, String> {
 
-    static final Logger log= Logger.getLogger(MinIOConverter.class);
+    static final Logger log = Logger.getLogger(MinIOConverter.class);
 
     @Override
     public String convertToDatabaseColumn(String attribute) {
@@ -26,7 +27,9 @@ public class MinIOConverter implements AttributeConverter<String, String> {
             if (data.length > 0) {
                 return new String(data);
             } else {
-                return "Error Occurred";
+                // Exception handled in Minio.fetchFromStorePublicDirectory(dbData);;
+                // This will be the default text the attribute value will show since there was exception in Minio.fetchFromStorePublicDirectory(dbData);
+                return MinIOConstant.ERROR_FALLBACK_MSG;
             }
         } else {
             return dbData;

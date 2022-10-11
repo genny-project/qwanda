@@ -34,6 +34,7 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlTransient;
 
+import life.genny.qwanda.constant.MinIOConstant;
 import life.genny.qwanda.constant.QwandaConstant;
 import life.genny.qwanda.converter.MinIOConverter;
 import life.genny.qwanda.util.minio.FileUpload;
@@ -634,26 +635,22 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	}
 
 	public void convertToMinIOObject() {
-		log.info("Converting to MinIO");
 		try {
 			int limit = 4 * 1024; // 4Kb
-			// logic to push to minIO if it is greater than certain size
 			byte[] data = valueString.getBytes(StandardCharsets.UTF_8);
 			if (data.length > limit) {
-				log.info("### Greater Size");
 				String fileName = QwandaConstant.MINIO_LAZY_PREFIX+ baseEntityCode + "-" + attributeCode;
-				File theDir = new File("file-uploads/");
+				File theDir = new File(MinIOConstant.TEMP_FILE_PATH);
 				if (!theDir.exists()) {
 					theDir.mkdirs();
 				}
-				String fileInfoName = "file-uploads/".concat(fileName);
+				String fileInfoName = MinIOConstant.TEMP_FILE_PATH.concat(fileName);
 				File fileInfo = new File(fileInfoName);
 				try (FileWriter myWriter = new FileWriter(fileInfo.getPath())) {
 					myWriter.write(valueString);
 				} catch (IOException e) {
 					log.error("Exception: " + e.getMessage());
 				}
-				log.info("Writing to MinIO");
 				this.valueString = Minio.saveOnStore(new FileUpload(fileName, fileInfoName));
 				fileInfo.delete();
 			}

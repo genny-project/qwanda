@@ -1,6 +1,10 @@
 package life.genny.qwanda.attribute;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -30,6 +34,11 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlTransient;
 
+import life.genny.qwanda.constant.MinIOConstant;
+import life.genny.qwanda.constant.QwandaConstant;
+import life.genny.qwanda.converter.MinIOConverter;
+import life.genny.qwanda.util.minio.FileUpload;
+import life.genny.qwanda.util.minio.Minio;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -212,9 +221,10 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 	/**
 	 * Store the String value of the attribute for the baseEntity
 	 */
-	@Type(type = "text")
+//    @Type(type = "text")
 	@Expose
-	@Column
+	@Column(columnDefinition = "TEXT")
+	@Convert(converter = MinIOConverter.class)
 	private String valueString;
 
 	@Column(name = "money", length = 128)
@@ -605,13 +615,48 @@ public class EntityAttribute implements java.io.Serializable, Comparable<Object>
 
 	@PreUpdate
 	public void autocreateUpdate() {
+
+		if (getValueString() != null) {
+			convertToMinIOObject();
+		}
+
 		setUpdated(LocalDateTime.now(ZoneId.of("Z")));
 	}
 
 	@PrePersist
 	public void autocreateCreated() {
+
+		if (getValueString() != null) {
+			convertToMinIOObject();
+		}
+
 		if (getCreated() == null)
 			setCreated(LocalDateTime.now(ZoneId.of("Z")));
+	}
+
+	public void convertToMinIOObject() {
+		try {
+			int limit = 4 * 1024; // 4Kb
+			byte[] data = valueString.getBytes(StandardCharsets.UTF_8);
+			if (data.length > limit) {
+				String fileName = QwandaConstant.MINIO_LAZY_PREFIX+ baseEntityCode + "-" + attributeCode;
+				File theDir = new File(MinIOConstant.TEMP_FILE_PATH);
+				if (!theDir.exists()) {
+					theDir.mkdirs();
+				}
+				String fileInfoName = MinIOConstant.TEMP_FILE_PATH.concat(fileName);
+				File fileInfo = new File(fileInfoName);
+				try (FileWriter myWriter = new FileWriter(fileInfo.getPath())) {
+					myWriter.write(valueString);
+				} catch (IOException e) {
+					log.error("Exception: " + e.getMessage());
+				}
+				this.valueString = Minio.saveOnStore(new FileUpload(fileName, fileInfoName));
+				fileInfo.delete();
+			}
+		}catch (Exception e){
+			log.error("Exception: "+ e.getMessage());
+		}
 	}
 
 	@Transient

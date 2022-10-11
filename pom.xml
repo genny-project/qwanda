@@ -56,6 +56,8 @@
 		<querydsl.version>4.4.0</querydsl.version>
 		<!-- NOTE: must use this version of derby, newest version gives class error -->
 		<!-- <derby.version>10.11.1.1</derby.version> -->
+		<minio.version>8.4.3</minio.version>
+		<commons.io.version>2.11.0</commons.io.version>
 	</properties>
 
 	<scm>
@@ -254,7 +256,21 @@
 			<artifactId>json-simple</artifactId>
 			<version>1.1</version>
 		</dependency>
-
+		<dependency>
+			<groupId>io.minio</groupId>
+			<artifactId>minio</artifactId>
+			<version>${minio.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons.io.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>4.10.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

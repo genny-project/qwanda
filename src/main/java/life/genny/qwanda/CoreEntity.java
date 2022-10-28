@@ -115,7 +115,7 @@ public abstract class CoreEntity implements CoreEntityInterface, CreatedIntf, Se
 	 * Note that this field is in English.
 	 */
 	@NotNull
-	@Size(max = 128)
+	@Size(max = 255)
 	@Pattern(regexp = REGEX_NAME, message = "Must contain valid characters for name")
 	@Column(name = "name", updatable = true, nullable = true)
 	@Expose

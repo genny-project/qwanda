@@ -14,6 +14,9 @@ public class QSearchMessage extends QMessage implements Serializable {
 	private SearchEntity searchEntity;
 	@Expose
 	private String destination;
+	@Expose
+	private Boolean replace;
+
 
 	public QSearchMessage() {
 		super(MESSAGE_TYPE);
@@ -43,5 +46,13 @@ public class QSearchMessage extends QMessage implements Serializable {
 
 	public String getDestination() {
 		return this.destination;
+	}
+
+	public void setRelace(Boolean replace) {
+		this.replace = replace;
+	}
+
+	public Boolean getReplace() {
+		return this.replace;
 	}
 }

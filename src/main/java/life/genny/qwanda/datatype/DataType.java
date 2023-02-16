@@ -21,8 +21,8 @@ import com.google.gson.annotations.Expose;
 import life.genny.qwanda.converter.ValidationListConverter;
 import life.genny.qwanda.validation.Validation;
 import life.genny.qwanda.validation.ValidationList;
-import org.apache.logging.log4j.Logger;
 import org.javamoney.moneta.Money;
+import org.jboss.logging.Logger;
 
 import javax.money.Monetary;
 import javax.persistence.Column;
@@ -60,14 +60,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 @Embeddable
 public class DataType implements Serializable {
+	private static final Logger log = Logger.getLogger(DataType.class);
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	  protected static final Logger log = org.apache.logging.log4j.LogManager
-		      .getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
 
 
 	public static final String DTT_LINK = "LNK_ATTRIBUTE"; // This datatype classname indicates the datatype belongs to
@@ -168,7 +166,9 @@ public class DataType implements Serializable {
 		if (str.contains("DTT")) {
 			setDttCode(str);
 		}else {
+			log.warn("Could not find DTT in code. Using fully qualified name" + str);
 			setDttCode("DTT_" + type.toUpperCase());
+			log.debug("Set dttCode to: " + getDttCode());
 		}
 	}
 
@@ -237,6 +237,7 @@ public class DataType implements Serializable {
 	 *            the name to set
 	 */
 	public void setDttCode(String code) {
+		log.info("[!] Setting DTT CODE OF " + dttCode + " TO " + code + " FOR SOME REASON");
 		this.dttCode = code;
 	}
 	/**

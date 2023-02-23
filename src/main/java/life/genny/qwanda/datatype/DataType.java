@@ -21,6 +21,8 @@ import com.google.gson.annotations.Expose;
 import life.genny.qwanda.converter.ValidationListConverter;
 import life.genny.qwanda.validation.Validation;
 import life.genny.qwanda.validation.ValidationList;
+
+import org.apache.commons.lang3.StringUtils;
 import org.javamoney.moneta.Money;
 import org.jboss.logging.Logger;
 
@@ -133,7 +135,7 @@ public class DataType implements Serializable {
 
 	public DataType(final String className, final ValidationList aValidationList, final String name,
 			final String inputmask) {
-        setDttCodeFromClassName(className);
+        // setDttCodeFromClassName(className);
 		setClassName(className);
 		setValidationList(aValidationList.getValidationList());
 		setTypeName(name);
@@ -142,7 +144,7 @@ public class DataType implements Serializable {
 
 	public DataType(final String className, final ValidationList aValidationList, final String name,
 					final String inputmask, final  String component) {
-		setDttCodeFromClassName(className);
+		// setDttCodeFromClassName(className);
 		setClassName(className);
 		setValidationList(aValidationList.getValidationList());
 		setTypeName(name);
@@ -166,9 +168,13 @@ public class DataType implements Serializable {
 		if (str.contains("DTT")) {
 			setDttCode(str);
 		}else {
-			log.warn("Could not find DTT in code. Using fully qualified name" + str);
-			setDttCode("DTT_" + type.toUpperCase());
-			log.debug("Set dttCode to: " + getDttCode());
+			log.warn("Could not find DTT in code. Using fully qualified name " + str);
+			if(StringUtils.isBlank(getDttCode())) {
+				setDttCode("DTT_" + type.toUpperCase());
+				log.debug("Set dttCode from blank to: " + getDttCode());
+			} else {
+				log.error("Malformed DTT Cdoe. Leaving");
+			}
 		}
 	}
 
@@ -237,7 +243,7 @@ public class DataType implements Serializable {
 	 *            the name to set
 	 */
 	public void setDttCode(String code) {
-		log.info("[!] Setting DTT CODE OF " + dttCode + " TO " + code + " FOR SOME REASON");
+		log.info("[!] setDttCode(" + code + ")");
 		this.dttCode = code;
 	}
 	/**

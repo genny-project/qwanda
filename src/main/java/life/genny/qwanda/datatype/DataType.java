@@ -22,7 +22,6 @@ import life.genny.qwanda.converter.ValidationListConverter;
 import life.genny.qwanda.validation.Validation;
 import life.genny.qwanda.validation.ValidationList;
 
-import org.apache.commons.lang3.StringUtils;
 import org.javamoney.moneta.Money;
 import org.jboss.logging.Logger;
 
@@ -35,7 +34,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
-import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -62,7 +60,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 @Embeddable
 public class DataType implements Serializable {
-	private static final Logger log = Logger.getLogger(DataType.class);
 
 	/**
 	 * 
@@ -135,7 +132,6 @@ public class DataType implements Serializable {
 
 	public DataType(final String className, final ValidationList aValidationList, final String name,
 			final String inputmask) {
-        // setDttCodeFromClassName(className);
 		setClassName(className);
 		setValidationList(aValidationList.getValidationList());
 		setTypeName(name);
@@ -144,7 +140,6 @@ public class DataType implements Serializable {
 
 	public DataType(final String className, final ValidationList aValidationList, final String name,
 					final String inputmask, final  String component) {
-		// setDttCodeFromClassName(className);
 		setClassName(className);
 		setValidationList(aValidationList.getValidationList());
 		setTypeName(name);
@@ -154,28 +149,6 @@ public class DataType implements Serializable {
 
 	public DataType(final String className, final ValidationList aValidationList, final String name) {
 		this(className, aValidationList, name, "");
-	}
-
-    public void setDttCodeFromClassName(String str){
-		String[] strs = str.split("\\.");
-		String type;
-
-		if (strs.length > 1){
-			type = strs[strs.length-1];
-		} else {
-			type = strs[0];
-		}
-		if (str.contains("DTT")) {
-			setDttCode(str);
-		}else {
-			log.warn("Could not find DTT in code. Using fully qualified name " + str);
-			if(StringUtils.isBlank(getDttCode())) {
-				setDttCode("DTT_" + type.toUpperCase());
-				log.debug("Set dttCode from blank to: " + getDttCode());
-			} else {
-				log.error("Malformed DTT Cdoe. Leaving");
-			}
-		}
 	}
 
 	public DataType(final String className, final ValidationList aValidationList) {
@@ -243,7 +216,6 @@ public class DataType implements Serializable {
 	 *            the name to set
 	 */
 	public void setDttCode(String code) {
-		log.info("[!] setDttCode(" + code + ")");
 		this.dttCode = code;
 	}
 	/**
@@ -308,13 +280,13 @@ public class DataType implements Serializable {
 		switch (dtype.getClassName()) {
 		case "java.lang.Integer":
 		case "Integer":
-			return new Integer(0);
+			return Integer.valueOf(0);
 		case "java.lang.Long":
 		case "Long":
-			return new Long(0);
+			return Long.valueOf(0l);
 		case "java.lang.Double":
 		case "Double":
-			return new Double(0.0);
+			return Double.valueOf(0.0);
 		case "org.javamoney.moneta.Money":
 		case "Money":
 			return Money.zero(Monetary.getCurrency("AUD"));
@@ -338,8 +310,7 @@ public class DataType implements Serializable {
 		case "Money":
 			Money m1 = (Money)v1;
 			Money m2 = (Money)v2;
-			Money sum = m1.add(m2);
-			return sum;
+			return m1.add(m2);
 		default:
 			return null;
 		}
